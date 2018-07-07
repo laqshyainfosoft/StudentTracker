@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -330,9 +329,6 @@
                                 android:id="@+id/imageView6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="false"
-                                android:layout_alignParentTop="false"
-                                android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical"
                                 android:background="@drawable/scheduleclock" />
 
@@ -342,8 +338,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10.0dp"
-                                android:layout_toRightOf="@+id/imageView6"
                                 android:text="Schedule Details"
                                 android:textColor="#ea5127"
                                 android:textSize="20dp"
@@ -353,11 +347,8 @@
                                 android:id="@+id/sublabel5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/txtScheduleDetails"
                                 android:layout_marginLeft="10.0dp"
                                 android:layout_marginTop="2.0dp"
-                                android:layout_toEndOf="@+id/imageView6"
-                                android:layout_toRightOf="@+id/imageView6"
                                 android:text="Subject Schedule"
                                 android:textColor="#ea5127" />
                         </LinearLayout>
@@ -395,9 +386,6 @@
                                 android:id="@+id/imageView5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="false"
-                                android:layout_alignParentTop="false"
-                                android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical"
                                 android:background="@drawable/studentgroup" />
 
@@ -405,11 +393,8 @@
                                 android:id="@+id/txtStudentDetails"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10.0dp"
                                 android:layout_marginStart="10.0dp"
-                                android:layout_toRightOf="@+id/imageView5"
                                 android:text="Student Details"
                                 android:textColor="#ea5127"
                                 android:textSize="20dp"
@@ -419,12 +404,8 @@
                                 android:id="@+id/sublabel4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/txtStudentDetails"
-                                android:layout_marginLeft="10.0dp"
                                 android:layout_marginStart="10.0dp"
                                 android:layout_marginTop="2.0dp"
-                                android:layout_toEndOf="@+id/imageView5"
-                                android:layout_toRightOf="@+id/imageView5"
                                 android:text="Student data"
                                 android:textColor="#ea5127" />
 
@@ -433,7 +414,6 @@
                                 android:id="@+id/spinnerMulti"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/txt"
                                 android:layout_marginLeft="10.0dp"
                                 android:layout_marginStart="10.0dp"
                                 android:layout_marginTop="2.0dp"
@@ -444,8 +424,6 @@
                                 android:id="@+id/spinnerMulti_new"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/spinnerMulti"
-                                android:layout_marginLeft="10dp"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="2dp" />
 
