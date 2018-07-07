@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<data>
+    <variable
+        name="loginmodel"
+        type="com.app.laqshya.studenttracker.activity.viewmodel.LoginViewModel"/>
+</data>
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/white"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:visibility="invisible"
+            android:weightSum="0.4"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/splashscreen_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/laqshya_logo" />
+
+            <TextView
+                android:id="@+id/laqshyalogotext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/edutracker"
+                android:textColor="#000"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/ll_student"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:clickable="false"
+                    android:src="@drawable/studenticon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="@string/student"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_faculty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                android:focusable="true">
+
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:clickable="false"
+                    android:src="@drawable/classicon"
+                    tools:visibility="visible" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:clickable="false"
+
+                    android:gravity="center"
+                    android:text="@string/faculty"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/ll_Admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="invisible"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:clickable="false"
+                    android:src="@drawable/manager" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="@string/administrator"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+
+                android:id="@+id/counsellorlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@color/white"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:clickable="false"
+                    android:src="@drawable/admin" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="@string/counsellor"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</layout>

@@ -1,0 +1,2 @@
+include ':app', ':custom_spinner_library'
+project(':custom_spinner_library').projectDir = new File('app/custom_spinner_library')
