@@ -149,7 +149,7 @@
                             <Spinner
                                 android:id="@+id/Atcoursename"
                                 style="@style/spinner_style"
-                                android:hint="Course Name"></Spinner>
+                                android:hint="@string/course_name" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -163,6 +163,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Faculty : "
                                 android:textSize="18dp"
+
                                 android:textStyle="bold" />
 
                             <Spinner
@@ -238,7 +239,7 @@
                             android:layout_marginLeft="35dp"
                             android:layout_marginRight="35dp"
                             android:layout_marginTop="15dp"
-                            android:onClick="@{(v)->addschedule.showDatePicker(v)}"
+
                             android:text="dd/mm/yyyy"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -284,9 +285,7 @@
                             android:id="@+id/addschedulegroup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="7dp"
-                            android:onCheckedChanged="@{(group,id)->addschedule.setBatchType(group,id)}">
-
+                            android:layout_marginTop="7dp">
                             <RadioButton
                                 android:id="@+id/checkR"
                                 android:layout_width="wrap_content"
@@ -358,7 +357,6 @@
                             style="@style/Widget.AppCompat.Button.Borderless.Colored"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:onClick="@{(v)->addschedule.addNewSchedule(v)}"
                             android:text="Add New" />
 
                     </LinearLayout>
@@ -436,7 +434,6 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:layout_marginTop="10dp"
-                            android:onClick="@{(v)->addschedule.addStudenttoBatch()}"
                             android:text="@string/add_students" />
 
                     </LinearLayout>

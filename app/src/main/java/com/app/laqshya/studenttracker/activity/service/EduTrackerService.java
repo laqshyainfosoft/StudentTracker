@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity.service;
 
 import com.app.laqshya.studenttracker.activity.model.CenterList;
+import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.LoginModel;
 
 import java.util.List;
@@ -26,6 +27,10 @@ public interface EduTrackerService {
     Single<ResponseBody> registerCounsellor(@Field("email") String email, @Field("counsellorNumber") String counsellorNumber
             , @Field("centernumber") String centerNumber, @Field("counsellorName") String counsellorName,
                                             @Field("centername") String centername);
+
+
+    @GET("getCoursesForFacultyRegistration.php")
+    Single<List<CourseList>> getCoursesForFacultyRegistration();
 
 
 }
