@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "114670710639",
+    "firebase_url": "https://studenttracker-ff4d5.firebaseio.com",
+    "project_id": "studenttracker-ff4d5",
+    "storage_bucket": "studenttracker-ff4d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114670710639:android:8bd4d5ed3bf9b49f",
+        "android_client_info": {
+          "package_name": "com.app.laqshya.studenttracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "114670710639-ist4s9otpmflueelsi237kgsavb4a7vm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.laqshya.studenttracker",
+            "certificate_hash": "1f6d406d720a1c49f5f38959d68c2d884b50f1ef"
+          }
+        },
+        {
+          "client_id": "114670710639-j1iitlhhrtaaok12laak4eimoga2kica.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD1IqOh-WsroVUlPLXhYgpuNau8X7z7No"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "114670710639-j1iitlhhrtaaok12laak4eimoga2kica.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
