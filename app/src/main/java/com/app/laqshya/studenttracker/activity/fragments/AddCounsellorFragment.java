@@ -1,6 +1,5 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -14,13 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
-import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
 import com.app.laqshya.studenttracker.databinding.RegisterCousellorBinding;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class AddCounsellorFragment extends Fragment {
@@ -51,7 +47,7 @@ public class AddCounsellorFragment extends Fragment {
         }
         else {
             Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getActivity(), "Hey", Toast.LENGTH_SHORT).show();
+            
         }
 
     }
