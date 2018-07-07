@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 import timber.log.Timber;
 
 public class RegistrationRepository {
@@ -55,6 +57,39 @@ public class RegistrationRepository {
                 });
         return listLiveData;
 
+    }
+
+    public LiveData<String> registerCounsellor(String email, String centerMobile, String counsellorMobile
+            , String centername, String counsellorname) {
+        MutableLiveData<String> regResponse = new MutableLiveData<>();
+        eduTrackerService.registerCounsellor(email, counsellorMobile, centerMobile, counsellorname, centername)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            String response = responseBody.string();
+                            regResponse.setValue(response);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            regResponse.setValue("error");
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        regResponse.setValue("error");
+
+                    }
+                });
+        return regResponse;
     }
 
 }

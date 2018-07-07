@@ -17,7 +17,7 @@
                 android:id="@+id/activity_registration_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Counsellor Registration"
+                android:text="@string/counsellor_registration"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
@@ -37,6 +37,7 @@
                     android:id="@+id/center_list"
                     android:layout_gravity="center_horizontal"
                     android:hint="@string/center_name"
+                    android:singleLine="true"
                     android:layout_marginTop="10dp"/>
 
             <android.support.design.widget.TextInputLayout
@@ -49,6 +50,7 @@
                     android:id="@+id/input_counsellor_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:singleLine="true"
                     android:hint="@string/hint_name"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -63,6 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_email"
+                    android:singleLine="true"
                     android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
 
@@ -108,6 +111,14 @@
                 android:textColor="@android:color/white" />
 
         </LinearLayout>
+
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="gone" />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

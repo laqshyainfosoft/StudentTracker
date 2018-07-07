@@ -153,8 +153,6 @@
         </string-array>
         <string name="center_prompt">Choose a center</string>
         <string name="faculty_number" >Enter faculty mobile number</string>
-
-    <string name="hint_username">Username</string>
     <string name="hint_name">Name</string>
     <string name="student_name" >Name</string>
     <string name="student_number" >Number</string>
@@ -169,6 +167,8 @@
     <string name="student_installment" >Number of installments</string>
     <string name="student_downpayment" >Downpayment</string>
     <string name="student_fees" >Total Fees</string>
+    <string name="hint_username">Username</string>
+    <string name="counsellor_registration">Counsellor Registration</string>
 
 
 </resources>

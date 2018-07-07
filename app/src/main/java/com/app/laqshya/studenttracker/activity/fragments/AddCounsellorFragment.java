@@ -1,6 +1,5 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -14,18 +13,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
-import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
 import com.app.laqshya.studenttracker.databinding.RegisterCousellorBinding;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class AddCounsellorFragment extends Fragment {
     NavDrawerViewModel navDrawerViewModel;
     RegisterCousellorBinding registerCousellorBinding;
+
 
     @Nullable
     @Override
@@ -38,7 +35,19 @@ public class AddCounsellorFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         navDrawerViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(NavDrawerViewModel.class);
-        if(Utils.isNetworkConnected(getActivity())) {
+
+        navDrawerViewModel.isProgress.observe(this, aBoolean -> {
+            if (aBoolean != null && aBoolean) {
+//                progressDialog.show();
+
+                registerCousellorBinding.progressBar.setVisibility(View.VISIBLE);
+            } else {
+                registerCousellorBinding.progressBar.setVisibility(View.GONE);
+            }
+        });
+
+
+        if (Utils.isNetworkConnected(getActivity())) {
             navDrawerViewModel.getCenterList().observe(this, centerLists -> {
                 if (centerLists != null && centerLists.size() > 0) {
                     ArrayAdapter<String> center = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item,
@@ -48,11 +57,35 @@ public class AddCounsellorFragment extends Fragment {
 
                 }
             });
-        }
-        else {
+        } else {
             Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getActivity(), "Hey Rashil", Toast.LENGTH_SHORT).show();
+
         }
+
+        registerCousellorBinding.btnSignup.setOnClickListener(v -> {
+            if (Utils.isNetworkConnected(getActivity())) {
+                String name = registerCousellorBinding.inputCounsellorName.getText().toString();
+                String counsellorphone = registerCousellorBinding.inputCounsellorNumber.getText().toString();
+                String centerphone = registerCousellorBinding.inputCenterNumber.getText().toString();
+                String email = registerCousellorBinding.inputEmail.getText().toString();
+                if (Utils.isEmpty(name, counsellorphone, centerphone, email)) {
+                    Toast.makeText(getActivity(), "Please check all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    navDrawerViewModel.registerCounsellor(email, centerphone, counsellorphone,
+                            registerCousellorBinding.centerList.getSelectedItem().toString(), name)
+                            .observe(AddCounsellorFragment.this, s ->
+                            {
+                                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                                navDrawerViewModel.isProgress.setValue(false);
+                            });
+
+                }
+            } else {
+                Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
     }
 
