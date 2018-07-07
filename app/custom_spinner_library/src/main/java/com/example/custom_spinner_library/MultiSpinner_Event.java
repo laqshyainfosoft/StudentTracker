@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MultiSpinner_Event extends TextView implements DialogInterface.OnMultiChoiceClickListener {
@@ -29,7 +28,7 @@ public class MultiSpinner_Event extends TextView implements DialogInterface.OnMu
 
     public MultiSpinner_Event(Context context) {
         super(context);
-        setText("Select Students");
+        setText("Select Student");
     }
 
     public MultiSpinner_Event(Context context, AttributeSet attr) {
@@ -120,7 +119,7 @@ public class MultiSpinner_Event extends TextView implements DialogInterface.OnMu
             }
             setOnClickListener(onClickListener);
         }
-        setText("Select Students");
+        setText("Select Courses");
     }
 
     public void setOnItemsSelectedListener(MultiSpinnerListener listener) {
@@ -158,7 +157,7 @@ public class MultiSpinner_Event extends TextView implements DialogInterface.OnMu
             }
         }
 
-        String spinnerText="Select Students";
+        String spinnerText;
 
         if (!allUnselected) {
 

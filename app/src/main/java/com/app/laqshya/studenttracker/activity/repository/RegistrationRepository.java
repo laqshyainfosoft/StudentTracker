@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.app.laqshya.studenttracker.activity.model.CenterList;
+import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
 import java.io.IOException;
@@ -90,6 +91,38 @@ public class RegistrationRepository {
                     }
                 });
         return regResponse;
+    }
+
+    public LiveData<List<String>> getCourse() {
+        MutableLiveData<List<String>> coursesList = new MutableLiveData<>();
+        eduTrackerService.getCoursesForFacultyRegistration()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<CourseList>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<CourseList> courseLists) {
+                        List<String> courseList = new ArrayList<>();
+                        for (int i = 0; i < courseLists.size(); i++) {
+                            String course = courseLists.get(i).getCourse_name();
+                            courseList.add(course);
+
+                        }
+                        coursesList.setValue(courseList);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("%s", e.getLocalizedMessage());
+
+                    }
+                });
+        return coursesList;
     }
 
 }
