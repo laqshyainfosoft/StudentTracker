@@ -168,6 +168,7 @@
     <string name="student_downpayment" >Downpayment</string>
     <string name="student_fees" >Total Fees</string>
     <string name="hint_username">Username</string>
+    <string name="counsellor_registration">Counsellor Registration</string>
 
 
 </resources>

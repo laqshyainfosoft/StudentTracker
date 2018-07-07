@@ -96,7 +96,7 @@
                     android:fontFamily="sans-serif-light"
                     android:text="Like us on Facebook"
                     android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/black"
                     android:textSize="22sp"
                     android:textAlignment="center" />
 
@@ -133,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="Message us on Whatsapp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="22sp"
                     android:textAlignment="center"/>

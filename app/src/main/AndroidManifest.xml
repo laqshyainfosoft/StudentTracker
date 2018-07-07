@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainScreenNavigationDrawer" />
+        <activity
+            android:name=".activity.MainScreenNavigationDrawer"
+            android:screenOrientation="portrait" />
 
         <service android:name=".activity.service.MyFirebaseInstanceIdService" android:enabled="true" android:exported="true">
             <intent-filter>

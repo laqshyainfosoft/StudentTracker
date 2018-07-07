@@ -23,6 +23,7 @@ import java.util.List;
 public class NavDrawerViewModel extends ViewModel {
     public MutableLiveData<String> fragmentTitle=new MutableLiveData<>();
     public MutableLiveData<CenterList> centerList=new MutableLiveData<>();
+    public MutableLiveData<Boolean> isProgress = new MutableLiveData<>();
     private RegistrationRepository registrationRepository;
 
     public NavDrawerViewModel(RegistrationRepository registrationRepository) {
@@ -79,6 +80,13 @@ public class NavDrawerViewModel extends ViewModel {
                 fragmentTitle.setValue("Home");
                 return new HomeFragmentAdmin();
         }
+    }
+
+    public LiveData<String> registerCounsellor(String email, String centerMobile, String counsellorMobile
+            , String centername, String counsellorname) {
+        isProgress.setValue(true);
+        return registrationRepository.registerCounsellor(email, centerMobile, counsellorMobile
+                , centername, counsellorname);
     }
 
     public LiveData<List<String>> getCenterList() {

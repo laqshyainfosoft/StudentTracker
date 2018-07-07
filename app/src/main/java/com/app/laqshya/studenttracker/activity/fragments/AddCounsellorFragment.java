@@ -23,6 +23,7 @@ public class AddCounsellorFragment extends Fragment {
     NavDrawerViewModel navDrawerViewModel;
     RegisterCousellorBinding registerCousellorBinding;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,7 +35,19 @@ public class AddCounsellorFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         navDrawerViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(NavDrawerViewModel.class);
-        if(Utils.isNetworkConnected(getActivity())) {
+
+        navDrawerViewModel.isProgress.observe(this, aBoolean -> {
+            if (aBoolean != null && aBoolean) {
+//                progressDialog.show();
+
+                registerCousellorBinding.progressBar.setVisibility(View.VISIBLE);
+            } else {
+                registerCousellorBinding.progressBar.setVisibility(View.GONE);
+            }
+        });
+
+
+        if (Utils.isNetworkConnected(getActivity())) {
             navDrawerViewModel.getCenterList().observe(this, centerLists -> {
                 if (centerLists != null && centerLists.size() > 0) {
                     ArrayAdapter<String> center = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item,
@@ -44,11 +57,35 @@ public class AddCounsellorFragment extends Fragment {
 
                 }
             });
-        }
-        else {
+        } else {
             Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
-            
+
         }
+
+        registerCousellorBinding.btnSignup.setOnClickListener(v -> {
+            if (Utils.isNetworkConnected(getActivity())) {
+                String name = registerCousellorBinding.inputCounsellorName.getText().toString();
+                String counsellorphone = registerCousellorBinding.inputCounsellorNumber.getText().toString();
+                String centerphone = registerCousellorBinding.inputCenterNumber.getText().toString();
+                String email = registerCousellorBinding.inputEmail.getText().toString();
+                if (Utils.isEmpty(name, counsellorphone, centerphone, email)) {
+                    Toast.makeText(getActivity(), "Please check all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    navDrawerViewModel.registerCounsellor(email, centerphone, counsellorphone,
+                            registerCousellorBinding.centerList.getSelectedItem().toString(), name)
+                            .observe(AddCounsellorFragment.this, s ->
+                            {
+                                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                                navDrawerViewModel.isProgress.setValue(false);
+                            });
+
+                }
+            } else {
+                Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
     }
 
