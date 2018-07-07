@@ -92,4 +92,8 @@ public class NavDrawerViewModel extends ViewModel {
     public LiveData<List<String>> getCenterList() {
         return registrationRepository.getCenterList();
     }
+
+    public LiveData<List<String>> getCourseList() {
+        return registrationRepository.getCourse();
+    }
 }

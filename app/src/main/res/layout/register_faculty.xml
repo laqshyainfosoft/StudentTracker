@@ -90,7 +90,7 @@
             <!--android:layout_gravity="center_horizontal"-->
             <!--android:hint="@string/center_name"-->
             <!--android:entries="@array/center_arrays" />-->
-            <com.example.custom_spinner_library.MultiSpinner
+            <com.example.custom_spinner_library.MultiSpinner_Event
                 android:id="@+id/faculty_courses"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
