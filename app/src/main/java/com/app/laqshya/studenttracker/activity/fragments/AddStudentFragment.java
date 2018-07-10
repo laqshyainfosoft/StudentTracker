@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.model.Installments;
+import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
 import com.app.laqshya.studenttracker.databinding.RegisterStudentBinding;
 
@@ -85,11 +87,21 @@ public class AddStudentFragment extends Fragment {
             String totalFees = registerStudentBinding.inputFees.getText().toString();
             String downPayment = registerStudentBinding.inputDownpayment.getText().toString();
             String installments = registerStudentBinding.inputNoOfInstallments.getText().toString();
-            navDrawerViewModel.registerStudent(name, phone,
-                    email, course, totalFees, downPayment, installments, installmentsList).observe(this, s -> {
+            if (Utils.isEmpty(name, phone, email, course, totalFees, downPayment, installments)) {
+                Toast.makeText(getActivity(), getString(R.string.fieldsEmpty), Toast.LENGTH_SHORT).show();
+            } else if (!Utils.isValidEmail(email)) {
+                Toast.makeText(getActivity(), getString(R.string.email_error), Toast.LENGTH_SHORT).show();
+            } else if (!Utils.isValidPhone(phone)) {
+                Toast.makeText(getActivity(), getString(R.string.mobile_error), Toast.LENGTH_SHORT).show();
+            } else {
+                navDrawerViewModel.registerStudent(name, phone,
+                        email, course, totalFees, downPayment, installments, installmentsList).observe(this, s -> {
 
-
-            });
+                    if (s != null && s.length() > 0) {
+                        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
 
         });
 
