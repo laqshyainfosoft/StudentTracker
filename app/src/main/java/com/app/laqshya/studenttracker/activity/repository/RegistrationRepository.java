@@ -5,6 +5,8 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
+import com.app.laqshya.studenttracker.activity.model.Installments;
+import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
 import java.io.IOException;
@@ -160,4 +162,34 @@ public class RegistrationRepository {
         return coursesList;
     }
 
+    public LiveData<String> registerStudent(String name, String phone, String email, String course, String fees, String downpayment, String noofinstalments, List<Installments> installmentsList) {
+        MutableLiveData<String> response = new MutableLiveData<>();
+        StudentInfo studentInfo = new StudentInfo(name, email, phone, course, downpayment, fees, installmentsList);
+        eduTrackerService.registerStudent(studentInfo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            response.setValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        response.setValue("Error");
+
+                    }
+                });
+        return response;
+    }
 }

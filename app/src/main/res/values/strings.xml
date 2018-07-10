@@ -175,6 +175,7 @@
     <string name="email_error">Please check the email address</string>
     <string name="student_installment_date">Date </string>
     <string name="student_installment_amnt"> Amount</string>
+    <string name="location">location</string>
 
 
 </resources>

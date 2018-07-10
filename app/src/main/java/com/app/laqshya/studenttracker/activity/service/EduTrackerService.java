@@ -3,18 +3,20 @@ package com.app.laqshya.studenttracker.activity.service;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.LoginModel;
+import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 
 import java.util.List;
 
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.0.113/student_tracker/";
+    String ENDPOINT = "http://192.168.0.6/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -39,6 +41,9 @@ public interface EduTrackerService {
     Single<ResponseBody> registerFaculty(@Field("email") String email, @Field("facultyNumber") String
             facultyNumber, @Field("facultyName") String facultyName
             , @Field("courses") String courses);
+
+    @POST("registerstudent.php")
+    Single<ResponseBody> registerStudent(@Body StudentInfo studentInfo);
 
 
 }

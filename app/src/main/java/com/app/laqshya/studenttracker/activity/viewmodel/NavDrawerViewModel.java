@@ -17,6 +17,7 @@ import com.app.laqshya.studenttracker.activity.fragments.NotificationsFragment;
 import com.app.laqshya.studenttracker.activity.fragments.PrivacyPolicyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.ScheduleBatchesFragment;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
+import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.repository.RegistrationRepository;
 
 import java.util.List;
@@ -155,4 +156,13 @@ public class NavDrawerViewModel extends ViewModel {
         this.downPayment.setValue(noInstallment);
 
     }
+
+    public LiveData<String> registerStudent(String name, String phone, String email, String course, String fees,
+                                            String downpayment, String noofinstalments, List<Installments> installmentsList) {
+        return registrationRepository.registerStudent(name, phone, email, course, fees,
+                downpayment, noofinstalments, installmentsList);
+
+    }
+
 }
+

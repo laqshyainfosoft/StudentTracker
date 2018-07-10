@@ -40,7 +40,6 @@
         app:backgroundTint="@color/white"
         android:src="@drawable/plussymbol"
         tools:visibility="visible"
-
         android:visibility="invisible" />
 
 

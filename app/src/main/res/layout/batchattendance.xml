@@ -36,10 +36,9 @@
 
                     <TextView
                         android:id="@+id/Batch_name"
-                        text="@{feedattendancemodel.Batchname}"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ea5127"
                         tools:text="Student name" />
@@ -54,7 +53,7 @@
                         android:paddingLeft="5.0dp"
                         android:paddingRight="5.0dp"
                         android:paddingTop="2.0dp"
-                        android:text="@{feedattendancemodel.type}"
+
                         android:textAppearance="?android:textAppearanceSmall"
                         android:textColor="#ea5127"
                         tools:text="Student_name" />
@@ -81,7 +80,7 @@
                         android:layout_marginStart="2.0dp"
                         android:paddingLeft="2.0dp"
                         android:paddingStart="2.0dp"
-                        android:text="@{feedattendancemodel.teachername}"
+
                         android:textColor="#ea5127" />
                 </LinearLayout>
 
@@ -104,7 +103,7 @@
                         android:layout_marginStart="2.0dp"
                         android:paddingLeft="2.0dp"
                         android:paddingStart="2.0dp"
-                        android:text="@{feedattendancemodel.location}"
+
                         android:textColor="#ea5127" />
                 </LinearLayout>
             </LinearLayout>
@@ -212,8 +211,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10.0dp"
-                        android:paddingLeft="2.0dp"
+                        android:layout_marginStart="10.0dp"
+                        android:paddingStart="2.0dp"
                         android:text="@string/schedule"
                         android:textAppearance="?android:textAppearanceMedium"
                         android:textColor="#ea5127" />
