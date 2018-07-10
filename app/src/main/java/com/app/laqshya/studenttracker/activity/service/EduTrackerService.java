@@ -15,10 +15,12 @@ import retrofit2.http.POST;
 
 public interface EduTrackerService {
     String ENDPOINT = "http://192.168.0.113/student_tracker/";
+
     @FormUrlEncoded
     @POST("login.php")
-    Single<LoginModel> loginUSer(@Field("mobile")String mobile, @Field("password")String password,
-                                 @Field("flag")int flag);
+    Single<LoginModel> loginUSer(@Field("mobile") String mobile, @Field("password") String password,
+                                 @Field("flag") int flag);
+
     @GET("getCenterList.php")
     Single<List<CenterList>> getCenterList();
 
@@ -31,6 +33,12 @@ public interface EduTrackerService {
 
     @GET("getCoursesForFacultyRegistration.php")
     Single<List<CourseList>> getCoursesForFacultyRegistration();
+
+    @FormUrlEncoded
+    @POST("registerFaculty.php")
+    Single<ResponseBody> registerFaculty(@Field("email") String email, @Field("facultyNumber") String
+            facultyNumber, @Field("facultyName") String facultyName
+            , @Field("courses") String courses);
 
 
 }

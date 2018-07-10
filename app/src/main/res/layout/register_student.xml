@@ -1,164 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ScrollView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="navViewmModel"
+            type="com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
-
-
-        <TextView
-            android:id="@+id/activity_registration_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Student Registration"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_gravity="center_horizontal"/>
-
-        <ImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/laqshya_logo"
-            android:layout_marginTop="10dp"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_student_name"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_height="match_parent">
 
-
-            <EditText
-                android:id="@+id/input_student_name"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/student_name"
-                android:singleLine="true" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_student_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="20dp">
 
 
-            <EditText
-                android:id="@+id/input_student_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/student_number"
-                android:inputType="phone"
-                android:singleLine="true" />
+                <TextView
+                    android:id="@+id/activity_registration_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/student_registration"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-        </android.support.design.widget.TextInputLayout>
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/laqshya_logo" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <EditText
-                android:id="@+id/input_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
-
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:hint="@string/course_name"
-                android:entries="@array/course_arrays"
-                android:prompt="@string/course_prompt" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_fees"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_student_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
 
-            <EditText
-                android:id="@+id/input_fees"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/student_fees"
-                android:inputType="phone"
-                android:singleLine="true" />
+                    <EditText
+                        android:id="@+id/input_student_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/student_name"
+                        android:inputType="textPersonName"
+                        android:singleLine="true" />
 
-        </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_downpayment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-
-            <EditText
-                android:id="@+id/input_downpayment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/student_downpayment"
-                android:inputType="phone"
-                android:singleLine="true" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_no_of_installments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_student_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
 
 
-            <EditText
-                android:id="@+id/input_no_of_installments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/student_installment"
-                android:inputType="phone"
-                android:singleLine="true" />
+                    <EditText
+                        android:id="@+id/input_student_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/student_number"
+                        android:inputType="phone"
+                        android:singleLine="true" />
 
-        </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:hint="@string/course_name"
-            android:entries="@array/course_arrays"
-            android:prompt="@string/course_prompt" />
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/input_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_email"
+                        android:inputType="textEmailAddress" />
+                </android.support.design.widget.TextInputLayout>
 
 
-        <Button
-            android:id="@+id/btn_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="@color/colorPrimary"
-            android:text="@string/btn_sign_up"
-            android:textColor="@android:color/white"/>
+                <Spinner
+                    android:id="@+id/studentCourseSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:hint="@string/course_name"
+                    android:prompt="@string/course_prompt" />
 
-    </LinearLayout>
-    </ScrollView>
-</android.support.design.widget.CoordinatorLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_fees"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+
+                    <EditText
+                        android:id="@+id/input_fees"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/student_fees"
+                        android:inputType="phone"
+                        android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onFeesChanged(text)}"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_downpayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+
+                    <EditText
+                        android:id="@+id/input_downpayment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/student_downpayment"
+                        android:inputType="phone"
+                        android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onDownPaymentChanged(text)}"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_no_of_installments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+
+                    <EditText
+                        android:id="@+id/input_no_of_installments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/student_installment"
+                        android:inputType="phone"
+                        android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onInstallmentTextChanged(text)}"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/installmentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                </LinearLayout>
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:entries="@array/course_arrays"
+                    android:hint="@string/course_name"
+                    android:prompt="@string/course_prompt" />
+
+
+                <Button
+                    android:id="@+id/btn_signup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/btn_sign_up"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

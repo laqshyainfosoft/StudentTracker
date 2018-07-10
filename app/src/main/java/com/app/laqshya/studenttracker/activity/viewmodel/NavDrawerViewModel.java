@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity.viewmodel;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.v4.app.Fragment;
@@ -20,10 +21,15 @@ import com.app.laqshya.studenttracker.activity.repository.RegistrationRepository
 
 import java.util.List;
 
+import timber.log.Timber;
+
 public class NavDrawerViewModel extends ViewModel {
     public MutableLiveData<String> fragmentTitle=new MutableLiveData<>();
     public MutableLiveData<CenterList> centerList=new MutableLiveData<>();
     public MutableLiveData<Boolean> isProgress = new MutableLiveData<>();
+    public MutableLiveData<Integer> noOfInstallments = new MutableLiveData<>();
+    public MutableLiveData<Integer> downPayment = new MutableLiveData<>();
+    public MutableLiveData<Integer> totalFees = new MediatorLiveData<>();
     private RegistrationRepository registrationRepository;
 
     public NavDrawerViewModel(RegistrationRepository registrationRepository) {
@@ -95,5 +101,58 @@ public class NavDrawerViewModel extends ViewModel {
 
     public LiveData<List<String>> getCourseList() {
         return registrationRepository.getCourse();
+    }
+
+    public LiveData<String> registerFaculty(String username, String phoneNumber, String email, String courses) {
+        isProgress.setValue(true);
+        return registrationRepository.registerFaculty(email, phoneNumber, username, courses);
+    }
+
+    public void onInstallmentTextChanged(CharSequence noOfInstallments) {
+        int noInstallment = 0;
+        if (!noOfInstallments.toString().trim().isEmpty()) {
+            try {
+                noInstallment = Integer.parseInt(String.valueOf(noOfInstallments));
+
+            } catch (NumberFormatException exception) {
+
+                Timber.d("No of installments too large");
+            }
+
+        }
+        this.noOfInstallments.setValue(noInstallment);
+
+    }
+
+    public void onFeesChanged(CharSequence noOfInstallments) {
+        int noInstallment = 0;
+        if (!noOfInstallments.toString().trim().isEmpty()) {
+            try {
+                noInstallment = Integer.parseInt(String.valueOf(noOfInstallments));
+
+            } catch (NumberFormatException exception) {
+
+                Timber.d("Fees Amount too large");
+            }
+
+        }
+        this.totalFees.setValue(noInstallment);
+
+    }
+
+    public void onDownPaymentChanged(CharSequence noOfInstallments) {
+        int noInstallment = 0;
+        if (!noOfInstallments.toString().trim().isEmpty()) {
+            try {
+                noInstallment = Integer.parseInt(String.valueOf(noOfInstallments));
+
+            } catch (NumberFormatException exception) {
+
+                Timber.d("No of downpayments too large");
+            }
+
+        }
+        this.downPayment.setValue(noInstallment);
+
     }
 }

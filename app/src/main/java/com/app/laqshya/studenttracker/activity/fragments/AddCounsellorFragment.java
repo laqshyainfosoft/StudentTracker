@@ -70,6 +70,8 @@ public class AddCounsellorFragment extends Fragment {
                 String email = registerCousellorBinding.inputEmail.getText().toString();
                 if (Utils.isEmpty(name, counsellorphone, centerphone, email)) {
                     Toast.makeText(getActivity(), "Please check all fields", Toast.LENGTH_SHORT).show();
+                } else if (!Utils.isValidEmail(email)) {
+                    Toast.makeText(getActivity(), "Please check the email address", Toast.LENGTH_SHORT).show();
                 } else {
                     navDrawerViewModel.registerCounsellor(email, centerphone, counsellorphone,
                             registerCousellorBinding.centerList.getSelectedItem().toString(), name)

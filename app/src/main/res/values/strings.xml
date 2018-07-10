@@ -169,6 +169,12 @@
     <string name="student_fees" >Total Fees</string>
     <string name="hint_username">Username</string>
     <string name="counsellor_registration">Counsellor Registration</string>
+    <string name="student_registration">Student Registration</string>
+    <string name="courseError">Please Select Courses</string>
+    <string name="fieldsEmpty">Please check all fields</string>
+    <string name="email_error">Please check the email address</string>
+    <string name="student_installment_date">Date </string>
+    <string name="student_installment_amnt"> Amount</string>
 
 
 </resources>

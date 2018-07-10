@@ -97,7 +97,7 @@ public class MultiSpinner_Event extends TextView implements DialogInterface.OnMu
     };
 
 
-    public void setAdapter(SpinnerAdapter adapter, boolean allSelected, MultiSpinnerListener listener) {
+    public void setAdapter(SpinnerAdapter adapter, boolean allSelected, MultiSpinnerListener listener, String textSelect) {
         SpinnerAdapter oldAdapter = this.mAdapter;
 
         setOnClickListener(null);
@@ -119,31 +119,16 @@ public class MultiSpinner_Event extends TextView implements DialogInterface.OnMu
             }
             setOnClickListener(onClickListener);
         }
-        setText("Select Courses");
+        setText(textSelect);
     }
 
     public void setOnItemsSelectedListener(MultiSpinnerListener listener) {
         this.mListener = listener;
     }
 
-    public interface MultiSpinnerListener {
-        public void onItemsSelected(boolean[] selected);
-    }
-
-    public boolean[] getSelected() {
-        return this.mSelected;
-    }
-
-    public void setSelected(boolean[] selected) {
-        if (this.mSelected.length != selected.length)
-            return;
-        this.mSelected = selected;
-        refreshSpinner();
-    }
-
     private void refreshSpinner() {
         // refresh text on spinner
-        StringBuffer spinnerBuffer = new StringBuffer();
+        StringBuilder spinnerBuffer = new StringBuilder();
         boolean someUnselected = false;
         boolean allUnselected = true;
 
@@ -173,6 +158,21 @@ public class MultiSpinner_Event extends TextView implements DialogInterface.OnMu
         }
 
         setText("Select Students");
+    }
+
+    public boolean[] getSelected() {
+        return this.mSelected;
+    }
+
+    public void setSelected(boolean[] selected) {
+        if (this.mSelected.length != selected.length)
+            return;
+        this.mSelected = selected;
+        refreshSpinner();
+    }
+
+    public interface MultiSpinnerListener {
+        void onItemsSelected(boolean[] selected);
     }
 
     public String getDefaultText() {

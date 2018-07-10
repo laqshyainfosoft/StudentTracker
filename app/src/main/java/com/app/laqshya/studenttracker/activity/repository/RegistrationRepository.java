@@ -20,12 +20,13 @@ import timber.log.Timber;
 
 public class RegistrationRepository {
     private EduTrackerService eduTrackerService;
+
     public RegistrationRepository(EduTrackerService eduTrackerService) {
-        this.eduTrackerService=eduTrackerService;
+        this.eduTrackerService = eduTrackerService;
     }
 
-    public LiveData<List<String>> getCenterList(){
-        MutableLiveData<List<String>> listLiveData=new MutableLiveData<>();
+    public LiveData<List<String>> getCenterList() {
+        MutableLiveData<List<String>> listLiveData = new MutableLiveData<>();
         eduTrackerService.getCenterList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -36,11 +37,11 @@ public class RegistrationRepository {
 
                     @Override
                     public void onSuccess(List<CenterList> centerLists) {
-                        if(centerLists!=null && centerLists.size()>0){
-                            List<String> namesList=new ArrayList<>();
+                        if (centerLists != null && centerLists.size() > 0) {
+                            List<String> namesList = new ArrayList<>();
 
-                            for(int i=0;i<centerLists.size();i++){
-                                String name=centerLists.get(i).getCentername();
+                            for (int i = 0; i < centerLists.size(); i++) {
+                                String name = centerLists.get(i).getCentername();
                                 namesList.add(name);
 
 
@@ -59,6 +60,40 @@ public class RegistrationRepository {
         return listLiveData;
 
     }
+
+    public LiveData<String> registerFaculty(String email, String
+            mobile, String Facultyname, String courses) {
+        MutableLiveData<String> regResponse = new MutableLiveData<>();
+        eduTrackerService.registerFaculty(email, mobile, Facultyname, courses)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            String response = responseBody.string();
+                            regResponse.setValue(response);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            regResponse.setValue("error");
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        regResponse.setValue("error");
+
+                    }
+                });
+        return regResponse;
+    }
+
 
     public LiveData<String> registerCounsellor(String email, String centerMobile, String counsellorMobile
             , String centername, String counsellorname) {
