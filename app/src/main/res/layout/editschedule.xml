@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <!--<data>-->
         <!--<variable-->
             <!--name="addschedule"-->
@@ -8,18 +10,18 @@
     <!--</data>-->
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/content"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbarschedule"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
                 app:titleTextColor="@color/white" />
 
@@ -39,8 +41,8 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@color/white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -52,14 +54,14 @@
                     android:visibility="visible">
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10.0dp">
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -74,7 +76,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginStart="10.0dp"
+                                android:layout_marginLeft="10.0dp"
+                                android:layout_toRightOf="@+id/imageView8"
                                 android:text="Course Category"
                                 android:textColor="#ea5127"
                                 android:textSize="20sp"
@@ -99,8 +102,8 @@
                         android:background="@color/grey" />
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:padding="10.0dp">
 
@@ -121,7 +124,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginStart="10.0dp"
+                                android:layout_marginLeft="10.0dp"
                                 android:text="Batch_details"
 
                                 android:textColor="#ea5127"
@@ -158,14 +161,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Faculty : "
-                                android:textSize="18dp"
+                                android:textSize="18sp"
 
                                 android:textStyle="bold" />
 
                             <Spinner
                                 android:id="@+id/Atteacher"
                                 style="@style/spinner_style"
-                                android:hint="Course Name" />
+                                android:hint="Course Name"></Spinner>
 
                         </LinearLayout>
 
@@ -187,7 +190,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="35.0dp"
                                 android:layout_marginTop="5.0dp"
-                                android:hint="@string/location"
+                                android:hint="location"
                                 android:paddingLeft="15dp"
                                 android:paddingStart="15dp"
                                 android:paddingTop="5dp"
@@ -205,8 +208,8 @@
                         android:padding="10.0dp">
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -219,7 +222,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginStart="10.0dp"
+                                android:layout_marginLeft="10.0dp"
                                 android:text="Select Batch Start Date"
 
                                 android:textColor="#ea5127"
@@ -248,14 +251,14 @@
                         android:background="@color/grey" />
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10.0dp">
 
                         <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:orientation="horizontal">
 
                             <ImageView
@@ -308,15 +311,15 @@
                         android:background="@color/grey" />
 
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10.0dp">
 
                         <LinearLayout
                             android:id="@+id/label5"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_marginBottom="10.0dp"
                             android:orientation="horizontal">
 
@@ -335,14 +338,14 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="Schedule Details"
                                 android:textColor="#ea5127"
-                                android:textSize="20dp"
+                                android:textSize="20sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/sublabel5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10.0dp"
+                                android:layout_marginLeft="10.0dp"
                                 android:layout_marginTop="2.0dp"
                                 android:text="Subject Schedule"
                                 android:textColor="#ea5127" />
