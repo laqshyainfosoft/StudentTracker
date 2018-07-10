@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import timber.log.Timber;
+
 public class AddStudentFragment extends Fragment {
     RegisterStudentBinding registerStudentBinding;
     NavDrawerViewModel navDrawerViewModel;
@@ -129,11 +131,15 @@ public class AddStudentFragment extends Fragment {
                     datePickerFragment.show(Objects.requireNonNull(getActivity()).getFragmentManager(), "date_picker");
                     if (datePickerFragment.setDate.hasActiveObservers())
                         datePickerFragment.setDate.removeObservers(this);
+                    datePickerFragment.setDate.setValue("");
+
                     datePickerFragment.setDate.observe(this, s -> {
                         if (s != null && s.length() > 0) {
                             datePicker.setText(s);
                             int number = finalI + 1;
                             installmentsList.add(new Installments(number, s, String.valueOf(finalAmount)));
+
+                            Timber.d("%d", installmentsList.size());
                         }
 
                     });
