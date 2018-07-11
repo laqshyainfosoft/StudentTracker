@@ -99,6 +99,9 @@ public class AddStudentFragment extends Fragment {
 
                     if (s != null && s.length() > 0) {
                         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                        {
+                            Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

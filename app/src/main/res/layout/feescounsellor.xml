@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--<data>-->
 
@@ -44,7 +43,7 @@
                         android:paddingEnd="1dp"
                         android:layout_weight="0.5"
                         android:paddingRight="1dp"
-                        android:text="@{feeditems.studentname}"
+
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ea5127" />
                     <TextView
@@ -54,7 +53,7 @@
                         android:paddingLeft="2dp"
                         android:layout_marginLeft="2dp"
                         android:layout_weight="0.5"
-                        android:text="@{feeditems.coursename}"
+
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ea5127"
                         android:textSize="15sp" />
@@ -87,7 +86,7 @@
                         android:inputType="phone"
                         android:maxLines="1"
                         android:paddingLeft="10dp"
-                        android:text="@{feeditems.mobile}"
+
                         android:textColor="#000000"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -115,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:maxLines="1"
                         android:paddingLeft="5dp"
-                        android:text="@{feeditems.email}"
+
                         android:textColor="#000000"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -142,9 +141,8 @@
                         android:id="@+id/student_adminfee_pendingfees_display"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:maxLines="1"
-                        android:text="@{feeditems.pendingfees}"
+                      
                         android:textColor="#000000"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -166,7 +164,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="@{feeditems.installmentDate}"
+
                         android:textColor="#000000"
                         android:textSize="15sp"
                         android:textStyle="bold" />
