@@ -7,6 +7,7 @@ import com.app.laqshya.studenttracker.activity.model.LoginModel;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,7 +31,8 @@ public class LoginRepository {
         loginStatus = new MutableLiveData<>();
         this.phone = phone;
         this.flag = flag;
-        eduTrackerService.loginUSer(phone, password, flag)
+        String token = FirebaseInstanceId.getInstance().getToken();
+        eduTrackerService.loginUSer(phone, password, flag, token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<LoginModel>() {

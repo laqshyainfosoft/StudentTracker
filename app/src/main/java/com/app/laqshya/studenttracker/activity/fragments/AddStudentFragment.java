@@ -57,11 +57,12 @@ public class AddStudentFragment extends Fragment {
         });
         navDrawerViewModel.noOfInstallments.observe(this, integer -> {
             if (integer != null) {
-                if (integer > 0) {
+                if (integer > 0 && integer <= 10) {
 
                     noOfInstallmentCount = integer;
 
                 }
+
                 manageInstallments(integer);
 
             }
@@ -113,6 +114,7 @@ public class AddStudentFragment extends Fragment {
 
     //This method manages the dynamic installment layout.
     private void manageInstallments(int value) {
+        //TODO fix views reset on amounts change.
         registerStudentBinding.installmentLayout.removeAllViews();
         if (installmentsList != null && installmentsList.size() > 0) {
             installmentsList.clear();

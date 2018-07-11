@@ -151,6 +151,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/student_installment"
                         android:inputType="phone"
+                        android:maxLength="1"
                         android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onInstallmentTextChanged(text)}"
                         android:singleLine="true" />
 

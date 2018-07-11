@@ -21,7 +21,7 @@ public interface EduTrackerService {
     @FormUrlEncoded
     @POST("login.php")
     Single<LoginModel> loginUSer(@Field("mobile") String mobile, @Field("password") String password,
-                                 @Field("flag") int flag);
+                                 @Field("flag") int flag, @Field("token") String token);
 
     @GET("getCenterList.php")
     Single<List<CenterList>> getCenterList();
