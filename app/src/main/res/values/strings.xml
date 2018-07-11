@@ -177,6 +177,7 @@
     <string name="student_installment_date">Date </string>
     <string name="student_installment_amnt"> Amount</string>
     <string name="location">location</string>
+    <string name="installments">Installments Should be less than 10</string>
     <string name="manage_students" >Manage Students</string>
 
 
