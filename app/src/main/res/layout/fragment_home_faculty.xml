@@ -28,6 +28,14 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     app:srcCompat="@drawable/laqshya_logo" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    tools:text="Welcome"
+                    android:textColor="@color/black" />
+
 
                 <TextView
                     android:id="@+id/name_admin_home"
@@ -35,16 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="Nilesh Chaudhry"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/website_admin_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="www.laqshyainfosoft.com"
+                    tools:text="Nilesh Chaudhry"
                     android:textColor="@color/black" />
 
             </LinearLayout>
