@@ -57,12 +57,9 @@
     <string-array name="nav_item_officestaff_activity_titles">
         <item>Home</item>
         <item>Manage Student</item>
-        <item>Student Performance</item>
         <item>Schedule/Batches</item>
         <item>Complete Batches</item>
         <item>Received Notifications</item>
-        <item>Telephonic Enquiry</item>
-        <item>Walk-In Enquiry</item>
         <item>Broadcast SMS</item>commit
         <item>About Developers</item>
         <item>Privacy Policy</item>
@@ -70,8 +67,7 @@
 
     <string-array name="nav_item_faculty_activity_titles">
         <item>Home</item>
-        <item>Attendance</item>
-        <item>Student Performance</item>
+        <item>Attendance</item>>
         <item>Received Notifications</item>
         <item>Broadcast</item>
         <item>About Developers</item>
@@ -83,7 +79,6 @@
         <!-- <item>Absent Date List</item>-->
         <item>Attendance/Syllabus</item>
         <item>Received Notifications</item>
-        <item>Notes</item>
         <item>Refer Friend</item>
         <item>Feedback</item>
         <item>Make Payment</item>

@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.RegistrationFactory;
-import com.app.laqshya.studenttracker.activity.repository.RegistrationRepository;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
@@ -62,6 +61,11 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
             if (s != null && !s.isEmpty())
                 getSupportActionBar().setTitle(s);
         });
+        if (savedInstanceState == null) {
+            navItemIndex = 0;
+            CURRENT_TAG = Constants.TAG_HOME;
+            loadHomeFragment();
+        }
 
 
     }
@@ -122,145 +126,129 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                                 break;
                         }
                         break;
-//                    case "counsellor":
-//                        Timber.d("Counsellor %d", navItemIndex);
-//                        switch (item.getItemId()) {
-//                            case R.id.nav_home_officestaff:
-//                                navItemIndex = 0;
-//                                CURRENT_TAG = Constants.TAG_HOME;
-//                                break;
-//                            case R.id.nav_feesstatus_officestaff:
-//                                navItemIndex = 1;
-//                                CURRENT_TAG = Constants.TAG_FEESSTATUS;
-//                                break;
-//                            case R.id.nav_performance_admin:
-//                                navItemIndex = 2;
-//                                CURRENT_TAG = Constants.TAG_PERFORMANCE;
-//                                break;
-//                            case R.id.nav_attendance_officestaff:
-//                                navItemIndex = 3;
-//                                CURRENT_TAG = Constants.TAG_ATTENDANCE;
-//                                break;
-//                            case R.id.completionbatches:
-//                                navItemIndex = 4;
-//                                CURRENT_TAG = Constants.TAG_BATCH;
-//                                break;
-//                            case R.id.nav_notifications_officestaff:
-//                                navItemIndex = 5;
-//                                CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
-//                                break;
-//                            case R.id.telephonicenquiry:
-//                                navItemIndex = 6;
-//                                CURRENT_TAG = Constants.TAG_TELEPHONE;
-//                                break;
-//                            case R.id.walkin:
-//                                navItemIndex = 7;
-//                                CURRENT_TAG = Constants.TAG_WALKIN_INTERVIEW;
-//                                break;
-//                            case R.id.nav_broadcastsms_officestaff:
-//                                navItemIndex = 8;
-//                                CURRENT_TAG = Constants.TAG_BROADCAST;
-//                                break;
-//                            case R.id.nav_settings_officestaff:
-//                                navItemIndex = 9;
-//                                CURRENT_TAG = Constants.TAG_SETTINGS;
-//                                break;
-//
-//                            case R.id.nav_privacy_policy_officestaff:
-//                                navItemIndex = 10;
-//                                CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
-//                                break;
-//                            default:
-//                                navItemIndex = 0;
-//                                break;
-//                        }
-//                        break;
-//                    case "faculty":
-//                        switch (item.getItemId()) {
-//                            case R.id.nav_home_faculty:
-//                                navItemIndex = 0;
-//                                CURRENT_TAG = Constants.TAG_HOME;
-//                                break;
-//                            case R.id.nav_attendance_faculty:
-//                                navItemIndex = 1;
-//                                CURRENT_TAG = Constants.TAG_ATTENDANCE;
-//                                break;
-//                            case R.id.nav_performance_faculty:
-//                                navItemIndex = 2;
-//                                CURRENT_TAG = Constants.TAG_PERFORMANCE;
-//                                break;
-//                            case R.id.nav_notifications_faculty:
-//                                navItemIndex = 3;
-//                                CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
-//                                break;
-//                            case R.id.nav_broadcast_faculty:
-//                                navItemIndex = 4;
-//
-//                                CURRENT_TAG = Constants.TAG_BROADCAST;
-//
-//                                break;
-//                            case R.id.nav_settings_faculty:
-//                                navItemIndex = 5;
-//                                CURRENT_TAG = Constants.TAG_SETTINGS;
-//                                break;
-//
-//                            case R.id.nav_privacy_policy_faculty:
-//                                navItemIndex = 6;
-//                                CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
-//                                break;
-//                            default:
-//                                navItemIndex = 0;
-//                                break;
-//                        }
-//                        break;
-//
-//                    case "student":
-//                        switch (item.getItemId()) {
-//                            case R.id.nav_home_student:
-//                                navItemIndex = 0;
-//                                CURRENT_TAG = Constants.TAG_HOME;
-//                                break;
-//
-//                            case R.id.nav_syllabus_student:
-//                                navItemIndex = 1;
-//                                CURRENT_TAG = Constants.TAG_SYLLABUS;
-//                                break;
-//                            case R.id.nav_notifications_student:
-//                                navItemIndex = 2;
-//                                CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
-//                                break;
-//                            case R.id.nav_downnotes_student:
-//                                navItemIndex = 3;
-//                                CURRENT_TAG = Constants.TAG_DOWNLOADNOTES;
-//                                break;
-//                            case R.id.nav_refer_friend_student:
-//                                navItemIndex = 4;
-//                                CURRENT_TAG = Constants.TAG_refer_friend;
-//                                break;
-//                            case R.id.feedback:
-//                                navItemIndex = 5;
-//                                CURRENT_TAG = Constants.TAG_FEEDBACK;
-//                                break;
-//                            case R.id.payment:
-//                                navItemIndex = 6;
-//                                CURRENT_TAG = Constants.TAG_PAYMENT;
-//                                break;
-//                            case R.id.nav_contact_student:
-//                                navItemIndex = 7;
-//                                CURRENT_TAG = Constants.TAG_CONTACT;
-//                                break;
-//                            case R.id.nav_settings_student:
-//                                navItemIndex = 8;
-//                                CURRENT_TAG = Constants.TAG_SETTINGS;
-//                                break;
-//                            case R.id.nav_privacy_policy_student:
-//                                navItemIndex = 9;
-//                                CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
-//                                break;
-//                            default:
-//                                navItemIndex = 0;
-//                                break;
-//                        }
+                    case "counsellor":
+                        Timber.d("Counsellor %d", navItemIndex);
+                        switch (item.getItemId()) {
+                            case R.id.nav_home_officestaff:
+                                navItemIndex = 0;
+                                CURRENT_TAG = Constants.TAG_HOME;
+                                break;
+                            case R.id.nav_feesstatus_officestaff:
+                                navItemIndex = 1;
+                                CURRENT_TAG = Constants.TAG_FEESSTATUS;
+                                break;
+
+                            case R.id.nav_attendance_officestaff:
+                                navItemIndex = 2;
+                                CURRENT_TAG = Constants.TAG_ATTENDANCE;
+                                break;
+                            case R.id.completionbatches:
+                                navItemIndex = 3;
+                                CURRENT_TAG = Constants.TAG_BATCH;
+                                break;
+                            case R.id.nav_notifications_officestaff:
+                                navItemIndex = 4;
+                                CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
+                                break;
+
+                            case R.id.nav_broadcastsms_officestaff:
+                                navItemIndex = 5;
+                                CURRENT_TAG = Constants.TAG_BROADCAST;
+                                break;
+                            case R.id.nav_settings_officestaff:
+                                navItemIndex = 6;
+                                CURRENT_TAG = Constants.TAG_SETTINGS;
+                                break;
+
+                            case R.id.nav_privacy_policy_officestaff:
+                                navItemIndex = 7;
+                                CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
+                                break;
+                            default:
+                                navItemIndex = 0;
+                                break;
+                        }
+                        break;
+                    case "faculty":
+                        switch (item.getItemId()) {
+                            case R.id.nav_home_faculty:
+                                navItemIndex = 0;
+                                CURRENT_TAG = Constants.TAG_HOME;
+                                break;
+                            case R.id.nav_attendance_faculty:
+                                navItemIndex = 1;
+                                CURRENT_TAG = Constants.TAG_ATTENDANCE;
+                                break;
+
+                            case R.id.nav_notifications_faculty:
+                                navItemIndex = 2;
+                                CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
+                                break;
+                            case R.id.nav_broadcast_faculty:
+                                navItemIndex = 3;
+
+                                CURRENT_TAG = Constants.TAG_BROADCAST;
+
+                                break;
+                            case R.id.nav_settings_faculty:
+                                navItemIndex = 4;
+                                CURRENT_TAG = Constants.TAG_SETTINGS;
+                                break;
+
+                            case R.id.nav_privacy_policy_faculty:
+                                navItemIndex = 5;
+                                CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
+                                break;
+                            default:
+                                navItemIndex = 0;
+                                break;
+                        }
+                        break;
+
+                    case "student":
+                        switch (item.getItemId()) {
+                            case R.id.nav_home_student:
+                                navItemIndex = 0;
+                                CURRENT_TAG = Constants.TAG_HOME;
+                                break;
+
+                            case R.id.nav_syllabus_student:
+                                navItemIndex = 1;
+                                CURRENT_TAG = Constants.TAG_SYLLABUS;
+                                break;
+                            case R.id.nav_notifications_student:
+                                navItemIndex = 2;
+                                CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
+                                break;
+                            case R.id.nav_refer_friend_student:
+                                navItemIndex = 3;
+                                CURRENT_TAG = Constants.TAG_refer_friend;
+                                break;
+                            case R.id.feedback:
+                                navItemIndex = 4;
+                                CURRENT_TAG = Constants.TAG_FEEDBACK;
+                                break;
+                            case R.id.payment:
+                                navItemIndex = 5;
+                                CURRENT_TAG = Constants.TAG_PAYMENT;
+                                break;
+                            case R.id.nav_contact_student:
+                                navItemIndex = 6;
+                                CURRENT_TAG = Constants.TAG_CONTACT;
+                                break;
+                            case R.id.nav_settings_student:
+                                navItemIndex = 7;
+                                CURRENT_TAG = Constants.TAG_SETTINGS;
+                                break;
+                            case R.id.nav_privacy_policy_student:
+                                navItemIndex = 8;
+                                CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
+                                break;
+                            default:
+                                navItemIndex = 0;
+                                break;
+                        }
+                        break;
                 }
                 if (item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
@@ -318,15 +306,15 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                     break;
 //                case "counsellor":
 //                    Timber.d("Index %d", navItemIndex);
-//                    fragment = navDrawerViewModel.getCounsellorFragment(navItemIndex);
+//                    fragment = navDrawerViewModel.getCoun07-11 15:22:38.541 19120-19458/com.app.laqshya.studenttracker D/OkHttp: {"name":"Bismeet","status":1}sellorFragment(navItemIndex);
 //
 //                    break;
 //                case "student":
 //                    fragment = navDrawerViewModel.getStudentFragment(navItemIndex);
 //                    break;
-//                case "faculty":
-//                    fragment = navDrawerViewModel.getFacultyFragment(navItemIndex);
-//                    break;
+                case "faculty":
+                    fragment = navDrawerViewModel.getFacultyFragment(navItemIndex);
+                    break;
 
 
             }
@@ -360,14 +348,14 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                 case Constants.ADMIN:
                     setUpNav(R.menu.menu_admin,resources.getStringArray(R.array.nav_item_admin_activity_titles));
                     break;
-//                case "counsellor":
-//                    setUpNav(R.menu.activity_main_counsellor_drawer, resources.getStringArray(R.array.nav_item_officestaff_activity_titles));
-//                    break;
-//                case "faculty":
-//                    setUpNav(R.menu.activity_main_faculty_drawer, resources.getStringArray(R.array.nav_item_faculty_activity_titles));
-//                    break;
-//                case "student":
-//                    setUpNav(R.menu.activity_main_student_drawer, resources.getStringArray(R.array.nav_item_student_activity_titles));
+                case "counsellor":
+                    setUpNav(R.menu.menu_counsellor, resources.getStringArray(R.array.nav_item_officestaff_activity_titles));
+                    break;
+                case "faculty":
+                    setUpNav(R.menu.menu_faculty, resources.getStringArray(R.array.nav_item_faculty_activity_titles));
+                    break;
+                case "student":
+                    setUpNav(R.menu.menu_student, resources.getStringArray(R.array.nav_item_student_activity_titles));
 
             }
         }
