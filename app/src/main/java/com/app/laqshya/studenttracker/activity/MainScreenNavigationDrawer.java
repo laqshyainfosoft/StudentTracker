@@ -304,14 +304,14 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
 
                     fragment = navDrawerViewModel.getAdminFragment(navItemIndex);
                     break;
-//                case "counsellor":
-//                    Timber.d("Index %d", navItemIndex);
-//                    fragment = navDrawerViewModel.getCoun07-11 15:22:38.541 19120-19458/com.app.laqshya.studenttracker D/OkHttp: {"name":"Bismeet","status":1}sellorFragment(navItemIndex);
-//
-//                    break;
-//                case "student":
-//                    fragment = navDrawerViewModel.getStudentFragment(navItemIndex);
-//                    break;
+                case "counsellor":
+                    Timber.d("Index %d", navItemIndex);
+                    fragment = navDrawerViewModel.getCounsellorFragment(navItemIndex);
+
+                    break;
+                case "student":
+                    fragment = navDrawerViewModel.getStudentFragment(navItemIndex);
+                    break;
                 case "faculty":
                     fragment = navDrawerViewModel.getFacultyFragment(navItemIndex);
                     break;
