@@ -35,7 +35,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    tools:hint="Nilesh Chaudhry" />
+                    android:text="Nilesh Chaudhry"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/website_admin_home"
@@ -43,7 +44,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    tools:hint="www.laqshyainfosoft.com" />
+                    android:text="www.laqshyainfosoft.com"
+                    android:textColor="@color/black"/>
 
             </LinearLayout>
 
@@ -64,9 +66,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginStart="60dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
                     <ImageButton
                         android:layout_width="wrap_content"
@@ -75,7 +76,7 @@
                         android:background="@drawable/ic_add_box_black_24dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/manage_students"
                         android:textAlignment="center"
@@ -88,9 +89,9 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginStart="60dp"
-                    android:orientation="vertical">
+
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
                     <ImageButton
                         android:layout_width="wrap_content"
@@ -99,7 +100,7 @@
                         android:background="@drawable/ic_people_black_24dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Add Student"
                         android:textAlignment="center"
@@ -120,9 +121,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginStart="60dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_weight="1">
 
                     <ImageButton
                         android:layout_width="wrap_content"
@@ -131,20 +131,20 @@
                         android:background="@drawable/ic_assignment_turned_in_black_24dp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Schedule Batches"
                         android:textColor="@color/black"
                         android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textAlignment="center"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginStart="60dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageButton
