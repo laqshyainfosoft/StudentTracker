@@ -144,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:onClick="@{(v)->navViewModel.scheduleBatches()}"
+                        android:id="@+id/schedule_batches"
                         android:orientation="vertical">
 
                         <ImageButton
@@ -152,14 +152,14 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:clickable="false"
+
                             android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
                         <TextView
-                            android:id="@+id/schedule_batches"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="false"
+
                             android:text="Schedule Batches"
                             android:textAlignment="center"
                             android:textColor="@color/black"
@@ -172,7 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:onClick="@{(v)->navViewModel.broadcast()}"
+                        android:id="@+id/broadcast_batches"
                         android:orientation="vertical">
 
                         <ImageButton
@@ -184,7 +184,7 @@
                             android:src="@drawable/ic_surround_sound_black_24dp" />
 
                         <TextView
-                            android:id="@+id/broadcast_batches"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
