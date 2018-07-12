@@ -16,18 +16,12 @@
         android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbarschedule"
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
                 app:titleTextColor="@color/white" />
-
-        </android.support.design.widget.AppBarLayout>
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabsave"
             android:layout_width="wrap_content"
