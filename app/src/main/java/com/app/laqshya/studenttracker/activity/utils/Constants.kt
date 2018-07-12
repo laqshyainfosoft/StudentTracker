@@ -61,7 +61,7 @@ interface Constants {
         const val ADMIN="admin"
         const val STUDENT="student"
         const val FACULTY="faculty";
-        const val WEBSITE_URL = "http://www.laqshyainfosoft.com/"
+        const val WEBSITE_URL = "http://www.laqshyainfosoft.com/privacypolicy"
         const val PAYMENT_URL = "https://easebuzz.in/pay/laqshya.in"
         const val FORM_URL = "https://docs.google.com/forms/d/10vW47C_Om9li9aIPlIrCAtH3uA5Li5OOEzJwuC7hIXo/edit"
         const val urlNavHeaderBg = "http://www.gizmobolt.com/wp-content/uploads/2014/11/14-77.jpg"

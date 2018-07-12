@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="Batchviewmodel"
-            type="com.app.laqshya.studenttracker.activity.viewmodel.BatchListViewModel" />
-    </data>
-    <LinearLayout
+    <!--<data>-->
+    <!--<variable-->
+    <!--name="attendanceviewmodel"-->
+    <!--type="edutracker.laqshya.com.edutracker.viewmodel.AttendanceViewModel"/>-->
+    <!--</data>-->
+    <RelativeLayout
         android:id="@+id/attendance_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@color/cardview_dark_background"
+        android:background="#fff"
         android:gravity="center"
-        android:orientation="vertical"
         android:padding="12dp"
         tools:context=".fragments.AttendanceFragment">
         <LinearLayout
-            android:id="@+id/emptybatch"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/cardview_dark_background"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:layout_centerInParent="true">
+
             <ImageView
                 android:id="@+id/imageView2_attend"
                 android:layout_width="90.0dp"
                 android:layout_height="90.0dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/folderbatchicon" />
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/no_data" />
 
             <TextView
                 android:id="@+id/textView_attend"
@@ -41,12 +35,15 @@
                 android:text="No Batches"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="#121111" />
+
         </LinearLayout>
+
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swifeRefresh_attendance_schedule"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_attendance"
                 android:layout_width="match_parent"
@@ -54,5 +51,5 @@
                 android:clipToPadding="false"
                 android:paddingBottom="72dp" />
         </android.support.v4.widget.SwipeRefreshLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
