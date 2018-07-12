@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.app.laqshya.studenttracker.R;
@@ -39,7 +40,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
     @Inject
     RegistrationFactory registrationFactory;
     FragmentManager fragmentManager;
-    int navItemIndex=0;
+    int navItemIndex = 0;
     NavDrawerViewModel navDrawerViewModel;
     static String CURRENT_TAG = Constants.TAG_HOME;
 
@@ -53,7 +54,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
         activityMainScreenDrawerBinding.navView.addHeaderView(navHeaderMainBinding.getRoot());
         setSupportActionBar(activityMainScreenDrawerBinding.appbarmain.toolbar);
         fragmentManager = getSupportFragmentManager();
-        navDrawerViewModel = ViewModelProviders.of(this,registrationFactory).get(NavDrawerViewModel.class);
+        navDrawerViewModel = ViewModelProviders.of(this, registrationFactory).get(NavDrawerViewModel.class);
         chooseUser();
         loadNavHeader();
         setUpnavigationitems();
@@ -265,6 +266,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
             actionBarDrawerToggle.syncState();
         }
     }
+
     private void loadNavHeader() {
         if (sessionManager.getLoggedInName() != null) {
             StringTokenizer stok = new StringTokenizer(sessionManager.getLoggedInName());
@@ -285,6 +287,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
 
         }
     }
+
     private void selectNavMenu() {
         if (activityMainScreenDrawerBinding.navView != null)
             activityMainScreenDrawerBinding.navView.getMenu().getItem(navItemIndex).setChecked(true);
@@ -334,7 +337,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
 
 
         };
-        Handler handler=new Handler();
+        Handler handler = new Handler();
         handler.post(pendingRunnable);
 //        toggleFab();
         activityMainScreenDrawerBinding.drawerLayout.closeDrawers();
@@ -346,7 +349,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
         if (sessionManager.getLoggedInType() != null) {
             switch (sessionManager.getLoggedInType()) {
                 case Constants.ADMIN:
-                    setUpNav(R.menu.menu_admin,resources.getStringArray(R.array.nav_item_admin_activity_titles));
+                    setUpNav(R.menu.menu_admin, resources.getStringArray(R.array.nav_item_admin_activity_titles));
                     break;
                 case "counsellor":
                     setUpNav(R.menu.menu_counsellor, resources.getStringArray(R.array.nav_item_officestaff_activity_titles));
@@ -360,6 +363,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
             }
         }
     }
+
     private void setUpNav(int id, String arr[]) {
         activityMainScreenDrawerBinding.navView.getMenu().clear();
         activityMainScreenDrawerBinding.navView.inflateMenu(id);
@@ -374,32 +378,29 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
         }
 
         Timber.d("Count of stack %d", fragmentManager.getBackStackEntryCount());
-        if (fragmentManager.getBackStackEntryCount() >= 1) {
+        if (fragmentManager.getBackStackEntryCount() > 1) {
             super.onBackPressed();
-            if (navItemIndex != 0) {
-                navItemIndex = 0;
-                CURRENT_TAG = Constants.TAG_HOME;
-                loadHomeFragment();
-            }
-//                loadHomeFragment();
-//
-//        } else if (fragmentManager.getBackStackEntryCount() == 1) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setMessage("Exit??Are you sure????");
-//            builder.setTitle("Exit?");
-//            builder.setPositiveButton("Okay", ((dialog, which) -> {
-//                finish();
-//            }));
-//            builder.setNegativeButton("No", ((dialog, which) -> {
-//                dialog.dismiss();
-//            }));
-//            builder.create().show();
-//
-//        }
+        } else if (fragmentManager.getBackStackEntryCount() == 1) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Exit??Are you sure????");
+            builder.setTitle("Exit?");
+            builder.setPositiveButton("Okay", ((dialog, which) -> {
+                finish();
+            }));
+            builder.setNegativeButton("No", ((dialog, which) -> {
+                dialog.dismiss();
+            }));
+            builder.create().show();
 
-//            super.onBackPressed();
+        }
+        if (navItemIndex != 0) {
+            navItemIndex = 0;
+            CURRENT_TAG = Constants.TAG_HOME;
+            loadHomeFragment();
+            super.onBackPressed();
 
 
         }
     }
 }
+
