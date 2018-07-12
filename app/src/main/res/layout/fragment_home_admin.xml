@@ -9,58 +9,57 @@
             type="com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel" />
     </data>
 
-    <LinearLayout
-
-        android:id="@+id/view_container"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/view_container"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#E8E8E8">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="200dp"
+                android:background="#E8E8E8">
 
-                <ImageView
-                    android:id="@+id/img_profile_admin_home"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    app:srcCompat="@drawable/laqshya_logo" />
-
-                <TextView
-                    android:id="@+id/name_admin_home"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="Nilesh Chaudhry"
-                    android:textColor="@color/black" />
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/website_admin_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="www.laqshyainfosoft.com"
-                    android:textColor="@color/black" />
+                    <ImageView
+                        android:id="@+id/img_profile_admin_home"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="16dp"
+                        app:srcCompat="@drawable/laqshya_logo" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/name_admin_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="Nilesh Chaudhry"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/website_admin_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:text="www.laqshyainfosoft.com"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
 
 
-        </RelativeLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,18 +83,18 @@
                         <ImageButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="false"
                             android:src="@drawable/ic_add_box_black_24dp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
                             android:text="@string/manage_students"
                             android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:clickable="false"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
@@ -114,15 +113,15 @@
                             android:id="@+id/studentTemp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="false"
                             android:src="@drawable/ic_people_black_24dp" />
 
                         <TextView
-                            android:clickable="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
                             android:text="Add Student"
                             android:textAlignment="center"
                             android:textColor="@color/black"
@@ -135,12 +134,11 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:baselineAligned="false"
-                    android:paddingBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"
-                    android:paddingDown="10dp">
+                    android:baselineAligned="false"
+                    android:paddingBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -150,18 +148,18 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="false"
                             android:src="@drawable/ic_assignment_turned_in_black_24dp" />
 
                         <TextView
                             android:id="@+id/schedule_batches"
-                            android:clickable="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
                             android:text="Schedule Batches"
                             android:textAlignment="center"
                             android:textColor="@color/black"
@@ -178,18 +176,18 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackgroundBorderless"
                             android:clickable="false"
                             android:src="@drawable/ic_surround_sound_black_24dp" />
 
                         <TextView
                             android:id="@+id/broadcast_batches"
-                            android:clickable="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
                             android:text="Broadcast"
                             android:textAlignment="center"
                             android:textColor="@color/black"
@@ -199,6 +197,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </layout>

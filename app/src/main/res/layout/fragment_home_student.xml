@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/view_container"
         android:layout_width="match_parent"
@@ -42,10 +44,6 @@
 
 
         </RelativeLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"
-                    android:paddingDown="10dp">
+                    android:paddingBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -164,6 +162,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
     </LinearLayout>
+        </ScrollView>
+
 </layout>

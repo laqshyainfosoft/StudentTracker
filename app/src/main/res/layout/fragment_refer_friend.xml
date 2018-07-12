@@ -1,8 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_text">
+    android:background="@color/white">
 
 
     <RelativeLayout
@@ -13,7 +12,6 @@
             android:src="@drawable/refer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="70dp"
             android:gravity="center_horizontal" />
 
         <LinearLayout
@@ -26,7 +24,7 @@
 
             <Button
                 android:id="@+id/mail_referfriend"
-                android:background="@drawable/mail_icon"
+                android:background="@drawable/email"
                 android:layout_width="70.0dp"
                 android:layout_height="70.0dp"
                 android:layout_margin="10.0dp" />
@@ -35,18 +33,18 @@
 
             <Button
                 android:id="@+id/facebook__referfriend"
-                android:background="@drawable/facebook_icon"
+                android:background="@drawable/facebook"
                 android:layout_width="70.0dp"
                 android:layout_height="70.0dp"
-                android:layout_margin="15.0dp"
+                android:layout_margin="10.0dp"
                 />
 
             <Button
                 android:id="@+id/Whatsapp_referfriend"
-                android:background="@drawable/whatsapp_icon"
-                android:layout_width="70.0dp"
-                android:layout_height="70.0dp"
-                android:layout_margin="10.0dp" />
+                android:background="@drawable/whatsapp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_margin="10dp" />
 
         </LinearLayout>
     </RelativeLayout>
