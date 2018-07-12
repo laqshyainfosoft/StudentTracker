@@ -16,5 +16,6 @@ public class HomeFragmentStudent extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_student, container, false);
         return view;
+
     }
 }
