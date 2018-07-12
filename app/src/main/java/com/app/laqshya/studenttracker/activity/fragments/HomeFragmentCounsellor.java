@@ -37,11 +37,14 @@ public class HomeFragmentCounsellor extends Fragment {
         Timber.d("I was called here");
         navDrawerViewModel = ViewModelProviders.of(getActivity()).get(NavDrawerViewModel.class);
         fragmentHomeAdminBinding.setNavViewModel(navDrawerViewModel);
-        navDrawerViewModel.loadableFragment.observe(this, fragment -> {
-            if (fragment != null)
-                fragmentTransact(fragment);
+        fragmentHomeAdminBinding.addStudents.setOnClickListener(v -> fragmentTransact(new AddStudentFragment()));
+//        navDrawerViewModel.loadableFragment.observe(this, fragment -> {
+//            if (fragment != null)
+//                fragmentTransact(fragment);
+////            navDrawerViewModel.loadableFragment.setValue(null);
+//
+//        });
 
-        });
 
     }
 
@@ -50,7 +53,7 @@ public class HomeFragmentCounsellor extends Fragment {
         FragmentTransaction fragmentTransaction = null;
         if (fragmentManager != null) {
             fragmentTransaction = fragmentManager.beginTransaction()
-                    .replace(R.id.frame, fragment);
+                    .replace(R.id.frame, fragment).addToBackStack(null);
             fragmentTransaction.commit();
         }
 
