@@ -33,18 +33,18 @@
 
             <Button
                 android:id="@+id/facebook__referfriend"
-                android:background="@drawable/facebook"
+                android:layout_margin="10.0dp"
                 android:layout_width="70.0dp"
                 android:layout_height="70.0dp"
-                android:layout_margin="10.0dp"
+                android:background="@drawable/facebook"
                 />
 
             <Button
                 android:id="@+id/Whatsapp_referfriend"
-                android:background="@drawable/whatsapp"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_margin="10dp" />
+                android:layout_margin="10dp"
+                android:background="@drawable/whatsapp" />
 
         </LinearLayout>
     </RelativeLayout>
