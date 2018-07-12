@@ -75,11 +75,11 @@ public class LoginRepository {
             }
             switch (flag) {
                 //Counsellor
-                case 1:
+                case 2:
                     sessionManager.saveUserCenter(loginModel.getCenter());
                     sessionManager.saveType(Constants.COUNSELLOR);
                     break;
-                case 2:
+                case 1:
                     //Admin
 
                     sessionManager.saveType(Constants.ADMIN);

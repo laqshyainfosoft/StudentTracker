@@ -126,7 +126,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                                 break;
                         }
                         break;
-                    case "counsellor":
+                    case Constants.COUNSELLOR:
                         Timber.d("Counsellor %d", navItemIndex);
                         switch (item.getItemId()) {
                             case R.id.nav_home_officestaff:
@@ -169,7 +169,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                                 break;
                         }
                         break;
-                    case "faculty":
+                    case Constants.FACULTY:
                         switch (item.getItemId()) {
                             case R.id.nav_home_faculty:
                                 navItemIndex = 0;
@@ -205,7 +205,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                         }
                         break;
 
-                    case "student":
+                    case Constants.STUDENT:
                         switch (item.getItemId()) {
                             case R.id.nav_home_student:
                                 navItemIndex = 0;

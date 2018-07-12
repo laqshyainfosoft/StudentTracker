@@ -42,6 +42,7 @@ public class NavDrawerViewModel extends ViewModel {
     public MutableLiveData<Integer> noOfInstallments = new MutableLiveData<>();
     public MutableLiveData<Integer> downPayment = new MutableLiveData<>();
     public MutableLiveData<Integer> totalFees = new MediatorLiveData<>();
+    public MutableLiveData<Fragment> loadableFragment = new MutableLiveData<>();
     private RegistrationRepository registrationRepository;
 
     public NavDrawerViewModel(RegistrationRepository registrationRepository) {
@@ -285,6 +286,27 @@ public class NavDrawerViewModel extends ViewModel {
                 fragmentTitle.setValue("Home");
                 return new HomeFragmentStudent();
         }
+
+    }
+
+    public void clickAddStudent() {
+        Fragment fragment = new AddStudentFragment();
+        loadableFragment.setValue(fragment);
+
+
+    }
+
+    public void clickManageStudent() {
+        Timber.d("%s", "Clicked");
+    }
+
+    public void scheduleBatches() {
+        Timber.d("%s", "Clicked");
+
+    }
+
+    public void broadcast() {
+        Timber.d("%s", "Clicked");
 
     }
 
