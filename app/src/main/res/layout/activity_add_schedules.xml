@@ -5,8 +5,8 @@
     <data>
 
         <!--<variable-->
-            <!--name="addschedule"-->
-            <!--type="com.app.laqshya.studenttracker.activity.viewmodel.AddSchedulesViewModel" />-->
+        <!--name="addschedule"-->
+        <!--type="com.app.laqshya.studenttracker.activity.viewmodel.AddSchedulesViewModel" />-->
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -285,6 +285,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp">
+
                             <RadioButton
                                 android:id="@+id/checkR"
                                 android:layout_width="wrap_content"
