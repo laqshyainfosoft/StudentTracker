@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!--<data>-->
-    <!--<variable-->
-    <!--name="attendanceviewmodel"-->
-    <!--type="edutracker.laqshya.com.edutracker.viewmodel.AttendanceViewModel"/>-->
-    <!--</data>-->
+
+    <data>
+
+        <variable
+            name="Batchviewmodel"
+            type="com.app.laqshya.studenttracker.activity.viewmodel.BatchListViewModel" />
+    </data>
     <LinearLayout
         android:id="@+id/attendance_main"
         android:layout_width="match_parent"
@@ -16,7 +18,6 @@
         android:orientation="vertical"
         android:padding="12dp"
         tools:context=".fragments.AttendanceFragment">
-
         <LinearLayout
             android:id="@+id/emptybatch"
             android:layout_width="match_parent"
@@ -25,7 +26,6 @@
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="visible">
-
             <ImageView
                 android:id="@+id/imageView2_attend"
                 android:layout_width="90.0dp"
@@ -42,13 +42,11 @@
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="#121111" />
         </LinearLayout>
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swifeRefresh_attendance_schedule"
             android:layout_width="match_parent"
 
             android:layout_height="wrap_content">
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_attendance"
                 android:layout_width="match_parent"

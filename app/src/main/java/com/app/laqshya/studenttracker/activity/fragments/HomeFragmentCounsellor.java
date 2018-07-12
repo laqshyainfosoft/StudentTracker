@@ -38,19 +38,15 @@ public class HomeFragmentCounsellor extends Fragment {
         navDrawerViewModel = ViewModelProviders.of(getActivity()).get(NavDrawerViewModel.class);
         fragmentHomeAdminBinding.setNavViewModel(navDrawerViewModel);
         fragmentHomeAdminBinding.addStudents.setOnClickListener(v -> fragmentTransact(new AddStudentFragment()));
-//        navDrawerViewModel.loadableFragment.observe(this, fragment -> {
-//            if (fragment != null)
-//                fragmentTransact(fragment);
-////            navDrawerViewModel.loadableFragment.setValue(null);
-//
-//        });
+        fragmentHomeAdminBinding.scheduleBatches.setOnClickListener(v -> fragmentTransact(new AttendanceFragment()));
+//        fragmentHomeAdminBinding.schedule_batches.setOnClickListener(v -> fragmentTransact(new AttendanceFragment()));
 
 
     }
 
     private void fragmentTransact(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = null;
+        FragmentTransaction fragmentTransaction;
         if (fragmentManager != null) {
             fragmentTransaction = fragmentManager.beginTransaction()
                     .replace(R.id.frame, fragment).addToBackStack(null);
