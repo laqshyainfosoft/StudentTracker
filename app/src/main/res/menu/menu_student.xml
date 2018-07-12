@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home_student"
+            android:icon="@drawable/home"
+            android:title="@string/nav_home" />
+
+
+        <item
+            android:id="@+id/nav_syllabus_student"
+            android:icon="@drawable/syllabus"
+            android:title="@string/nav_syllabus" />
+
+        <item
+            android:id="@+id/nav_notifications_student"
+            android:icon="@drawable/bell16"
+            android:title="@string/nav_notifications" />
+
+
+        <item
+            android:id="@+id/nav_refer_friend_student"
+            android:icon="@drawable/refer_friend"
+            android:title="@string/nav_refer_friend" />
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/refer_friend"
+            android:title="@string/feedback" />
+        <item
+            android:id="@+id/payment"
+            android:icon="@drawable/refer_friend"
+            android:title="@string/payment" />
+
+        <item
+            android:id="@+id/nav_contact_student"
+            android:icon="@drawable/contact"
+            android:title="@string/nav_contact" />
+
+        <item
+            android:id="@+id/nav_settings_student"
+            android:icon="@drawable/android_logo_icon"
+            android:title="@string/nav_settings" />
+
+
+        <item
+            android:id="@+id/nav_privacy_policy_student"
+            android:icon="@drawable/privacy_policy"
+            android:title="@string/privacy_policy" />
+    </group>
+
+</menu>

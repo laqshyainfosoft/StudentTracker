@@ -1,8 +1,6 @@
 package com.app.laqshya.studenttracker.activity;
 
-import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
@@ -42,12 +39,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ActivityMainBinding activityMainBinding;
     LoginActivityBinding loginActivityBinding;
     LoginViewModel loginVieModel;
-    String management_Username, management_name, management_Centername, management_type, management_email;
 
     private AlertDialog.Builder dialog;
     private int flag = 0;
     private AlertDialog alertDialog;
-    private ProgressDialog progressDialog;
+
 
 
     @Override
@@ -205,10 +201,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         prepareDialog();
         switch (v.getId()) {
             case R.id.counsellorlayout:
-                flag = 1;
+                flag = 2;
                 break;
             case R.id.ll_Admin:
-                flag = 2;
+                flag = 1;
                 break;
             case R.id.ll_faculty:
                 flag = 3;

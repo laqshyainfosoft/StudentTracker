@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home_officestaff"
+            android:icon="@drawable/home"
+            android:title="@string/nav_home" />
+
+        <!--<item
+            android:id="@+id/nav_feesstatus_officestaff"
+            android:icon="@drawable/fees"
+            android:title="@string/nav_fees_status" />
+-->
+        <item
+            android:id="@+id/nav_feesstatus_officestaff"
+            android:icon="@drawable/fees"
+            android:title="@string/nav_manage_student" />
+        <!--<item-->
+        <!--android:id="@+id/nav_performance_admin"-->
+        <!--android:icon="@drawable/medal"-->
+        <!--android:title="@string/nav_performance" />-->
+
+
+        <item
+            android:id="@+id/nav_attendance_officestaff"
+            android:icon="@drawable/ic_attendance"
+            android:title="@string/nav_schedulebatch" />
+        <item
+            android:id="@+id/completionbatches"
+            android:icon="@drawable/ic_check_black"
+            android:title="Complete Batches" />
+
+
+        <item
+            android:id="@+id/nav_notifications_officestaff"
+            android:icon="@drawable/bell16"
+            android:title="@string/nav_notifications" />
+        <!--<item-->
+        <!--android:id="@+id/telephonicenquiry"-->
+        <!--android:icon="@drawable/contact"-->
+        <!--android:title="Telephonic Enquiry"-->
+        <!--&gt;-->
+        <!--</item>-->
+        <!--<item-->
+        <!--android:id="@+id/walkin"-->
+        <!--android:icon="@drawable/walk_in"-->
+        <!--android:title="Walk In Enquiry">-->
+        <!--</item>-->
+
+        <item
+            android:id="@+id/nav_broadcastsms_officestaff"
+            android:icon="@drawable/broadcastsms"
+            android:title="@string/nav_broadcast_sms" />
+
+
+        <item
+            android:id="@+id/nav_settings_officestaff"
+            android:icon="@drawable/android_logo_icon"
+            android:title="@string/nav_settings" />
+
+
+        <item
+            android:id="@+id/nav_privacy_policy_officestaff"
+            android:icon="@drawable/privacy_policy"
+            android:title="@string/privacy_policy" />
+
+    </group>
+
+
+</menu>

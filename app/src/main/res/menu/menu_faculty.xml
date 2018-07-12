@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home_faculty"
+            android:icon="@drawable/home"
+            android:title="@string/nav_home" />
+
+        <item
+            android:id="@+id/nav_attendance_faculty"
+            android:icon="@drawable/ic_attendance"
+            android:title="@string/nav_attendance" />
+
+        <item
+            android:id="@+id/nav_performance_faculty"
+            android:icon="@drawable/results"
+            android:title="@string/nav_performance" />
+
+        <item
+            android:id="@+id/nav_notifications_faculty"
+            android:icon="@drawable/bell16"
+            android:title="@string/nav_notifications" />
+
+
+        <item
+            android:id="@+id/nav_broadcast_faculty"
+            android:icon="@drawable/broadcast"
+            android:title="@string/nav_broadcast" />
+
+        <item
+            android:id="@+id/nav_settings_faculty"
+            android:icon="@drawable/android_logo_icon"
+            android:title="@string/nav_settings" />
+
+
+        <item
+            android:id="@+id/nav_privacy_policy_faculty"
+            android:icon="@drawable/privacy_policy"
+            android:title="@string/privacy_policy" />
+
+    </group>
+
+
+</menu>
