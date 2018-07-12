@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!--<data>-->
+
+    <data>
+
         <!--<variable-->
-            <!--name="addschedule"-->
-            <!--type="edutracker.laqshya.com.edutracker.viewmodel.EditSchedulesViewModel"/>-->
-    <!--</data>-->
+        <!--name="addschedule"-->
+        <!--type="com.app.laqshya.studenttracker.activity.viewmodel.AddSchedulesViewModel" />-->
+    </data>
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -13,17 +16,14 @@
         android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true">
 
-        <android.support.design.widget.AppBarLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbarschedule"
-                android:layout_width="match_parent"
-                android:layout_height="?android:actionBarSize"
-                app:titleTextColor="@color/white" />
-
-        </android.support.design.widget.AppBarLayout>
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabsave"
@@ -34,6 +34,8 @@
             android:src="@drawable/ic_save_white_24dp"
             app:backgroundTint="@color/white" />
 
+
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -42,8 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+                android:layout_marginTop="55dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,7 +76,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="10.0dp"
-                                android:layout_toRightOf="@+id/imageView8"
                                 android:text="Course Category"
                                 android:textColor="#ea5127"
                                 android:textSize="20sp"
@@ -166,7 +166,7 @@
                             <Spinner
                                 android:id="@+id/Atteacher"
                                 style="@style/spinner_style"
-                                android:hint="Course Name"></Spinner>
+                                android:hint="Course Name" />
 
                         </LinearLayout>
 
@@ -188,7 +188,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="35.0dp"
                                 android:layout_marginTop="5.0dp"
-                                android:hint="location"
+                                android:hint="@string/location"
                                 android:paddingLeft="15dp"
                                 android:paddingStart="15dp"
                                 android:paddingTop="5dp"
@@ -283,6 +283,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="7dp">
+
                             <RadioButton
                                 android:id="@+id/checkR"
                                 android:layout_width="wrap_content"
@@ -356,6 +357,20 @@
                             android:layout_height="wrap_content"
                             android:text="Add New" />
 
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/grey" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10.0dp">
+
                         <Button
                             android:id="@+id/addstudentbutton"
                             android:layout_width="match_parent"
@@ -363,8 +378,8 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:layout_marginTop="10dp"
+                            android:layout_marginBottom="55dp"
                             android:text="@string/add_students" />
-
 
                     </LinearLayout>
 
@@ -373,4 +388,3 @@
         </ScrollView>
     </android.support.design.widget.CoordinatorLayout>
 </layout>
-
