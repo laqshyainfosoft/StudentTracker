@@ -1,0 +1,53 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_text">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imagereferfriend"
+            android:src="@drawable/refer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="70dp"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/mail_referfriend"
+                android:background="@drawable/mail_icon"
+                android:layout_width="70.0dp"
+                android:layout_height="70.0dp"
+                android:layout_margin="10.0dp" />
+
+
+
+            <Button
+                android:id="@+id/facebook__referfriend"
+                android:background="@drawable/facebook_icon"
+                android:layout_width="70.0dp"
+                android:layout_height="70.0dp"
+                android:layout_margin="15.0dp"
+                />
+
+            <Button
+                android:id="@+id/Whatsapp_referfriend"
+                android:background="@drawable/whatsapp_icon"
+                android:layout_width="70.0dp"
+                android:layout_height="70.0dp"
+                android:layout_margin="10.0dp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
