@@ -11,11 +11,12 @@
 
                     <corners android:radius="0dp" />
 
-                    <padding android:bottom="3dp" android:left="1dp" android:right="3dp" android:top="3dp" />
+                    <padding android:bottom="12dp" android:left="1dp" android:right="12dp" android:top="3dp" />
+                    <size android:height="50dp" android:width="50dp"/>
                 </shape>
             </item>
             <item>
-                <bitmap android:gravity="bottom|right" android:src="@drawable/arrow_down_black" />
+                <bitmap android:gravity="bottom|right" android:src="@drawable/arrow_down_black"/>
             </item>
         </layer-list>
     </item>
