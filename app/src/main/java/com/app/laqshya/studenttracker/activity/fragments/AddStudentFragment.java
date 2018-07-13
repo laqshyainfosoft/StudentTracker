@@ -94,6 +94,7 @@ public class AddStudentFragment extends Fragment {
                 registerStudentBinding.inputEmail.setError(getString(R.string.email_error));
             } else if (!Utils.isValidEmail(email)) {
                 Toast.makeText(getActivity(), getString(R.string.email_error), Toast.LENGTH_SHORT).show();
+                registerStudentBinding.inputEmail.setError(getString(R.string.email_error));
             } else if (!Utils.isValidPhone(phone)) {
                 Toast.makeText(getActivity(), getString(R.string.mobile_error), Toast.LENGTH_SHORT).show();
             } else {
