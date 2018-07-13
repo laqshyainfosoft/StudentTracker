@@ -44,6 +44,10 @@ public interface EduTrackerService {
 
     @POST("registerstudent.php")
     Single<ResponseBody> registerStudent(@Body StudentInfo studentInfo);
+//    @GET("getFacultyList.php")
+
+
+
 
 
 }

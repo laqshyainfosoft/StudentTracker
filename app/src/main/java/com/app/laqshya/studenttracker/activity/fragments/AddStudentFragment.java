@@ -89,7 +89,9 @@ public class AddStudentFragment extends Fragment {
             String downPayment = registerStudentBinding.inputDownpayment.getText().toString();
             String installments = registerStudentBinding.inputNoOfInstallments.getText().toString();
             if (Utils.isEmpty(name, phone, email, course, totalFees, downPayment, installments)) {
-                Toast.makeText(getActivity(), getString(R.string.fieldsEmpty), Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(getActivity(), getString(R.string.fieldsEmpty), Toast.LENGTH_SHORT).show();
+                registerStudentBinding.inputEmail.setError(getString(R.string.email_error));
             } else if (!Utils.isValidEmail(email)) {
                 Toast.makeText(getActivity(), getString(R.string.email_error), Toast.LENGTH_SHORT).show();
             } else if (!Utils.isValidPhone(phone)) {
