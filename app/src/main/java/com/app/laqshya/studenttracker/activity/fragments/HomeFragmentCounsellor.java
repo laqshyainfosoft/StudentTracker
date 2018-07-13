@@ -1,7 +1,6 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +25,7 @@ public class HomeFragmentCounsellor extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Timber.d("onCreated");
-        fragmentHomeAdminBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_admin, container, false);
+        fragmentHomeAdminBinding = FragmentHomeAdminBinding.inflate(inflater, container, false);
         return fragmentHomeAdminBinding.getRoot();
 
     }
