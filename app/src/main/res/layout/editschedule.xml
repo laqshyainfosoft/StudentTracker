@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <!--<variable-->
         <!--name="addschedule"-->
         <!--type="com.app.laqshya.studenttracker.activity.viewmodel.AddSchedulesViewModel" />-->
@@ -33,7 +32,6 @@
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_save_white_24dp"
             app:backgroundTint="@color/white" />
-
 
 
         <ScrollView
