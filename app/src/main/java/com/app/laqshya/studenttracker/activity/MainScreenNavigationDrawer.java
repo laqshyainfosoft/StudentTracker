@@ -135,34 +135,42 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                                 CURRENT_TAG = Constants.TAG_HOME;
                                 break;
                             case R.id.nav_feesstatus_officestaff:
-                                navItemIndex = 1;
+                                navItemIndex = 3;
                                 CURRENT_TAG = Constants.TAG_FEESSTATUS;
                                 break;
 
                             case R.id.nav_attendance_officestaff:
-                                navItemIndex = 2;
+                                navItemIndex = 4;
                                 CURRENT_TAG = Constants.TAG_ATTENDANCE;
                                 break;
                             case R.id.completionbatches:
-                                navItemIndex = 3;
+                                navItemIndex = 5;
                                 CURRENT_TAG = Constants.TAG_BATCH;
                                 break;
                             case R.id.nav_notifications_officestaff:
-                                navItemIndex = 4;
+                                navItemIndex = 6;
                                 CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
                                 break;
 
                             case R.id.nav_broadcastsms_officestaff:
-                                navItemIndex = 5;
+                                navItemIndex = 7;
                                 CURRENT_TAG = Constants.TAG_BROADCAST;
                                 break;
                             case R.id.nav_settings_officestaff:
-                                navItemIndex = 6;
+                                navItemIndex = 8;
                                 CURRENT_TAG = Constants.TAG_SETTINGS;
+                                break;
+                            case R.id.add_faculty:
+                                navItemIndex = 1;
+                                CURRENT_TAG = Constants.TAG_ADD_FACULTY;
+                                break;
+                            case R.id.add_student:
+                                navItemIndex = 2;
+                                CURRENT_TAG = Constants.TAG_ADD_STUDENT;
                                 break;
 
                             case R.id.nav_privacy_policy_officestaff:
-                                navItemIndex = 7;
+                                navItemIndex = 9;
                                 CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
                                 break;
                             default:

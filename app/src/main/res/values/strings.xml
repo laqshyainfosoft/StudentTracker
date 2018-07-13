@@ -56,6 +56,8 @@
 
     <string-array name="nav_item_officestaff_activity_titles">
         <item>Home</item>
+        <item>Add Faculty</item>
+        <item>Add Student</item>
         <item>Manage Student</item>
         <item>Schedule/Batches</item>
         <item>Complete Batches</item>
