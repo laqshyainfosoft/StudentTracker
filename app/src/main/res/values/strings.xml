@@ -168,7 +168,7 @@
     <string name="counsellor_registration">Counsellor Registration</string>
     <string name="student_registration">Student Registration</string>
     <string name="courseError">Please Select Courses</string>
-    <string name="fieldsEmpty">Please check all fields</string>
+    <string name="fieldsEmpty">Field cannot be empty</string>
     <string name="email_error">Please check the email address</string>
     <string name="mobile_error">Please check the phone number</string>
     <string name="student_installment_date">Date </string>

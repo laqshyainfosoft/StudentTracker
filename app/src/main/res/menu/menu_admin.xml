@@ -9,24 +9,26 @@
         <item
             android:id="@+id/add_consellor"
             android:title="@string/add_counsellor"
-            android:icon="@drawable/home"/>
+            android:icon="@drawable/ic_add_box_black_24dp"/>
         <item
             android:id="@+id/add_faculty"
-            android:title="@string/add_faculty"/>
+            android:title="@string/add_faculty"
+
+            android:icon="@drawable/ic_add_box_black_24dp"/>
         <item
             android:id="@+id/add_student"
-            android:title="@string/add_student"/>
+            android:title="@string/add_student"
+
+            android:icon="@drawable/ic_add_box_black_24dp"/>
 
         <item
             android:id="@+id/managestudentfees"
-            android:icon="@drawable/fees"
+            android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/nav_manage_student" />
-
-
 
         <item
             android:id="@+id/schedulebatches"
-            android:icon="@drawable/ic_attendance"
+            android:icon="@drawable/ic_assignment_turned_in_black_16dp"
             android:title="@string/nav_schedulebatch" />
 
         <item
@@ -37,7 +39,7 @@
 
         <item
             android:id="@+id/nav_broadcast_admin"
-            android:icon="@drawable/broadcast"
+            android:icon="@drawable/ic_surround_sound_black_16dp"
             android:title="@string/nav_broadcast" />
 
         <item

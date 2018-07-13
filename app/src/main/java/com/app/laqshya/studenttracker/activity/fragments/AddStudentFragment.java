@@ -88,16 +88,46 @@ public class AddStudentFragment extends Fragment {
             String totalFees = registerStudentBinding.inputFees.getText().toString();
             String downPayment = registerStudentBinding.inputDownpayment.getText().toString();
             String installments = registerStudentBinding.inputNoOfInstallments.getText().toString();
-            if (Utils.isEmpty(name, phone, email, course, totalFees, downPayment, installments)) {
+            boolean isValid = true;
 
-//                Toast.makeText(getActivity(), getString(R.string.fieldsEmpty), Toast.LENGTH_SHORT).show();
+            if (Utils.isEmpty(name)) {
+                registerStudentBinding.inputStudentName.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(Utils.isEmpty(phone)){
+                    registerStudentBinding.inputStudentNumber.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+                }
+            if(Utils.isEmpty(email)){
+                registerStudentBinding.inputEmail.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(Utils.isEmpty(totalFees)){
+                registerStudentBinding.inputFees.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(Utils.isEmpty(downPayment)){
+                registerStudentBinding.inputDownpayment.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(Utils.isEmpty(installments)){
+                registerStudentBinding.inputNoOfInstallments.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+
+            //Toast.makeText(getActivity(), getString(R.string.fieldsEmpty), Toast.LENGTH_SHORT).show();
+             if (!Utils.isValidEmail(email)) {
+//                Toast.makeText(getActivity(), getString(R.string.email_error), Toast.LENGTH_SHORT).show();
                 registerStudentBinding.inputEmail.setError(getString(R.string.email_error));
-            } else if (!Utils.isValidEmail(email)) {
-                Toast.makeText(getActivity(), getString(R.string.email_error), Toast.LENGTH_SHORT).show();
-                registerStudentBinding.inputEmail.setError(getString(R.string.email_error));
-            } else if (!Utils.isValidPhone(phone)) {
-                Toast.makeText(getActivity(), getString(R.string.mobile_error), Toast.LENGTH_SHORT).show();
-            } else {
+                 isValid = false;
+            }
+            if (!Utils.isValidPhone(phone)) {
+//                Toast.makeText(getActivity(), getString(R.string.mobile_error), Toast.LENGTH_SHORT).show();
+                registerStudentBinding.inputStudentNumber.setError(getString(R.string.mobile_error));
+                isValid = false;
+            }
+
+            if(isValid && Utils.isNetworkConnected(getActivity())) {
                 navDrawerViewModel.registerStudent(name, phone,
                         email, course, totalFees, downPayment, installments, installmentsList).observe(this, s -> {
 
@@ -109,6 +139,12 @@ public class AddStudentFragment extends Fragment {
                     }
                 });
             }
+            else if(!Utils.isNetworkConnected(getActivity()))
+            {
+                Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+            }
+
 
         });
 

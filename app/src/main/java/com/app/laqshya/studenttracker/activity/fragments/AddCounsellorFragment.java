@@ -63,16 +63,42 @@ public class AddCounsellorFragment extends Fragment {
         }
 
         registerCousellorBinding.btnSignup.setOnClickListener(v -> {
-            if (Utils.isNetworkConnected(getActivity())) {
-                String name = registerCousellorBinding.inputCounsellorName.getText().toString();
-                String counsellorphone = registerCousellorBinding.inputCounsellorNumber.getText().toString();
-                String centerphone = registerCousellorBinding.inputCenterNumber.getText().toString();
-                String email = registerCousellorBinding.inputEmail.getText().toString();
-                if (Utils.isEmpty(name, counsellorphone, centerphone, email)) {
-                    Toast.makeText(getActivity(), "Please check all fields", Toast.LENGTH_SHORT).show();
-                } else if (!Utils.isValidEmail(email)) {
-                    Toast.makeText(getActivity(), "Please check the email address", Toast.LENGTH_SHORT).show();
-                } else {
+            String name = registerCousellorBinding.inputCounsellorName.getText().toString();
+            String counsellorphone = registerCousellorBinding.inputCounsellorNumber.getText().toString();
+            String centerphone = registerCousellorBinding.inputCenterNumber.getText().toString();
+            String email = registerCousellorBinding.inputEmail.getText().toString();
+            boolean isValid = true;
+            if (Utils.isEmpty(name)) {
+                registerCousellorBinding.inputCounsellorName.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(Utils.isEmpty(counsellorphone)){
+                registerCousellorBinding.inputCounsellorNumber.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(Utils.isEmpty(email)){
+                registerCousellorBinding.inputEmail.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(Utils.isEmpty(centerphone)) {
+                registerCousellorBinding.inputCenterNumber.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if (!Utils.isValidEmail(email)) {
+                registerCousellorBinding.inputEmail.setError(getString(R.string.email_error));
+                isValid = false;
+            }
+
+            if (!Utils.isValidPhone(counsellorphone)) {
+                registerCousellorBinding.inputCounsellorNumber.setError(getString(R.string.mobile_error));
+                isValid = false;
+            }
+            if (!Utils.isValidPhone(centerphone)) {
+                registerCousellorBinding.inputCenterNumber.setError(getString(R.string.mobile_error));
+                isValid = false;
+            }
+
+            if (isValid && Utils.isNetworkConnected(getActivity())) {
                     navDrawerViewModel.registerCounsellor(email, centerphone, counsellorphone,
                             registerCousellorBinding.centerList.getSelectedItem().toString(), name)
                             .observe(AddCounsellorFragment.this, s ->
@@ -82,11 +108,12 @@ public class AddCounsellorFragment extends Fragment {
                             });
 
                 }
-            } else {
+            else if(!Utils.isNetworkConnected(getActivity())) {
                 Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
 
             }
         });
+
 
 
     }
