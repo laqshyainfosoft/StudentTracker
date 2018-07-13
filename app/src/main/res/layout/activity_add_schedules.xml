@@ -103,6 +103,7 @@
                                 android:textStyle="bold" />
 
                             <Spinner
+                                android:textAlignment="center"
                                 android:id="@+id/Atcoursename"
                                 style="@style/spinner_style"
                                 android:hint="@string/course_name" />
@@ -124,6 +125,7 @@
 
                             <Spinner
                                 android:id="@+id/Atteacher"
+                                android:textAlignment="center"
                                 style="@style/spinner_style"
                                 android:hint="Course Name" />
 

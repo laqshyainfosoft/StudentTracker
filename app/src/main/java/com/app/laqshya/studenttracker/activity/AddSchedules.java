@@ -5,9 +5,11 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.AddScheduleFactory;
+import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.viewmodel.AddSchedulesViewModel;
@@ -33,6 +35,16 @@ public class AddSchedules extends AppCompatActivity {
         activityAddSchedulesBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_schedules);
         addSchedulesViewModel = ViewModelProviders.of(this, addScheduleFactory).get(AddSchedulesViewModel.class);
         activityAddSchedulesBinding.txtAtlocation.setText(sessionManager.getLoggedInuserCenter());
+        addSchedulesViewModel.getCourseList().observe(this, courseLists -> {
+            if (courseLists != null && courseLists.size() > 0) {
+                ArrayAdapter<CourseList> courses = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseLists);
+                activityAddSchedulesBinding.Atcoursename.setAdapter(courses);
+
+            }
+
+        });
+
+
 
 
 

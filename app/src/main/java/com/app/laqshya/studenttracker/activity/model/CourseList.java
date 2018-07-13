@@ -11,4 +11,9 @@ public class CourseList {
     public String getCourse_name() {
         return course_name;
     }
+
+    @Override
+    public String toString() {
+        return course_name;
+    }
 }
