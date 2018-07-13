@@ -213,26 +213,32 @@ public class NavDrawerViewModel extends ViewModel {
                 fragmentTitle.setValue("Home");
                 return new HomeFragmentCounsellor();
             case 1:
+                fragmentTitle.setValue("Add Faculty");
+                return new AddFacultyFragment();
+            case 2:
+                fragmentTitle.setValue("Add Student");
+                return new AddStudentFragment();
+            case 3:
                 fragmentTitle.setValue("Fees");
                 return new FeesStatusFragment();
 
-            case 2:
+            case 4:
                 fragmentTitle.setValue("Attendance");
                 return new AttendanceFragment();
-            case 3:
+            case 5:
                 fragmentTitle.setValue("Completed Batches");
                 return new CompletionBatchesFragment();
-            case 4:
+            case 6:
                 fragmentTitle.setValue("Notification");
                 return new NotificationsFragment();
 
-            case 5:
+            case 7:
                 fragmentTitle.setValue("Broadcast");
                 return new BroadcastFragment();
-            case 6:
+            case 8:
                 fragmentTitle.setValue("About Developers");
                 return new AboutDevelopersFragment();
-            case 7:
+            case 9:
                 fragmentTitle.setValue("Privacy Policy");
                 return new PrivacyPolicyFragment();
 
