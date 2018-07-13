@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.app.laqshya.studenttracker.activity.model.CourseList;
+import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
 import java.util.List;
@@ -44,5 +45,11 @@ public class AddBatchRepository {
                 });
         return listMutableLiveData;
 
+    }
+
+    public LiveData<List<FacultyList>> getFacultyList() {
+        MutableLiveData<List<FacultyList>> facultyLiveData = new MutableLiveData<>();
+
+        return facultyLiveData;
     }
 }

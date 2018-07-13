@@ -45,9 +45,5 @@ public class AddSchedules extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
 }

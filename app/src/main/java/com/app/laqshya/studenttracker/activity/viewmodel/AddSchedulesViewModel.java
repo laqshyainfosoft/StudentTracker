@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.app.laqshya.studenttracker.activity.model.CourseList;
+import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.repository.AddBatchRepository;
 
 import java.util.List;
@@ -18,6 +19,11 @@ public class AddSchedulesViewModel extends ViewModel {
 
     public LiveData<List<CourseList>> getCourseList() {
         return addBatchRepository.getCourseList();
+
+    }
+
+    public LiveData<List<FacultyList>> getFacultyList() {
+        return addBatchRepository.getFacultyList();
 
     }
 }
