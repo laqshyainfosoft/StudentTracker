@@ -9,7 +9,8 @@
 
     <Button
         android:id="@+id/startTime"
-        android:layout_width="80dp"
+        android:layout_weight="0.25"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginEnd="3dp"
         android:background="@color/colorPrimary"
@@ -19,7 +20,8 @@
 
     <Button
         android:id="@+id/endTime"
-        android:layout_width="80dp"
+        android:layout_width="0dp"
+        android:layout_weight="0.25"
         android:layout_height="50dp"
         android:layout_marginEnd="3dp"
         android:layout_marginStart="3dp"
@@ -31,13 +33,15 @@
     <Spinner
         android:id="@+id/spinnerdays"
         style="@style/spinner_style"
-        android:layout_width="80dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_weight="0.25"
         android:layout_marginStart="3dp" />
 
     <ImageButton
         android:id="@+id/closelayoutSchedule"
-        android:layout_width="60dp"
+        android:layout_width="0dp"
+        android:layout_weight="0.25"
         android:layout_height="50dp"
         android:layout_marginEnd="2dp"
         android:layout_marginStart="4dp"

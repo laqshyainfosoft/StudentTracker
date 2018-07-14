@@ -100,6 +100,7 @@ public class AddSchedules extends AppCompatActivity {
         close.setOnClickListener((v -> {
             Timber.d("Clicked");
             activityAddSchedulesBinding.scheduleHolderLayout.removeView(v);
+
         }));
         Button startTime = view.findViewById(R.id.startTime);
         Button endTime = view.findViewById(R.id.endTime);
