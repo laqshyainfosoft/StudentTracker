@@ -319,6 +319,13 @@
                             android:layout_height="wrap_content"
                             android:text="Add New" />
 
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/scheduleHolder"
+                            android:padding="10.0dp"/>
                     </LinearLayout>
 
                     <View

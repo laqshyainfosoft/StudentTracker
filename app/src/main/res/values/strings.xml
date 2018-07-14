@@ -182,7 +182,6 @@
         <item>Wed</item>
         <item>Thu</item>
         <item>Fri</item>
-        <item>Sat</item>
     </string-array>
    <string-array name="weekendDays">
        <item>Sat</item>

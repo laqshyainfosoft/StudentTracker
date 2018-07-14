@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.app.laqshya.studenttracker.databinding.ActivityAddSchedulesBinding;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,6 +49,7 @@ public class AddSchedules extends AppCompatActivity {
     AddScheduleFactory addScheduleFactory;
     AddSchedulesViewModel addSchedulesViewModel;
     private ActivityAddSchedulesBinding activityAddSchedulesBinding;
+    private ArrayList<View> viewArrayList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class AddSchedules extends AppCompatActivity {
         activityAddSchedulesBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_schedules);
         addSchedulesViewModel = ViewModelProviders.of(this, addScheduleFactory).get(AddSchedulesViewModel.class);
         activityAddSchedulesBinding.txtAtlocation.setText(sessionManager.getLoggedInuserCenter());
+        viewArrayList=new ArrayList<>();
         addSchedulesViewModel.getCourseList().observe(this, courseLists -> {
             if (courseLists != null && courseLists.size() > 0) {
                 ArrayAdapter<CourseList> courses = new ArrayAdapter<>(this, R.layout.spinner_layout, courseLists);
@@ -87,10 +91,14 @@ public class AddSchedules extends AppCompatActivity {
     //This method uses the dynamic schedule layout
     private void addnewSchedule() {
         String[] daysArray = getdays();
+        viewArrayList=new ArrayList<>();
         List<String> stringList = Arrays.asList(daysArray);
 
         View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.schedule_details, null);
-        activityAddSchedulesBinding.scheduleHolderLayout.addView(view);
+
+        activityAddSchedulesBinding.scheduleHolder.addView(view);
+        LinearLayout linearLayout=view.findViewById(R.id.schedulesRootLayout);
+        viewArrayList.add(linearLayout);
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 stringList);
         Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
@@ -99,7 +107,13 @@ public class AddSchedules extends AppCompatActivity {
         ImageButton close = view.findViewById(R.id.closelayoutSchedule);
         close.setOnClickListener((v -> {
             Timber.d("Clicked");
-            activityAddSchedulesBinding.scheduleHolderLayout.removeView(v);
+//            activityAddSchedulesBinding.scheduleHolderLayout.removeView(v);
+
+            activityAddSchedulesBinding.scheduleHolder.removeView(linearLayout);
+            Timber.d("%s",v.getParent().toString());
+
+
+
 
         }));
         Button startTime = view.findViewById(R.id.startTime);
@@ -110,6 +124,14 @@ public class AddSchedules extends AppCompatActivity {
             showTimePicker(startTime);
         });
         endTime.setOnClickListener(v -> showTimePicker(endTime));
+        activityAddSchedulesBinding.checkR.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            activityAddSchedulesBinding.scheduleHolder.removeAllViews();
+
+        });
+        activityAddSchedulesBinding.checkW.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            activityAddSchedulesBinding.scheduleHolder.removeAllViews();
+
+        });
 
 
     }
@@ -163,13 +185,11 @@ public class AddSchedules extends AppCompatActivity {
             Calendar local = Calendar.getInstance();
             local.set(Calendar.HOUR_OF_DAY, paramAnonymous2Int1);
             local.set(Calendar.MINUTE, paramAnonymous2Int2);
-            //TODO test schedules adding once.
             String str2 = new SimpleDateFormat("hh:mm  ", Locale.getDefault()).format(local.getTime());
             localbtn.setText(str2);
-
-        }, localCalendar.get(Calendar.HOUR_OF_DAY), localCalendar.get(Calendar.MINUTE), false).show()
-        ;
+        }, localCalendar.get(Calendar.HOUR_OF_DAY), localCalendar.get(Calendar.MINUTE), false).show();
 
     }
+
 
 }
