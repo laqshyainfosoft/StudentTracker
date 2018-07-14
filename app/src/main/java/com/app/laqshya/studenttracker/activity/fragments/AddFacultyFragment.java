@@ -129,11 +129,6 @@ public class AddFacultyFragment extends Fragment {
 
             }
         });
-        
-
-
-
-
 
     }
 //    private void setUpObservers() {
