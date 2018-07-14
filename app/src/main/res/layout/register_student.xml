@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="navViewmModel"
             type="com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel" />
+  <!--<variable-->
+      <!--name="validation"-->
+      <!--type="com.app.laqshya.studenttracker.activity.viewmodel.ValidationViewModel"/>-->
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -57,9 +61,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/student_name"
+
                         android:inputType="textPersonName"
                         android:singleLine="true" />
-
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -75,6 +79,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/student_number"
                         android:inputType="phone"
+
                         android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -88,6 +93,7 @@
                     <EditText
                         android:id="@+id/input_email"
                         android:layout_width="match_parent"
+
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_email"
                         android:inputType="textEmailAddress" />
@@ -114,6 +120,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/student_fees"
+
                         android:inputType="phone"
                         android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onFeesChanged(text)}"
                         android:singleLine="true" />
@@ -130,6 +137,7 @@
                     <EditText
                         android:id="@+id/input_downpayment"
                         android:layout_width="match_parent"
+
                         android:layout_height="wrap_content"
                         android:hint="@string/student_downpayment"
                         android:inputType="phone"
@@ -150,6 +158,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/student_installment"
+
                         android:inputType="phone"
                         android:maxLength="1"
                         android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onInstallmentTextChanged(text)}"

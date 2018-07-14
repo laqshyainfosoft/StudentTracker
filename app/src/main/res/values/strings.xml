@@ -176,6 +176,18 @@
     <string name="location">location</string>
     <string name="installments">Installments Should be less than 10</string>
     <string name="manage_students" >Manage Students</string>
+    <string-array name="regularDays">
+        <item>Mon</item>
+        <item>Tues</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
+   <string-array name="weekendDays">
+       <item>Sat</item>
+       <item>Sun</item>
+   </string-array>
 
 
 </resources>

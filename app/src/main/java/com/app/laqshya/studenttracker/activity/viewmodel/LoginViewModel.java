@@ -10,6 +10,7 @@ public class LoginViewModel extends ViewModel {
 
     private LoginRepository loginRepository;
 
+
     public LoginViewModel(LoginRepository loginRepository) {
         this.loginRepository = loginRepository;
     }

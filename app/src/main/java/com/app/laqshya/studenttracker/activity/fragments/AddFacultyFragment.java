@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
+import com.app.laqshya.studenttracker.activity.viewmodel.ValidationViewModel;
 import com.app.laqshya.studenttracker.databinding.RegisterFacultyBinding;
 
 import java.util.Objects;
@@ -24,6 +26,7 @@ import timber.log.Timber;
 public class AddFacultyFragment extends Fragment {
     private RegisterFacultyBinding registerFacultyBinding;
     private StringBuilder coursesBuilder;
+    private ValidationViewModel validationViewModel;
 
     @Nullable
     @Override
@@ -36,6 +39,8 @@ public class AddFacultyFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         coursesBuilder = new StringBuilder();
+//        validationViewModel = ViewModelProviders.of(this).get(ValidationViewModel.class);
+//        setUpObservers();
 
         NavDrawerViewModel navDrawerViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(NavDrawerViewModel.class);
         navDrawerViewModel.isProgress.observe(this, aBoolean -> {
@@ -126,10 +131,24 @@ public class AddFacultyFragment extends Fragment {
 
             }
         });
+        
 
 
 
 
 
     }
+//    private void setUpObservers() {
+//        validationViewModel.errorEmail.observe(this, s -> setErrorMessage(registerFacultyBinding.inputEmail, s));
+//        validationViewModel.errorPhone.observe(this, s -> setErrorMessage(registerFacultyBinding.inputStudentNumber, s));
+//        validationViewModel.errorEmptyName.observe(this, s -> setErrorMessage(registerFacultyBinding.inputStudentName, s));
+//
+//    }
+//
+//    private void setErrorMessage(EditText editText, String message) {
+//
+//        if (message != null && message.length() > 0) {
+//            editText.setError(message);
+//        }
+//    }
 }

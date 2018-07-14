@@ -7,8 +7,6 @@ import android.preference.PreferenceManager;
 
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
-import com.github.leonardoxh.livedatacalladapter.LiveDataCallAdapterFactory;
-import com.github.leonardoxh.livedatacalladapter.LiveDataResponseBodyConverterFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -58,8 +56,6 @@ public class StudentModule {
     static Retrofit getRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
-                .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
-                .addConverterFactory(LiveDataResponseBodyConverterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .baseUrl(EduTrackerService.ENDPOINT)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build();

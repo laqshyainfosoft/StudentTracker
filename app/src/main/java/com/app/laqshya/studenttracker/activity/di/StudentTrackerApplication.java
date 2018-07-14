@@ -1,6 +1,8 @@
 package com.app.laqshya.studenttracker.activity.di;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.app.laqshya.studenttracker.BuildConfig;
 
@@ -24,5 +26,11 @@ public class StudentTrackerApplication extends DaggerApplication {
         StudentComponent studentComponent = DaggerStudentComponent.builder().buildapp(this).build();
         studentComponent.inject(this);
         return studentComponent;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

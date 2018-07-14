@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
+import com.app.laqshya.studenttracker.activity.viewmodel.ValidationViewModel;
 import com.app.laqshya.studenttracker.databinding.RegisterStudentBinding;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import timber.log.Timber;
 public class AddStudentFragment extends Fragment {
     RegisterStudentBinding registerStudentBinding;
     NavDrawerViewModel navDrawerViewModel;
+//    ValidationViewModel validationViewModel;
     private int noOfInstallmentCount = 0;
     private List<Installments> installmentsList;
     private DatePickerFragment datePickerFragment;
@@ -43,7 +46,10 @@ public class AddStudentFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
         datePickerFragment = new DatePickerFragment();
+//        validationViewModel = ViewModelProviders.of(this).get(ValidationViewModel.class);
+//        registerStudentBinding.setValidation(validationViewModel);
         installmentsList = new ArrayList<>();
         navDrawerViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(NavDrawerViewModel.class);
         registerStudentBinding.setNavViewmModel(navDrawerViewModel);
@@ -94,32 +100,32 @@ public class AddStudentFragment extends Fragment {
                 registerStudentBinding.inputStudentName.setError(getString(R.string.fieldsEmpty));
                 isValid = false;
             }
-            if(Utils.isEmpty(phone)){
-                    registerStudentBinding.inputStudentNumber.setError(getString(R.string.fieldsEmpty));
+            if (Utils.isEmpty(phone)) {
+                registerStudentBinding.inputStudentNumber.setError(getString(R.string.fieldsEmpty));
                 isValid = false;
-                }
-            if(Utils.isEmpty(email)){
+            }
+            if (Utils.isEmpty(email)) {
                 registerStudentBinding.inputEmail.setError(getString(R.string.fieldsEmpty));
                 isValid = false;
             }
-            if(Utils.isEmpty(totalFees)){
+            if (Utils.isEmpty(totalFees)) {
                 registerStudentBinding.inputFees.setError(getString(R.string.fieldsEmpty));
                 isValid = false;
             }
-            if(Utils.isEmpty(downPayment)){
+            if (Utils.isEmpty(downPayment)) {
                 registerStudentBinding.inputDownpayment.setError(getString(R.string.fieldsEmpty));
                 isValid = false;
             }
-            if(Utils.isEmpty(installments)){
+            if (Utils.isEmpty(installments)) {
                 registerStudentBinding.inputNoOfInstallments.setError(getString(R.string.fieldsEmpty));
                 isValid = false;
             }
 
             //Toast.makeText(getActivity(), getString(R.string.fieldsEmpty), Toast.LENGTH_SHORT).show();
-             if (!Utils.isValidEmail(email)) {
+            if (!Utils.isValidEmail(email)) {
 //                Toast.makeText(getActivity(), getString(R.string.email_error), Toast.LENGTH_SHORT).show();
                 registerStudentBinding.inputEmail.setError(getString(R.string.email_error));
-                 isValid = false;
+                isValid = false;
             }
             if (!Utils.isValidPhone(phone)) {
 //                Toast.makeText(getActivity(), getString(R.string.mobile_error), Toast.LENGTH_SHORT).show();
@@ -127,7 +133,7 @@ public class AddStudentFragment extends Fragment {
                 isValid = false;
             }
 
-            if(isValid && Utils.isNetworkConnected(getActivity())) {
+            if (isValid && Utils.isNetworkConnected(getActivity())) {
                 navDrawerViewModel.registerStudent(name, phone,
                         email, course, totalFees, downPayment, installments, installmentsList).observe(this, s -> {
 
@@ -138,9 +144,7 @@ public class AddStudentFragment extends Fragment {
                         }
                     }
                 });
-            }
-            else if(!Utils.isNetworkConnected(getActivity()))
-            {
+            } else if (!Utils.isNetworkConnected(getActivity())) {
                 Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
 
             }
@@ -208,6 +212,23 @@ public class AddStudentFragment extends Fragment {
 
         }
     }
+
+//    private void setUpObservers() {
+//        validationViewModel.errorEmail.observe(this, s -> setErrorMessage(registerStudentBinding.inputEmail, s));
+//        validationViewModel.errorPhone.observe(this, s -> setErrorMessage(registerStudentBinding.inputStudentNumber, s));
+//        validationViewModel.errorEmptyName.observe(this, s -> setErrorMessage(registerStudentBinding.inputStudentName, s));
+//        validationViewModel.errorEmptyFees.observe(this, s -> setErrorMessage(registerStudentBinding.inputFees, s));
+//        validationViewModel.errorEmptyDownpayment.observe(this, s -> setErrorMessage(registerStudentBinding.inputDownpayment, s));
+//        validationViewModel.errorEmptyInstallments.observe(this, s -> setErrorMessage(registerStudentBinding.inputNoOfInstallments, s));
+//
+//    }
+//
+//    private void setErrorMessage(EditText editText, String message) {
+//
+//        if (message != null && message.length() > 0) {
+//            editText.setError(message);
+//        }
+//    }
 
 
 }

@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     android:orientation="horizontal"
-    android:layout_margin="5dp">
+    android:paddingBottom="10dp">
+
     <Button
+        android:id="@+id/startTime"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_marginEnd="3dp"
         android:background="@color/colorPrimary"
+        android:textColor="@color/white"
         tools:hint="3:55PM"
-        tools:textColorHint="#fff"/>
+        tools:textColorHint="#fff" />
+
     <Button
+        android:id="@+id/endTime"
         android:layout_width="80dp"
         android:layout_height="50dp"
-        android:layout_marginStart="3dp"
         android:layout_marginEnd="3dp"
+        android:layout_marginStart="3dp"
         android:background="@color/colorPrimary"
+        android:textColor="@color/white"
         tools:hint="5:55PM"
-        tools:textColorHint="#fff"/>
+        tools:textColorHint="#fff" />
+
     <Spinner
+        android:id="@+id/spinnerdays"
+        style="@style/spinner_style"
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_marginStart="3dp" />
+
     <ImageButton
+        android:id="@+id/closelayoutSchedule"
         android:layout_width="60dp"
         android:layout_height="50dp"
-        android:layout_marginStart="4dp"
         android:layout_marginEnd="2dp"
-        android:src="@drawable/ic_close_white_24dp"/>
+        android:layout_marginStart="4dp"
+        android:src="@drawable/ic_close_white_24dp" />
 </LinearLayout>
