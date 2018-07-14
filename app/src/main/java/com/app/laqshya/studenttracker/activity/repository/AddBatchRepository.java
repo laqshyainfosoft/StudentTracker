@@ -49,6 +49,28 @@ public class AddBatchRepository {
 
     public LiveData<List<FacultyList>> getFacultyList() {
         MutableLiveData<List<FacultyList>> facultyLiveData = new MutableLiveData<>();
+        eduTrackerService.getFacultyList().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<FacultyList>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<FacultyList> facultyLists) {
+                        if (facultyLists != null && facultyLists.size() > 0) {
+                            facultyLiveData.setValue(facultyLists);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+
+                    }
+                });
 
         return facultyLiveData;
     }

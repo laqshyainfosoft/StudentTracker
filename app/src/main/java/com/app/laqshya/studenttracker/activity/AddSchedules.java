@@ -1,26 +1,35 @@
 package com.app.laqshya.studenttracker.activity;
 
+import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.AddScheduleFactory;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
+import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.viewmodel.AddSchedulesViewModel;
 import com.app.laqshya.studenttracker.databinding.ActivityAddSchedulesBinding;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import timber.log.Timber;
 
 public class AddSchedules extends AppCompatActivity {
-    private ActivityAddSchedulesBinding activityAddSchedulesBinding;
     @Inject
     EduTrackerService eduTrackerService;
     @Inject
@@ -28,6 +37,8 @@ public class AddSchedules extends AppCompatActivity {
     @Inject
     AddScheduleFactory addScheduleFactory;
     AddSchedulesViewModel addSchedulesViewModel;
+    private ActivityAddSchedulesBinding activityAddSchedulesBinding;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         AndroidInjection.inject(this);
@@ -40,10 +51,63 @@ public class AddSchedules extends AppCompatActivity {
                 ArrayAdapter<CourseList> courses = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseLists);
                 activityAddSchedulesBinding.Atcoursename.setAdapter(courses);
 
+            } else {
+                showToast("Failed to Fetch courses");
             }
 
+        });
+        addSchedulesViewModel.getFacultyList().observe(this, facultyLists -> {
+            if (facultyLists != null && facultyLists.size() > 0) {
+                ArrayAdapter<FacultyList> courses = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, facultyLists);
+                activityAddSchedulesBinding.Atteacher.setAdapter(courses);
+            } else {
+                showToast("Failed to fetch teachers");
+            }
+
+
+        });
+        activityAddSchedulesBinding.calenderbatchstartdate.setOnClickListener(v ->
+        {
+            showDatepPicker();
+        });
+        activityAddSchedulesBinding.addnewschedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addnewSchedule();
+            }
         });
 
 
     }
+
+    private void addnewSchedule() {
+        showToast("Hey");
+
+    }
+
+    private void showDatepPicker() {
+        Calendar localCalendar = Calendar.getInstance();
+        int mYear = localCalendar.get(Calendar.YEAR);
+        int mMonth = localCalendar.get(Calendar.MONTH);
+        int mDay = localCalendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog pickerDialog = new DatePickerDialog(AddSchedules.this, (view, year1, monthOfYear, dayOfMonth) -> {
+            String calenderbatchstartdate1 = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1;
+            Timber.d(calenderbatchstartdate1);
+            try {
+                Date localDate = new SimpleDateFormat("dd/MM/yyyy").parse(calenderbatchstartdate1);
+                String calenderbatchstartdate = new SimpleDateFormat("dd/MM/yyyy").format(localDate);
+                activityAddSchedulesBinding.calenderbatchstartdate.setText(calenderbatchstartdate);
+            } catch (ParseException localParseException) {
+                Timber.d("I crashed in date picker");
+            }
+
+        }, mYear, mMonth, mDay);
+        pickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        pickerDialog.show();
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
 }
