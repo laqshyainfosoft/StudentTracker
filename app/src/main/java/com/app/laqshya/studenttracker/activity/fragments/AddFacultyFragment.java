@@ -10,13 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
-import com.app.laqshya.studenttracker.activity.viewmodel.ValidationViewModel;
 import com.app.laqshya.studenttracker.databinding.RegisterFacultyBinding;
 
 import java.util.Objects;
@@ -26,7 +24,7 @@ import timber.log.Timber;
 public class AddFacultyFragment extends Fragment {
     private RegisterFacultyBinding registerFacultyBinding;
     private StringBuilder coursesBuilder;
-    private ValidationViewModel validationViewModel;
+//    private ValidationViewModel validationViewModel;
 
     @Nullable
     @Override
