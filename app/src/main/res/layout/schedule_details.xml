@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_margin="5dp">
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="3dp"
+        android:background="@color/colorPrimary"
+        tools:hint="3:55PM"
+        tools:textColorHint="#fff"/>
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:background="@color/colorPrimary"
+        tools:hint="5:55PM"
+        tools:textColorHint="#fff"/>
+    <Spinner
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp" />
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="2dp"
+        android:src="@drawable/ic_close_white_24dp"/>
+</LinearLayout>

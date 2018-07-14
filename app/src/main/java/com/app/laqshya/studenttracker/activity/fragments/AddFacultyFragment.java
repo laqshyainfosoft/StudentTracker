@@ -47,6 +47,7 @@ public class AddFacultyFragment extends Fragment {
             }
         });
 
+
         if (Utils.isNetworkConnected(getActivity())) {
             registerFacultyBinding.facultyCourses.setText(getString(R.string.course_name));
             navDrawerViewModel.getCourseList().observe(this, strings -> {
@@ -77,17 +78,38 @@ public class AddFacultyFragment extends Fragment {
         }
 
         registerFacultyBinding.btnSignup.setOnClickListener(v -> {
-            if (Utils.isNetworkConnected(getActivity())) {
-                String name = registerFacultyBinding.inputFacultyName.getText().toString();
-                String facultyPhone = registerFacultyBinding.inputFacultyNumber.getText().toString();
-                String email = registerFacultyBinding.inputEmail.getText().toString();
+            String name = registerFacultyBinding.inputFacultyName.getText().toString();
+            String facultyPhone = registerFacultyBinding.inputFacultyNumber.getText().toString();
+            String email = registerFacultyBinding.inputEmail.getText().toString();
+            boolean isValid = true;
+
+            if (Utils.isEmpty(name)) {
+                registerFacultyBinding.inputFacultyName.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(Utils.isEmpty(facultyPhone)){
+                registerFacultyBinding.inputFacultyNumber.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(Utils.isEmpty(email)){
+                registerFacultyBinding.inputEmail.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if(!Utils.isValidEmail(email)){
+                registerFacultyBinding.inputEmail.setError(getString(R.string.email_error));
+                isValid = false;
+            }
+            if(!Utils.isValidPhone(facultyPhone)){
+                registerFacultyBinding.inputFacultyNumber.setError(getString(R.string.mobile_error));
+                isValid = false;
+            }
+
+
+            if (isValid && Utils.isNetworkConnected(getActivity())) {
+
                 if (coursesBuilder.length() == 0) {
                     Toast.makeText(getActivity(), getString(R.string.courseError), Toast.LENGTH_SHORT).show();
 
-                } else if (Utils.isEmpty(name, facultyPhone, email)) {
-                    Toast.makeText(getActivity(), getString(R.string.fieldsEmpty), Toast.LENGTH_SHORT).show();
-                } else if (!Utils.isValidEmail(email)) {
-                    Toast.makeText(getActivity(), getString(R.string.email_error), Toast.LENGTH_SHORT).show();
                 } else {
 
                     navDrawerViewModel.registerFaculty(name, facultyPhone, email, coursesBuilder.toString())
@@ -99,7 +121,7 @@ public class AddFacultyFragment extends Fragment {
                             });
 
                 }
-            } else {
+            } else if(!Utils.isNetworkConnected(getActivity())) {
                 Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
 
             }

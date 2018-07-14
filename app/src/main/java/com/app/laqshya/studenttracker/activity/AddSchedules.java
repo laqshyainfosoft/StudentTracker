@@ -48,7 +48,7 @@ public class AddSchedules extends AppCompatActivity {
         activityAddSchedulesBinding.txtAtlocation.setText(sessionManager.getLoggedInuserCenter());
         addSchedulesViewModel.getCourseList().observe(this, courseLists -> {
             if (courseLists != null && courseLists.size() > 0) {
-                ArrayAdapter<CourseList> courses = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseLists);
+                ArrayAdapter<CourseList> courses = new ArrayAdapter<>(this, R.layout.spinner_layout, courseLists);
                 activityAddSchedulesBinding.Atcoursename.setAdapter(courses);
 
             } else {
