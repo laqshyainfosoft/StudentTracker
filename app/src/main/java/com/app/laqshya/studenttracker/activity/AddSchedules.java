@@ -6,12 +6,12 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -23,6 +23,7 @@ import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
+import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.AddSchedulesViewModel;
 import com.app.laqshya.studenttracker.databinding.ActivityAddSchedulesBinding;
 
@@ -58,7 +59,7 @@ public class AddSchedules extends AppCompatActivity {
         activityAddSchedulesBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_schedules);
         addSchedulesViewModel = ViewModelProviders.of(this, addScheduleFactory).get(AddSchedulesViewModel.class);
         activityAddSchedulesBinding.txtAtlocation.setText(sessionManager.getLoggedInuserCenter());
-        viewArrayList=new ArrayList<>();
+        viewArrayList = new ArrayList<>();
         addSchedulesViewModel.getCourseList().observe(this, courseLists -> {
             if (courseLists != null && courseLists.size() > 0) {
                 ArrayAdapter<CourseList> courses = new ArrayAdapter<>(this, R.layout.spinner_layout, courseLists);
@@ -84,6 +85,13 @@ public class AddSchedules extends AppCompatActivity {
             showDatepPicker(activityAddSchedulesBinding.calenderbatchstartdate);
         });
         activityAddSchedulesBinding.addnewschedule.setOnClickListener(v -> addnewSchedule());
+        activityAddSchedulesBinding.addstudentbutton.setOnClickListener(v -> {
+            if (isDataValid()) {
+                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+
+            }
+
+        });
 
 
     }
@@ -91,13 +99,13 @@ public class AddSchedules extends AppCompatActivity {
     //This method uses the dynamic schedule layout
     private void addnewSchedule() {
         String[] daysArray = getdays();
-        viewArrayList=new ArrayList<>();
+        viewArrayList = new ArrayList<>();
         List<String> stringList = Arrays.asList(daysArray);
 
         View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.schedule_details, null);
 
         activityAddSchedulesBinding.scheduleHolder.addView(view);
-        LinearLayout linearLayout=view.findViewById(R.id.schedulesRootLayout);
+        LinearLayout linearLayout = view.findViewById(R.id.schedulesRootLayout);
         viewArrayList.add(linearLayout);
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 stringList);
@@ -110,9 +118,7 @@ public class AddSchedules extends AppCompatActivity {
 //            activityAddSchedulesBinding.scheduleHolderLayout.removeView(v);
 
             activityAddSchedulesBinding.scheduleHolder.removeView(linearLayout);
-            Timber.d("%s",v.getParent().toString());
-
-
+            Timber.d("%s", v.getParent().toString());
 
 
         }));
@@ -133,6 +139,39 @@ public class AddSchedules extends AppCompatActivity {
 
         });
 
+
+    }
+
+    private boolean isDataValid() {
+        String teachername=null,coursename=null,date=null;
+        try {
+             teachername = activityAddSchedulesBinding.Atteacher.getSelectedItem().toString();
+             coursename = activityAddSchedulesBinding.Atcoursename.getSelectedItem().toString();
+             date = activityAddSchedulesBinding.calenderbatchstartdate.getText().toString();
+        }catch (NullPointerException exception){
+            Timber.d(exception);
+
+        }
+        int childCount = activityAddSchedulesBinding.scheduleHolder.getChildCount();
+        Timber.d("%d", activityAddSchedulesBinding.scheduleHolder.getChildCount());
+        boolean isValid = true;
+        if (!Utils.isNetworkConnected(getApplicationContext())) {
+            isValid = false;
+            showSnackBar(getString(R.string.internet_connection));
+        } else if (teachername == null || teachername.isEmpty()) {
+            showSnackBar(getString(R.string.facultyError));
+            isValid = false;
+        } else if (coursename == null || coursename.isEmpty()) {
+            isValid = false;
+            showSnackBar(getString(R.string.courseError));
+        } else if (childCount <= 0) {
+            showSnackBar(getString(R.string.batchError));
+            isValid = false;
+        } else if (date != null && date.equalsIgnoreCase("DD/MM/YYYY")) {
+            showSnackBar(getString(R.string.dateError));
+            isValid = false;
+        }
+        return isValid;
 
     }
 
@@ -158,7 +197,7 @@ public class AddSchedules extends AppCompatActivity {
                 Date localDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(calenderbatchstartdate1);
                 String calenderbatchstartdate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(localDate);
                 v.setText(calenderbatchstartdate);
-            } catch (ParseException localParseException) {
+            } catch (ParseException localParseExceptiofieldsEmptyn) {
                 Timber.d("I crashed in date picker");
 
             }
@@ -189,6 +228,12 @@ public class AddSchedules extends AppCompatActivity {
             localbtn.setText(str2);
         }, localCalendar.get(Calendar.HOUR_OF_DAY), localCalendar.get(Calendar.MINUTE), false).show();
 
+    }
+
+    private void showSnackBar(String snackMessage) {
+        Snackbar snackbar = Snackbar.make(activityAddSchedulesBinding.content,
+                snackMessage, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
 

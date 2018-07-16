@@ -2,6 +2,7 @@ package com.app.laqshya.studenttracker.activity.service;
 
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
+import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.LoginModel;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
@@ -48,6 +49,9 @@ public interface EduTrackerService {
 
     @GET("getFacultyList.php")
     Single<List<FacultyList>> getFacultyList();
+    @FormUrlEncoded
+    @POST("getModule.php")
+    Single<List<CourseModuleList>> getModuleForCourse(@Field("course_name")String course_name);
 
 
 

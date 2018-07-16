@@ -28,6 +28,7 @@ import com.app.laqshya.studenttracker.activity.fragments.Refer_Friendfragment;
 import com.app.laqshya.studenttracker.activity.fragments.ScheduleBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.SyllabusFragment;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
+import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.repository.RegistrationRepository;
 
@@ -120,6 +121,9 @@ public class NavDrawerViewModel extends ViewModel {
         isProgress.setValue(true);
         return registrationRepository.registerFaculty(email, phoneNumber, username, courses);
     }
+    public LiveData<List<CourseModuleList>> getCourseModule(String course){
+        return registrationRepository.getCourseModule(course);
+    }
 
     public void onInstallmentTextChanged(CharSequence noOfInstallments) {
         int noInstallment = 0;
@@ -169,10 +173,8 @@ public class NavDrawerViewModel extends ViewModel {
 
     }
 
-    public LiveData<String> registerStudent(String name, String phone, String email, String course, String fees,
-                                            String downpayment, String noofinstalments, List<Installments> installmentsList) {
-        return registrationRepository.registerStudent(name, phone, email, course, fees,
-                downpayment, noofinstalments, installmentsList);
+    public LiveData<String> registerStudent(String name, String phone, String email) {
+        return registrationRepository.registerStudent(name, phone, email);
 
     }
 
@@ -295,21 +297,13 @@ public class NavDrawerViewModel extends ViewModel {
 
     }
 
-    public void clickAddStudent() {
-        Fragment fragment = new AddStudentFragment();
-        loadableFragment.setValue(fragment);
 
-
-    }
 
     public void clickManageStudent() {
         Timber.d("%s", "Clicked");
     }
 
-    public void scheduleBatches() {
-        Timber.d("%s", "Clicked");
 
-    }
 
     public void broadcast() {
         Timber.d("%s", "Clicked");

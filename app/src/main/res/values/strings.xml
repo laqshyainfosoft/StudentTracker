@@ -168,6 +168,7 @@
     <string name="counsellor_registration">Counsellor Registration</string>
     <string name="student_registration">Student Registration</string>
     <string name="courseError">Please Select Courses</string>
+    <string name="facultyError">Please Select a Faculty</string>
     <string name="fieldsEmpty">Field cannot be empty</string>
     <string name="email_error">Please check the email address</string>
     <string name="mobile_error">Please check the phone number</string>
@@ -176,6 +177,12 @@
     <string name="location">location</string>
     <string name="installments">Installments Should be less than 10</string>
     <string name="manage_students" >Manage Students</string>
+    <string name="batchError">Please Add Atleast One Batch</string>
+    <string name="dateError">Please Select a Batch Start Date</string>
+    <string name="internet_connection">Please check your internet connection</string>
+    <string name="course_module_prompt">Choose Course Module</string>
+    <string name="course_module_name">Course Module</string>
+    <string name="add_courses">Add Courses</string>
     <string-array name="regularDays">
         <item>Mon</item>
         <item>Tues</item>

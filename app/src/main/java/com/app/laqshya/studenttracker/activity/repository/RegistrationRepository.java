@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
+import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
@@ -162,9 +163,9 @@ public class RegistrationRepository {
         return coursesList;
     }
 
-    public LiveData<String> registerStudent(String name, String phone, String email, String course, String fees, String downpayment, String noofinstalments, List<Installments> installmentsList) {
+    public LiveData<String> registerStudent(String name, String phone, String email) {
         MutableLiveData<String> response = new MutableLiveData<>();
-        StudentInfo studentInfo = new StudentInfo(name, email, phone, course, downpayment, fees, installmentsList);
+        StudentInfo studentInfo = new StudentInfo(name, email, phone);
         eduTrackerService.registerStudent(studentInfo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -187,6 +188,31 @@ public class RegistrationRepository {
                     @Override
                     public void onError(Throwable e) {
                         response.setValue("Error");
+
+                    }
+                });
+        return response;
+    }
+    public LiveData<List<CourseModuleList>> getCourseModule(String course){
+        MutableLiveData<List<CourseModuleList>> response=new MutableLiveData<>();
+        eduTrackerService.getModuleForCourse(course)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<CourseModuleList>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<CourseModuleList> strings) {
+                        response.setValue(strings);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
 
                     }
                 });

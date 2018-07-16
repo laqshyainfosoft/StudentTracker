@@ -9,14 +9,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
+import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
+import com.app.laqshya.studenttracker.databinding.CourseLayoutBinding;
 import com.app.laqshya.studenttracker.databinding.RegisterStudentBinding;
 
 import java.util.ArrayList;
@@ -28,7 +31,8 @@ import timber.log.Timber;
 public class AddStudentFragment extends Fragment {
     RegisterStudentBinding registerStudentBinding;
     NavDrawerViewModel navDrawerViewModel;
-//    ValidationViewModel validationViewModel;
+    //    ValidationViewModel validationViewModel;
+    CourseLayoutBinding courseLayoutBinding;
     private int noOfInstallmentCount = 0;
     private List<Installments> installmentsList;
     private DatePickerFragment datePickerFragment;
@@ -51,15 +55,115 @@ public class AddStudentFragment extends Fragment {
         installmentsList = new ArrayList<>();
         navDrawerViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(NavDrawerViewModel.class);
         registerStudentBinding.setNavViewmModel(navDrawerViewModel);
-        navDrawerViewModel.getCourseList().observe(this, strings -> {
-            if (strings != null && strings.size() > 0) {
-                ArrayAdapter<String> courses = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item,
-                        strings);
-                registerStudentBinding.studentCourseSpinner.setAdapter(courses);
+
+        registerStudentBinding.btnSignup.setOnClickListener(v -> {
+            String name = registerStudentBinding.inputStudentName.getText().toString();
+            String phone = registerStudentBinding.inputStudentNumber.getText().toString();
+            String email = registerStudentBinding.inputEmail.getText().toString();
+//            String course = registerStudentBinding.studentCourseSpinner.getSelectedItem().toString();
+//            String totalFees = registerStudentBinding.inputFees.getText().toString();
+//            String downPayment = registerStudentBinding.inputDownpayment.getText().toString();
+//            String installments = registerStudentBinding.inputNoOfInstallments.getText().toString();
+            boolean isValid = true;
+
+            if (Utils.isEmpty(name)) {
+                registerStudentBinding.inputStudentName.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if (Utils.isEmpty(phone)) {
+                registerStudentBinding.inputStudentNumber.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+            if (Utils.isEmpty(email)) {
+                registerStudentBinding.inputEmail.setError(getString(R.string.fieldsEmpty));
+                isValid = false;
+            }
+//            if (Utils.isEmpty(totalFees)) {
+//                registerStudentBinding.inputFees.setError(getString(R.string.fieldsEmpty));
+//                isValid = false;
+//            }
+//            if (Utils.isEmpty(downPayment)) {
+//                registerStudentBinding.inputDownpayment.setError(getString(R.string.fieldsEmpty));
+//                isValid = false;
+//            }
+//            if (Utils.isEmpty(installments)) {
+//                registerStudentBinding.inputNoOfInstallments.setError(getString(R.string.fieldsEmpty));
+//                isValid = false;
+//            }
+
+            //Toast.makeText(getActivity(), getString(R.string.fieldsEmpty), Toast.LENGTH_SHORT).show();
+            if (!Utils.isValidEmail(email)) {
+//                Toast.makeText(getActivity(), getString(R.string.email_error), Toast.LENGTH_SHORT).show();
+                registerStudentBinding.inputEmail.setError(getString(R.string.email_error));
+                isValid = false;
+            }
+            if (!Utils.isValidPhone(phone)) {
+//                Toast.makeText(getActivity(), getString(R.string.mobile_error), Toast.LENGTH_SHORT).show();
+                registerStudentBinding.inputStudentNumber.setError(getString(R.string.mobile_error));
+                isValid = false;
             }
 
+            if (isValid && Utils.isNetworkConnected(getActivity())) {
+                navDrawerViewModel.registerStudent(name, phone,
+                        email).observe(this, s -> {
+
+                    if (s != null && s.length() > 0) {
+                        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                        {
+                            Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                            manageStudentAdded(s);
+                        }
+                    }
+                });
+            } else if (!Utils.isNetworkConnected(getActivity())) {
+                Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+
+            }
+
+
         });
-        navDrawerViewModel.noOfInstallments.observe(this, integer -> {
+
+
+    }
+
+    private void manageStudentAdded(String studentStatus) {
+        if (studentStatus.contains("Successfully")) {
+            registerStudentBinding.btnSignup.setText(getString(R.string.add_courses));
+             courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
+            registerStudentBinding.coursesFillerlayout.addView(courseLayoutBinding.getRoot());
+            navDrawerViewModel.getCourseList().observe(this, strings -> {
+                if (strings != null && strings.size() > 0) {
+                    ArrayAdapter<String> courses = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_dropdown_item,
+                            strings);
+                    courseLayoutBinding.studentCourseSpinner.setAdapter(courses);
+                }
+
+            });
+            courseLayoutBinding.studentCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String item = parent.getSelectedItem().toString();
+                    changeViewState();
+                    navDrawerViewModel.getCourseModule(item)
+                            .observe(AddStudentFragment.this, strings -> {
+
+                                if (strings != null && strings.size() > 0) {
+
+                                    ArrayAdapter<CourseModuleList> courses = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_dropdown_item,
+                                            strings);
+                                    courseLayoutBinding.studentCourseModuleSpinner.setAdapter(courses);
+                                }
+
+
+                            });
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            navDrawerViewModel.noOfInstallments.observe(this, integer -> {
             if (integer != null) {
                 if (integer > 0 && integer <= 10) {
 
@@ -84,101 +188,43 @@ public class AddStudentFragment extends Fragment {
             }
 
         });
-        registerStudentBinding.btnSignup.setOnClickListener(v -> {
-            String name = registerStudentBinding.inputStudentName.getText().toString();
-            String phone = registerStudentBinding.inputStudentNumber.getText().toString();
-            String email = registerStudentBinding.inputEmail.getText().toString();
-            String course = registerStudentBinding.studentCourseSpinner.getSelectedItem().toString();
-            String totalFees = registerStudentBinding.inputFees.getText().toString();
-            String downPayment = registerStudentBinding.inputDownpayment.getText().toString();
-            String installments = registerStudentBinding.inputNoOfInstallments.getText().toString();
-            boolean isValid = true;
-
-            if (Utils.isEmpty(name)) {
-                registerStudentBinding.inputStudentName.setError(getString(R.string.fieldsEmpty));
-                isValid = false;
-            }
-            if (Utils.isEmpty(phone)) {
-                registerStudentBinding.inputStudentNumber.setError(getString(R.string.fieldsEmpty));
-                isValid = false;
-            }
-            if (Utils.isEmpty(email)) {
-                registerStudentBinding.inputEmail.setError(getString(R.string.fieldsEmpty));
-                isValid = false;
-            }
-            if (Utils.isEmpty(totalFees)) {
-                registerStudentBinding.inputFees.setError(getString(R.string.fieldsEmpty));
-                isValid = false;
-            }
-            if (Utils.isEmpty(downPayment)) {
-                registerStudentBinding.inputDownpayment.setError(getString(R.string.fieldsEmpty));
-                isValid = false;
-            }
-            if (Utils.isEmpty(installments)) {
-                registerStudentBinding.inputNoOfInstallments.setError(getString(R.string.fieldsEmpty));
-                isValid = false;
-            }
-
-            //Toast.makeText(getActivity(), getString(R.string.fieldsEmpty), Toast.LENGTH_SHORT).show();
-            if (!Utils.isValidEmail(email)) {
-//                Toast.makeText(getActivity(), getString(R.string.email_error), Toast.LENGTH_SHORT).show();
-                registerStudentBinding.inputEmail.setError(getString(R.string.email_error));
-                isValid = false;
-            }
-            if (!Utils.isValidPhone(phone)) {
-//                Toast.makeText(getActivity(), getString(R.string.mobile_error), Toast.LENGTH_SHORT).show();
-                registerStudentBinding.inputStudentNumber.setError(getString(R.string.mobile_error));
-                isValid = false;
-            }
-
-            if (isValid && Utils.isNetworkConnected(getActivity())) {
-                navDrawerViewModel.registerStudent(name, phone,
-                        email, course, totalFees, downPayment, installments, installmentsList).observe(this, s -> {
-
-                    if (s != null && s.length() > 0) {
-                        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-                        {
-                            Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            } else if (!Utils.isNetworkConnected(getActivity())) {
-                Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
-
-            }
 
 
-        });
+        }
+    }
 
-
+    private void changeViewState() {
+        registerStudentBinding.inputEmail.setEnabled(false);
+        registerStudentBinding.inputStudentName.setEnabled(false);
+        registerStudentBinding.inputStudentNumber.setEnabled(false);
     }
 
     //This method manages the dynamic installment layout.
     private void manageInstallments(int value) {
         //TODO fix views reset on amounts change.
-        registerStudentBinding.installmentLayout.removeAllViews();
+     //   registerStudentBinding.installmentLayout.removeAllViews();
         if (installmentsList != null && installmentsList.size() > 0) {
             installmentsList.clear();
         }
         int amount = 0;
         if (value > 0) {
-            registerStudentBinding.installmentLayout.setVisibility(View.VISIBLE);
-            if (!registerStudentBinding.inputFees.getText().toString().trim().isEmpty()
-                    && !registerStudentBinding.inputDownpayment.getText().toString().trim().isEmpty()
-                    && !registerStudentBinding.inputNoOfInstallments.getText().toString().trim().isEmpty()) {
-                int fees = Integer.parseInt(registerStudentBinding.inputFees.getText().toString());
-                int downPayment = Integer.parseInt(registerStudentBinding.inputDownpayment.getText().toString()
+            courseLayoutBinding.installmentLayout.setVisibility(View.VISIBLE);
+            if (!courseLayoutBinding.inputFees.getText().toString().trim().isEmpty()
+                    && !courseLayoutBinding.inputDownpayment.getText().toString().trim().isEmpty()
+                    && !courseLayoutBinding.inputNoOfInstallments.getText().toString().trim().isEmpty()) {
+                int fees = Integer.parseInt(courseLayoutBinding.inputFees.getText().toString());
+                int downPayment = Integer.parseInt(courseLayoutBinding.inputDownpayment.getText().toString()
                 );
 
                 amount = (fees - downPayment) / noOfInstallmentCount;
 
             } else {
-                registerStudentBinding.installmentLayout.setVisibility(View.GONE);
+                courseLayoutBinding.installmentLayout.setVisibility(View.GONE);
             }
 
             for (int i = 0; i < noOfInstallmentCount; i++) {
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.installment_layout, null, false);
-                registerStudentBinding.installmentLayout.addView(view);
+                courseLayoutBinding.installmentLayout.addView(view);
                 TextView installmentNumberTextView = view.findViewById(R.id.installmentNumber);
                 installmentNumberTextView.setText(String.valueOf(i + 1));
                 TextView datePicker = view.findViewById(R.id.installmentDate);
@@ -210,24 +256,6 @@ public class AddStudentFragment extends Fragment {
 
         }
     }
-
-//    private void setUpObservers() {
-//        validationViewModel.errorEmail.observe(this, s -> setErrorMessage(registerStudentBinding.inputEmail, s));
-//        validationViewModel.errorPhone.observe(this, s -> setErrorMessage(registerStudentBinding.inputStudentNumber, s));
-//        validationViewModel.errorEmptyName.observe(this, s -> setErrorMessage(registerStudentBinding.inputStudentName, s));
-//        validationViewModel.errorEmptyFees.observe(this, s -> setErrorMessage(registerStudentBinding.inputFees, s));
-//        validationViewModel.errorEmptyDownpayment.observe(this, s -> setErrorMessage(registerStudentBinding.inputDownpayment, s));
-//        validationViewModel.errorEmptyInstallments.observe(this, s -> setErrorMessage(registerStudentBinding.inputNoOfInstallments, s));
-//
-//    }
-//
-//    private void setErrorMessage(EditText editText, String message) {
-//
-//        if (message != null && message.length() > 0) {
-//            editText.setError(message);
-//        }
-//    }
-
 
 }
 
