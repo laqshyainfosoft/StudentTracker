@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/view_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -148,17 +148,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:background="@drawable/ic_surround_sound_black_24dp" />
+                            android:background="@drawable/ic_assignment_black_80dp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Broadcast"
+                            android:text="Schedule"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="15sp"
                             android:textStyle="bold" />
-
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
