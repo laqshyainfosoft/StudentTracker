@@ -7,7 +7,7 @@
             type="com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel" />
         <variable
             name="noOfCourses"
-            type="Integer"/>
+            type="int"/>
         </data>
 <LinearLayout
 

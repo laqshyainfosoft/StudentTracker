@@ -139,7 +139,7 @@ public class AddStudentFragment extends Fragment {
             registerStudentBinding.addCourses.setOnClickListener((v -> {manageStudentAdded("Successfully");}));
             courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
             courseLayoutBinding.setNavViewmModel(navDrawerViewModel);
-//            int coursesCount=courseLayoutBinding.getNoOfCourses()+1;
+            int coursesCount=courseLayoutBinding.getNoOfCourses()+1;
 //            courseLayoutBinding.setNoOfCourses(coursesCount);
 
             courseLayoutBindingsList.add(courseLayoutBinding);
@@ -220,12 +220,12 @@ public class AddStudentFragment extends Fragment {
     private void manageInstallments(int value) {
         CourseLayoutBinding courseLayoutBinding=null;
         //TODO fix views reset on amounts change.
-        if(navDrawerViewModel.courseCountTrack.getValue()!=null) {
-            int position = navDrawerViewModel.courseCountTrack.getValue();
+
+            int position = 0;
             courseLayoutBindingsList.get(position).installmentLayout.removeAllViews();
             courseLayoutBinding=courseLayoutBindingsList.get(position);
 
-        }
+
 
         Timber.d("Installment amnt is %d", value);
         if (installmentsList != null && installmentsList.size() > 0) {

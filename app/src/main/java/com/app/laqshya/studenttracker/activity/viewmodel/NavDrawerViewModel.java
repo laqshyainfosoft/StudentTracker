@@ -159,7 +159,7 @@ public class NavDrawerViewModel extends ViewModel {
     }
 
     public void onFeesChanged(int coursesCount,CharSequence feesAmnt) {
-
+        coursesCount=0;
         Timber.d("Fees Amount is %s",feesAmnt);
         int fees = 0;
         if (!feesAmnt.toString().trim().isEmpty()) {
@@ -173,11 +173,13 @@ public class NavDrawerViewModel extends ViewModel {
 
         }
         this.totalFees.setValue(fees);
+        this.courseCountTrack.setValue(0);
 
     }
 
     public void onDownPaymentChanged(int coursesCount,CharSequence dpAmnt) {
         int dpAmntVal = 0;
+        coursesCount=0;
         Timber.d("DP` Amount is %s",dpAmnt);
         if (!noOfInstallments.toString().trim().isEmpty()) {
             try {
@@ -190,6 +192,7 @@ public class NavDrawerViewModel extends ViewModel {
 
         }
         this.downPayment.setValue(dpAmntVal);
+        this.courseCountTrack.setValue(0);
 
     }
 
