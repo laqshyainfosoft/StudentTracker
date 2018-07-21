@@ -45,10 +45,6 @@ public class NavDrawerViewModel extends ViewModel {
     public MutableLiveData<Integer> downPayment = new MutableLiveData<>();
     public MutableLiveData<Integer> totalFees = new MediatorLiveData<>();
     public MutableLiveData<List<Integer>> listnoOfInstallments = new MutableLiveData<>();
-    public MutableLiveData<List<Integer>> listdownPayment = new MutableLiveData<>();
-    public MutableLiveData<List<Integer>> listtotalFees = new MediatorLiveData<>();
-    public MutableLiveData<Integer> courseCountTrack=new MutableLiveData<>();
-    private List<Integer> listInstallments=new ArrayList<>();
     private List<Integer> listDp=new ArrayList<>();
     private List<Integer> listFees=new ArrayList<>();
     private RegistrationRepository registrationRepository;
@@ -134,13 +130,8 @@ public class NavDrawerViewModel extends ViewModel {
         return registrationRepository.getCourseModule(course);
     }
 
-    public void onInstallmentTextChanged(int coursesCount,CharSequence noOfInstallments) {
+    public void onInstallmentTextChanged(CharSequence noOfInstallments) {
         int noInstallment = 0;
-        coursesCount=0;
-
-
-
-
         Timber.d("Installment Count is %d",noInstallment);
         if (!noOfInstallments.toString().trim().isEmpty()) {
             try {
@@ -153,13 +144,12 @@ public class NavDrawerViewModel extends ViewModel {
 
         }
         this.noOfInstallments.setValue(noInstallment);
-        this.listnoOfInstallments.setValue(listInstallments);
-        this.courseCountTrack.setValue(0);
+
 
     }
 
-    public void onFeesChanged(int coursesCount,CharSequence feesAmnt) {
-        coursesCount=0;
+    public void onFeesChanged(CharSequence feesAmnt) {
+
         Timber.d("Fees Amount is %s",feesAmnt);
         int fees = 0;
         if (!feesAmnt.toString().trim().isEmpty()) {
@@ -173,13 +163,13 @@ public class NavDrawerViewModel extends ViewModel {
 
         }
         this.totalFees.setValue(fees);
-        this.courseCountTrack.setValue(0);
+
 
     }
 
-    public void onDownPaymentChanged(int coursesCount,CharSequence dpAmnt) {
+    public void onDownPaymentChanged(CharSequence dpAmnt) {
         int dpAmntVal = 0;
-        coursesCount=0;
+
         Timber.d("DP` Amount is %s",dpAmnt);
         if (!noOfInstallments.toString().trim().isEmpty()) {
             try {
@@ -192,7 +182,7 @@ public class NavDrawerViewModel extends ViewModel {
 
         }
         this.downPayment.setValue(dpAmntVal);
-        this.courseCountTrack.setValue(0);
+
 
     }
 

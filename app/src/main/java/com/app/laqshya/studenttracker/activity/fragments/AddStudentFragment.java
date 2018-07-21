@@ -216,6 +216,7 @@ public class AddStudentFragment extends Fragment {
         courseLayoutBinding.inputDownpayment.setText("");
         courseLayoutBinding.inputNoOfInstallments.setText("");
         courseLayoutBinding.studentCourseSpinner.setSelection(0);
+        courseLayoutBinding.installmentLayout.removeAllViews();
     }
 
     //Disables the already submitted fields.
@@ -224,6 +225,7 @@ public class AddStudentFragment extends Fragment {
         registerStudentBinding.inputEmail.setEnabled(false);
         registerStudentBinding.inputStudentName.setEnabled(false);
         registerStudentBinding.inputStudentNumber.setEnabled(false);
+
 
     }
 
