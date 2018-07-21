@@ -21,8 +21,6 @@ import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
 import com.app.laqshya.studenttracker.databinding.CourseLayoutBinding;
 import com.app.laqshya.studenttracker.databinding.RegisterStudentBinding;
-import com.example.custom_spinner_library.MultiSpinner;
-import com.example.custom_spinner_library.MultiSpinner_Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +36,8 @@ public class AddStudentFragment extends Fragment {
     private int noOfInstallmentCount = 0;
     private List<Installments> installmentsList;
     private DatePickerFragment datePickerFragment;
+    private List<CourseLayoutBinding> courseLayoutBindingsList;
+
 
     @Nullable
     @Override
@@ -49,6 +49,8 @@ public class AddStudentFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        courseLayoutBindingsList=new ArrayList<>();
+
 
 
         datePickerFragment = new DatePickerFragment();
@@ -59,9 +61,9 @@ public class AddStudentFragment extends Fragment {
         registerStudentBinding.setNavViewmModel(navDrawerViewModel);
 
         registerStudentBinding.btnSignup.setOnClickListener(v -> {
-            String name = registerStudentBinding.inputStudentName.getText().toString();
-            String phone = registerStudentBinding.inputStudentNumber.getText().toString();
-            String email = registerStudentBinding.inputEmail.getText().toString();
+            String name = registerStudentBinding.inputStudentName.getText().toString().trim();
+            String phone = registerStudentBinding.inputStudentNumber.getText().toString().trim();
+            String email = registerStudentBinding.inputEmail.getText().toString().trim();
 //            String course = registerStudentBinding.studentCourseSpinner.getSelectedItem().toString();
 //            String totalFees = registerStudentBinding.inputFees.getText().toString();
 //            String downPayment = registerStudentBinding.inputDownpayment.getText().toString();
@@ -127,11 +129,20 @@ public class AddStudentFragment extends Fragment {
 
 
     }
-//Manages the courses to be registered for student in the student registration process.
+
+    //Manages the courses to be registered for student in the student registration process.
     private void manageStudentAdded(String studentStatus) {
         if (studentStatus.contains("Successfully")) {
-            registerStudentBinding.btnSignup.setText(getString(R.string.add_courses));
+            registerStudentBinding.addCourses.setVisibility(View.VISIBLE);
+            registerStudentBinding.saveCourses.setVisibility(View.VISIBLE);
+            registerStudentBinding.btnSignup.setVisibility(View.GONE);
+            registerStudentBinding.addCourses.setOnClickListener((v -> {manageStudentAdded("Successfully");}));
             courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
+            courseLayoutBinding.setNavViewmModel(navDrawerViewModel);
+//            int coursesCount=courseLayoutBinding.getNoOfCourses()+1;
+//            courseLayoutBinding.setNoOfCourses(coursesCount);
+
+            courseLayoutBindingsList.add(courseLayoutBinding);
             registerStudentBinding.coursesFillerlayout.addView(courseLayoutBinding.getRoot());
             navDrawerViewModel.getCourseList().observe(this, strings -> {
                 if (strings != null && strings.size() > 0) {
@@ -141,7 +152,6 @@ public class AddStudentFragment extends Fragment {
                 }
 
             });
-
             courseLayoutBinding.studentCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -156,7 +166,7 @@ public class AddStudentFragment extends Fragment {
                                             strings);
                                     courseLayoutBinding.studentCourseModuleSpinner.setAdapter(courses, false, selected -> {
 
-                                    },"Please Select Course Module");
+                                    }, "Please Select Course Module");
                                 }
 
                             });
@@ -196,17 +206,28 @@ public class AddStudentFragment extends Fragment {
 
         }
     }
-//Disables the already submitted fields.
+
+    //Disables the already submitted fields.
     private void changeViewState() {
+
         registerStudentBinding.inputEmail.setEnabled(false);
         registerStudentBinding.inputStudentName.setEnabled(false);
         registerStudentBinding.inputStudentNumber.setEnabled(false);
+
     }
 
     //This method manages the dynamic installment layout.
     private void manageInstallments(int value) {
+        CourseLayoutBinding courseLayoutBinding=null;
         //TODO fix views reset on amounts change.
-        //   registerStudentBinding.installmentLayout.removeAllViews();
+        if(navDrawerViewModel.courseCountTrack.getValue()!=null) {
+            int position = navDrawerViewModel.courseCountTrack.getValue();
+            courseLayoutBindingsList.get(position).installmentLayout.removeAllViews();
+            courseLayoutBinding=courseLayoutBindingsList.get(position);
+
+        }
+
+        Timber.d("Installment amnt is %d", value);
         if (installmentsList != null && installmentsList.size() > 0) {
             installmentsList.clear();
         }

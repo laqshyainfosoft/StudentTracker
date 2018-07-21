@@ -32,6 +32,7 @@ import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.repository.RegistrationRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -43,7 +44,13 @@ public class NavDrawerViewModel extends ViewModel {
     public MutableLiveData<Integer> noOfInstallments = new MutableLiveData<>();
     public MutableLiveData<Integer> downPayment = new MutableLiveData<>();
     public MutableLiveData<Integer> totalFees = new MediatorLiveData<>();
-    public MutableLiveData<Fragment> loadableFragment = new MutableLiveData<>();
+    public MutableLiveData<List<Integer>> listnoOfInstallments = new MutableLiveData<>();
+    public MutableLiveData<List<Integer>> listdownPayment = new MutableLiveData<>();
+    public MutableLiveData<List<Integer>> listtotalFees = new MediatorLiveData<>();
+    public MutableLiveData<Integer> courseCountTrack=new MutableLiveData<>();
+    private List<Integer> listInstallments=new ArrayList<>();
+    private List<Integer> listDp=new ArrayList<>();
+    private List<Integer> listFees=new ArrayList<>();
     private RegistrationRepository registrationRepository;
 
     public NavDrawerViewModel(RegistrationRepository registrationRepository) {
@@ -56,6 +63,8 @@ public class NavDrawerViewModel extends ViewModel {
                 // home
                 fragmentTitle.setValue("Home");
                 return new HomeFragmentAdmin();
+
+
             case 1:
                 fragmentTitle.setValue("Add Counsellor");
                 return new AddCounsellorFragment();
@@ -125,8 +134,14 @@ public class NavDrawerViewModel extends ViewModel {
         return registrationRepository.getCourseModule(course);
     }
 
-    public void onInstallmentTextChanged(CharSequence noOfInstallments) {
+    public void onInstallmentTextChanged(int coursesCount,CharSequence noOfInstallments) {
         int noInstallment = 0;
+        coursesCount=0;
+
+
+
+
+        Timber.d("Installment Count is %d",noInstallment);
         if (!noOfInstallments.toString().trim().isEmpty()) {
             try {
                 noInstallment = Integer.parseInt(String.valueOf(noOfInstallments));
@@ -138,14 +153,18 @@ public class NavDrawerViewModel extends ViewModel {
 
         }
         this.noOfInstallments.setValue(noInstallment);
+        this.listnoOfInstallments.setValue(listInstallments);
+        this.courseCountTrack.setValue(0);
 
     }
 
-    public void onFeesChanged(CharSequence noOfInstallments) {
-        int noInstallment = 0;
-        if (!noOfInstallments.toString().trim().isEmpty()) {
+    public void onFeesChanged(int coursesCount,CharSequence feesAmnt) {
+
+        Timber.d("Fees Amount is %s",feesAmnt);
+        int fees = 0;
+        if (!feesAmnt.toString().trim().isEmpty()) {
             try {
-                noInstallment = Integer.parseInt(String.valueOf(noOfInstallments));
+                fees = Integer.parseInt(String.valueOf(feesAmnt));
 
             } catch (NumberFormatException exception) {
 
@@ -153,15 +172,16 @@ public class NavDrawerViewModel extends ViewModel {
             }
 
         }
-        this.totalFees.setValue(noInstallment);
+        this.totalFees.setValue(fees);
 
     }
 
-    public void onDownPaymentChanged(CharSequence noOfInstallments) {
-        int noInstallment = 0;
+    public void onDownPaymentChanged(int coursesCount,CharSequence dpAmnt) {
+        int dpAmntVal = 0;
+        Timber.d("DP` Amount is %s",dpAmnt);
         if (!noOfInstallments.toString().trim().isEmpty()) {
             try {
-                noInstallment = Integer.parseInt(String.valueOf(noOfInstallments));
+                dpAmntVal = Integer.parseInt(String.valueOf(dpAmnt));
 
             } catch (NumberFormatException exception) {
 
@@ -169,7 +189,7 @@ public class NavDrawerViewModel extends ViewModel {
             }
 
         }
-        this.downPayment.setValue(noInstallment);
+        this.downPayment.setValue(dpAmntVal);
 
     }
 

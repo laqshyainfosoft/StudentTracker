@@ -5,10 +5,14 @@
         <variable
             name="navViewmModel"
             type="com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel" />
+        <variable
+            name="noOfCourses"
+            type="Integer"/>
         </data>
 <LinearLayout
 
     android:orientation="vertical"
+    android:id="@+id/courseLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Spinner
@@ -40,7 +44,7 @@
             android:hint="@string/student_fees"
 
             android:inputType="phone"
-            android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onFeesChanged(text)}"
+            android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onFeesChanged(noOfCourses,text)}"
             android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
@@ -59,7 +63,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/student_downpayment"
             android:inputType="phone"
-            android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onDownPaymentChanged(text)}"
+            android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onDownPaymentChanged(noOfCourses,text)}"
             android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
@@ -79,7 +83,7 @@
 
             android:inputType="phone"
             android:maxLength="1"
-            android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onInstallmentTextChanged(text)}"
+            android:onTextChanged="@{(text, start, before, count) ->navViewmModel.onInstallmentTextChanged(noOfCourses,text)}"
             android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>

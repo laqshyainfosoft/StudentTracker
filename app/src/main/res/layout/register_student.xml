@@ -186,6 +186,26 @@
                     android:background="@color/colorPrimary"
                     android:text="@string/btn_sign_up"
                     android:textColor="@android:color/white" />
+                <Button
+                    android:id="@+id/add_courses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/add_courses"
+                    android:textColor="@android:color/white" />
+                <Button
+                    android:id="@+id/save_courses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/btn_save_courses"
+                    android:textColor="@android:color/white" />
 
                 </LinearLayout>
 

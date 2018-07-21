@@ -183,6 +183,7 @@
     <string name="course_module_prompt">Choose Course Module</string>
     <string name="course_module_name">Course Module</string>
     <string name="add_courses">Add Courses</string>
+    <string name="btn_save_courses">Save Courses</string>
     <string-array name="regularDays">
         <item>Mon</item>
         <item>Tues</item>
