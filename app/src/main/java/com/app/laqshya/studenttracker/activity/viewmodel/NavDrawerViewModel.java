@@ -144,8 +144,6 @@ public class NavDrawerViewModel extends ViewModel {
 
         }
         this.noOfInstallments.setValue(noInstallment);
-
-
     }
 
     public void onFeesChanged(CharSequence feesAmnt) {
