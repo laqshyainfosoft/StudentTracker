@@ -21,6 +21,8 @@ import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
 import com.app.laqshya.studenttracker.databinding.CourseLayoutBinding;
 import com.app.laqshya.studenttracker.databinding.RegisterStudentBinding;
+import com.example.custom_spinner_library.MultiSpinner;
+import com.example.custom_spinner_library.MultiSpinner_Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,11 +127,11 @@ public class AddStudentFragment extends Fragment {
 
 
     }
-
+//Manages the courses to be registered for student in the student registration process.
     private void manageStudentAdded(String studentStatus) {
         if (studentStatus.contains("Successfully")) {
             registerStudentBinding.btnSignup.setText(getString(R.string.add_courses));
-             courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
+            courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
             registerStudentBinding.coursesFillerlayout.addView(courseLayoutBinding.getRoot());
             navDrawerViewModel.getCourseList().observe(this, strings -> {
                 if (strings != null && strings.size() > 0) {
@@ -139,6 +141,7 @@ public class AddStudentFragment extends Fragment {
                 }
 
             });
+
             courseLayoutBinding.studentCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -151,9 +154,10 @@ public class AddStudentFragment extends Fragment {
 
                                     ArrayAdapter<CourseModuleList> courses = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_dropdown_item,
                                             strings);
-                                    courseLayoutBinding.studentCourseModuleSpinner.setAdapter(courses);
-                                }
+                                    courseLayoutBinding.studentCourseModuleSpinner.setAdapter(courses, false, selected -> {
 
+                                    },"Please Select Course Module");
+                                }
 
                             });
 
@@ -164,35 +168,35 @@ public class AddStudentFragment extends Fragment {
                 }
             });
             navDrawerViewModel.noOfInstallments.observe(this, integer -> {
-            if (integer != null) {
-                if (integer > 0 && integer <= 10) {
+                if (integer != null) {
+                    if (integer > 0 && integer <= 10) {
 
-                    noOfInstallmentCount = integer;
+                        noOfInstallmentCount = integer;
+
+                    }
+
+                    manageInstallments(integer);
 
                 }
+            });
 
-                manageInstallments(integer);
+            navDrawerViewModel.totalFees.observe(this, integer -> {
+                if (integer != null) {
+                    manageInstallments(integer);
+                }
 
-            }
-        });
+            });
+            navDrawerViewModel.downPayment.observe(this, integer -> {
+                if (integer != null) {
+                    manageInstallments(integer);
+                }
 
-        navDrawerViewModel.totalFees.observe(this, integer -> {
-            if (integer != null) {
-                manageInstallments(integer);
-            }
-
-        });
-        navDrawerViewModel.downPayment.observe(this, integer -> {
-            if (integer != null) {
-                manageInstallments(integer);
-            }
-
-        });
+            });
 
 
         }
     }
-
+//Disables the already submitted fields.
     private void changeViewState() {
         registerStudentBinding.inputEmail.setEnabled(false);
         registerStudentBinding.inputStudentName.setEnabled(false);
@@ -202,7 +206,7 @@ public class AddStudentFragment extends Fragment {
     //This method manages the dynamic installment layout.
     private void manageInstallments(int value) {
         //TODO fix views reset on amounts change.
-     //   registerStudentBinding.installmentLayout.removeAllViews();
+        //   registerStudentBinding.installmentLayout.removeAllViews();
         if (installmentsList != null && installmentsList.size() > 0) {
             installmentsList.clear();
         }

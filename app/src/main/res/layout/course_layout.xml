@@ -18,7 +18,7 @@
         android:layout_gravity="center_horizontal"
         android:hint="@string/course_name"
         android:prompt="@string/course_prompt" />
-    <Spinner
+    <com.example.custom_spinner_library.MultiSpinner_Event
         android:id="@+id/studentCourseModuleSpinner"
         android:layout_width="match_parent"
         android:layout_height="40dp"

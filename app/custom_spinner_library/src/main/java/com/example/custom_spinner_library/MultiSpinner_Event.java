@@ -119,6 +119,7 @@ public class MultiSpinner_Event extends TextView implements DialogInterface.OnMu
             }
             setOnClickListener(onClickListener);
         }
+        mDefaultText=textSelect;
         setText(textSelect);
     }
 
@@ -157,7 +158,7 @@ public class MultiSpinner_Event extends TextView implements DialogInterface.OnMu
             spinnerText = mDefaultText;
         }
 
-        setText("Select Students");
+        setText(mDefaultText);
     }
 
     public boolean[] getSelected() {
