@@ -136,7 +136,11 @@ public class AddStudentFragment extends Fragment {
             registerStudentBinding.addCourses.setVisibility(View.VISIBLE);
             registerStudentBinding.saveCourses.setVisibility(View.VISIBLE);
             registerStudentBinding.btnSignup.setVisibility(View.GONE);
-            registerStudentBinding.addCourses.setOnClickListener((v -> {manageStudentAdded("Successfully");}));
+            registerStudentBinding.addCourses.setOnClickListener(v -> {
+                if(courseLayoutBinding!=null){
+                    resetViews();
+                }
+            });
             courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
             courseLayoutBinding.setNavViewmModel(navDrawerViewModel);
             int coursesCount=courseLayoutBinding.getNoOfCourses()+1;
@@ -207,6 +211,13 @@ public class AddStudentFragment extends Fragment {
         }
     }
 
+    private void resetViews() {
+        courseLayoutBinding.inputFees.setText("");
+        courseLayoutBinding.inputDownpayment.setText("");
+        courseLayoutBinding.inputNoOfInstallments.setText("");
+        courseLayoutBinding.studentCourseSpinner.setSelection(0);
+    }
+
     //Disables the already submitted fields.
     private void changeViewState() {
 
@@ -218,12 +229,10 @@ public class AddStudentFragment extends Fragment {
 
     //This method manages the dynamic installment layout.
     private void manageInstallments(int value) {
-        CourseLayoutBinding courseLayoutBinding=null;
+
         //TODO fix views reset on amounts change.
 
-            int position = 0;
-            courseLayoutBindingsList.get(position).installmentLayout.removeAllViews();
-            courseLayoutBinding=courseLayoutBindingsList.get(position);
+
 
 
 
