@@ -43,7 +43,7 @@ public class NavDrawerViewModel extends ViewModel {
     public MutableLiveData<Boolean> isProgress = new MutableLiveData<>();
     public MutableLiveData<Integer> noOfInstallments = new MutableLiveData<>();
     public MutableLiveData<Integer> downPayment = new MutableLiveData<>();
-    public MutableLiveData<Integer> totalFees = new MediatorLiveData<>();
+    public MutableLiveData<Integer> totalFees = new MutableLiveData<>();
     public MutableLiveData<List<Integer>> listnoOfInstallments = new MutableLiveData<>();
     private List<Integer> listDp=new ArrayList<>();
     private List<Integer> listFees=new ArrayList<>();

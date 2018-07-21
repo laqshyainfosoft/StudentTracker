@@ -49,8 +49,7 @@ public class AddStudentFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        courseLayoutBindingsList=new ArrayList<>();
-
+        courseLayoutBindingsList = new ArrayList<>();
 
 
         datePickerFragment = new DatePickerFragment();
@@ -137,15 +136,12 @@ public class AddStudentFragment extends Fragment {
             registerStudentBinding.saveCourses.setVisibility(View.VISIBLE);
             registerStudentBinding.btnSignup.setVisibility(View.GONE);
             registerStudentBinding.addCourses.setOnClickListener(v -> {
-                if(courseLayoutBinding!=null){
+                if (courseLayoutBinding != null) {
                     resetViews();
                 }
             });
             courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
             courseLayoutBinding.setNavViewmModel(navDrawerViewModel);
-            int coursesCount=courseLayoutBinding.getNoOfCourses()+1;
-//            courseLayoutBinding.setNoOfCourses(coursesCount);
-
             courseLayoutBindingsList.add(courseLayoutBinding);
             registerStudentBinding.coursesFillerlayout.addView(courseLayoutBinding.getRoot());
             navDrawerViewModel.getCourseList().observe(this, strings -> {
@@ -235,8 +231,7 @@ public class AddStudentFragment extends Fragment {
         //TODO fix views reset on amounts change.
 
 
-
-
+        courseLayoutBinding.installmentLayout.removeAllViews();
 
         Timber.d("Installment amnt is %d", value);
         if (installmentsList != null && installmentsList.size() > 0) {
