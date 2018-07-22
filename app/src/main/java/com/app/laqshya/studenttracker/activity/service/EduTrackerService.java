@@ -3,6 +3,7 @@ package com.app.laqshya.studenttracker.activity.service;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
+import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.LoginModel;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -46,6 +48,8 @@ public interface EduTrackerService {
 
     @POST("registerstudent.php")
     Single<ResponseBody> registerStudent(@Body StudentInfo studentInfo);
+    @POST("course_register.php")
+    Call<ResponseBody> saveCourse(@Body CoursesStudent coursesStudent);
 
     @GET("getFacultyList.php")
     Single<List<FacultyList>> getFacultyList();

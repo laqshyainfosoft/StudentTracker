@@ -29,6 +29,7 @@ import com.app.laqshya.studenttracker.activity.fragments.ScheduleBatchesFragment
 import com.app.laqshya.studenttracker.activity.fragments.SyllabusFragment;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
+import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
 import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.repository.RegistrationRepository;
 
@@ -320,6 +321,10 @@ public class NavDrawerViewModel extends ViewModel {
 
     public void broadcast() {
         Timber.d("%s", "Clicked");
+
+    }
+    public LiveData<String> registerCourses(CoursesStudent coursesStudent){
+        return registrationRepository.registerCourse(coursesStudent);
 
     }
 

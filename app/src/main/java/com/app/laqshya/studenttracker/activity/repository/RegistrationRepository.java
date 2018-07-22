@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
+import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
 import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
@@ -19,6 +20,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import timber.log.Timber;
 
 public class RegistrationRepository {
@@ -217,5 +221,34 @@ public class RegistrationRepository {
                     }
                 });
         return response;
+    }
+    public LiveData<String> registerCourse(CoursesStudent coursesStudent){
+        MutableLiveData<String> responseString = new MutableLiveData<>();
+        eduTrackerService.saveCourse(coursesStudent)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.body()!=null){
+
+                            try {
+                                responseString.setValue(response.body().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                responseString.setValue("Error");
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        responseString.setValue("Error");
+
+                    }
+                });
+        return responseString;
+
+
+
     }
 }

@@ -1,7 +1,9 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
+
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
-import com.app.laqshya.studenttracker.activity.model.Installments;
+import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
+import com.app.laqshya.studenttracker.activity.model.InstallmentsList;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
 import com.app.laqshya.studenttracker.databinding.CourseLayoutBinding;
@@ -34,10 +38,11 @@ public class AddStudentFragment extends Fragment {
     //    ValidationViewModel validationViewModel;
     CourseLayoutBinding courseLayoutBinding;
     private int noOfInstallmentCount = 0;
-    private List<Installments> installmentsList;
-    private DatePickerFragment datePickerFragment;
-    private List<CourseLayoutBinding> courseLayoutBindingsList;
 
+    private DatePickerFragment datePickerFragment;
+    private CoursesStudent coursesStudent;
+    private List<InstallmentsList> installmentsLists;
+    private List<CourseModuleList> courseModuleList;
 
     @Nullable
     @Override
@@ -49,13 +54,12 @@ public class AddStudentFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        courseLayoutBindingsList = new ArrayList<>();
 
+        installmentsLists = new ArrayList<>();
 
         datePickerFragment = new DatePickerFragment();
-//        validationViewModel = ViewModelProviders.of(this).get(ValidationViewModel.class);
-//        registerStudentBinding.setValidation(validationViewModel);
-        installmentsList = new ArrayList<>();
+        coursesStudent = new CoursesStudent();
+        courseModuleList=new ArrayList<>();
         navDrawerViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(NavDrawerViewModel.class);
         registerStudentBinding.setNavViewmModel(navDrawerViewModel);
 
@@ -132,8 +136,12 @@ public class AddStudentFragment extends Fragment {
     //Manages the courses to be registered for student in the student registration process.
     private void manageStudentAdded(String studentStatus) {
         if (studentStatus.contains("Successfully")) {
+
             registerStudentBinding.addCourses.setVisibility(View.VISIBLE);
             registerStudentBinding.saveCourses.setVisibility(View.VISIBLE);
+            registerStudentBinding.saveCourses.setOnClickListener(v -> {
+                saveCourses();
+            });
             registerStudentBinding.btnSignup.setVisibility(View.GONE);
             registerStudentBinding.addCourses.setOnClickListener(v -> {
                 if (courseLayoutBinding != null) {
@@ -142,7 +150,6 @@ public class AddStudentFragment extends Fragment {
             });
             courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
             courseLayoutBinding.setNavViewmModel(navDrawerViewModel);
-            courseLayoutBindingsList.add(courseLayoutBinding);
             registerStudentBinding.coursesFillerlayout.addView(courseLayoutBinding.getRoot());
             navDrawerViewModel.getCourseList().observe(this, strings -> {
                 if (strings != null && strings.size() > 0) {
@@ -165,7 +172,17 @@ public class AddStudentFragment extends Fragment {
                                     ArrayAdapter<CourseModuleList> courses = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_dropdown_item,
                                             strings);
                                     courseLayoutBinding.studentCourseModuleSpinner.setAdapter(courses, false, selected -> {
-
+                                        if(courseModuleList!=null && courseModuleList.size()>0){
+                                            courseModuleList.clear();
+                                        }
+                                        for (int i=0;i<selected.length;i++){
+                                            if(selected[i]) {
+                                                CourseModuleList courseModule = new CourseModuleList(
+                                                        Objects.requireNonNull(courses.getItem(i)).toString()
+                                                );
+                                                courseModuleList.add(courseModule);
+                                            }
+                                        }
                                     }, "Please Select Course Module");
                                 }
 
@@ -207,12 +224,45 @@ public class AddStudentFragment extends Fragment {
         }
     }
 
+    private void saveCourses() {
+        String totalFees = courseLayoutBinding.inputFees.getText().toString();
+        String downPayment = courseLayoutBinding.inputDownpayment.getText().toString();
+        coursesStudent.setDownpayment(downPayment);
+        coursesStudent.setFees(totalFees);
+        coursesStudent.setInstallmentsList(installmentsLists);
+        coursesStudent.setCourseModule(courseModuleList);
+        coursesStudent.setMobile(registerStudentBinding.inputStudentNumber.getText().toString());
+        navDrawerViewModel.registerCourses(coursesStudent).observe(this, s -> {
+            if(s!=null && !s.isEmpty()){
+                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                if(s.contains("Success")){
+                    StringBuilder courseList= new StringBuilder();
+                    for(int i=0;i<courseModuleList.size();i++){
+                        courseList.append(courseModuleList.get(i).getCourse_name()).append(" ");
+                    }
+                    courseLayoutBinding.courseDetailViewCounsellor.append(courseList.toString());
+                    courseLayoutBinding.courseDetailViewCounsellor.setTextColor(Color.RED);
+                }
+            }
+
+        });
+        Timber.d(installmentsLists.get(0).getInstallmentAmnt());
+        Timber.d(courseModuleList.get(0).getCourse_name());
+        Timber.d(coursesStudent.getDownpayment());
+
+
+
+    }
+
+    //Reset text fields for adding another course.
     private void resetViews() {
         courseLayoutBinding.inputFees.setText("");
         courseLayoutBinding.inputDownpayment.setText("");
         courseLayoutBinding.inputNoOfInstallments.setText("");
         courseLayoutBinding.studentCourseSpinner.setSelection(0);
         courseLayoutBinding.installmentLayout.removeAllViews();
+        courseModuleList.clear();
+
     }
 
     //Disables the already submitted fields.
@@ -234,8 +284,8 @@ public class AddStudentFragment extends Fragment {
         courseLayoutBinding.installmentLayout.removeAllViews();
 
         Timber.d("Installment amnt is %d", value);
-        if (installmentsList != null && installmentsList.size() > 0) {
-            installmentsList.clear();
+        if (installmentsLists != null && installmentsLists.size() > 0) {
+            installmentsLists.clear();
         }
         int amount = 0;
         if (value > 0) {
@@ -272,9 +322,13 @@ public class AddStudentFragment extends Fragment {
                         if (s != null && s.length() > 0) {
                             datePicker.setText(s);
                             int number = finalI + 1;
-                            installmentsList.add(new Installments(number, s, String.valueOf(finalAmount)));
+                            InstallmentsList installmentsList = new InstallmentsList();
+                            installmentsList.setInstallmentAmnt(String.valueOf(finalAmount));
+                            installmentsList.setInstallmentDate(s);
+                            installmentsList.setInstallmentNo(String.valueOf(number));
+                            installmentsLists.add(installmentsList);
 
-                            Timber.d("%d", installmentsList.size());
+//                            Timber.d("%d", installmentsList.size());
                         }
 
                     });
