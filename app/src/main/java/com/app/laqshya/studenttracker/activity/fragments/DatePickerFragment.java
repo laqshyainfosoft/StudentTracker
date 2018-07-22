@@ -15,8 +15,8 @@ public class DatePickerFragment extends DialogFragment {
     private DatePickerDialog.OnDateSetListener dateSetListener =
             (view, year, month, day) -> {
                 setDate.setValue(view.getYear() +
-                        "-" + (view.getMonth() + 1) +
-                        "-" + view.getDayOfMonth());
+                        "/" + (view.getMonth() + 1) +
+                        "/" + view.getDayOfMonth());
 
             };
 
