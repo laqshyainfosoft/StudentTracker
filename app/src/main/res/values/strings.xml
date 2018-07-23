@@ -184,6 +184,7 @@
     <string name="course_module_name">Course Module</string>
     <string name="add_courses">Add Courses</string>
     <string name="btn_save_courses">Save Courses</string>
+    <string name="Notification_to_all">Send Notification to All Students</string>
     <string-array name="regularDays">
         <item>Mon</item>
         <item>Tues</item>
