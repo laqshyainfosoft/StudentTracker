@@ -1,6 +1,5 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
-
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
 import com.app.laqshya.studenttracker.activity.model.InstallmentsList;
@@ -59,7 +57,7 @@ public class AddStudentFragment extends Fragment {
 
         datePickerFragment = new DatePickerFragment();
         coursesStudent = new CoursesStudent();
-        courseModuleList=new ArrayList<>();
+        courseModuleList = new ArrayList<>();
         navDrawerViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(NavDrawerViewModel.class);
         registerStudentBinding.setNavViewmModel(navDrawerViewModel);
 
@@ -67,10 +65,6 @@ public class AddStudentFragment extends Fragment {
             String name = registerStudentBinding.inputStudentName.getText().toString().trim();
             String phone = registerStudentBinding.inputStudentNumber.getText().toString().trim();
             String email = registerStudentBinding.inputEmail.getText().toString().trim();
-//            String course = registerStudentBinding.studentCourseSpinner.getSelectedItem().toString();
-//            String totalFees = registerStudentBinding.inputFees.getText().toString();
-//            String downPayment = registerStudentBinding.inputDownpayment.getText().toString();
-//            String installments = registerStudentBinding.inputNoOfInstallments.getText().toString();
             boolean isValid = true;
 
             if (Utils.isEmpty(name)) {
@@ -172,11 +166,11 @@ public class AddStudentFragment extends Fragment {
                                     ArrayAdapter<CourseModuleList> courses = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_dropdown_item,
                                             strings);
                                     courseLayoutBinding.studentCourseModuleSpinner.setAdapter(courses, false, selected -> {
-                                        if(courseModuleList!=null && courseModuleList.size()>0){
+                                        if (courseModuleList != null && courseModuleList.size() > 0) {
                                             courseModuleList.clear();
                                         }
-                                        for (int i=0;i<selected.length;i++){
-                                            if(selected[i]) {
+                                        for (int i = 0; i < selected.length; i++) {
+                                            if (selected[i]) {
                                                 CourseModuleList courseModule = new CourseModuleList(
                                                         Objects.requireNonNull(courses.getItem(i)).toString()
                                                 );
@@ -224,20 +218,26 @@ public class AddStudentFragment extends Fragment {
         }
     }
 
+    //This method saves the courses of a registered student alongwith installments and fees details.
     private void saveCourses() {
+
+
+        //TODO pending validation for incomplete installment sections.
         String totalFees = courseLayoutBinding.inputFees.getText().toString();
         String downPayment = courseLayoutBinding.inputDownpayment.getText().toString();
+        String courseName=courseLayoutBinding.studentCourseSpinner.getSelectedItem().toString();
         coursesStudent.setDownpayment(downPayment);
         coursesStudent.setFees(totalFees);
         coursesStudent.setInstallmentsList(installmentsLists);
         coursesStudent.setCourseModule(courseModuleList);
+        coursesStudent.setCourseName(courseName);
         coursesStudent.setMobile(registerStudentBinding.inputStudentNumber.getText().toString());
         navDrawerViewModel.registerCourses(coursesStudent).observe(this, s -> {
-            if(s!=null && !s.isEmpty()){
+            if (s != null && !s.isEmpty()) {
                 Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-                if(s.contains("Success")){
-                    StringBuilder courseList= new StringBuilder();
-                    for(int i=0;i<courseModuleList.size();i++){
+                if (s.contains("Success")) {
+                    StringBuilder courseList = new StringBuilder();
+                    for (int i = 0; i < courseModuleList.size(); i++) {
                         courseList.append(courseModuleList.get(i).getCourse_name()).append(" ");
                     }
                     courseLayoutBinding.courseDetailViewCounsellor.append(courseList.toString());
@@ -246,10 +246,6 @@ public class AddStudentFragment extends Fragment {
             }
 
         });
-        Timber.d(installmentsLists.get(0).getInstallmentAmnt());
-        Timber.d(courseModuleList.get(0).getCourse_name());
-        Timber.d(coursesStudent.getDownpayment());
-
 
 
     }

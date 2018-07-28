@@ -12,6 +12,15 @@ public class CoursesStudent {
     private String fees;
 
     private String mobile;
+private String courseName;
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     public List<InstallmentsList> getInstallmentsList ()
     {
