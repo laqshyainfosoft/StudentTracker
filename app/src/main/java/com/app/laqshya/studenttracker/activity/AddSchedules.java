@@ -1,5 +1,6 @@
 package com.app.laqshya.studenttracker.activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
@@ -10,6 +11,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.AddScheduleFactory;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
+import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
@@ -57,6 +61,7 @@ public class AddSchedules extends AppCompatActivity {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         activityAddSchedulesBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_schedules);
+
         addSchedulesViewModel = ViewModelProviders.of(this, addScheduleFactory).get(AddSchedulesViewModel.class);
         activityAddSchedulesBinding.txtAtlocation.setText(sessionManager.getLoggedInuserCenter());
         viewArrayList = new ArrayList<>();
@@ -80,6 +85,31 @@ public class AddSchedules extends AppCompatActivity {
 
 
         });
+        activityAddSchedulesBinding.Atcoursename.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String course = parent.getSelectedItem().toString();
+                if (course != null) {
+                    addSchedulesViewModel.getCourseModule(course)
+                            .observe(AddSchedules.this, courseModuleLists -> {
+                                if (courseModuleLists != null && courseModuleLists.size() > 0) {
+
+                                    ArrayAdapter<CourseModuleList> courses = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,
+                                            courseModuleLists);
+                                    activityAddSchedulesBinding.studentCourseModuleSpinner.setAdapter(courses);
+
+                                }
+
+                            });
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         activityAddSchedulesBinding.calenderbatchstartdate.setOnClickListener(v ->
         {
             showDatepPicker(activityAddSchedulesBinding.calenderbatchstartdate);
@@ -87,12 +117,40 @@ public class AddSchedules extends AppCompatActivity {
         activityAddSchedulesBinding.addnewschedule.setOnClickListener(v -> addnewSchedule());
         activityAddSchedulesBinding.addstudentbutton.setOnClickListener(v -> {
             if (isDataValid()) {
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                showAlertDialog("Are you sure to save the above details?");
 
             }
 
         });
 
+
+    }
+
+    private void showAlertDialog(String message) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddSchedules.this);
+        alertBuilder.setMessage(message);
+        alertBuilder.setTitle("Confirm?");
+        alertBuilder.setPositiveButton("Yes", ((dialog, which) -> {
+            disableViews();
+
+            dialog.dismiss();
+        }));
+        alertBuilder.setNegativeButton("No", ((dialog, which) -> {
+            dialog.dismiss();
+        }));
+        alertBuilder.create().show();
+    }
+
+    private void disableViews() {
+        activityAddSchedulesBinding.studentCourseModuleSpinner.setEnabled(false);
+        activityAddSchedulesBinding.Atcoursename.setEnabled(false);
+        activityAddSchedulesBinding.Atteacher.setEnabled(false);
+        activityAddSchedulesBinding.calenderbatchstartdate.setClickable(false);
+        activityAddSchedulesBinding.checkW.setEnabled(false);
+        activityAddSchedulesBinding.checkR.setEnabled(false);
+        activityAddSchedulesBinding.addnewschedule.setClickable(false);
+        enableDisableView(activityAddSchedulesBinding.scheduleHolder, false);
+        activityAddSchedulesBinding.addstudentbutton.setVisibility(View.INVISIBLE);
 
     }
 
@@ -143,12 +201,12 @@ public class AddSchedules extends AppCompatActivity {
     }
 
     private boolean isDataValid() {
-        String teachername=null,coursename=null,date=null;
+        String teachername = null, coursename = null, date = null;
         try {
-             teachername = activityAddSchedulesBinding.Atteacher.getSelectedItem().toString();
-             coursename = activityAddSchedulesBinding.Atcoursename.getSelectedItem().toString();
-             date = activityAddSchedulesBinding.calenderbatchstartdate.getText().toString();
-        }catch (NullPointerException exception){
+            teachername = activityAddSchedulesBinding.Atteacher.getSelectedItem().toString();
+            coursename = activityAddSchedulesBinding.Atcoursename.getSelectedItem().toString();
+            date = activityAddSchedulesBinding.calenderbatchstartdate.getText().toString();
+        } catch (NullPointerException exception) {
             Timber.d(exception);
 
         }
@@ -234,6 +292,18 @@ public class AddSchedules extends AppCompatActivity {
         Snackbar snackbar = Snackbar.make(activityAddSchedulesBinding.content,
                 snackMessage, Snackbar.LENGTH_SHORT);
         snackbar.show();
+    }
+
+    private void enableDisableView(View view, boolean enabled) {
+        view.setEnabled(enabled);
+
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+
+            for (int idx = 0; idx < group.getChildCount(); idx++) {
+                enableDisableView(group.getChildAt(idx), enabled);
+            }
+        }
     }
 
 

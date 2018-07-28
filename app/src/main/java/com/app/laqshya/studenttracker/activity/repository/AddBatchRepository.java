@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.app.laqshya.studenttracker.activity.model.CourseList;
+import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
@@ -73,5 +74,30 @@ public class AddBatchRepository {
                 });
 
         return facultyLiveData;
+    }
+    public LiveData<List<CourseModuleList>> getCourseModule(String course){
+        MutableLiveData<List<CourseModuleList>> response=new MutableLiveData<>();
+        eduTrackerService.getModuleForCourse(course)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<CourseModuleList>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<CourseModuleList> strings) {
+                        response.setValue(strings);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+
+                    }
+                });
+        return response;
     }
 }
