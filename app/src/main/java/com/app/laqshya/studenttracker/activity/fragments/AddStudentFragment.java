@@ -225,29 +225,64 @@ public class AddStudentFragment extends Fragment {
         //TODO pending validation for incomplete installment sections.
         String totalFees = courseLayoutBinding.inputFees.getText().toString();
         String downPayment = courseLayoutBinding.inputDownpayment.getText().toString();
-        String courseName=courseLayoutBinding.studentCourseSpinner.getSelectedItem().toString();
-        coursesStudent.setDownpayment(downPayment);
-        coursesStudent.setFees(totalFees);
-        coursesStudent.setInstallmentsList(installmentsLists);
-        coursesStudent.setCourseModule(courseModuleList);
-        coursesStudent.setCourseName(courseName);
-        coursesStudent.setMobile(registerStudentBinding.inputStudentNumber.getText().toString());
-        navDrawerViewModel.registerCourses(coursesStudent).observe(this, s -> {
-            if (s != null && !s.isEmpty()) {
-                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-                if (s.contains("Success")) {
-                    StringBuilder courseList = new StringBuilder();
-                    for (int i = 0; i < courseModuleList.size(); i++) {
-                        courseList.append(courseModuleList.get(i).getCourse_name()).append(" ");
+        String courseName = courseLayoutBinding.studentCourseSpinner.getSelectedItem().toString();
+        String installment = courseLayoutBinding.inputNoOfInstallments.getText().toString();
+        boolean isValid = true;
+
+        if (Utils.isEmpty(totalFees)) {
+            courseLayoutBinding.inputFees.setError(getString(R.string.fieldsEmpty));
+            isValid = false;
+        }
+        if (Utils.isEmpty(downPayment)) {
+            courseLayoutBinding.inputDownpayment.setError(getString(R.string.fieldsEmpty));
+            isValid = false;
+        }
+
+        if (courseModuleList.size()<1){
+            Toast.makeText(getActivity(), "Please select course modules", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
+        if (Utils.isEmpty(installment)) {
+            courseLayoutBinding.inputNoOfInstallments.setError(getString(R.string.fieldsEmpty));
+            isValid = false;
+        }
+        Timber.d("Child count is %d", courseLayoutBinding.installmentLayout.getChildCount());
+
+        if (courseLayoutBinding.installmentLayout.getChildCount() != installmentsLists.size()) {
+
+
+
+            Toast.makeText(getActivity(), "Please enter all installment details", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
+
+        if (isValid && Utils.isNetworkConnected(getActivity())) {
+            coursesStudent.setDownpayment(downPayment);
+            coursesStudent.setFees(totalFees);
+            coursesStudent.setInstallmentsList(installmentsLists);
+            coursesStudent.setCourseModule(courseModuleList);
+            coursesStudent.setCourseName(courseName);
+            coursesStudent.setMobile(registerStudentBinding.inputStudentNumber.getText().toString());
+            navDrawerViewModel.registerCourses(coursesStudent).observe(this, s -> {
+                if (s != null && !s.isEmpty()) {
+                    Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                    if (s.contains("Success")) {
+                        StringBuilder courseList = new StringBuilder();
+                        for (int i = 0; i < courseModuleList.size(); i++) {
+                            courseList.append(courseModuleList.get(i).getCourse_name()).append(", ");
+                        }
+                        courseLayoutBinding.courseDetailViewCounsellor.append(courseList.toString());
+                        courseLayoutBinding.courseDetailViewCounsellor.setTextColor(Color.RED);
                     }
-                    courseLayoutBinding.courseDetailViewCounsellor.append(courseList.toString());
-                    courseLayoutBinding.courseDetailViewCounsellor.setTextColor(Color.RED);
                 }
-            }
 
-        });
+            });
+        }else  if (!Utils.isNetworkConnected(getActivity())) {
+            Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
 
-
+        }
     }
 
     //Reset text fields for adding another course.
