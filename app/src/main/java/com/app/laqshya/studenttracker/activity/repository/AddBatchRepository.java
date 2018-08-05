@@ -6,10 +6,13 @@ import android.arch.lifecycle.MutableLiveData;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
+import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Flowable;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -75,8 +78,9 @@ public class AddBatchRepository {
 
         return facultyLiveData;
     }
-    public LiveData<List<CourseModuleList>> getCourseModule(String course){
-        MutableLiveData<List<CourseModuleList>> response=new MutableLiveData<>();
+
+    public LiveData<List<CourseModuleList>> getCourseModule(String course) {
+        MutableLiveData<List<CourseModuleList>> response = new MutableLiveData<>();
         eduTrackerService.getModuleForCourse(course)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -99,5 +103,35 @@ public class AddBatchRepository {
                     }
                 });
         return response;
+    }
+
+    public LiveData<List<StudentInfo>> getStudentForBatch(String coursename, String coursemodulename) {
+        MutableLiveData<List<StudentInfo>> studentListLive = new MutableLiveData<>();
+        eduTrackerService.getStudentNameForBatches(coursename, coursemodulename)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).
+                retryWhen(throwableFlowable ->
+                        throwableFlowable.flatMap(throwable -> Flowable.timer(4, TimeUnit.SECONDS))
+                                .zipWith(Flowable.range(1, 3), (n, i) -> i))
+                .subscribe(new SingleObserver<List<StudentInfo>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<StudentInfo> strings) {
+                        studentListLive.setValue(strings);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+
+                    }
+                });
+        return studentListLive;
+
     }
 }

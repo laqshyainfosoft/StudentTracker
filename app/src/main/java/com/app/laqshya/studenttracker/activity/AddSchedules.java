@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,12 @@ import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.AddScheduleFactory;
+import com.app.laqshya.studenttracker.activity.model.BatchDetails;
+import com.app.laqshya.studenttracker.activity.model.BatchList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
+import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
@@ -55,13 +59,15 @@ public class AddSchedules extends AppCompatActivity {
     AddSchedulesViewModel addSchedulesViewModel;
     private ActivityAddSchedulesBinding activityAddSchedulesBinding;
     private ArrayList<View> viewArrayList;
+    private List<BatchDetails> batchDetailsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         activityAddSchedulesBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_schedules);
-
+        batchDetailsList = new ArrayList<>();
+        viewArrayList = new ArrayList<>();
         addSchedulesViewModel = ViewModelProviders.of(this, addScheduleFactory).get(AddSchedulesViewModel.class);
         activityAddSchedulesBinding.txtAtlocation.setText(sessionManager.getLoggedInuserCenter());
         viewArrayList = new ArrayList<>();
@@ -83,6 +89,10 @@ public class AddSchedules extends AppCompatActivity {
                 showToast("Failed to fetch teachers");
             }
 
+
+        });
+        activityAddSchedulesBinding.fabsave.setOnClickListener(v -> {
+            saveBatch();
 
         });
         activityAddSchedulesBinding.Atcoursename.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -126,12 +136,52 @@ public class AddSchedules extends AppCompatActivity {
 
     }
 
+    private void saveBatch() {
+        //TODO add validations before saving.
+        String course = activityAddSchedulesBinding.Atcoursename.getSelectedItem().toString();
+        String courseModule = activityAddSchedulesBinding.studentCourseModuleSpinner.getSelectedItem().toString();
+        String fPhone = "9892308331";
+        String location = activityAddSchedulesBinding.txtAtlocation.getText().toString();
+        String batchStartDate = activityAddSchedulesBinding.calenderbatchstartdate.getText().toString();
+        showToast(String.valueOf(viewArrayList.size()));
+        for(View view:viewArrayList){
+            Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
+            Button startTime = view.findViewById(R.id.startTime);
+            Button endTime = view.findViewById(R.id.endTime);
+            Timber.d("%s",spinnerDays.getSelectedItem().toString());
+            Timber.d("%s",startTime.getText().toString());
+            Timber.d("%s",endTime.getText().toString());
+
+        }
+
+        for(int i=0;i<viewArrayList.size();i++){
+            BatchDetails batchDetails=new BatchDetails();
+            batchDetails.setCenter(location);
+            batchDetails.setCourseName(course);
+            batchDetails.setCourseModuleName(courseModule);
+            batchDetails.setFacultyMobile(fPhone);
+            batchDetails.setStartDate(batchStartDate);
+            BatchList batchList=new BatchList();
+            batchDetailsList.add(batchDetails);
+
+
+
+
+
+
+
+        }
+
+
+
+    }
+
     private void showAlertDialog(String message) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddSchedules.this);
         alertBuilder.setMessage(message);
         alertBuilder.setTitle("Confirm?");
         alertBuilder.setPositiveButton("Yes", ((dialog, which) -> {
-            disableViews();
+            getStudentsForBatch();
 
             dialog.dismiss();
         }));
@@ -139,6 +189,47 @@ public class AddSchedules extends AppCompatActivity {
             dialog.dismiss();
         }));
         alertBuilder.create().show();
+    }
+
+    private void getStudentsForBatch() {
+        String coursename = activityAddSchedulesBinding.Atcoursename.getSelectedItem().toString();
+        String coursemodulename = activityAddSchedulesBinding.studentCourseModuleSpinner.getSelectedItem().toString();
+        if (coursename.isEmpty()) {
+            showToast("Please select a course first");
+        } else if (coursemodulename.isEmpty()) {
+            showToast("Please select a course module first");
+        } else {
+            addSchedulesViewModel.showStudentsForBatch(coursename, coursemodulename).observe(this,
+                    studentInfos -> {
+                        if (studentInfos != null && studentInfos.size() > 0) {
+
+                            ArrayAdapter<StudentInfo> studentInfoArrayAdapter = new ArrayAdapter<>(AddSchedules.this, android
+                                    .R.layout.simple_spinner_dropdown_item, studentInfos);
+                            activityAddSchedulesBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, selected -> {
+                                disableViews();
+
+
+                            }, "Please Select Students to add to Batch");
+
+                        } else {
+                            showAlertDialogForCourse("No Admissions For This Course Yet!! Please Select a Different Course");
+
+
+                        }
+                    });
+        }
+    }
+
+    private void showAlertDialogForCourse(String message) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddSchedules.this);
+        alertBuilder.setMessage(message);
+        alertBuilder.setTitle("Alert...");
+        alertBuilder.setPositiveButton("Okay", ((dialog, which) -> {
+            dialog.dismiss();
+        }));
+
+        alertBuilder.create().show();
+
     }
 
     private void disableViews() {
@@ -157,7 +248,7 @@ public class AddSchedules extends AppCompatActivity {
     //This method uses the dynamic schedule layout
     private void addnewSchedule() {
         String[] daysArray = getdays();
-        viewArrayList = new ArrayList<>();
+
         List<String> stringList = Arrays.asList(daysArray);
 
         View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.schedule_details, null);
@@ -165,6 +256,7 @@ public class AddSchedules extends AppCompatActivity {
         activityAddSchedulesBinding.scheduleHolder.addView(view);
         LinearLayout linearLayout = view.findViewById(R.id.schedulesRootLayout);
         viewArrayList.add(linearLayout);
+        Timber.d("%d",viewArrayList.size());
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 stringList);
         Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
@@ -176,6 +268,7 @@ public class AddSchedules extends AppCompatActivity {
 //            activityAddSchedulesBinding.scheduleHolderLayout.removeView(v);
 
             activityAddSchedulesBinding.scheduleHolder.removeView(linearLayout);
+            viewArrayList.remove(linearLayout);
             Timber.d("%s", v.getParent().toString());
 
 
@@ -190,10 +283,12 @@ public class AddSchedules extends AppCompatActivity {
         endTime.setOnClickListener(v -> showTimePicker(endTime));
         activityAddSchedulesBinding.checkR.setOnCheckedChangeListener((buttonView, isChecked) -> {
             activityAddSchedulesBinding.scheduleHolder.removeAllViews();
+            viewArrayList.clear();
 
         });
         activityAddSchedulesBinding.checkW.setOnCheckedChangeListener((buttonView, isChecked) -> {
             activityAddSchedulesBinding.scheduleHolder.removeAllViews();
+            viewArrayList.clear();
 
         });
 
@@ -249,14 +344,15 @@ public class AddSchedules extends AppCompatActivity {
         int mDay = localCalendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog pickerDialog = new DatePickerDialog(AddSchedules.this, (view, year1, monthOfYear, dayOfMonth) -> {
-            String calenderbatchstartdate1 = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1;
+            String calenderbatchstartdate1 = year1 + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
             Timber.d(calenderbatchstartdate1);
             try {
-                Date localDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(calenderbatchstartdate1);
-                String calenderbatchstartdate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(localDate);
+                Date localDate = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(calenderbatchstartdate1);
+                String calenderbatchstartdate = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).format(localDate);
                 v.setText(calenderbatchstartdate);
             } catch (ParseException localParseExceptiofieldsEmptyn) {
                 Timber.d("I crashed in date picker");
+                Timber.d(localParseExceptiofieldsEmptyn);
 
             }
 
