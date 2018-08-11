@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,7 @@ import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
+import com.app.laqshya.studenttracker.activity.model.StudentNames;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
@@ -59,18 +59,20 @@ public class AddSchedules extends AppCompatActivity {
     AddSchedulesViewModel addSchedulesViewModel;
     private ActivityAddSchedulesBinding activityAddSchedulesBinding;
     private ArrayList<View> viewArrayList;
-    private List<BatchDetails> batchDetailsList;
+    private List<StudentInfo> studentInfoArrayList;
+    private List<StudentNames> studentNamesList;
+    private List<FacultyList> facultyList;
+    private int facultyPosition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         activityAddSchedulesBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_schedules);
-        batchDetailsList = new ArrayList<>();
         viewArrayList = new ArrayList<>();
+        studentNamesList = new ArrayList<>();
         addSchedulesViewModel = ViewModelProviders.of(this, addScheduleFactory).get(AddSchedulesViewModel.class);
         activityAddSchedulesBinding.txtAtlocation.setText(sessionManager.getLoggedInuserCenter());
-        viewArrayList = new ArrayList<>();
         addSchedulesViewModel.getCourseList().observe(this, courseLists -> {
             if (courseLists != null && courseLists.size() > 0) {
                 ArrayAdapter<CourseList> courses = new ArrayAdapter<>(this, R.layout.spinner_layout, courseLists);
@@ -85,6 +87,8 @@ public class AddSchedules extends AppCompatActivity {
             if (facultyLists != null && facultyLists.size() > 0) {
                 ArrayAdapter<FacultyList> courses = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, facultyLists);
                 activityAddSchedulesBinding.Atteacher.setAdapter(courses);
+                facultyList = facultyLists;
+
             } else {
                 showToast("Failed to fetch teachers");
             }
@@ -103,6 +107,7 @@ public class AddSchedules extends AppCompatActivity {
                     addSchedulesViewModel.getCourseModule(course)
                             .observe(AddSchedules.this, courseModuleLists -> {
                                 if (courseModuleLists != null && courseModuleLists.size() > 0) {
+
 
                                     ArrayAdapter<CourseModuleList> courses = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,
                                             courseModuleLists);
@@ -132,46 +137,96 @@ public class AddSchedules extends AppCompatActivity {
             }
 
         });
+        activityAddSchedulesBinding.Atteacher.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                facultyPosition=position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
     }
 
     private void saveBatch() {
         //TODO add validations before saving.
+        //Prepare the json for saving the batch.
+        List<BatchList> batchList = new ArrayList<>();
         String course = activityAddSchedulesBinding.Atcoursename.getSelectedItem().toString();
         String courseModule = activityAddSchedulesBinding.studentCourseModuleSpinner.getSelectedItem().toString();
-        String fPhone = "9892308331";
+
+        String fPhone = facultyList.get(facultyPosition).getMobile();
         String location = activityAddSchedulesBinding.txtAtlocation.getText().toString();
         String batchStartDate = activityAddSchedulesBinding.calenderbatchstartdate.getText().toString();
+        batchList.clear();
+
+
         showToast(String.valueOf(viewArrayList.size()));
-        for(View view:viewArrayList){
+        for (View view : viewArrayList) {
             Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
             Button startTime = view.findViewById(R.id.startTime);
             Button endTime = view.findViewById(R.id.endTime);
-            Timber.d("%s",spinnerDays.getSelectedItem().toString());
-            Timber.d("%s",startTime.getText().toString());
-            Timber.d("%s",endTime.getText().toString());
-
-        }
-
-        for(int i=0;i<viewArrayList.size();i++){
-            BatchDetails batchDetails=new BatchDetails();
-            batchDetails.setCenter(location);
-            batchDetails.setCourseName(course);
-            batchDetails.setCourseModuleName(courseModule);
-            batchDetails.setFacultyMobile(fPhone);
-            batchDetails.setStartDate(batchStartDate);
-            BatchList batchList=new BatchList();
-            batchDetailsList.add(batchDetails);
-
-
-
-
-
+            BatchList batchListItem = new BatchList();
+            batchListItem.setDay(spinnerDays.getSelectedItem().toString());
+            batchListItem.setEndTime(endTime.getText().toString());
+            batchListItem.setStartTime(startTime.getText().toString());
+            batchList.add(batchListItem);
 
 
         }
 
+
+        if (studentInfoArrayList != null && studentInfoArrayList.size() > 0) {
+            for (StudentInfo studentInfo : studentInfoArrayList) {
+
+                StudentNames studentNames = new StudentNames();
+                studentNames.setStudentMobile(studentInfo.getPhone());
+                studentNamesList.add(studentNames);
+                Timber.d("Student list size is %s", studentNamesList.get(0).getStudentMobile());
+
+            }
+
+        }
+        Timber.d("Final Student list size is %d", studentNamesList.size());
+
+
+        BatchDetails batchDetails = new BatchDetails();
+        batchDetails.setCenter(location);
+        batchDetails.setCourseName(course);
+        batchDetails.setCourseModuleName(courseModule);
+        batchDetails.setFacultyMobile(fPhone);
+        batchDetails.setStartDate(batchStartDate);
+        batchDetails.setBatchList(batchList);
+        batchDetails.setStudentNames(studentNamesList);
+//        Timber.d(batchDetails.getStudentNames().get(0).getStudentMobile());
+        addSchedulesViewModel.createBatch(batchDetails)
+                .observe(this, this::showToast);
+
+
+//            batchDetailsList.s
+//            batchDetails.setStudentNames(studentInfoArrayList);
+
+
+//        Timber.d("%s", "The details of student to save batch are as follows:");
+//        for (BatchDetails batchDetails : batchDetailsList) {
+//            Timber.d(batchDetails.getCenter());
+//            Timber.d(batchDetails.getCourseModuleName());
+//            Timber.d(batchDetails.getFacultyMobile());
+//            Timber.d(batchDetails.getStartDate());
+//            Timber.d(batchDetails.getCourseName());
+//        }
+//        for (BatchList batchList1 : batchList) {
+//            Timber.d(batchList1.getDay());
+//            Timber.d(batchList1.getEndTime());
+//            Timber.d(batchList1.getStartTime());
+//        }
+//        for (StudentNames studentNames : studentNamesList) {
+//            Timber.d(studentNames.getStudentMobile());
+//        }
 
 
     }
@@ -207,6 +262,16 @@ public class AddSchedules extends AppCompatActivity {
                                     .R.layout.simple_spinner_dropdown_item, studentInfos);
                             activityAddSchedulesBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, selected -> {
                                 disableViews();
+                                studentInfoArrayList = new ArrayList<>();
+                                if (studentInfoArrayList.size() > 0) {
+                                    studentInfoArrayList.clear();
+                                }
+                                for (int i = 0; i < studentInfos.size(); i++) {
+                                    if (selected[i]) {
+
+                                        studentInfoArrayList.add(studentInfos.get(i));
+                                    }
+                                }
 
 
                             }, "Please Select Students to add to Batch");
@@ -256,7 +321,7 @@ public class AddSchedules extends AppCompatActivity {
         activityAddSchedulesBinding.scheduleHolder.addView(view);
         LinearLayout linearLayout = view.findViewById(R.id.schedulesRootLayout);
         viewArrayList.add(linearLayout);
-        Timber.d("%d",viewArrayList.size());
+        Timber.d("%d", viewArrayList.size());
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 stringList);
         Spinner spinnerDays = view.findViewById(R.id.spinnerdays);

@@ -3,6 +3,7 @@ package com.app.laqshya.studenttracker.activity.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.app.laqshya.studenttracker.activity.model.BatchDetails;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
@@ -10,6 +11,8 @@ import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.repository.AddBatchRepository;
 
 import java.util.List;
+
+import timber.log.Timber;
 
 public class AddSchedulesViewModel extends ViewModel {
     private AddBatchRepository addBatchRepository;
@@ -35,6 +38,11 @@ public class AddSchedulesViewModel extends ViewModel {
     public LiveData<List<StudentInfo>> showStudentsForBatch(String coursename,String coursemodulename)
     {
         return addBatchRepository.getStudentForBatch(coursename,coursemodulename);
+
+    }
+    public LiveData<String> createBatch(BatchDetails batchDetails){
+
+        return addBatchRepository.createBatch(batchDetails);
 
     }
 

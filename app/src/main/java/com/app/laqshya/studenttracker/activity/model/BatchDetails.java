@@ -47,12 +47,12 @@ public class BatchDetails {
         this.startDate = startDate;
     }
 
-    public List<BatchList>  getStudentNames ()
+    public List<StudentNames>  getStudentNames ()
     {
-        return batchList;
+        return studentNames;
     }
 
-    public void setStudentNames (List<BatchList> batchList)
+    public void setStudentNames (List<StudentNames> studentNames)
     {
         this.studentNames = studentNames;
     }

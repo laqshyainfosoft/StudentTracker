@@ -3,6 +3,7 @@ package com.app.laqshya.studenttracker.activity.repository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.app.laqshya.studenttracker.activity.model.BatchDetails;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
@@ -17,6 +18,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class AddBatchRepository {
     private EduTrackerService eduTrackerService;
@@ -103,6 +105,36 @@ public class AddBatchRepository {
                     }
                 });
         return response;
+    }
+
+    public LiveData<String> createBatch(BatchDetails batchDetails) {
+        MutableLiveData<String> responseLiveData = new MutableLiveData<>();
+        eduTrackerService.createBatch(batchDetails).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+//                .retryWhen(throwableFlowable ->
+//                                throwableFlowable.flatMap(throwable -> Flowable.timer(4, TimeUnit.SECONDS))
+//                                        .zipWith(Flowable.range(1, 3), (n, i) -> i))
+                .subscribe(new SingleObserver<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        responseLiveData.postValue(s);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d(e);
+                        responseLiveData.postValue("Error while creating batch");
+
+                    }
+                });
+        return responseLiveData;
+
     }
 
     public LiveData<List<StudentInfo>> getStudentForBatch(String coursename, String coursemodulename) {
