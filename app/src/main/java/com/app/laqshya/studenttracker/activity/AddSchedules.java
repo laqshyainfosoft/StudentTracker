@@ -61,7 +61,7 @@ public class AddSchedules extends AppCompatActivity {
     private ArrayList<View> viewArrayList;
     private List<StudentInfo> studentInfoArrayList;
     private List<StudentNames> studentNamesList;
-    private List<FacultyList> facultyList;
+    private List<String> facultyListMobileNumber;
     private int facultyPosition;
 
     @Override
@@ -85,9 +85,13 @@ public class AddSchedules extends AppCompatActivity {
         });
         addSchedulesViewModel.getFacultyList().observe(this, facultyLists -> {
             if (facultyLists != null && facultyLists.size() > 0) {
+                facultyListMobileNumber=new ArrayList<>();
+                for (FacultyList facultyListItem:facultyLists){
+                    facultyListMobileNumber.add(facultyListItem.getMobile());
+                }
                 ArrayAdapter<FacultyList> courses = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, facultyLists);
                 activityAddSchedulesBinding.Atteacher.setAdapter(courses);
-                facultyList = facultyLists;
+
 
             } else {
                 showToast("Failed to fetch teachers");
@@ -140,7 +144,7 @@ public class AddSchedules extends AppCompatActivity {
         activityAddSchedulesBinding.Atteacher.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                facultyPosition=position;
+                facultyPosition = position;
             }
 
             @Override
@@ -159,7 +163,8 @@ public class AddSchedules extends AppCompatActivity {
         String course = activityAddSchedulesBinding.Atcoursename.getSelectedItem().toString();
         String courseModule = activityAddSchedulesBinding.studentCourseModuleSpinner.getSelectedItem().toString();
 
-        String fPhone = facultyList.get(facultyPosition).getMobile();
+        String fPhone = facultyListMobileNumber.get(facultyPosition);
+        Timber.d("Faculty is"+fPhone);
         String location = activityAddSchedulesBinding.txtAtlocation.getText().toString();
         String batchStartDate = activityAddSchedulesBinding.calenderbatchstartdate.getText().toString();
         batchList.clear();
