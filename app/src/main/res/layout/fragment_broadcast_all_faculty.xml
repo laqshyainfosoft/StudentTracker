@@ -1,89 +1,96 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:background="@color/white">
 
-        <TextView
-            android:id="@+id/textView4"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_margin="5dp"
-            android:text="@string/Notification_to_all"
-            android:textAlignment="center"
-            android:textColor="#030303"
-            android:textSize="21dp" />
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:weightSum="1">
 
-        <Spinner
-            android:id="@+id/spinner_all_student"
-            android:layout_width="fill_parent"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:spinnerMode="dialog"
-            style="@style/spinner_style1"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/text_All_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
-
-            <EditText
-                android:id="@+id/txt_all_student_title"
+            <TextView
+                android:id="@+id/textView4"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="start"
+                android:layout_height="35dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/rounded_border_edittext"
-                android:ems="10"
-                android:foregroundGravity="top"
-                android:gravity="top|left"
-                android:hint="Title"
-                android:inputType="textPersonName"
-                android:maxLength="24"
-                android:padding="2dp" />
-        </android.support.design.widget.TextInputLayout>
+                android:text="@string/Notification_to_all"
+                android:textAlignment="center"
+                android:textColor="#030303"
+                android:textSize="21dp" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/text_All_layout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp">
+            <Spinner
+                android:id="@+id/spinner_all_student"
+                style="@style/spinner_style1"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:spinnerMode="dialog" />
 
-            <EditText
-                android:id="@+id/txt_all_student__message"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_All_layout"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_gravity="start"
-                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <EditText
+                    android:id="@+id/txt_all_student_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:ems="10"
+                    android:foregroundGravity="top"
+                    android:gravity="top|left"
+                    android:hint="Title"
+                    android:inputType="textPersonName"
+                    android:maxLength="24"
+                    android:padding="2dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_All_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <EditText
+                    android:id="@+id/txt_all_student__message"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:ems="10"
+                    android:gravity="top|left"
+                    android:hint="Message"
+                    android:inputType="textMultiLine"
+                    android:maxLength="160" />
+            </android.support.design.widget.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/checkBoxAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/CheckBox" />
+
+            <Button
+                android:id="@+id/btn_all__student_send"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/rounded_border_edittext"
-                android:ems="10"
-                android:gravity="top|left"
-                android:hint="Message"
-                android:inputType="textMultiLine"
-                android:maxLength="160" />
-        </android.support.design.widget.TextInputLayout>
+                android:text="@string/SendButton" />
+        </LinearLayout>
+    </FrameLayout>
 
-        <CheckBox
-            android:id="@+id/checkBoxAll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/CheckBox" />
+</layout>
 
-        <Button
-            android:id="@+id/btn_all__student_send"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@drawable/rounded_border_edittext"
-            android:text="@string/SendButton"
-            android:layout_marginTop="10dp"/>
-    </LinearLayout>
-</FrameLayout>
+
 
