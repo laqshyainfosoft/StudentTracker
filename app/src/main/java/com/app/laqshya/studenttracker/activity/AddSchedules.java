@@ -3,6 +3,7 @@ package com.app.laqshya.studenttracker.activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -85,8 +86,8 @@ public class AddSchedules extends AppCompatActivity {
         });
         addSchedulesViewModel.getFacultyList().observe(this, facultyLists -> {
             if (facultyLists != null && facultyLists.size() > 0) {
-                facultyListMobileNumber=new ArrayList<>();
-                for (FacultyList facultyListItem:facultyLists){
+                facultyListMobileNumber = new ArrayList<>();
+                for (FacultyList facultyListItem : facultyLists) {
                     facultyListMobileNumber.add(facultyListItem.getMobile());
                 }
                 ArrayAdapter<FacultyList> courses = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, facultyLists);
@@ -164,13 +165,13 @@ public class AddSchedules extends AppCompatActivity {
         String courseModule = activityAddSchedulesBinding.studentCourseModuleSpinner.getSelectedItem().toString();
 
         String fPhone = facultyListMobileNumber.get(facultyPosition);
-        Timber.d("Faculty is"+fPhone);
+        Timber.d("Faculty is" + fPhone);
         String location = activityAddSchedulesBinding.txtAtlocation.getText().toString();
         String batchStartDate = activityAddSchedulesBinding.calenderbatchstartdate.getText().toString();
         batchList.clear();
 
 
-        showToast(String.valueOf(viewArrayList.size()));
+
         for (View view : viewArrayList) {
             Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
             Button startTime = view.findViewById(R.id.startTime);
@@ -208,8 +209,12 @@ public class AddSchedules extends AppCompatActivity {
         batchDetails.setBatchList(batchList);
         batchDetails.setStudentNames(studentNamesList);
 //        Timber.d(batchDetails.getStudentNames().get(0).getStudentMobile());
-        addSchedulesViewModel.createBatch(batchDetails)
-                .observe(this, this::showToast);
+        if (studentNamesList.size() <= 0) {
+            showSnackBar("Please select atleast one student to add to batch");
+        } else {
+            addSchedulesViewModel.createBatch(batchDetails).observe(this, this::showToast);
+
+        }
 
 
 //            batchDetailsList.s
