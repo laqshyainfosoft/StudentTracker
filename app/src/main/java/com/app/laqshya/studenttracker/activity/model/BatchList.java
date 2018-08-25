@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity.model;
 
 public class BatchList {
+
     private String startTime;
 
     private String day;

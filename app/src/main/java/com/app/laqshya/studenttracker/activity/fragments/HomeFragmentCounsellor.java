@@ -39,6 +39,7 @@ public class HomeFragmentCounsellor extends Fragment {
         fragmentHomeAdminBinding.addStudents.setOnClickListener(v -> fragmentTransact(new AddStudentFragment()));
         fragmentHomeAdminBinding.scheduleBatches.setOnClickListener(v -> fragmentTransact(new AttendanceFragment()));
 //        fragmentHomeAdminBinding.schedule_batches.setOnClickListener(v -> fragmentTransact(new AttendanceFragment()));
+        fragmentHomeAdminBinding.broadcastBatches.setOnClickListener(v -> fragmentTransact(new NotificationsFragment()));
 
 
     }
