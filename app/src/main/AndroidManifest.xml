@@ -23,6 +23,7 @@
             android:name=".activity.MainScreenNavigationDrawer"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.AddSchedules" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.EditSchedules" />
 
         <service android:name=".activity.service.MyFirebaseInstanceIdService" android:enabled="true" android:exported="true">
             <intent-filter>
