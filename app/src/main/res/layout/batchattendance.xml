@@ -185,6 +185,7 @@
                 android:layout_alignParentBottom="false"
                 android:layout_below="@+id/viewRecords_batch"
                 android:orientation="vertical"
+                tools:visibility="visible"
                 android:visibility="gone">
 
                 <View

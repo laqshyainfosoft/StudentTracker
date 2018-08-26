@@ -16,8 +16,7 @@ import timber.log.Timber;
 
 public class NotificationsFragment extends Fragment {
     FragmentHomeAdminBinding fragmentHomeAdminBinding;
-    NotificationViewModel notificationViewModel;
-    private List<GetBatchList> batchId;
+
 
     @Nullable
     @Override

@@ -10,6 +10,7 @@ import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 import timber.log.Timber;
 
 public class AddBatchRepository {
@@ -114,15 +116,19 @@ public class AddBatchRepository {
 //                .retryWhen(throwableFlowable ->
 //                                throwableFlowable.flatMap(throwable -> Flowable.timer(4, TimeUnit.SECONDS))
 //                                        .zipWith(Flowable.range(1, 3), (n, i) -> i))
-                .subscribe(new SingleObserver<String>() {
+                .subscribe(new SingleObserver<ResponseBody>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(String s) {
-                        responseLiveData.postValue(s);
+                    public void onSuccess(ResponseBody s) {
+                        try {
+                            responseLiveData.postValue(s.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                     }
 
