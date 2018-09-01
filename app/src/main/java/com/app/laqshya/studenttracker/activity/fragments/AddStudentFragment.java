@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +39,12 @@ public class AddStudentFragment extends Fragment {
     //    ValidationViewModel validationViewModel;
     CourseLayoutBinding courseLayoutBinding;
     private int noOfInstallmentCount = 0;
-
+    int currentindex;
     private DatePickerFragment datePickerFragment;
     private CoursesStudent coursesStudent;
     private List<InstallmentsList> installmentsLists;
     private List<CourseModuleList> courseModuleList;
+    private boolean isEditTextChangeable = true;
 
     @Nullable
     @Override
@@ -238,7 +242,7 @@ public class AddStudentFragment extends Fragment {
             isValid = false;
         }
 
-        if (courseModuleList.size()<1){
+        if (courseModuleList.size() < 1) {
             Toast.makeText(getActivity(), "Please select course modules", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
@@ -250,7 +254,6 @@ public class AddStudentFragment extends Fragment {
         Timber.d("Child count is %d", courseLayoutBinding.installmentLayout.getChildCount());
 
         if (courseLayoutBinding.installmentLayout.getChildCount() != installmentsLists.size()) {
-
 
 
             Toast.makeText(getActivity(), "Please enter all installment details", Toast.LENGTH_SHORT).show();
@@ -279,7 +282,7 @@ public class AddStudentFragment extends Fragment {
                 }
 
             });
-        }else  if (!Utils.isNetworkConnected(getActivity())) {
+        } else if (!Utils.isNetworkConnected(getActivity())) {
             Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
 
         }
@@ -308,6 +311,9 @@ public class AddStudentFragment extends Fragment {
 
     //This method manages the dynamic installment layout.
     private void manageInstallments(int value) {
+        List<EditText> editTextsList = new ArrayList<>();
+        int fees = 0;
+        int downPayment = 0;
 
         //TODO fix views reset on amounts change.
 
@@ -318,17 +324,17 @@ public class AddStudentFragment extends Fragment {
         if (installmentsLists != null && installmentsLists.size() > 0) {
             installmentsLists.clear();
         }
-        int amount = 0;
+        final int[] amount = {0};
         if (value > 0) {
             courseLayoutBinding.installmentLayout.setVisibility(View.VISIBLE);
             if (!courseLayoutBinding.inputFees.getText().toString().trim().isEmpty()
                     && !courseLayoutBinding.inputDownpayment.getText().toString().trim().isEmpty()
                     && !courseLayoutBinding.inputNoOfInstallments.getText().toString().trim().isEmpty()) {
-                int fees = Integer.parseInt(courseLayoutBinding.inputFees.getText().toString());
-                int downPayment = Integer.parseInt(courseLayoutBinding.inputDownpayment.getText().toString()
+                fees = Integer.parseInt(courseLayoutBinding.inputFees.getText().toString());
+                downPayment = Integer.parseInt(courseLayoutBinding.inputDownpayment.getText().toString()
                 );
 
-                amount = (fees - downPayment) / noOfInstallmentCount;
+                amount[0] = (fees - downPayment) / noOfInstallmentCount;
 
             } else {
                 courseLayoutBinding.installmentLayout.setVisibility(View.GONE);
@@ -341,7 +347,7 @@ public class AddStudentFragment extends Fragment {
                 installmentNumberTextView.setText(String.valueOf(i + 1));
                 TextView datePicker = view.findViewById(R.id.installmentDate);
                 int finalI = i;
-                int finalAmount = amount;
+                int finalAmount = amount[0];
                 datePicker.setOnClickListener(v -> {
 
                     datePickerFragment.show(Objects.requireNonNull(getActivity()).getFragmentManager(), "date_picker");
@@ -358,20 +364,95 @@ public class AddStudentFragment extends Fragment {
                             installmentsList.setInstallmentDate(s);
                             installmentsList.setInstallmentNo(String.valueOf(number));
                             installmentsLists.add(installmentsList);
-
-//                            Timber.d("%d", installmentsList.size());
                         }
 
                     });
                 });
 
-                TextView amnt = view.findViewById(R.id.installmentAmount);
-                amnt.setText(String.valueOf(amount));
+                EditText amnt = view.findViewById(R.id.installmentAmount);
+                MyTextWatcher myTextWatcher = new MyTextWatcher(finalI, fees, downPayment, editTextsList, amount, amnt);
+                amnt.addTextChangedListener(myTextWatcher);
+
+
+//                amnt.setText(String.valueOf(amount[0]));
+                if (!editTextsList.contains(amnt))
+                    editTextsList.add(amnt);
+
 
             }
 
         }
     }
 
+
+    private class MyTextWatcher implements TextWatcher {
+        int finalI;
+        int finalFees;
+        int finalDownPayment;
+        EditText amnt;
+
+        MyTextWatcher(int finalI, int finalFees, int finalDownPayment, List<EditText> editTextsList, int[] amount
+                , EditText amnt) {
+            this.finalI = finalI;
+            this.finalFees = finalFees;
+            this.finalDownPayment = finalDownPayment;
+            this.editTextsList = editTextsList;
+            this.amnt = amnt;
+            this.amount = amount;
+        }
+
+        List<EditText> editTextsList;
+        int amount[];
+        EditText editTextTemp = null;
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            currentindex = finalI;
+            Timber.d("On Text Changed Called");
+            String s1 = s.toString();
+
+            s1 = s1.replaceAll("^\"|\"$", "").trim();
+            if (!s1.isEmpty()) {
+                int newAmount = Integer.parseInt(s1);
+
+//                        Toast.makeText(getActivity(), ""+currentindex, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), ""+s.toString(), Toast.LENGTH_SHORT).show();
+                amount[0] = (finalFees - finalDownPayment - newAmount) / (noOfInstallmentCount - 1);
+                Timber.d("Size %d", editTextsList.size());
+
+                Toast.makeText(getActivity(), "" + amount[0], Toast.LENGTH_SHORT).show();
+
+
+            }
+
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            for (int j = 0; j < editTextsList.size(); j++) {
+                if (!editTextsList.get(j).equals(amnt)) {
+                    Timber.d("Came here" + j);
+                    editTextTemp = editTextsList.get(j);
+                    editTextTemp.removeTextChangedListener(this);
+                    editTextTemp.setText(String.valueOf(amount[0]));
+
+
+                }
+            }
+
+            
+
+//            if(editTextTemp!=null)
+
+
+        }
+    }
 }
 
