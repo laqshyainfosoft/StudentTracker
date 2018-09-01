@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
     android:orientation="horizontal">
 <TextView
     android:layout_width="match_parent"
     android:id="@+id/batchNameDay"
+    android:textColor="@color/black"
+    android:layout_marginStart="10dp"
+    tools:text="Monday"
+    android:textStyle="bold"
     android:layout_weight="0.5"
     android:layout_height="wrap_content" />
     <TextView
         android:layout_weight="0.5"
         android:id="@+id/batchTiming"
+        android:textColor="@color/black"
+        tools:text="12:00 PM"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
