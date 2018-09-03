@@ -1,7 +1,7 @@
 package com.app.laqshya.studenttracker.activity.service;
 
 import com.app.laqshya.studenttracker.activity.model.BatchDetails;
-import com.app.laqshya.studenttracker.activity.model.BatchList;
+import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
@@ -68,5 +68,8 @@ public interface EduTrackerService {
 
     @POST("createBatch.php")
     Single<ResponseBody> createBatch(@Body BatchDetails batchDetails);
+    @FormUrlEncoded
+    @POST("getBatchinfo.php")
+    Single<List<BatchInformationResponse.BatchInformation>> getBatch(@Field("centername")String centername);
 
 }
