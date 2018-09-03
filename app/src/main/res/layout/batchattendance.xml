@@ -10,7 +10,7 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
@@ -43,20 +43,20 @@
                         android:textColor="#ea5127"
                         tools:text="Batch 1" />
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/type"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:background="#66d1d1d1"-->
-                        <!--android:gravity="center"-->
-                        <!--android:paddingBottom="2.0dp"-->
-                        <!--android:paddingLeft="5.0dp"-->
-                        <!--android:paddingRight="5.0dp"-->
-                        <!--android:paddingTop="2.0dp"-->
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#66d1d1d1"
+                        android:gravity="center"
+                        android:paddingBottom="2.0dp"
+                        android:paddingLeft="5.0dp"
+                        android:paddingRight="5.0dp"
+                        android:paddingTop="2.0dp"
 
-                        <!--android:textAppearance="?android:textAppearanceSmall"-->
-                        <!--android:textColor="#ea5127"-->
-                        <!--tools:text="Student_name" />-->
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:textColor="#ea5127"
+                        tools:text="SubjectModule_name" />
 
                 </LinearLayout>
 
@@ -182,13 +182,16 @@
 
             <LinearLayout
                 android:id="@+id/scheduleLayout_batch"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="false"
                 android:layout_below="@+id/viewRecords_batch"
+                android:layout_marginTop="21dp"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
                 android:orientation="vertical"
-                tools:visibility="visible"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <View
                     android:layout_width="fill_parent"

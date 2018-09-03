@@ -24,13 +24,9 @@ import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.viewmodel.EditSchedulesViewModel;
 import com.app.laqshya.studenttracker.databinding.FragmentListBatchesBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
-import timber.log.Timber;
 
 public class AttendanceFragment extends Fragment {
     FragmentListBatchesBinding fragmentListBatchesBinding;
@@ -46,7 +42,7 @@ public class AttendanceFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentListBatchesBinding = FragmentListBatchesBinding.inflate(inflater, container, false);
         floatingActionButton = getActivity().findViewById(R.id.fab_attendance);
-        editSchedulesViewModel= ViewModelProviders.of(this,editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
+        editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
         return fragmentListBatchesBinding.getRoot();
     }
 
@@ -61,15 +57,15 @@ public class AttendanceFragment extends Fragment {
     }
 
     private void getBatchForUserType() {
-        switch (sessionManager.getLoggedInType()){
+        switch (sessionManager.getLoggedInType()) {
             case Constants.COUNSELLOR:
                 editSchedulesViewModel.getBatchesForCounsellor(sessionManager.getLoggedInuserCenter())
                         .observe(this, batchInformationResponse -> {
-                            if(batchInformationResponse==null || batchInformationResponse.getThrowable()!=null){
+                            if (batchInformationResponse == null || batchInformationResponse.getBatchInformationList() == null
+                                    || batchInformationResponse.getBatchInformationList().size() == 0 || batchInformationResponse.getThrowable() != null) {
                                 Toast.makeText(getActivity(), "Failed to get Batches", Toast.LENGTH_SHORT).show();
-                            }
-                            else
-                            showbatchforcounsellor(batchInformationResponse);
+                            } else
+                                showbatchforcounsellor(batchInformationResponse);
 
                         });
 
@@ -94,12 +90,13 @@ public class AttendanceFragment extends Fragment {
 //
 //        }
 
-        Timber.d(batchInformationResponse.getBatchInformationList().get(0).getBatchid());
+//        Timber.d(batchInformationResponse.getBatchInformationList().get(0).getBatchid());
         fragmentListBatchesBinding.recyclerViewAttendance.setLayoutManager(new LinearLayoutManager(getActivity()));
         fragmentListBatchesBinding.recyclerViewAttendance.setHasFixedSize(false);
         fragmentListBatchesBinding.imageView2Attend.setVisibility(View.GONE);
         fragmentListBatchesBinding.textViewAttend.setVisibility(View.GONE);
-        CurrentBatchAdapter currentBatchAdapter=new CurrentBatchAdapter(getActivity());
+
+        CurrentBatchAdapter currentBatchAdapter = new CurrentBatchAdapter(getActivity());
         fragmentListBatchesBinding.recyclerViewAttendance.setAdapter(currentBatchAdapter);
         currentBatchAdapter.update(batchInformationResponse.getBatchInformationList());
     }

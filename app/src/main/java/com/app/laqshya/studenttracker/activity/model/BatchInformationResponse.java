@@ -1,5 +1,6 @@
 package com.app.laqshya.studenttracker.activity.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BatchInformationResponse {
@@ -36,41 +37,22 @@ public class BatchInformationResponse {
     public  static class BatchInformation {
 
         private String batchid;
+
+        public String getBatchid() { return "Batch " +this.batchid; }
+
+        public void setBatchid(String batchid) { this.batchid = batchid; }
+
         private String faculty_name;
-        private String starttime;
-        private String day;
 
-        public String getBatchid() {
-            return "Batch "+this.batchid;
-        }
+        public String getFacultyName() { return this.faculty_name; }
 
-        public void setBatchid(String batchid) {
-            this.batchid = batchid;
-        }
+        public void setFacultyName(String faculty_name) { this.faculty_name = faculty_name; }
 
-        public String getFacultyName() {
-            return this.faculty_name;
-        }
+        private ArrayList<Schedule> schedule;
 
-        public void setFacultyName(String faculty_name) {
-            this.faculty_name = faculty_name;
-        }
+        public ArrayList<Schedule> getSchedule() { return this.schedule; }
 
-        public String getStarttime() {
-            return this.starttime;
-        }
-
-        public void setStarttime(String starttime) {
-            this.starttime = starttime;
-        }
-
-        public String getDay() {
-            return this.day;
-        }
-
-        public void setDay(String day) {
-            this.day = day;
-        }
+        public void setSchedule(ArrayList<Schedule> schedule) { this.schedule = schedule; }
 
 
     }
