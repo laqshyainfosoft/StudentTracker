@@ -37,12 +37,21 @@ public class BatchInformationResponse {
     public  static class BatchInformation {
 
         private String batchid;
+        private String course_module_name;
 
         public String getBatchid() { return "Batch " +this.batchid; }
 
         public void setBatchid(String batchid) { this.batchid = batchid; }
 
         private String faculty_name;
+
+        public String getCourse_module_name() {
+            return course_module_name;
+        }
+
+        public void setCourse_module_name(String course_module_name) {
+            this.course_module_name = course_module_name;
+        }
 
         public String getFacultyName() { return this.faculty_name; }
 

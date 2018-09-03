@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,12 @@ public class AttendanceFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         floatingActionButton.setVisibility(View.VISIBLE);
         floatingActionButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), AddSchedules.class)));
+        fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getBatchForUserType();
+            }
+        });
         getBatchForUserType();
 
 
@@ -61,8 +68,9 @@ public class AttendanceFragment extends Fragment {
             case Constants.COUNSELLOR:
                 editSchedulesViewModel.getBatchesForCounsellor(sessionManager.getLoggedInuserCenter())
                         .observe(this, batchInformationResponse -> {
+                            fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setRefreshing(false);
                             if (batchInformationResponse == null || batchInformationResponse.getBatchInformationList() == null
-                                    || batchInformationResponse.getBatchInformationList().size() == 0 || batchInformationResponse.getThrowable() != null) {
+                                    || batchInformationResponse.getThrowable() != null) {
                                 Toast.makeText(getActivity(), "Failed to get Batches", Toast.LENGTH_SHORT).show();
                             } else
                                 showbatchforcounsellor(batchInformationResponse);
@@ -75,30 +83,18 @@ public class AttendanceFragment extends Fragment {
     }
 
     private void showbatchforcounsellor(BatchInformationResponse batchInformationResponse) {
-//        List<BatchInformationResponse.BatchInformation> batchInformationListemp=new ArrayList<>();
-//        String currentid=batchInformationResponse.getBatchInformationList().get(0).getBatchid();
-//        int i=0;
-//        while (i<batchInformationResponse.getBatchInformationList().size()){
-//            if(!batchInformationResponse.getBatchInformationList().get(i).getBatchid().equalsIgnoreCase(currentid)){
-//                i++;
-//                currentid=batchInformationResponse.getBatchInformationList().get(i).getBatchid();
-//            }
-//            BatchInformationResponse.BatchInformation batchInformation=new BatchInformationResponse.BatchInformation();
-//            batchInformation.setBatchid(currentid);
-//            batchInformation.setFacultyName(batchInformationResponse.getBatchInformationList().get(i).getFacultyName());
-//            batchInformationListemp.add(batchInformation);
-//
-//        }
-
 //        Timber.d(batchInformationResponse.getBatchInformationList().get(0).getBatchid());
         fragmentListBatchesBinding.recyclerViewAttendance.setLayoutManager(new LinearLayoutManager(getActivity()));
         fragmentListBatchesBinding.recyclerViewAttendance.setHasFixedSize(false);
-        fragmentListBatchesBinding.imageView2Attend.setVisibility(View.GONE);
-        fragmentListBatchesBinding.textViewAttend.setVisibility(View.GONE);
+        if(batchInformationResponse.getBatchInformationList().size()>0) {
+            fragmentListBatchesBinding.imageView2Attend.setVisibility(View.GONE);
+            fragmentListBatchesBinding.textViewAttend.setVisibility(View.GONE);
 
-        CurrentBatchAdapter currentBatchAdapter = new CurrentBatchAdapter(getActivity());
-        fragmentListBatchesBinding.recyclerViewAttendance.setAdapter(currentBatchAdapter);
-        currentBatchAdapter.update(batchInformationResponse.getBatchInformationList());
+            CurrentBatchAdapter currentBatchAdapter = new CurrentBatchAdapter(getActivity());
+            fragmentListBatchesBinding.recyclerViewAttendance.setAdapter(currentBatchAdapter);
+            currentBatchAdapter.update(batchInformationResponse.getBatchInformationList());
+        }
+
     }
 
     @Override
