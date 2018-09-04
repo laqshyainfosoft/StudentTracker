@@ -2,15 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--<data>-->
+    <data>
 
-        <!--<variable-->
-            <!--name="feedattendancemodel"-->
-            <!--type="edutracker.laqshya.com.edutracker.model.FeedAttendanceItems" />-->
-    <!--</data>-->
+        <variable
+            name="batchattendancemodel"
+            type="com.app.laqshya.studenttracker.activity.model.BatchInformationResponse.BatchInformation" />
+    </data>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
@@ -36,27 +36,28 @@
 
                     <TextView
                         android:id="@+id/Batch_name"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@{batchattendancemodel.getBatchid()}"
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ea5127"
-                        tools:text="Student name" />
+                        tools:text="Batch 1" />
 
                     <TextView
                         android:id="@+id/type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="#66d1d1d1"
+
                         android:gravity="center"
                         android:paddingBottom="2.0dp"
                         android:paddingLeft="5.0dp"
+                        android:layout_marginStart="10dp"
                         android:paddingRight="5.0dp"
                         android:paddingTop="2.0dp"
-
-                        android:textAppearance="?android:textAppearanceSmall"
+                        android:text="@{batchattendancemodel.getCourse_module_name()}"
+                        android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ea5127"
-                        tools:text="Student_name" />
+                        tools:text="SubjectModule_name" />
 
                 </LinearLayout>
 
@@ -80,8 +81,9 @@
                         android:layout_marginStart="2.0dp"
                         android:paddingLeft="2.0dp"
                         android:paddingStart="2.0dp"
-
-                        android:textColor="#ea5127" />
+                        android:text="@{batchattendancemodel.getFacultyName()}"
+                        android:textColor="#ea5127"
+                        tools:text="Bismeet" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -103,8 +105,9 @@
                         android:layout_marginStart="2.0dp"
                         android:paddingLeft="2.0dp"
                         android:paddingStart="2.0dp"
+                        android:textColor="#ea5127"
 
-                        android:textColor="#ea5127" />
+                        tools:text="Andheri" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -180,13 +183,16 @@
 
             <LinearLayout
                 android:id="@+id/scheduleLayout_batch"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="false"
                 android:layout_below="@+id/viewRecords_batch"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="21dp"
                 android:orientation="vertical"
-                tools:visibility="visible"
-                android:visibility="gone">
+                android:padding="10dp"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <View
                     android:layout_width="fill_parent"

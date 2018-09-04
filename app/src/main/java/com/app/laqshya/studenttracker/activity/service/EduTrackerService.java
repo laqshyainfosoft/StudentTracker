@@ -1,7 +1,7 @@
 package com.app.laqshya.studenttracker.activity.service;
 
 import com.app.laqshya.studenttracker.activity.model.BatchDetails;
-import com.app.laqshya.studenttracker.activity.model.BatchList;
+import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
@@ -22,7 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.0.128/student_tracker/";
+    String ENDPOINT = "http://192.168.0.130/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -68,5 +68,8 @@ public interface EduTrackerService {
 
     @POST("createBatch.php")
     Single<ResponseBody> createBatch(@Body BatchDetails batchDetails);
+    @FormUrlEncoded
+    @POST("getBatchinfo.php")
+    Single<List<BatchInformationResponse.BatchInformation>> getBatch(@Field("centername")String centername);
 
 }
