@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import timber.log.Timber;
 
 public class AddStudentFragment extends Fragment {
     RegisterStudentBinding registerStudentBinding;
+
     NavDrawerViewModel navDrawerViewModel;
     //    ValidationViewModel validationViewModel;
     CourseLayoutBinding courseLayoutBinding;
@@ -107,25 +109,27 @@ public class AddStudentFragment extends Fragment {
                 registerStudentBinding.inputStudentNumber.setError(getString(R.string.mobile_error));
                 isValid = false;
             }
+            registerStudentBinding.progressBar.setVisibility(View.VISIBLE);
 
             if (isValid && Utils.isNetworkConnected(getActivity())) {
                 navDrawerViewModel.registerStudent(name, phone,
                         email).observe(this, s -> {
 
                     if (s != null && s.length() > 0) {
-                        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
                         {
                             Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
                             manageStudentAdded(s);
+                            registerStudentBinding.progressBar.setVisibility(View.INVISIBLE);
+
                         }
                     }
                 });
             } else if (!Utils.isNetworkConnected(getActivity())) {
                 Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                registerStudentBinding.progressBar.setVisibility(View.INVISIBLE);
 
             }
-
-
         });
 
 
@@ -447,7 +451,7 @@ public class AddStudentFragment extends Fragment {
                 }
             }
 
-            
+
 
 //            if(editTextTemp!=null)
 

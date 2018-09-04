@@ -386,7 +386,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="2dp" />
+                                android:layout_marginTop="2dp"
+                                style="@style/spinner_style"/>
 
                         </LinearLayout>
 
@@ -405,5 +406,13 @@
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:indeterminateTint="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="gone" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

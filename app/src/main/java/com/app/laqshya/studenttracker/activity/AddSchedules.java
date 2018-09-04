@@ -101,6 +101,7 @@ public class AddSchedules extends AppCompatActivity {
 
         });
         activityAddSchedulesBinding.fabsave.setOnClickListener(v -> {
+
             saveBatch();
 
         });
@@ -212,7 +213,24 @@ public class AddSchedules extends AppCompatActivity {
         if (studentNamesList.size() <= 0) {
             showSnackBar("Please select atleast one student to add to batch");
         } else {
-            addSchedulesViewModel.createBatch(batchDetails).observe(this, this::showToast);
+
+            //pr
+//            addSchedulesViewModel.createBatch(batchDetails).observe(this, this::showToast);
+            addSchedulesViewModel.createBatch(batchDetails).observe(this, s -> {
+                activityAddSchedulesBinding.progressBar.setVisibility(View.VISIBLE);
+
+                if (s != null && s.length() > 0) {
+//                        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                    {
+                        showToast(s);
+                        activityAddSchedulesBinding.progressBar.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+
+
+            });
 
         }
 
