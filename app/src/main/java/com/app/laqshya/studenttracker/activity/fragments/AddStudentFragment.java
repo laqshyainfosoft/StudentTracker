@@ -335,8 +335,7 @@ public class AddStudentFragment extends Fragment {
                     && !courseLayoutBinding.inputDownpayment.getText().toString().trim().isEmpty()
                     && !courseLayoutBinding.inputNoOfInstallments.getText().toString().trim().isEmpty()) {
                 fees = Integer.parseInt(courseLayoutBinding.inputFees.getText().toString());
-                downPayment = Integer.parseInt(courseLayoutBinding.inputDownpayment.getText().toString()
-                );
+                downPayment = Integer.parseInt(courseLayoutBinding.inputDownpayment.getText().toString());
 
                 amount[0] = (fees - downPayment) / noOfInstallmentCount;
 
@@ -431,11 +430,7 @@ public class AddStudentFragment extends Fragment {
                 Timber.d("Size %d", editTextsList.size());
 
                 Toast.makeText(getActivity(), "" + amount[0], Toast.LENGTH_SHORT).show();
-
-
             }
-
-
         }
 
         @Override
@@ -445,18 +440,13 @@ public class AddStudentFragment extends Fragment {
                     Timber.d("Came here" + j);
                     editTextTemp = editTextsList.get(j);
                     editTextTemp.removeTextChangedListener(this);
-                    editTextTemp.setText(String.valueOf(amount[0]));
-
+                    if(amnt.isFocused()) {
+                        editTextTemp.setText(String.valueOf(amount[0]));
+                    }
 
                 }
             }
-
-
-
 //            if(editTextTemp!=null)
-
-
         }
     }
 }
-
