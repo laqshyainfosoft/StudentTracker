@@ -1,5 +1,6 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.support.v4.widget.ContentLoadingProgressBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -104,12 +106,19 @@ public class AddStudentFragment extends Fragment {
                 registerStudentBinding.inputEmail.setError(getString(R.string.email_error));
                 isValid = false;
             }
+            else {
+                registerStudentBinding.progressBar.setVisibility(View.VISIBLE);
+
+            }
             if (!Utils.isValidPhone(phone)) {
 //                Toast.makeText(getActivity(), getString(R.string.mobile_error), Toast.LENGTH_SHORT).show();
                 registerStudentBinding.inputStudentNumber.setError(getString(R.string.mobile_error));
                 isValid = false;
             }
-            registerStudentBinding.progressBar.setVisibility(View.VISIBLE);
+            else {
+                registerStudentBinding.progressBar.setVisibility(View.VISIBLE);
+            }
+            registerStudentBinding.progressBar.setVisibility(View.INVISIBLE);
 
             if (isValid && Utils.isNetworkConnected(getActivity())) {
                 navDrawerViewModel.registerStudent(name, phone,
@@ -136,6 +145,7 @@ public class AddStudentFragment extends Fragment {
     }
 
     //Manages the courses to be registered for student in the student registration process.
+    @SuppressLint("ClickableViewAccessibility")
     private void manageStudentAdded(String studentStatus) {
         if (studentStatus.contains("Successfully")) {
 
@@ -194,6 +204,13 @@ public class AddStudentFragment extends Fragment {
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            courseLayoutBinding.inputDownpayment.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    courseLayoutBinding.inputDownpayment.setText("");
+                    return false;
                 }
             });
             navDrawerViewModel.noOfInstallments.observe(this, integer -> {
@@ -430,6 +447,7 @@ public class AddStudentFragment extends Fragment {
                 Timber.d("Size %d", editTextsList.size());
 
                 Toast.makeText(getActivity(), "" + amount[0], Toast.LENGTH_SHORT).show();
+                Timber.d("Amount is" + amount[0]);
             }
         }
 
