@@ -33,7 +33,7 @@ public class CurrentBatchAdapter extends RecyclerView.Adapter<CurrentBatchAdapte
     public MyBatchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         batchattendanceBinding = BatchattendanceBinding.inflate(layoutInflater, parent, false);
 
-        batchattendanceBinding.scheduleLayoutBatch.setVisibility(View.VISIBLE);
+//        batchattendanceBinding.scheduleLayoutBatch.setVisibility(View.VISIBLE);
         return new MyBatchHolder(batchattendanceBinding);
     }
 
