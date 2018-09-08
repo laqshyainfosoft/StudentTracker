@@ -48,7 +48,7 @@ public class AddStudentFragment extends Fragment {
     private CoursesStudent coursesStudent;
     private List<InstallmentsList> installmentsLists;
     private List<CourseModuleList> courseModuleList;
-    private boolean isEditTextChangeable = true;
+    private boolean[] isEditTextChanged;
 
     @Nullable
     @Override
@@ -206,12 +206,10 @@ public class AddStudentFragment extends Fragment {
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
             });
-            courseLayoutBinding.inputDownpayment.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    courseLayoutBinding.inputDownpayment.setText("");
-                    return false;
-                }
+            courseLayoutBinding.inputDownpayment.setOnTouchListener((v, event) -> {
+                if(courseLayoutBinding.inputDownpayment.getText().toString().equals("0"))
+                courseLayoutBinding.inputDownpayment.setText("");
+                return false;
             });
             navDrawerViewModel.noOfInstallments.observe(this, integer -> {
                 if (integer != null) {
@@ -233,6 +231,7 @@ public class AddStudentFragment extends Fragment {
 
             });
             navDrawerViewModel.downPayment.observe(this, integer -> {
+//                Timber.d("Downpayment is %d",integer);
                 if (integer != null) {
                     manageInstallments(integer);
                 }
@@ -354,7 +353,9 @@ public class AddStudentFragment extends Fragment {
                 fees = Integer.parseInt(courseLayoutBinding.inputFees.getText().toString());
                 downPayment = Integer.parseInt(courseLayoutBinding.inputDownpayment.getText().toString());
 
+
                 amount[0] = (fees - downPayment) / noOfInstallmentCount;
+                Timber.d("");
 
             } else {
                 courseLayoutBinding.installmentLayout.setVisibility(View.GONE);
@@ -384,19 +385,24 @@ public class AddStudentFragment extends Fragment {
                             installmentsList.setInstallmentDate(s);
                             installmentsList.setInstallmentNo(String.valueOf(number));
                             installmentsLists.add(installmentsList);
+
                         }
 
                     });
                 });
 
                 EditText amnt = view.findViewById(R.id.installmentAmount);
+
+
+
+                amnt.setText(String.valueOf(amount[0]));
+                if (!editTextsList.contains(amnt)) {
+                    editTextsList.add(amnt);
+                    isEditTextChanged = new boolean[editTextsList.size()];
+                    Timber.d(String.valueOf("Length" + isEditTextChanged.length));
+                }
                 MyTextWatcher myTextWatcher = new MyTextWatcher(finalI, fees, downPayment, editTextsList, amount, amnt);
                 amnt.addTextChangedListener(myTextWatcher);
-
-
-//                amnt.setText(String.valueOf(amount[0]));
-                if (!editTextsList.contains(amnt))
-                    editTextsList.add(amnt);
 
 
             }
@@ -434,6 +440,14 @@ public class AddStudentFragment extends Fragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             currentindex = finalI;
+            Timber.d("Current index is %d",currentindex);
+//            int editTextIndex=editTextsList.indexOf(amnt);
+            if(isEditTextChanged!=null && isEditTextChanged.length>0) {
+//                isEditTextChanged[editTextIndex] = true;
+                for (int i = 0; i < isEditTextChanged.length; i++) {
+                    Timber.d("Index is %d and value is %s", i, isEditTextChanged[i]);
+                }
+            }
             Timber.d("On Text Changed Called");
             String s1 = s.toString();
 
@@ -443,11 +457,18 @@ public class AddStudentFragment extends Fragment {
 
 //                        Toast.makeText(getActivity(), ""+currentindex, Toast.LENGTH_SHORT).show();
 //                        Toast.makeText(getActivity(), ""+s.toString(), Toast.LENGTH_SHORT).show();
-                amount[0] = (finalFees - finalDownPayment - newAmount) / (noOfInstallmentCount - 1);
+                if(noOfInstallmentCount > 1) {
+                    Timber.d("Values are %d %d %d %d",finalFees,finalDownPayment,newAmount,noOfInstallmentCount);
+                    amount[0] = (finalFees - finalDownPayment - newAmount) / (noOfInstallmentCount - 1);
+                }
+
+                else if(noOfInstallmentCount==1){
+                    amount[0] = (finalFees - finalDownPayment - newAmount) ;
+                }
                 Timber.d("Size %d", editTextsList.size());
 
                 Toast.makeText(getActivity(), "" + amount[0], Toast.LENGTH_SHORT).show();
-                Timber.d("Amount is" + amount[0]);
+                Timber.d("Amount is%s", amount[0]);
             }
         }
 
@@ -455,11 +476,14 @@ public class AddStudentFragment extends Fragment {
         public void afterTextChanged(Editable s) {
             for (int j = 0; j < editTextsList.size(); j++) {
                 if (!editTextsList.get(j).equals(amnt)) {
-                    Timber.d("Came here" + j);
                     editTextTemp = editTextsList.get(j);
+                    Timber.d("Amnt is %d",amount[0]);
                     editTextTemp.removeTextChangedListener(this);
                     if(amnt.isFocused()) {
+//                        editTextTemp.setTag("temporary installment");
+                        isEditTextChanged[j]=true;
                         editTextTemp.setText(String.valueOf(amount[0]));
+                        isEditTextChanged[j]=false;
                     }
 
                 }
