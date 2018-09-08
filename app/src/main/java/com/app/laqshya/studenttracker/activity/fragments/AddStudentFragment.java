@@ -108,7 +108,6 @@ public class AddStudentFragment extends Fragment {
             }
             else {
                 registerStudentBinding.progressBar.setVisibility(View.VISIBLE);
-
             }
             if (!Utils.isValidPhone(phone)) {
 //                Toast.makeText(getActivity(), getString(R.string.mobile_error), Toast.LENGTH_SHORT).show();
