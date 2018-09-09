@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.laqshya.studenttracker.R;
+import com.app.laqshya.studenttracker.activity.listeners.MyBatchClickListener;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.Schedule;
 import com.app.laqshya.studenttracker.databinding.BatchattendanceBinding;
@@ -18,20 +19,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentBatchAdapter extends RecyclerView.Adapter<CurrentBatchAdapter.MyBatchHolder> {
-    private BatchattendanceBinding batchattendanceBinding;
 
     private List<BatchInformationResponse.BatchInformation> batchInformationList;
+    private MyBatchClickListener batchClickListener;
     private LayoutInflater layoutInflater;
 
-    public CurrentBatchAdapter(Context context) {
+    public CurrentBatchAdapter(Context context,MyBatchClickListener batchClickListener) {
         layoutInflater = LayoutInflater.from(context);
         batchInformationList = new ArrayList<>();
+        this.batchClickListener=batchClickListener;
     }
 
     @NonNull
     @Override
     public MyBatchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        batchattendanceBinding = BatchattendanceBinding.inflate(layoutInflater, parent, false);
+        BatchattendanceBinding batchattendanceBinding = BatchattendanceBinding.inflate(layoutInflater, parent, false);
 
 //        batchattendanceBinding.scheduleLayoutBatch.setVisibility(View.VISIBLE);
         return new MyBatchHolder(batchattendanceBinding);
@@ -87,6 +89,7 @@ public class CurrentBatchAdapter extends RecyclerView.Adapter<CurrentBatchAdapte
                 }
 
             });
+            batchattendanceBinding.editbatchCounsellor.setOnClickListener((v -> {batchClickListener.OnClick(v,getAdapterPosition(),batchInformation);}));
 //            togglebuttonlayoutBinding=TogglebuttonlayoutBinding.
             batchattendanceBinding.executePendingBindings();
         }

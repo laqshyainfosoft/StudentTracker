@@ -142,15 +142,22 @@ public class AddStudentFragment extends Fragment {
     private void manageStudentAdded(String studentStatus) {
         if (studentStatus.contains("Successfully")) {
 
-            registerStudentBinding.addCourses.setVisibility(View.VISIBLE);
+
             registerStudentBinding.saveCourses.setVisibility(View.VISIBLE);
             registerStudentBinding.saveCourses.setOnClickListener(v -> {
                 saveCourses();
             });
             registerStudentBinding.btnSignup.setVisibility(View.GONE);
-            registerStudentBinding.addCourses.setOnClickListener(v -> {
+            registerStudentBinding.saveCourses.setOnClickListener(v -> {
+
                 if (courseLayoutBinding != null) {
-                    resetViews();
+                    if(registerStudentBinding.saveCourses.getText().toString().equalsIgnoreCase("Add Courses")) {
+                        registerStudentBinding.saveCourses.setText("Save Courses");
+                        resetViews();
+                    }
+                    else {
+                        saveCourses();
+                    }
                 }
             });
             courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
@@ -290,6 +297,7 @@ public class AddStudentFragment extends Fragment {
                 if (s != null && !s.isEmpty()) {
                     Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
                     if (s.contains("Success")) {
+                        registerStudentBinding.saveCourses.setText("Add Courses");
                         StringBuilder courseList = new StringBuilder();
                         for (int i = 0; i < courseModuleList.size(); i++) {
                             courseList.append(courseModuleList.get(i).getCourse_name()).append(", ");
@@ -351,9 +359,9 @@ public class AddStudentFragment extends Fragment {
                 fees = Integer.parseInt(courseLayoutBinding.inputFees.getText().toString());
                 downPayment = Integer.parseInt(courseLayoutBinding.inputDownpayment.getText().toString());
 
-
+            if(noOfInstallmentCount>0)
                 amount[0] = (fees - downPayment) / noOfInstallmentCount;
-                Timber.d("");
+
 
             } else {
                 courseLayoutBinding.installmentLayout.setVisibility(View.GONE);

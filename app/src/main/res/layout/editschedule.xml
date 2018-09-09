@@ -17,14 +17,13 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/my_toolbar"
-            app:title="Add Batches"
-            app:titleTextColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Add Batches"
+            app:titleTextColor="@color/white" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabsave"
@@ -43,8 +42,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginTop="55dp">
+                android:layout_marginTop="55dp"
+                android:background="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,52 +51,6 @@
                     android:orientation="vertical"
                     android:visibility="visible">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10.0dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:id="@+id/imageView8"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/list" />
-
-                            <TextView
-                                android:id="@+id/txtcoursecategory"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10.0dp"
-                                android:text="Course Category"
-                                android:textColor="#ea5127"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-
-                        <Spinner
-                            android:id="@+id/Atcoursecategory"
-                            style="@style/spinner_style"
-                            android:hint="Course Name" />
-
-
-                    </LinearLayout>
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -107,7 +60,6 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
 
@@ -122,8 +74,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10.0dp"
-                                android:text="Batch_details"
+                                android:layout_marginStart="10.0dp"
+                                android:text="Batch details"
 
                                 android:textColor="#ea5127"
                                 android:textSize="20sp"
@@ -146,7 +98,21 @@
                             <Spinner
                                 android:id="@+id/Atcoursename"
                                 style="@style/spinner_style"
-                                android:hint="@string/course_name" />
+                                android:hint="@string/course_name"
+                                android:textAlignment="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Course Module : "
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <Spinner
+                                android:id="@+id/studentCourseModuleSpinner"
+                                style="@style/spinner_style"
+                                android:textAlignment="center"
+                                android:layout_width="match_parent" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -166,7 +132,8 @@
                             <Spinner
                                 android:id="@+id/Atteacher"
                                 style="@style/spinner_style"
-                                android:hint="Course Name" />
+                                android:hint="Course Name"
+                                android:textAlignment="center" />
 
                         </LinearLayout>
 
@@ -189,8 +156,6 @@
                                 android:layout_height="35.0dp"
                                 android:layout_marginTop="5.0dp"
                                 android:hint="@string/location"
-                                android:paddingLeft="15dp"
-                                android:paddingStart="15dp"
                                 android:paddingTop="5dp"
                                 android:textColor="@color/primary_text"
                                 android:textSize="18sp">
@@ -210,20 +175,11 @@
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:id="@+id/imageView7"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical" />
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10.0dp"
-                                android:text="Select Batch Start Date"
-
-                                android:textColor="#ea5127"
+                                android:text="Select batch start date :"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -236,10 +192,10 @@
                             android:layout_marginLeft="35dp"
                             android:layout_marginRight="35dp"
                             android:layout_marginTop="15dp"
-
+                            android:background="@color/colorPrimary"
                             android:text="dd/mm/yyyy"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/white"
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <View
@@ -310,6 +266,7 @@
                         android:background="@color/grey" />
 
                     <LinearLayout
+                        android:id="@+id/scheduleHolderLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -357,6 +314,13 @@
                             android:layout_height="wrap_content"
                             android:text="Add New" />
 
+
+                        <LinearLayout
+                            android:id="@+id/scheduleHolder"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="10.0dp" />
                     </LinearLayout>
 
                     <View
@@ -371,14 +335,69 @@
                         android:orientation="vertical"
                         android:padding="10.0dp">
 
+                        <LinearLayout
+                            android:id="@+id/label4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="10.0dp"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/studentgroup" />
+
+                            <TextView
+                                android:id="@+id/txtStudentDetails"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10.0dp"
+                                android:text="Student Details"
+                                android:textColor="#ea5127"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <!--<TextView-->
+                            <!--android:id="@+id/sublabel4"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginStart="10.0dp"-->
+                            <!--android:layout_marginTop="2.0dp"-->
+                            <!--android:text="Student data"-->
+                            <!--android:textColor="#ea5127" />-->
+
+
+                            <!--<com.example.custom_spinner_library.MultiSpinner-->
+                            <!--android:id="@+id/spinnerMulti"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="10.0dp"-->
+                            <!--android:layout_marginStart="10.0dp"-->
+                            <!--android:layout_marginTop="2.0dp"-->
+                            <!--android:visibility="visible" />-->
+
+
+                            <com.example.custom_spinner_library.MultiSpinner_Event
+                                android:id="@+id/spinnerMulti_new"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="2dp"
+                                style="@style/spinner_style"/>
+
+                        </LinearLayout>
+
                         <Button
                             android:id="@+id/addstudentbutton"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginBottom="55dp"
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="55dp"
                             android:text="@string/add_students" />
 
                     </LinearLayout>
@@ -386,5 +405,13 @@
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:indeterminateTint="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="gone" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -17,8 +17,10 @@ import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.AddSchedules;
+import com.app.laqshya.studenttracker.activity.EditSchedules;
 import com.app.laqshya.studenttracker.activity.adapter.CurrentBatchAdapter;
 import com.app.laqshya.studenttracker.activity.factory.EditSchedulesViewModelFactory;
+import com.app.laqshya.studenttracker.activity.listeners.MyBatchClickListener;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
@@ -28,8 +30,9 @@ import com.app.laqshya.studenttracker.databinding.FragmentListBatchesBinding;
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
+import timber.log.Timber;
 
-public class AttendanceFragment extends Fragment {
+public class AttendanceFragment extends Fragment implements MyBatchClickListener {
     FragmentListBatchesBinding fragmentListBatchesBinding;
     FloatingActionButton floatingActionButton;
     EditSchedulesViewModel editSchedulesViewModel;
@@ -90,7 +93,7 @@ public class AttendanceFragment extends Fragment {
             fragmentListBatchesBinding.imageView2Attend.setVisibility(View.GONE);
             fragmentListBatchesBinding.textViewAttend.setVisibility(View.GONE);
 
-            CurrentBatchAdapter currentBatchAdapter = new CurrentBatchAdapter(getActivity());
+            CurrentBatchAdapter currentBatchAdapter = new CurrentBatchAdapter(getActivity(),this);
             fragmentListBatchesBinding.recyclerViewAttendance.setAdapter(currentBatchAdapter);
             currentBatchAdapter.update(batchInformationResponse.getBatchInformationList());
         }
@@ -101,6 +104,21 @@ public class AttendanceFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         AndroidSupportInjection.inject(this);
+    }
+
+
+    @Override
+    public void OnClick(View view, int position, BatchInformationResponse.BatchInformation batchInformation) {
+        String coursename=batchInformation.getCoursename();
+        String coursemod=batchInformation.getCourse_module_name();
+        String faculty=batchInformation.getFacultyName();
+        String date=batchInformation.getStartDate();
+        Intent intent=new Intent(getActivity(),EditSchedules.class);
+        intent.putExtra(Constants.COURSE_NAME,coursename);
+        intent.putExtra(Constants.FACULTY,faculty);
+        intent.putExtra(Constants.COURSE_CATEGORY,coursemod);
+        intent.putExtra(Constants.BATCHSTARTDATE,date);
+        startActivity(intent);
     }
 }
 
