@@ -334,14 +334,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10.0dp">
+                        android:padding="10.0dp"
+                        android:layout_marginBottom="55dp">
 
                         <LinearLayout
                             android:id="@+id/label4"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginBottom="10.0dp"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:id="@+id/imageView5"
@@ -381,25 +382,26 @@
                                 <!--android:visibility="visible" />-->
 
 
-                            <com.example.custom_spinner_library.MultiSpinner_Event
-                                android:id="@+id/spinnerMulti_new"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="2dp"
-                                style="@style/spinner_style"/>
+
 
                         </LinearLayout>
-
-                        <Button
-                            android:id="@+id/addstudentbutton"
+                        <com.example.custom_spinner_library.MultiSpinner_Event
+                            android:id="@+id/spinnerMulti_new"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="55dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginTop="10dp"
-                            android:text="@string/add_students" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="2dp"
+                            style="@style/spinner_style"/>
+
+                        <!--<Button-->
+                            <!--android:id="@+id/addstudentbutton"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:layout_marginBottom="55dp"-->
+                            <!--android:layout_marginLeft="15dp"-->
+                            <!--android:layout_marginRight="15dp"-->
+                            <!--android:layout_marginTop="10dp"-->
+                            <!--android:text="@string/add_students" />-->
 
                     </LinearLayout>
 

@@ -87,20 +87,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Course : "
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                            <Spinner
-                                android:id="@+id/Atcoursename"
-                                style="@style/spinner_style"
-                                android:hint="@string/course_name"
-                                android:textAlignment="center" />
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -385,20 +371,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="55dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginTop="10dp"
                                 style="@style/spinner_style"/>
 
                         </LinearLayout>
-
-                        <Button
-                            android:id="@+id/addstudentbutton"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="55dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginTop="10dp"
-                            android:text="@string/add_students" />
 
                     </LinearLayout>
 

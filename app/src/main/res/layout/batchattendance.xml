@@ -15,7 +15,7 @@
 
         <RelativeLayout
             android:id="@+id/frameLayout_batch"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff">
 
@@ -42,6 +42,14 @@
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ea5127"
                         tools:text="Batch 1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:textAppearance="?android:textAppearanceLarge"
+                        android:textColor="#ff5722"
+                        android:textStyle="bold"
+                        android:textSize="25sp"/>
 
                     <TextView
                         android:id="@+id/type"
@@ -57,7 +65,7 @@
                         android:text="@{batchattendancemodel.getCourse_module_name()}"
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ea5127"
-                        tools:text="SubjectModule_name" />
+                        tools:text="Subject Module Name" />
 
                 </LinearLayout>
 
@@ -120,8 +128,9 @@
             android:layout_alignParentLeft="false"
             android:layout_alignParentRight="false"
             android:layout_alignParentStart="false"
+            android:layout_margin="10dp"
             android:layout_below="@+id/frameLayout_batch"
-            android:background="#e9e9e9"
+            android:background="#e6e6e6"
             android:orientation="horizontal">
 
             <ImageButton
@@ -170,11 +179,9 @@
 
             <ToggleButton
                 android:id="@+id/excl_batch"
-                android:layout_width="24.0dp"
-                android:layout_height="24.0dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="16.0dp"
                 android:background="@drawable/showcheckschedule"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -195,7 +202,7 @@
                 tools:visibility="visible">
 
                 <View
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1.0dp"
                     android:layout_marginLeft="20.0dp"
                     android:layout_marginRight="20.0dp"
@@ -235,8 +242,18 @@
                     android:layout_marginTop="5.0dp"
                     android:text="@string/no_schedule"
                     android:textColor="#ea5127" />
+                
             </LinearLayout>
         </RelativeLayout>
+        
+        <View
+            android:layout_below="@id/optionsLayout"
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1.0dp"
+            android:layout_marginLeft="20.0dp"
+            android:layout_marginRight="20.0dp"
+            android:background="#ea5127" />
     </RelativeLayout>
 </layout>
 
