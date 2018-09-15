@@ -195,7 +195,6 @@
                 android:layout_alignParentBottom="false"
                 android:layout_below="@+id/viewRecords_batch"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="21dp"
                 android:orientation="vertical"
                 android:padding="10dp"
                 android:visibility="gone"
@@ -204,8 +203,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1.0dp"
-                    android:layout_marginLeft="20.0dp"
-                    android:layout_marginRight="20.0dp"
+                    android:layout_marginLeft="10.0dp"
+                    android:layout_marginRight="10.0dp"
                     android:background="#ea5127" />
 
                 <LinearLayout
@@ -247,13 +246,14 @@
         </RelativeLayout>
         
         <View
-            android:layout_below="@id/optionsLayout"
+            android:layout_below="@+id/optionsLayout"
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1.0dp"
-            android:layout_marginLeft="20.0dp"
-            android:layout_marginRight="20.0dp"
-            android:background="#ea5127" />
+            android:layout_marginLeft="10.0dp"
+            android:layout_marginRight="10.0dp"
+            android:background="#ea5127"
+            android:layout_marginTop="20dp"/>
     </RelativeLayout>
 </layout>
 

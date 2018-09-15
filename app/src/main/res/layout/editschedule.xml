@@ -89,19 +89,41 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:orientation="vertical">
-
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Course name : "
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
                             <TextView
                                 android:id="@+id/Atcoursename"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="Name of the course:"/>
+                                tools:text="Course"
+                                android:textSize="18sp"/>
+                        </LinearLayout>
 
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Course module name : "
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"/>
                             <TextView
+                                android:textSize="18sp"
                                 android:id="@+id/studentCourseModuleSpinner"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="Name of the course module:"/>
-
+                                tools:text="Course module"/>
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -115,7 +137,6 @@
                                 android:layout_height="wrap_content"
                                 android:text="Faculty : "
                                 android:textSize="18sp"
-
                                 android:textStyle="bold" />
 
                             <Spinner
