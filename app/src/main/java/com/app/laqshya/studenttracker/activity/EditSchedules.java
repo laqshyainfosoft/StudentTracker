@@ -147,7 +147,7 @@ public class EditSchedules extends AppCompatActivity {
 //                Toast.makeText(this,""+facultyLists.size(), Toast.LENGTH_SHORT).show();
                 ArrayAdapter<FacultyList> facultyListArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, facultyLists);
                 editscheduleBinding.Atteacher.setAdapter(facultyListArrayAdapter);
-                
+
             }
 
         });
