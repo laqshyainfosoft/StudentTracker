@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.EditSchedulesViewModelFactory;
+import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.viewmodel.EditSchedulesViewModel;
 import com.app.laqshya.studenttracker.databinding.EditscheduleBinding;
@@ -144,6 +145,9 @@ public class EditSchedules extends AppCompatActivity {
         editSchedulesViewModel.getFacultyList().observe(this, facultyLists -> {
             if (facultyLists != null) {
 //                Toast.makeText(this,""+facultyLists.size(), Toast.LENGTH_SHORT).show();
+                ArrayAdapter<FacultyList> facultyListArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, facultyLists);
+                editscheduleBinding.Atteacher.setAdapter(facultyListArrayAdapter);
+
             }
 
         });
