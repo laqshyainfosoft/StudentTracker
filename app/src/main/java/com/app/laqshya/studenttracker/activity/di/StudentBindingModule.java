@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity.di;
 
 import com.app.laqshya.studenttracker.activity.AddSchedules;
+import com.app.laqshya.studenttracker.activity.EditSchedules;
 import com.app.laqshya.studenttracker.activity.MainActivity;
 import com.app.laqshya.studenttracker.activity.MainScreenNavigationDrawer;
 import com.app.laqshya.studenttracker.activity.fragments.AttendanceFragment;
@@ -19,4 +20,6 @@ public abstract class StudentBindingModule {
     abstract AddSchedules getAddSchedules();
     @ContributesAndroidInjector
     abstract AttendanceFragment getAttendanceFragment();
+    @ContributesAndroidInjector
+    abstract EditSchedules getEditSchedules();
 }

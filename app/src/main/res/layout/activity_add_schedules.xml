@@ -157,6 +157,7 @@
                                 android:layout_height="35.0dp"
                                 android:layout_marginTop="5.0dp"
                                 android:hint="@string/location"
+
                                 android:paddingTop="5dp"
                                 android:textColor="@color/primary_text"
                                 android:textSize="18sp">

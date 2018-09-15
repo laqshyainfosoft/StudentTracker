@@ -38,6 +38,7 @@ public class BatchInformationResponse {
 
         private String batchid;
         private String startDate;
+
         private String coursename;
 
         public String getCoursename() {

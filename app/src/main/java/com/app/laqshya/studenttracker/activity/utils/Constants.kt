@@ -12,6 +12,7 @@ interface Constants {
         const val TAGABOUT="about"
         const val TAG_ADD_FACULTY="addFaculty"
         const val TAG_ADD_STUDENT="addStudent"
+        const val BATCHID="batchid"
         const val TAG_BROADCAST = "broadcast"
         const val TAG_FEESSTATUS = "fess Status"
         const val COURSE_CATEGORY = "coursecategory"

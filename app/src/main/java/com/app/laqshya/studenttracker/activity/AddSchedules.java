@@ -358,8 +358,6 @@ public class AddSchedules extends AppCompatActivity {
         ImageButton close = view.findViewById(R.id.closelayoutSchedule);
         close.setOnClickListener((v -> {
             Timber.d("Clicked");
-//            activityAddSchedulesBinding.scheduleHolderLayout.removeView(v);
-
             activityAddSchedulesBinding.scheduleHolder.removeView(linearLayout);
             viewArrayList.remove(linearLayout);
             Timber.d("%s", v.getParent().toString());

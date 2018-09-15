@@ -4,6 +4,7 @@ public class Schedule {
 
         private String startTime;
 
+
         public String getStartTime() { return this.startTime; }
 
         public void setStartTime(String startTime) { this.startTime = startTime; }

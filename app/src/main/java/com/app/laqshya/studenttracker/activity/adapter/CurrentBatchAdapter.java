@@ -12,6 +12,7 @@ import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.listeners.MyBatchClickListener;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.Schedule;
+import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.databinding.BatchattendanceBinding;
 import com.app.laqshya.studenttracker.databinding.TogglebuttonlayoutBinding;
 
@@ -23,9 +24,11 @@ public class CurrentBatchAdapter extends RecyclerView.Adapter<CurrentBatchAdapte
     private List<BatchInformationResponse.BatchInformation> batchInformationList;
     private MyBatchClickListener batchClickListener;
     private LayoutInflater layoutInflater;
+    private SessionManager sessionManager;
 
-    public CurrentBatchAdapter(Context context,MyBatchClickListener batchClickListener) {
+    public CurrentBatchAdapter(Context context,MyBatchClickListener batchClickListener,SessionManager sessionManager) {
         layoutInflater = LayoutInflater.from(context);
+        this.sessionManager=sessionManager;
         batchInformationList = new ArrayList<>();
         this.batchClickListener=batchClickListener;
     }
@@ -71,6 +74,8 @@ public class CurrentBatchAdapter extends RecyclerView.Adapter<CurrentBatchAdapte
             batchattendanceBinding.setBatchattendancemodel(batchInformation);
             TogglebuttonlayoutBinding togglebuttonlayoutBinding;
             batchattendanceBinding.sDataBatch.setVisibility(View.GONE);
+            batchattendanceBinding.locationLine2.setText(sessionManager.getLoggedInuserCenter());
+
 
             for (Schedule schedule : batchInformation.getSchedule()) {
                 togglebuttonlayoutBinding = DataBindingUtil.inflate(layoutInflater, R.layout.togglebuttonlayout, null, false);
@@ -90,7 +95,6 @@ public class CurrentBatchAdapter extends RecyclerView.Adapter<CurrentBatchAdapte
 
             });
             batchattendanceBinding.editbatchCounsellor.setOnClickListener((v -> {batchClickListener.OnClick(v,getAdapterPosition(),batchInformation);}));
-//            togglebuttonlayoutBinding=TogglebuttonlayoutBinding.
             batchattendanceBinding.executePendingBindings();
         }
     }

@@ -93,7 +93,7 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
             fragmentListBatchesBinding.imageView2Attend.setVisibility(View.GONE);
             fragmentListBatchesBinding.textViewAttend.setVisibility(View.GONE);
 
-            CurrentBatchAdapter currentBatchAdapter = new CurrentBatchAdapter(getActivity(),this);
+            CurrentBatchAdapter currentBatchAdapter = new CurrentBatchAdapter(getActivity(),this,sessionManager);
             fragmentListBatchesBinding.recyclerViewAttendance.setAdapter(currentBatchAdapter);
             currentBatchAdapter.update(batchInformationResponse.getBatchInformationList());
         }
@@ -117,7 +117,9 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
         intent.putExtra(Constants.COURSE_NAME,coursename);
         intent.putExtra(Constants.FACULTY,faculty);
         intent.putExtra(Constants.COURSE_CATEGORY,coursemod);
+        intent.putExtra(Constants.BATCHID,batchInformation.getBatchid());
         intent.putExtra(Constants.BATCHSTARTDATE,date);
+        intent.putExtra(Constants.LOCATION,sessionManager.getLoggedInuserCenter());
         startActivity(intent);
     }
 }
