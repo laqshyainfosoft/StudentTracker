@@ -24,6 +24,7 @@ import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.viewmodel.EditSchedulesViewModel;
 import com.app.laqshya.studenttracker.databinding.EditscheduleBinding;
+import com.example.custom_spinner_library.MultiSpinner;
 import com.example.custom_spinner_library.MultiSpinner_Event;
 
 import java.text.ParseException;
@@ -45,8 +46,22 @@ public class EditSchedules extends AppCompatActivity {
     EditSchedulesViewModel editSchedulesViewModel;
     @Inject
     EditSchedulesViewModelFactory editSchedulesViewModelFactory;
+    boolean[] selectedItems ;
     private String fPhone, coursename, coursemodulename;
-    private MultiSpinner_Event.MultiSpinnerListener multiSpinnerListener = selected -> {
+    private List<StudentInfo> studentInfoArrayList;
+    private MultiSpinner.MultiSpinnerListener multiSpinnerListener =new MultiSpinner.MultiSpinnerListener() {
+        @Override
+        public void onItemsSelected(boolean[] selected) {
+
+
+        }
+
+        @Override
+        public void onDropoutStudent(int which, int flag_dropout, String reason) {
+
+
+
+        }
 
     };
     private ArrayList<View> viewArrayList;
@@ -81,7 +96,7 @@ public class EditSchedules extends AppCompatActivity {
     private void setStudents() {
         editSchedulesViewModel.getStudents(coursename, coursemodulename).observe(this, studentInfos -> {
             ArrayAdapter<StudentInfo> studentInfoArrayAdapter = null;
-
+            studentInfoArrayList=studentInfos;
             if (studentInfos != null && studentInfos.size() > 0) {
 
 
@@ -89,24 +104,27 @@ public class EditSchedules extends AppCompatActivity {
                         .R.layout.simple_spinner_dropdown_item, studentInfos);
 
 
-                editscheduleBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, multiSpinnerListener, "Please Select Students to add to Batch");
+                editscheduleBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, multiSpinnerListener);
 
 
             }
             if (studentInfos != null) {
                 if (studentInfoArrayAdapter != null) {
 
-                            boolean[] selectedItems = new boolean[studentInfoArrayAdapter.getCount()];
+                            selectedItems = new boolean[studentInfoArrayAdapter.getCount()];
                             for (int ii = 0; ii < studentInfoArrayAdapter.getCount(); ii++) {
 
                                 if (studentInfos.get(ii).getMarker() == 1) {
                                 selectedItems[ii] = true;
+
                                 editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
                             }
                         }
 
                 }
+
             }
+
         });
     }
 
@@ -124,6 +142,7 @@ public class EditSchedules extends AppCompatActivity {
                             editscheduleBinding.checkW.setChecked(true);
                         }
                         addnewSchedule(day, startTime, endTime);
+
                     }
 
                 }

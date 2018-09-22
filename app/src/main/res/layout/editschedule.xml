@@ -394,7 +394,7 @@
 
 
                         </LinearLayout>
-                        <com.example.custom_spinner_library.MultiSpinner_Event
+                        <com.example.custom_spinner_library.MultiSpinner
                             android:id="@+id/spinnerMulti_new"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

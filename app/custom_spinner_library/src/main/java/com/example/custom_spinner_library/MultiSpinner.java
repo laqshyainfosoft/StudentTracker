@@ -43,12 +43,13 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
 
     public void onClick(final DialogInterface dialog1, final int which1, boolean isChecked) {
        mSelected[which1] = isChecked;
-        if(isChecked==false)
+
+        if(!isChecked)
         {
             final EditText edittext = new EditText(getContext());
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Drop Out Student?");
-                builder.setMessage("Is this Student is Drop Out student?");
+                builder.setTitle("Do you wish to remove this student?");
+                builder.setMessage("Please select desired option:");
             builder.setCancelable(false);
             builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
@@ -60,14 +61,14 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
 
                 }
             });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Change Student's Batch?", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         mListener.onDropoutStudent(which1,0,"");
                         dialog1.dismiss();
                         dialog.dismiss();
                     }
                 });
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Remove Student From Record?", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //
                         dialog1.dismiss();
