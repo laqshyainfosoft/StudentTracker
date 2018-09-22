@@ -89,9 +89,7 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
             });
             builder.show();
         }
-        else
-        {
-        }
+
     }
 
     private OnClickListener onClickListener = new OnClickListener() {

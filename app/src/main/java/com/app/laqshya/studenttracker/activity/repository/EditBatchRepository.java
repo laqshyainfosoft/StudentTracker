@@ -7,6 +7,7 @@ import android.arch.lifecycle.MutableLiveData;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
+import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class EditBatchRepository {
     private EduTrackerService eduTrackerService;
@@ -95,5 +97,30 @@ public class EditBatchRepository {
                     }
                 });
         return editBatchScheduleListMutableLiveData;
+    }
+    public LiveData<List<StudentInfo>> getStudents(String coursename,String coursemodname){
+        MutableLiveData<List<StudentInfo>> liveData=new MutableLiveData<>();
+        eduTrackerService.getStudentNameForEditBatches(coursename,coursemodname)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<StudentInfo>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<StudentInfo> studentInfos) {
+                        liveData.postValue(studentInfos);
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d(e);
+
+                    }
+                });
+        return liveData;
     }
 }

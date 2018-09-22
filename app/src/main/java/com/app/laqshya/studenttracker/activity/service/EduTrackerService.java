@@ -23,7 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.0.128/student_tracker/";
+    String ENDPOINT = "http://192.168.0.130/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -75,5 +75,10 @@ public interface EduTrackerService {
     @FormUrlEncoded
     @POST("getExistingBatchSchedules.php")
     Single<List<EditBatchScheduleList.EditbatchSchedule>> getSchedule(@Field("batchid")String batchid);
+    @FormUrlEncoded
+    @POST("getStudentsToEditBatch.php")
+    Single<List<StudentInfo>> getStudentNameForEditBatches(@Field("coursename")String coursename,@Field("courseModuleName")
+            String courseModuleName);
+
 
 }

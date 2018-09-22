@@ -120,6 +120,8 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
         intent.putExtra(Constants.BATCHID,batchInformation.getBatchid());
         intent.putExtra(Constants.BATCHSTARTDATE,date);
         intent.putExtra(Constants.LOCATION,sessionManager.getLoggedInuserCenter());
+        intent.putExtra(Constants.Phone,batchInformation.getFaculty_id());
+
         startActivity(intent);
     }
 }

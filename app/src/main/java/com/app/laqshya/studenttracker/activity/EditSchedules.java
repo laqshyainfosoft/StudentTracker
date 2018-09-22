@@ -20,9 +20,11 @@ import android.widget.Toast;
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.EditSchedulesViewModelFactory;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
+import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.viewmodel.EditSchedulesViewModel;
 import com.app.laqshya.studenttracker.databinding.EditscheduleBinding;
+import com.example.custom_spinner_library.MultiSpinner_Event;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +44,13 @@ public class EditSchedules extends AppCompatActivity {
     EditSchedulesViewModel editSchedulesViewModel;
     @Inject
     EditSchedulesViewModelFactory editSchedulesViewModelFactory;
+    private String fPhone, coursename, coursemodulename;
+    private MultiSpinner_Event.MultiSpinnerListener multiSpinnerListener = selected -> {
+
+
+
+
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,8 +67,41 @@ public class EditSchedules extends AppCompatActivity {
         }
         setFaculty();
         getSelectedBatchSchedule();
+        setStudents();
 
 
+    }
+
+    private void setStudents() {
+        editSchedulesViewModel.getStudents(coursename, coursemodulename).observe(this, studentInfos -> {
+            ArrayAdapter<StudentInfo> studentInfoArrayAdapter = null;
+
+            if (studentInfos != null && studentInfos.size() > 0) {
+
+
+                studentInfoArrayAdapter = new ArrayAdapter<>(EditSchedules.this, android
+                        .R.layout.simple_spinner_dropdown_item, studentInfos);
+
+
+                editscheduleBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, multiSpinnerListener, "Please Select Students to add to Batch");
+
+
+            }
+            if (studentInfos != null) {
+                if (studentInfoArrayAdapter != null) {
+
+                            boolean[] selectedItems = new boolean[studentInfoArrayAdapter.getCount()];
+                            for (int ii = 0; ii < studentInfoArrayAdapter.getCount(); ii++) {
+
+                                if (studentInfos.get(ii).getMarker() == 1) {
+                                selectedItems[ii] = true;
+                                editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
+                            }
+                        }
+
+                }
+            }
+        });
     }
 
     private void getSelectedBatchSchedule() {
@@ -68,14 +110,14 @@ public class EditSchedules extends AppCompatActivity {
         editSchedulesViewModel.getSchedule(batchid).observe(this, editBatchScheduleList -> {
             if (editBatchScheduleList != null) {
                 if (editBatchScheduleList.getThrowable() == null) {
-                    for (int i=0;i<editBatchScheduleList.getEditbatchScheduleList().size();i++){
-                        String startTime=editBatchScheduleList.getEditbatchScheduleList().get(i).getStartTime();
-                        String endTime=editBatchScheduleList.getEditbatchScheduleList().get(i).getEndTime();
-                        int day=editBatchScheduleList.getEditbatchScheduleList().get(i).getDay();
-                        if(day==6 || day==7){
+                    for (int i = 0; i < editBatchScheduleList.getEditbatchScheduleList().size(); i++) {
+                        String startTime = editBatchScheduleList.getEditbatchScheduleList().get(i).getStartTime();
+                        String endTime = editBatchScheduleList.getEditbatchScheduleList().get(i).getEndTime();
+                        int day = editBatchScheduleList.getEditbatchScheduleList().get(i).getDay();
+                        if (day == 6 || day == 7) {
                             editscheduleBinding.checkW.setChecked(true);
                         }
-                        addnewSchedule(day,startTime,endTime);
+                        addnewSchedule(day, startTime, endTime);
                     }
 
                 }
@@ -84,6 +126,7 @@ public class EditSchedules extends AppCompatActivity {
 
 
     }
+
     private String[] getdays() {
         if (editscheduleBinding.checkR.isChecked()) {
             return getResources().getStringArray(R.array.regularDays);
@@ -91,6 +134,7 @@ public class EditSchedules extends AppCompatActivity {
             return getResources().getStringArray(R.array.weekendDays);
         }
     }
+
     private void addnewSchedule(int day, String startTimer, String endTimer) {
         String[] daysArray = getdays();
 
@@ -107,9 +151,9 @@ public class EditSchedules extends AppCompatActivity {
         Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
 
         spinnerDays.setAdapter(dayAdapter);
-        if (daysArray.length>2)
-        spinnerDays.setSelection(day-1);
-        else spinnerDays.setSelection(day-6);
+        if (daysArray.length > 2)
+            spinnerDays.setSelection(day - 1);
+        else spinnerDays.setSelection(day - 6);
         ImageButton close = view.findViewById(R.id.closelayoutSchedule);
         close.setOnClickListener((v -> {
             Timber.d("Clicked");
@@ -147,6 +191,12 @@ public class EditSchedules extends AppCompatActivity {
 //                Toast.makeText(this,""+facultyLists.size(), Toast.LENGTH_SHORT).show();
                 ArrayAdapter<FacultyList> facultyListArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, facultyLists);
                 editscheduleBinding.Atteacher.setAdapter(facultyListArrayAdapter);
+                for (int i = 0; i < facultyLists.size(); i++) {
+                    if (facultyLists.get(i).getMobile().equalsIgnoreCase(fPhone)) {
+                        editscheduleBinding.Atteacher.setSelection(i);
+                        break;
+                    }
+                }
 
             }
 
@@ -185,7 +235,6 @@ public class EditSchedules extends AppCompatActivity {
             SimpleDateFormat df = new SimpleDateFormat(myFormatString, Locale.getDefault());
             Date date1 = df.parse(batchDate);
             Date startingDate = df.parse(date);
-
             return date1.after(startingDate);
         } catch (ParseException e) {
 
@@ -203,11 +252,15 @@ public class EditSchedules extends AppCompatActivity {
         if (intent != null) {
             editscheduleBinding.calenderbatchstartdate.setText(intent.getStringExtra(Constants.BATCHSTARTDATE));
             editscheduleBinding.txtAtlocation.setText(intent.getStringExtra(Constants.LOCATION));
-            editscheduleBinding.Atcoursename.setText(intent.getStringExtra(Constants.COURSE_NAME));
-            editscheduleBinding.studentCourseModuleSpinner.setText(intent.getStringExtra(Constants.COURSE_CATEGORY));
 
+            coursename = intent.getStringExtra(Constants.COURSE_NAME);
+            coursemodulename = intent.getStringExtra(Constants.COURSE_CATEGORY);
+            editscheduleBinding.Atcoursename.setText(coursename);
+            editscheduleBinding.studentCourseModuleSpinner.setText(coursemodulename);
+            fPhone = intent.getStringExtra(Constants.Phone);
         }
     }
+
     private void showTimePicker(Button localbtn) {
 
         Calendar localCalendar = Calendar.getInstance();

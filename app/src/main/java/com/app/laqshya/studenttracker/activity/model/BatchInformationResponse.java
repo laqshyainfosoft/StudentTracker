@@ -34,12 +34,24 @@ public class BatchInformationResponse {
         this.throwable = throwable;
     }
 
-    public  static class BatchInformation {
+    public static class BatchInformation {
 
         private String batchid;
         private String startDate;
-
+        private String faculty_id;
         private String coursename;
+        private String course_module_name;
+        private String faculty_name;
+        private ArrayList<Schedule> schedule;
+
+        public String getFaculty_id() {
+            return faculty_id;
+        }
+
+        public void setFaculty_id(String faculty_id) {
+            this.faculty_id = faculty_id;
+        }
+
 
         public String getCoursename() {
             return coursename;
@@ -57,13 +69,13 @@ public class BatchInformationResponse {
             this.startDate = startDate;
         }
 
-        private String course_module_name;
+        public String getBatchid() {
+            return "Batch " + this.batchid;
+        }
 
-        public String getBatchid() { return "Batch " +this.batchid; }
-
-        public void setBatchid(String batchid) { this.batchid = batchid; }
-
-        private String faculty_name;
+        public void setBatchid(String batchid) {
+            this.batchid = batchid;
+        }
 
         public String getCourse_module_name() {
             return course_module_name;
@@ -73,15 +85,21 @@ public class BatchInformationResponse {
             this.course_module_name = course_module_name;
         }
 
-        public String getFacultyName() { return this.faculty_name; }
+        public String getFacultyName() {
+            return this.faculty_name;
+        }
 
-        public void setFacultyName(String faculty_name) { this.faculty_name = faculty_name; }
+        public void setFacultyName(String faculty_name) {
+            this.faculty_name = faculty_name;
+        }
 
-        private ArrayList<Schedule> schedule;
+        public ArrayList<Schedule> getSchedule() {
+            return this.schedule;
+        }
 
-        public ArrayList<Schedule> getSchedule() { return this.schedule; }
-
-        public void setSchedule(ArrayList<Schedule> schedule) { this.schedule = schedule; }
+        public void setSchedule(ArrayList<Schedule> schedule) {
+            this.schedule = schedule;
+        }
 
 
     }
