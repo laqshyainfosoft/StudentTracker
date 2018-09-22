@@ -28,6 +28,7 @@ import com.example.custom_spinner_library.MultiSpinner_Event;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,6 +52,9 @@ public class EditSchedules extends AppCompatActivity {
 
 
     };
+    private ArrayList<View> viewArrayList;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,6 +72,11 @@ public class EditSchedules extends AppCompatActivity {
         setFaculty();
         getSelectedBatchSchedule();
         setStudents();
+        viewArrayList = new ArrayList<>();
+
+
+        editscheduleBinding.addnewschedule.setOnClickListener(v -> addnewSchedule());
+
 
 
     }
@@ -274,4 +283,58 @@ public class EditSchedules extends AppCompatActivity {
         }, localCalendar.get(Calendar.HOUR_OF_DAY), localCalendar.get(Calendar.MINUTE), false).show();
 
     }
+    private String getTime() {
+        return new SimpleDateFormat("hh:mm ", Locale.getDefault()).format(new Date());
+
+    }
+
+    private void addnewSchedule() {
+        String[] daysArray = getdays();
+
+        List<String> stringList = Arrays.asList(daysArray);
+
+        View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.schedule_details, null);
+
+        editscheduleBinding.scheduleHolder.addView(view);
+        LinearLayout linearLayout = view.findViewById(R.id.schedulesRootLayout);
+        viewArrayList.add(linearLayout);
+        Timber.d("%d", viewArrayList.size());
+        ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
+                stringList);
+        Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
+
+        spinnerDays.setAdapter(dayAdapter);
+        ImageButton close = view.findViewById(R.id.closelayoutSchedule);
+        close.setOnClickListener((v -> {
+            Timber.d("Clicked");
+            editscheduleBinding.scheduleHolder.removeView(linearLayout);
+            viewArrayList.remove(linearLayout);
+            Timber.d("%s", v.getParent().toString());
+
+
+        }));
+        Button startTime = view.findViewById(R.id.startTime);
+        Button endTime = view.findViewById(R.id.endTime);
+        startTime.setText(getTime());
+        endTime.setText(getTime());
+        startTime.setOnClickListener(v -> {
+            showTimePicker(startTime);
+        });
+        endTime.setOnClickListener(v -> showTimePicker(endTime));
+        editscheduleBinding.checkR.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            editscheduleBinding.scheduleHolder.removeAllViews();
+            viewArrayList.clear();
+
+        });
+        editscheduleBinding.checkW.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            editscheduleBinding.scheduleHolder.removeAllViews();
+            viewArrayList.clear();
+
+        });
+
+
+    }
+
+
+
 }

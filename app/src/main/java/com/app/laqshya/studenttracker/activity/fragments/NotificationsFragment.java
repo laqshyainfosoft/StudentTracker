@@ -17,7 +17,6 @@ import timber.log.Timber;
 public class NotificationsFragment extends Fragment {
     FragmentHomeAdminBinding fragmentHomeAdminBinding;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -25,5 +24,4 @@ public class NotificationsFragment extends Fragment {
         fragmentHomeAdminBinding = FragmentHomeAdminBinding.inflate(inflater, container, false);
         return fragmentHomeAdminBinding.getRoot();
     }
-
 }
