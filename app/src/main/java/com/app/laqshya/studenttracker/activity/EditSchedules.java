@@ -47,9 +47,6 @@ public class EditSchedules extends AppCompatActivity {
     private String fPhone, coursename, coursemodulename;
     private MultiSpinner_Event.MultiSpinnerListener multiSpinnerListener = selected -> {
 
-
-
-
     };
 
     @Override

@@ -62,10 +62,10 @@ public class CurrentBatchAdapter extends RecyclerView.Adapter<CurrentBatchAdapte
         notifyDataSetChanged();
     }
 
-    public class MyBatchHolder extends RecyclerView.ViewHolder {
+     class MyBatchHolder extends RecyclerView.ViewHolder {
         BatchattendanceBinding batchattendanceBinding;
 
-        public MyBatchHolder(BatchattendanceBinding batchAttendanceBinding) {
+         MyBatchHolder(BatchattendanceBinding batchAttendanceBinding) {
             super(batchAttendanceBinding.getRoot());
             this.batchattendanceBinding = batchAttendanceBinding;
         }
