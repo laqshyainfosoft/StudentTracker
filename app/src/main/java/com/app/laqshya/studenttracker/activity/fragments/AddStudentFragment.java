@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ import timber.log.Timber;
 
 public class AddStudentFragment extends Fragment {
     RegisterStudentBinding registerStudentBinding;
-
+    ArrayAdapter<CourseModuleList> courses;
     NavDrawerViewModel navDrawerViewModel;
     //    ValidationViewModel validationViewModel;
     CourseLayoutBinding courseLayoutBinding;
@@ -114,7 +115,7 @@ public class AddStudentFragment extends Fragment {
                 navDrawerViewModel.registerStudent(name, phone,
                         email).observe(this, s -> {
                     registerStudentBinding.progressBar.setVisibility(View.VISIBLE);
-                    Timber.d("Visibility is %s",registerStudentBinding.progressBar.getVisibility());
+                    Timber.d("Visibility is %s", registerStudentBinding.progressBar.getVisibility());
 
                     if (s != null && s.length() > 0) {
 //                        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
@@ -122,7 +123,7 @@ public class AddStudentFragment extends Fragment {
                             Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
                             manageStudentAdded(s);
                             registerStudentBinding.progressBar.setVisibility(View.INVISIBLE);
-                            Timber.d("Visibility is %s",registerStudentBinding.progressBar.getVisibility());
+                            Timber.d("Visibility is %s", registerStudentBinding.progressBar.getVisibility());
 
                         }
                     }
@@ -144,18 +145,17 @@ public class AddStudentFragment extends Fragment {
 
 
             registerStudentBinding.saveCourses.setVisibility(View.VISIBLE);
-            registerStudentBinding.saveCourses.setOnClickListener(v -> {
-                saveCourses();
-            });
+//            registerStudentBinding.saveCourses.setOnClickListener(v -> {
+//                saveCourses();
+//            });
             registerStudentBinding.btnSignup.setVisibility(View.GONE);
             registerStudentBinding.saveCourses.setOnClickListener(v -> {
 
                 if (courseLayoutBinding != null) {
-                    if(registerStudentBinding.saveCourses.getText().toString().equalsIgnoreCase("Add Courses")) {
+                    if (registerStudentBinding.saveCourses.getText().toString().equalsIgnoreCase("Add Courses")) {
                         registerStudentBinding.saveCourses.setText("Save Courses");
                         resetViews();
-                    }
-                    else {
+                    } else {
                         saveCourses();
                     }
                 }
@@ -181,7 +181,7 @@ public class AddStudentFragment extends Fragment {
 
                                 if (strings != null && strings.size() > 0) {
 
-                                    ArrayAdapter<CourseModuleList> courses = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_dropdown_item,
+                                    courses = new ArrayAdapter<>(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_dropdown_item,
                                             strings);
                                     courseLayoutBinding.studentCourseModuleSpinner.setAdapter(courses, false, selected -> {
                                         if (courseModuleList != null && courseModuleList.size() > 0) {
@@ -321,6 +321,8 @@ public class AddStudentFragment extends Fragment {
         courseLayoutBinding.inputNoOfInstallments.setText("");
         courseLayoutBinding.studentCourseSpinner.setSelection(0);
         courseLayoutBinding.installmentLayout.removeAllViews();
+        boolean[] selectedItems = new boolean[courses.getCount()];
+        courseLayoutBinding.studentCourseModuleSpinner.setSelected(selectedItems);
         courseModuleList.clear();
 
     }
@@ -331,7 +333,6 @@ public class AddStudentFragment extends Fragment {
         registerStudentBinding.inputEmail.setEnabled(false);
         registerStudentBinding.inputStudentName.setEnabled(false);
         registerStudentBinding.inputStudentNumber.setEnabled(false);
-
 
     }
 
@@ -359,8 +360,8 @@ public class AddStudentFragment extends Fragment {
                 fees = Integer.parseInt(courseLayoutBinding.inputFees.getText().toString());
                 downPayment = Integer.parseInt(courseLayoutBinding.inputDownpayment.getText().toString());
 
-            if(noOfInstallmentCount>0)
-                amount[0] = (fees - downPayment) / noOfInstallmentCount;
+                if (noOfInstallmentCount > 0)
+                    amount[0] = (fees - downPayment) / noOfInstallmentCount;
 
 
             } else {
@@ -398,99 +399,97 @@ public class AddStudentFragment extends Fragment {
                 });
 
                 EditText amnt = view.findViewById(R.id.installmentAmount);
-
-
+                Timber.d("amt %s",String.valueOf(amount[0]));
                 amnt.setText(String.valueOf(amount[0]));
                 if (!editTextsList.contains(amnt)) {
                     editTextsList.add(amnt);
                     isEditTextChanged = new boolean[editTextsList.size()];
                     Timber.d(String.valueOf("Length" + isEditTextChanged.length));
                 }
-                MyTextWatcher myTextWatcher = new MyTextWatcher(finalI, fees, downPayment, editTextsList, amount, amnt);
-                amnt.addTextChangedListener(myTextWatcher);
-
+//                MyTextWatcher myTextWatcher = new MyTextWatcher(finalI, fees, downPayment, editTextsList, amount, amnt);
+//                amnt.addTextChangedListener(myTextWatcher);
 
             }
 
         }
     }
 
-
-    private class MyTextWatcher implements TextWatcher {
-        int finalI;
-        int finalFees;
-        int finalDownPayment;
-        EditText amnt;
-        List<EditText> editTextsList;
-        int amount[];
-        EditText editTextTemp = null;
-
-        MyTextWatcher(int finalI, int finalFees, int finalDownPayment, List<EditText> editTextsList, int[] amount
-                , EditText amnt) {
-            this.finalI = finalI;
-            this.finalFees = finalFees;
-            this.finalDownPayment = finalDownPayment;
-            this.editTextsList = editTextsList;
-            this.amnt = amnt;
-            this.amount = amount;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            currentindex = finalI;
-            Timber.d("Current index is %d", currentindex);
-//            int editTextIndex=editTextsList.indexOf(amnt);
-            if (isEditTextChanged != null && isEditTextChanged.length > 0) {
-//                isEditTextChanged[editTextIndex] = true;
-                for (int i = 0; i < isEditTextChanged.length; i++) {
-                    Timber.d("Index is %d and value is %s", i, isEditTextChanged[i]);
-                }
-            }
-            Timber.d("On Text Changed Called");
-            String s1 = s.toString();
-
-            s1 = s1.replaceAll("^\"|\"$", "").trim();
-            if (!s1.isEmpty()) {
-                int newAmount = Integer.parseInt(s1);
-
-//                        Toast.makeText(getActivity(), ""+currentindex, Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(getActivity(), ""+s.toString(), Toast.LENGTH_SHORT).show();
-                if (noOfInstallmentCount > 1) {
-                    Timber.d("Values are %d %d %d %d", finalFees, finalDownPayment, newAmount, noOfInstallmentCount);
-                    amount[0] = (finalFees - finalDownPayment - newAmount) / (noOfInstallmentCount - 1);
-                } else if (noOfInstallmentCount == 1) {
-                    amount[0] = (finalFees - finalDownPayment - newAmount);
-                }
-                Timber.d("Size %d", editTextsList.size());
-
-
-                Timber.d("Amount is%s", amount[0]);
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            for (int j = 0; j < editTextsList.size(); j++) {
-                if (!editTextsList.get(j).equals(amnt)) {
-                    editTextTemp = editTextsList.get(j);
-                    Timber.d("Amnt is %d", amount[0]);
-                    editTextTemp.removeTextChangedListener(this);
-                    if (amnt.isFocused()) {
-//                        editTextTemp.setTag("temporary installment");
-                        isEditTextChanged[j] = true;
-                        editTextTemp.setText(String.valueOf(amount[0]));
-                        isEditTextChanged[j] = false;
-                    }
-
-                }
-            }
-//            if(editTextTemp!=null)
-        }
-    }
+//
+//    private class MyTextWatcher implements TextWatcher {
+//        int finalI;
+//        int finalFees;
+//        int finalDownPayment;
+//        EditText amnt;
+//        List<EditText> editTextsList;
+//        int amount[];
+//        EditText editTextTemp = null;
+//
+//        MyTextWatcher(int finalI, int finalFees, int finalDownPayment, List<EditText> editTextsList, int[] amount
+//                , EditText amnt) {
+//            this.finalI = finalI;
+//            this.finalFees = finalFees;
+//            this.finalDownPayment = finalDownPayment;
+//            this.editTextsList = editTextsList;
+//            this.amnt = amnt;
+//            this.amount = amount;
+//        }
+//
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            currentindex = finalI;
+//            Timber.d("Current index is %d", currentindex);
+////            int editTextIndex=editTextsList.indexOf(amnt);
+//            if (isEditTextChanged != null && isEditTextChanged.length > 0) {
+////                isEditTextChanged[editTextIndex] = true;
+//                for (int i = 0; i < isEditTextChanged.length; i++) {
+//                    Timber.d("Index is %d and value is %s", i, isEditTextChanged[i]);
+//                }
+//            }
+//            Timber.d("On Text Changed Called");
+//            String s1 = s.toString();
+//
+//            s1 = s1.replaceAll("^\"|\"$", "").trim();
+//            if (!s1.isEmpty()) {
+//                int newAmount = Integer.parseInt(s1);
+//
+////                        Toast.makeText(getActivity(), ""+currentindex, Toast.LENGTH_SHORT).show();
+////                        Toast.makeText(getActivity(), ""+s.toString(), Toast.LENGTH_SHORT).show();
+//                if (noOfInstallmentCount > 1) {
+//                    Timber.d("Values are %d %d %d %d", finalFees, finalDownPayment, newAmount, noOfInstallmentCount);
+//                    amount[0] = (finalFees - finalDownPayment - newAmount) / (noOfInstallmentCount - 1);
+//                } else if (noOfInstallmentCount == 1) {
+//                    amount[0] = (finalFees - finalDownPayment - newAmount);
+//                }
+//                Timber.d("Size %d", editTextsList.size());
+//
+//
+//                Timber.d("Amount is%s", amount[0]);
+//            }
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+//            for (int j = 0; j < editTextsList.size(); j++) {
+//                if (!editTextsList.get(j).equals(amnt)) {
+//                    editTextTemp = editTextsList.get(j);
+//                    Timber.d("Amnt is %d", amount[0]);
+//                    editTextTemp.removeTextChangedListener(this);
+//                    if (amnt.isFocused()) {
+////                        editTextTemp.setTag("temporary installment");
+//                        isEditTextChanged[j] = true;
+//                        editTextTemp.setText(String.valueOf(amount[0]));
+//                        isEditTextChanged[j] = false;
+//                    }
+//
+//                }
+//            }
+////            if(editTextTemp!=null)
+//        }
+//    }
 }
