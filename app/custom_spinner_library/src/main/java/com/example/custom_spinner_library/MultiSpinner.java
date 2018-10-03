@@ -42,54 +42,56 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
     }
 
     public void onClick(final DialogInterface dialog1, final int which1, boolean isChecked) {
-       mSelected[which1] = isChecked;
+        mSelected[which1] = isChecked;
 
         if(!isChecked)
         {
-            final EditText edittext = new EditText(getContext());
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Do you wish to remove this student?");
-                builder.setMessage("Please select desired option:");
-            builder.setCancelable(false);
-            builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    mListener.onDropoutStudent(which1,2,"");
-                    dialog.dismiss();
-                    dialog1.dismiss();
+        mListener.onDropoutStudent(which1, 2, "");
+    }
+//            final EditText edittext = new EditText(getContext());
+//            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                builder.setTitle("Do you wish to remove this student?");
+//                builder.setMessage("Please select desired option:");
+//            builder.setCancelable(false);
+//            builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    mListener.onDropoutStudent(which1,2,"");
 //                    dialog.dismiss();
-
-                }
-            });
-                builder.setNegativeButton("Change Student's Batch?", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        mListener.onDropoutStudent(which1,0,"");
-                        dialog1.dismiss();
-                        dialog.dismiss();
-                    }
-                });
-                builder.setPositiveButton("Remove Student From Record?", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        //
-                        dialog1.dismiss();
-                        dialog.dismiss();
-                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
-                        builder.setTitle("Reason???");
-                        builder.setView(edittext);
-                        builder.setNeutralButton("Submit", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String YouEditTextValue = edittext.getText().toString();
-                                Toast.makeText(getContext(), ""+YouEditTextValue, Toast.LENGTH_SHORT).show();
-                                mListener.onDropoutStudent(which1,1,YouEditTextValue);
-                                dialog.dismiss();
-                            }
-                        });
-                        builder.show();
-                    }
-            });
-            builder.show();
-        }
+//                    dialog1.dismiss();
+////                    dialog.dismiss();
+//
+//                }
+//            });
+//                builder.setNegativeButton("Change Student's Batch?", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        mListener.onDropoutStudent(which1,0,"");
+//                        dialog1.dismiss();
+//                        dialog.dismiss();
+//                    }
+//                });
+//                builder.setPositiveButton("Remove Student From Batch?", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        //
+//                        dialog1.dismiss();
+//                        dialog.dismiss();
+//                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
+//                        builder.setTitle("Reason???");
+//                        builder.setView(edittext);
+//                        builder.setNeutralButton("Submit", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                String YouEditTextValue = edittext.getText().toString();
+//                                Toast.makeText(getContext(), ""+YouEditTextValue, Toast.LENGTH_SHORT).show();
+//                                mListener.onDropoutStudent(which1,1,YouEditTextValue);
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                        builder.show();
+//                    }
+//            });
+//            builder.show();
+//        }
 
     }
 

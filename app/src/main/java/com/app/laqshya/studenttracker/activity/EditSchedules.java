@@ -1,8 +1,10 @@
 package com.app.laqshya.studenttracker.activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -47,6 +50,7 @@ public class EditSchedules extends AppCompatActivity {
     @Inject
     EditSchedulesViewModelFactory editSchedulesViewModelFactory;
     boolean[] selectedItems ;
+    ArrayAdapter<StudentInfo> studentInfoArrayAdapter = null;
     private String fPhone, coursename, coursemodulename;
     private List<StudentInfo> studentInfoArrayList;
     private MultiSpinner.MultiSpinnerListener multiSpinnerListener =new MultiSpinner.MultiSpinnerListener() {
@@ -58,10 +62,46 @@ public class EditSchedules extends AppCompatActivity {
 
         @Override
         public void onDropoutStudent(int which, int flag_dropout, String reason) {
+            Toast.makeText(EditSchedules.this, "Hey Dropped", Toast.LENGTH_SHORT).show();
+//            mSelected[which1] = isChecked;
 
+            for (int ii = 0; ii < studentInfoArrayAdapter.getCount(); ii++) {
 
+                if (studentInfoArrayList.get(ii).getMarker() == 1) {
 
+                    final EditText edittext = new EditText(getApplicationContext());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EditSchedules.this);
+                    builder.setTitle("Do you wish to remove this student?");
+                    builder.setMessage("Please select desired option:");
+                    builder.setCancelable(false);
+                    builder.setNeutralButton("Cancel", (dialog, which1) -> {
+//                        mListener.onDropoutStudent(which1,2,"");
+                        dialog.dismiss();
+//                        dialog1.dismiss();
+//                    dialog.dismiss();
+
+                    });
+                    builder.setNegativeButton("Change Student's Batch?", (dialog, which12) -> {
+//                        mListener.onDropoutStudent(which1,0,"");
+//                        dialog1.dismiss();
+                        dialog.dismiss();
+                    });
+                    builder.setPositiveButton("Remove Student From Batch?", (dialog, which13) -> {
+                        //
+//                        dialog1.dismiss();
+                        dialog.dismiss();
+
+                    });
+                    builder.show();
+                }
+            }
         }
+
+
+
+
+
+
 
     };
     private ArrayList<View> viewArrayList;
@@ -95,7 +135,7 @@ public class EditSchedules extends AppCompatActivity {
 
     private void setStudents() {
         editSchedulesViewModel.getStudents(coursename, coursemodulename).observe(this, studentInfos -> {
-            ArrayAdapter<StudentInfo> studentInfoArrayAdapter = null;
+
             studentInfoArrayList=studentInfos;
             if (studentInfos != null && studentInfos.size() > 0) {
 
