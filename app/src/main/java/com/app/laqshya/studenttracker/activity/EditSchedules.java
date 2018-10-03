@@ -381,7 +381,7 @@ public class EditSchedules extends AppCompatActivity {
             editscheduleBinding.scheduleHolder.removeAllViews();
             viewArrayList.clear();
 
-        });
+        });time_marker
         editscheduleBinding.checkW.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editscheduleBinding.scheduleHolder.removeAllViews();
             viewArrayList.clear();
