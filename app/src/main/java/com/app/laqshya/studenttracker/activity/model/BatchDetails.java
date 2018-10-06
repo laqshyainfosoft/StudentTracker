@@ -5,7 +5,7 @@ import java.util.List;
 public class BatchDetails {
     private String center;
 
-    private List<BatchList> batchList;
+    private List<EditBatchScheduleList.EditbatchSchedule> batchList;
 
     private String startDate;
 
@@ -27,12 +27,12 @@ public class BatchDetails {
         this.center = center;
     }
 
-    public List<BatchList> getBatchList ()
+    public List<EditBatchScheduleList.EditbatchSchedule> getBatchList ()
     {
         return batchList;
     }
 
-    public void setBatchList (List<BatchList> batchList)
+    public void setBatchList (List<EditBatchScheduleList.EditbatchSchedule> batchList)
     {
         this.batchList = batchList;
     }

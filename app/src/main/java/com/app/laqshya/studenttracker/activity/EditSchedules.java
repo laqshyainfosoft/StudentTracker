@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.EditSchedulesViewModelFactory;
+import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
@@ -42,6 +43,7 @@ import dagger.android.AndroidInjection;
 import timber.log.Timber;
 
 public class EditSchedules extends AppCompatActivity {
+    //TODO adjust days schedules for duplication.
     EditscheduleBinding editscheduleBinding;
     EditSchedulesViewModel editSchedulesViewModel;
     @Inject
@@ -50,6 +52,10 @@ public class EditSchedules extends AppCompatActivity {
     ArrayAdapter<StudentInfo> studentInfoArrayAdapter = null;
     private String fPhone, coursename, coursemodulename;
     private List<StudentInfo> studentInfoArrayList;
+    private int[] fieldsChanged;
+    private int facultyInitialIndex=0;
+    private EditBatchScheduleList editBatchScheduleList;
+
     private MultiSpinner.MultiSpinnerListener multiSpinnerListener = new MultiSpinner.MultiSpinnerListener() {
         @Override
         public void onItemsSelected(boolean[] selected) {
@@ -140,6 +146,7 @@ public class EditSchedules extends AppCompatActivity {
         editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
 
         editscheduleBinding.myToolbar.setTitle("Edit Batches");
+        fieldsChanged=new int[3];
         checkIntent();
         if (isBatchStartChangeable()) {
             editscheduleBinding.calenderbatchstartdate.setOnClickListener(v -> showDatePicker());
@@ -152,7 +159,21 @@ public class EditSchedules extends AppCompatActivity {
 
 
         editscheduleBinding.addnewschedule.setOnClickListener(v -> addnewSchedule());
+        editscheduleBinding.fabsave.setOnClickListener(v->{updateData();});
 
+
+    }
+
+    private void updateData() {
+        int spinnerFacultyIndex=editscheduleBinding.Atteacher.getSelectedItemPosition();
+        if(facultyInitialIndex!=spinnerFacultyIndex){
+            fieldsChanged[0]=1;
+
+        }
+        else {
+            fieldsChanged[0]=0;
+        }
+        Toast.makeText(this, ""+fieldsChanged[0], Toast.LENGTH_SHORT).show();
 
     }
 
@@ -199,10 +220,11 @@ public class EditSchedules extends AppCompatActivity {
             if (editBatchScheduleList != null) {
                 if (editBatchScheduleList.getThrowable() == null) {
                     for (int i = 0; i < editBatchScheduleList.getEditbatchScheduleList().size(); i++) {
+                        this.editBatchScheduleList=editBatchScheduleList;
                         String startTime = editBatchScheduleList.getEditbatchScheduleList().get(i).getStartTime();
                         String endTime = editBatchScheduleList.getEditbatchScheduleList().get(i).getEndTime();
-                        int day = editBatchScheduleList.getEditbatchScheduleList().get(i).getDay();
-                        if (day == 6 || day == 7) {
+                        String day = editBatchScheduleList.getEditbatchScheduleList().get(i).getDay();
+                        if (day.equals("6") || day.equals("7")) {
                             editscheduleBinding.checkW.setChecked(true);
                         }
                         addnewSchedule(day, startTime, endTime);
@@ -224,7 +246,7 @@ public class EditSchedules extends AppCompatActivity {
         }
     }
 
-    private void addnewSchedule(int day, String startTimer, String endTimer) {
+    private void addnewSchedule(String day, String startTimer, String endTimer) {
         String[] daysArray = getdays();
 
         List<String> stringList = Arrays.asList(daysArray);
@@ -240,9 +262,10 @@ public class EditSchedules extends AppCompatActivity {
         Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
 
         spinnerDays.setAdapter(dayAdapter);
-        if (daysArray.length > 2)
-            spinnerDays.setSelection(day - 1);
-        else spinnerDays.setSelection(day - 6);
+        if (daysArray.length > 2) {
+            spinnerDays.setSelection(Integer.parseInt(day)-1);
+        }
+        else spinnerDays.setSelection(Integer.parseInt(day)-6);
         ImageButton close = view.findViewById(R.id.closelayoutSchedule);
         close.setOnClickListener((v -> {
             Timber.d("Clicked");
@@ -283,6 +306,7 @@ public class EditSchedules extends AppCompatActivity {
                 for (int i = 0; i < facultyLists.size(); i++) {
                     if (facultyLists.get(i).getMobile().equalsIgnoreCase(fPhone)) {
                         editscheduleBinding.Atteacher.setSelection(i);
+                        facultyInitialIndex=i;
                         break;
                     }
                 }

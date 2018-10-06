@@ -3,7 +3,6 @@ package com.app.laqshya.studenttracker.activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -24,9 +23,9 @@ import android.widget.Toast;
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.AddScheduleFactory;
 import com.app.laqshya.studenttracker.activity.model.BatchDetails;
-import com.app.laqshya.studenttracker.activity.model.BatchList;
 import com.app.laqshya.studenttracker.activity.model.CourseList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
+import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.model.StudentNames;
@@ -161,7 +160,7 @@ public class AddSchedules extends AppCompatActivity {
     private void saveBatch() {
         //TODO add validations before saving.
         //Prepare the json for saving the batch.
-        List<BatchList> batchList = new ArrayList<>();
+        List<EditBatchScheduleList.EditbatchSchedule> batchList = new ArrayList<>();
         String course = activityAddSchedulesBinding.Atcoursename.getSelectedItem().toString();
         String courseModule = activityAddSchedulesBinding.studentCourseModuleSpinner.getSelectedItem().toString();
 
@@ -177,13 +176,16 @@ public class AddSchedules extends AppCompatActivity {
             Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
             Button startTime = view.findViewById(R.id.startTime);
             Button endTime = view.findViewById(R.id.endTime);
-            BatchList batchListItem = new BatchList();
-            batchListItem.setDay(spinnerDays.getSelectedItem().toString());
-            batchListItem.setEndTime(endTime.getText().toString());
-            batchListItem.setStartTime(startTime.getText().toString());
-            batchList.add(batchListItem);
-
-
+//            BatchList batchListItem = new BatchList();
+//            batchListItem.setDay(spinnerDays.getSelectedItem().toString());
+//            batchListItem.setEndTime(endTime.getText().toString());
+//            batchListItem.setStartTime(startTime.getText().toString());
+//            batchList.add(batchListItem);
+            EditBatchScheduleList.EditbatchSchedule editbatchSchedule = new EditBatchScheduleList.EditbatchSchedule();
+            editbatchSchedule.setDay(spinnerDays.getSelectedItem().toString());
+            editbatchSchedule.setEndTime(endTime.getText().toString());
+            editbatchSchedule.setStartTime(startTime.getText().toString());
+            batchList.add(editbatchSchedule);
         }
 
 

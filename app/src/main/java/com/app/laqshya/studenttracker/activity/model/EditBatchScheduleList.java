@@ -29,7 +29,7 @@ public class EditBatchScheduleList {
     public static class EditbatchSchedule {
         private String startTime;
         private String endTime;
-        private int day_id;
+        private String day_id;
 
         public String getStartTime() {
             return this.startTime;
@@ -39,7 +39,7 @@ public class EditBatchScheduleList {
             this.startTime = startTime;
         }
 
-        public int getDay() {
+        public String getDay() {
             return this.day_id;
         }
 
@@ -51,7 +51,7 @@ public class EditBatchScheduleList {
             this.endTime = endTime;
         }
 
-        public void setDay(int day) {
+        public void setDay(String day) {
             this.day_id = day;
         }
     }
