@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -28,7 +26,6 @@ import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.viewmodel.EditSchedulesViewModel;
 import com.app.laqshya.studenttracker.databinding.EditscheduleBinding;
 import com.example.custom_spinner_library.MultiSpinner;
-import com.example.custom_spinner_library.MultiSpinner_Event;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,11 +46,11 @@ public class EditSchedules extends AppCompatActivity {
     EditSchedulesViewModel editSchedulesViewModel;
     @Inject
     EditSchedulesViewModelFactory editSchedulesViewModelFactory;
-    boolean[] selectedItems ;
+    boolean[] selectedItems;
     ArrayAdapter<StudentInfo> studentInfoArrayAdapter = null;
     private String fPhone, coursename, coursemodulename;
     private List<StudentInfo> studentInfoArrayList;
-    private MultiSpinner.MultiSpinnerListener multiSpinnerListener =new MultiSpinner.MultiSpinnerListener() {
+    private MultiSpinner.MultiSpinnerListener multiSpinnerListener = new MultiSpinner.MultiSpinnerListener() {
         @Override
         public void onItemsSelected(boolean[] selected) {
 
@@ -65,47 +62,67 @@ public class EditSchedules extends AppCompatActivity {
             Toast.makeText(EditSchedules.this, "Hey Dropped", Toast.LENGTH_SHORT).show();
 //            mSelected[which1] = isChecked;
 
-            for (int ii = 0; ii < studentInfoArrayAdapter.getCount(); ii++) {
 
-                if (studentInfoArrayList.get(ii).getMarker() == 1) {
+            if (studentInfoArrayList.get(which).getMarker() == 1) {
 
-                    final EditText edittext = new EditText(getApplicationContext());
-                    AlertDialog.Builder builder = new AlertDialog.Builder(EditSchedules.this);
-                    builder.setTitle("Do you wish to remove this student?");
-                    builder.setMessage("Please select desired option:");
-                    builder.setCancelable(false);
-                    builder.setNeutralButton("Cancel", (dialog, which1) -> {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditSchedules.this);
+                builder.setTitle("Do you wish to remove this student?");
+                builder.setMessage("Please select desired option:");
+                builder.setCancelable(false);
+                builder.setNeutralButton("Cancel", (dialog, which1) -> {
 //                        mListener.onDropoutStudent(which1,2,"");
-                        dialog.dismiss();
-//                        dialog1.dismiss();
-//                    dialog.dismiss();
+                    dialog.dismiss();
+                    if (studentInfoArrayAdapter != null) {
 
-                    });
-                    builder.setNegativeButton("Change Student's Batch?", (dialog, which12) -> {
+                        selectedItems[which] = true;
+                        Toast.makeText(EditSchedules.this, "" + selectedItems[which] + which, Toast.LENGTH_SHORT).show();
+
+
+                        editscheduleBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, multiSpinnerListener);
+                        editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
+
+
+                    }
+
+
+                    for (boolean selectedItem : selectedItems) {
+
+                        Timber.d(String.valueOf(selectedItem));
+                    }
+
+
+                });
+                builder.setNegativeButton("Change Student's Batch?", (dialog, which12) -> {
 //                        mListener.onDropoutStudent(which1,0,"");
+                    selectedItems[which] = false;
 //                        dialog1.dismiss();
-                        dialog.dismiss();
-                    });
-                    builder.setPositiveButton("Remove Student From Batch?", (dialog, which13) -> {
-                        //
-//                        dialog1.dismiss();
-                        dialog.dismiss();
 
-                    });
-                    builder.show();
-                }
+                    dialog.dismiss();
+                    for (boolean selectedItem : selectedItems) {
+                        Timber.d(String.valueOf(selectedItem));
+                    }
+
+                });
+                builder.setPositiveButton("Remove Student From Batch?", (dialog, which13) -> {
+                    //EditSchedules.this
+//                        dialog1.dismiss();
+                    selectedItems[which] = false;
+                    dialog.dismiss();
+                    for (boolean selectedItem : selectedItems) {
+                        Timber.d(String.valueOf(selectedItem));
+                    }
+
+
+                });
+                builder.show();
             }
+
         }
-
-
-
-
-
 
 
     };
     private ArrayList<View> viewArrayList;
-
 
 
     @Override
@@ -130,13 +147,12 @@ public class EditSchedules extends AppCompatActivity {
         editscheduleBinding.addnewschedule.setOnClickListener(v -> addnewSchedule());
 
 
-
     }
 
     private void setStudents() {
         editSchedulesViewModel.getStudents(coursename, coursemodulename).observe(this, studentInfos -> {
 
-            studentInfoArrayList=studentInfos;
+            studentInfoArrayList = studentInfos;
             if (studentInfos != null && studentInfos.size() > 0) {
 
 
@@ -151,15 +167,16 @@ public class EditSchedules extends AppCompatActivity {
             if (studentInfos != null) {
                 if (studentInfoArrayAdapter != null) {
 
-                            selectedItems = new boolean[studentInfoArrayAdapter.getCount()];
-                            for (int ii = 0; ii < studentInfoArrayAdapter.getCount(); ii++) {
+                    selectedItems = new boolean[studentInfoArrayAdapter.getCount()];
+                    for (int ii = 0; ii < studentInfoArrayAdapter.getCount(); ii++) {
 
-                                if (studentInfos.get(ii).getMarker() == 1) {
-                                selectedItems[ii] = true;
+                        if (studentInfos.get(ii).getMarker() == 1) {
+                            selectedItems[ii] = true;
 
-                                editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
-                            }
+
                         }
+                    }
+                    editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
 
                 }
 
@@ -339,6 +356,7 @@ public class EditSchedules extends AppCompatActivity {
         }, localCalendar.get(Calendar.HOUR_OF_DAY), localCalendar.get(Calendar.MINUTE), false).show();
 
     }
+
     private String getTime() {
         return new SimpleDateFormat("hh:mm ", Locale.getDefault()).format(new Date());
 
@@ -381,7 +399,7 @@ public class EditSchedules extends AppCompatActivity {
             editscheduleBinding.scheduleHolder.removeAllViews();
             viewArrayList.clear();
 
-        });time_marker
+        });
         editscheduleBinding.checkW.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editscheduleBinding.scheduleHolder.removeAllViews();
             viewArrayList.clear();
@@ -390,7 +408,6 @@ public class EditSchedules extends AppCompatActivity {
 
 
     }
-
 
 
 }

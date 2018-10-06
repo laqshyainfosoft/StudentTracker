@@ -33,7 +33,7 @@ android {
     buildToolsVersion '28.0.2'
 }
 
-final daggerVersion = "2.13"
+final daggerVersion = "2.15"
 final retroversion = "2.3.0"
 final supportVersion = "27.1.1"
 final lifecycle = "1.1.1"
