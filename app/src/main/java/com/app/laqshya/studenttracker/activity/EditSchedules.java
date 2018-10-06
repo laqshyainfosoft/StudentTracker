@@ -55,10 +55,11 @@ public class EditSchedules extends AppCompatActivity {
         public void onItemsSelected(boolean[] selected) {
 
 
+
         }
 
         @Override
-        public void onDropoutStudent(int which, int flag_dropout, String reason) {
+        public void onDropoutStudent(int which, int flag_dropout) {
             Toast.makeText(EditSchedules.this, "Hey Dropped", Toast.LENGTH_SHORT).show();
 //            mSelected[which1] = isChecked;
 
@@ -73,14 +74,20 @@ public class EditSchedules extends AppCompatActivity {
                 builder.setNeutralButton("Cancel", (dialog, which1) -> {
 //                        mListener.onDropoutStudent(which1,2,"");
                     dialog.dismiss();
+
+//                    editscheduleBinding.spinnerMultiNew.dismissDialog();
+
                     if (studentInfoArrayAdapter != null) {
 
                         selectedItems[which] = true;
                         Toast.makeText(EditSchedules.this, "" + selectedItems[which] + which, Toast.LENGTH_SHORT).show();
-
-
-                        editscheduleBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, multiSpinnerListener);
+                      editscheduleBinding.spinnerMultiNew.dismissSpinner();
                         editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
+                        editscheduleBinding.spinnerMultiNew.changespinner();
+
+
+
+//
 
 
                     }
@@ -93,7 +100,7 @@ public class EditSchedules extends AppCompatActivity {
 
 
                 });
-                builder.setNegativeButton("Change Student's Batch?", (dialog, which12) -> {
+                builder.setNegativeButton("Change Batch", (dialog, which12) -> {
 //                        mListener.onDropoutStudent(which1,0,"");
                     selectedItems[which] = false;
 //                        dialog1.dismiss();
@@ -104,7 +111,7 @@ public class EditSchedules extends AppCompatActivity {
                     }
 
                 });
-                builder.setPositiveButton("Remove Student From Batch?", (dialog, which13) -> {
+                builder.setPositiveButton("Dropout Student", (dialog, which13) -> {
                     //EditSchedules.this
 //                        dialog1.dismiss();
                     selectedItems[which] = false;

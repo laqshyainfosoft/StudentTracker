@@ -6,12 +6,9 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.database.DataSetObserver;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MultiSpinner extends TextView implements OnMultiChoiceClickListener {
 
@@ -26,6 +23,8 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
     private boolean mAllSelected;
     private AllSelectedDisplayMode mAllSelectedDisplayMode;
     private MultiSpinnerListener mListener;
+
+    private DialogInterface dialogInterface;
     AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
 
     public MultiSpinner(Context context) {
@@ -43,11 +42,14 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
 
     public void onClick(final DialogInterface dialog1, final int which1, boolean isChecked) {
         mSelected[which1] = isChecked;
+        dialogInterface=dialog1;
 
         if(!isChecked)
         {
-        mListener.onDropoutStudent(which1, 2, "");
+        mListener.onDropoutStudent(which1, 2);
+
     }
+
 //            final EditText edittext = new EditText(getContext());
 //            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 //                builder.setTitle("Do you wish to remove this student?");
@@ -95,6 +97,10 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
 
     }
 
+    public void showDialog(){
+
+    }
+
     private OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -114,35 +120,40 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
             }
             else
             {
-                builder1.setTitle("Alter Student List");
-                builder1.setCancelable(false);
-                String choices[] = new String[mAdapter.getCount()];
-                for (int i = 0; i < choices.length; i++) {
-                    choices[i] = mAdapter.getItem(i).toString();
-                }
-                for (int i = 0; i < mSelected.length; i++) {
-                    mOldSelection[i] = mSelected[i];
-                }
-                builder1.setMultiChoiceItems(choices, mSelected, MultiSpinner.this);
-                builder1.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        for (int i = 0; i < mSelected.length; i++) {
-                            mSelected[i] = mOldSelection[i];
-                        }
-                        dialog.dismiss();
-                    }
-                });
-                builder1.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        refreshSpinner();
-                        mListener.onItemsSelected(mSelected);
-                        dialog.dismiss();
-                    }
-                });
-                builder1.show();
+                changespinner();
             }
         }
     };
+
+    public void changespinner() {
+
+        builder1.setTitle("Alter Student Lists");
+        builder1.setCancelable(false);
+        String choices[] = new String[mAdapter.getCount()];
+        for (int i = 0; i < choices.length; i++) {
+            choices[i] = mAdapter.getItem(i).toString();
+        }
+        for (int i = 0; i < mSelected.length; i++) {
+            mOldSelection[i] = mSelected[i];
+        }
+        builder1.setMultiChoiceItems(choices, mSelected, MultiSpinner.this);
+        builder1.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i = 0; i < mSelected.length; i++) {
+                    mSelected[i] = mOldSelection[i];
+                }
+                dialog.dismiss();
+            }
+        });
+        builder1.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                refreshSpinner();
+                mListener.onItemsSelected(mSelected);
+                dialog.dismiss();
+            }
+        });
+        builder1.create().show();
+    }
 
     public SpinnerAdapter getAdapter() {
         return this.mAdapter;
@@ -184,17 +195,21 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
         setText("Alter Student List");
     }
 
+
     public void setOnItemsSelectedListener(MultiSpinnerListener listener) {
         this.mListener = listener;
     }
 
     public interface MultiSpinnerListener {
         public void onItemsSelected(boolean[] selected);
-        public void onDropoutStudent(int which,int flag_dropout,String reason);
+        public void onDropoutStudent(int which,int flag_dropout);
     }
 
     public boolean[] getSelected() {
         return this.mSelected;
+    }
+    public void dismissSpinner(){
+        dialogInterface.dismiss();
     }
 
     public void setSelected(boolean[] selected) {
@@ -204,7 +219,7 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
         refreshSpinner();
     }
 
-    private void refreshSpinner() {
+    public void refreshSpinner() {
         // refresh text on spinner
         StringBuffer spinnerBuffer = new StringBuffer();
         boolean someUnselected = false;
@@ -219,7 +234,7 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
                 someUnselected = true;
             }
         }
-        String spinnerText="Alter Student List";
+        String spinnerText;
         if (!allUnselected) {
 
             if ((someUnselected && !(mAllText != null && mAllText.length() > 0)) || mAllSelectedDisplayMode == AllSelectedDisplayMode.DisplayAllItems) {
