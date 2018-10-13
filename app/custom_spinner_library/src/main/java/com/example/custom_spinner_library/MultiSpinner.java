@@ -107,7 +107,7 @@ public class MultiSpinner extends TextView implements OnMultiChoiceClickListener
             if(mAdapter.getCount()==0)
             {
                 android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getContext());
-                builder.setTitle("No Student");
+                builder.setTitle("No student");
                 builder.setMessage("No student left in batch!!! Delete Batch?");
                 builder.setIcon(R.drawable.deleteicon);
                 builder.setNeutralButton("Yes", new DialogInterface.OnClickListener() {

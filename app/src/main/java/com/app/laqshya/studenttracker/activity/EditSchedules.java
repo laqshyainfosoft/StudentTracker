@@ -23,6 +23,7 @@ import com.app.laqshya.studenttracker.activity.factory.EditSchedulesViewModelFac
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
+import com.app.laqshya.studenttracker.activity.model.StudentNames;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.viewmodel.EditSchedulesViewModel;
 import com.app.laqshya.studenttracker.databinding.EditscheduleBinding;
@@ -53,24 +54,41 @@ public class EditSchedules extends AppCompatActivity {
     private String fPhone, coursename, coursemodulename;
     private List<StudentInfo> studentInfoArrayList;
     private int[] fieldsChanged;
-    private int facultyInitialIndex=0;
+    private int facultyInitialIndex = 0;
     private EditBatchScheduleList editBatchScheduleList;
+    private boolean isRadioButtonSwitched;
+    private List<StudentInfo> tempStudenList;
+    private List<StudentNames> studentNamesList;
+
 
     private MultiSpinner.MultiSpinnerListener multiSpinnerListener = new MultiSpinner.MultiSpinnerListener() {
         @Override
         public void onItemsSelected(boolean[] selected) {
+//            studentInfoArrayList = new ArrayList<>();
+            if (studentInfoArrayList.size() > 0) {
+                studentInfoArrayList.clear();
+            }
+            ;
+            Timber.d("Temp list size is %d", tempStudenList.size());
+            for (int i = 0; i < tempStudenList.size(); i++) {
+                if (selected[i]) {
 
+                    studentInfoArrayList.add(tempStudenList.get(i));
+                    Timber.d("Size of list  is%s", String.valueOf(studentInfoArrayList.size()));
+                }
+            }
 
 
         }
+
+        ;
 
         @Override
         public void onDropoutStudent(int which, int flag_dropout) {
             Toast.makeText(EditSchedules.this, "Hey Dropped", Toast.LENGTH_SHORT).show();
 //            mSelected[which1] = isChecked;
 
-
-            if (studentInfoArrayList.get(which).getMarker() == 1) {
+            if (studentInfoArrayList.get(which).getMarker() == 1 && tempStudenList.size() > 0) {
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditSchedules.this);
@@ -87,13 +105,9 @@ public class EditSchedules extends AppCompatActivity {
 
                         selectedItems[which] = true;
                         Toast.makeText(EditSchedules.this, "" + selectedItems[which] + which, Toast.LENGTH_SHORT).show();
-                      editscheduleBinding.spinnerMultiNew.dismissSpinner();
+                        editscheduleBinding.spinnerMultiNew.dismissSpinner();
                         editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
                         editscheduleBinding.spinnerMultiNew.changespinner();
-
-
-
-//
 
 
                     }
@@ -142,11 +156,12 @@ public class EditSchedules extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
+        studentNamesList = new ArrayList<>();
         editscheduleBinding = DataBindingUtil.setContentView(this, R.layout.editschedule);
         editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
 
         editscheduleBinding.myToolbar.setTitle("Edit Batches");
-        fieldsChanged=new int[3];
+        fieldsChanged = new int[3];
         checkIntent();
         if (isBatchStartChangeable()) {
             editscheduleBinding.calenderbatchstartdate.setOnClickListener(v -> showDatePicker());
@@ -159,21 +174,108 @@ public class EditSchedules extends AppCompatActivity {
 
 
         editscheduleBinding.addnewschedule.setOnClickListener(v -> addnewSchedule());
-        editscheduleBinding.fabsave.setOnClickListener(v->{updateData();});
+        editscheduleBinding.fabsave.setOnClickListener(v -> {
+            updateData();
+        });
 
 
     }
 
     private void updateData() {
-        int spinnerFacultyIndex=editscheduleBinding.Atteacher.getSelectedItemPosition();
-        if(facultyInitialIndex!=spinnerFacultyIndex){
-            fieldsChanged[0]=1;
+        List<EditBatchScheduleList.EditbatchSchedule> batchList = new ArrayList<>();
+        int spinnerFacultyIndex = editscheduleBinding.Atteacher.getSelectedItemPosition();
+        String[] indexArray;
+        String oldday, newday, oldstime, newstime, oldetime, newetime;
+        boolean schedulehasChanged = false;
+//        Toast.makeText(this, "List Size is"+viewArrayList.size(), Toast.LENGTH_SHORT).show();
+        for (View view : viewArrayList) {
+            Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
+            Button startTime = view.findViewById(R.id.startTime);
+            Button endTime = view.findViewById(R.id.endTime);
+//
+            EditBatchScheduleList.EditbatchSchedule editbatchSchedule = new EditBatchScheduleList.EditbatchSchedule();
+            editbatchSchedule.setDay(spinnerDays.getSelectedItem().toString());
+            editbatchSchedule.setEndTime(endTime.getText().toString());
+            editbatchSchedule.setStartTime(startTime.getText().toString());
+
+            batchList.add(editbatchSchedule);
+        }
+        EditBatchScheduleList editBatchScheduleListTemp = new EditBatchScheduleList(batchList);
+        String[] daysArray = getdays();
+        List<String> stringList = Arrays.asList(daysArray);
+        indexArray = new String[editBatchScheduleListTemp.getEditbatchScheduleList().size()];
+
+
+        if (isRadioButtonSwitched) {
+            fieldsChanged[1] = 1;
+
+        } else {
+
+            for (int i = 0; i < editBatchScheduleListTemp.getEditbatchScheduleList().size(); i++) {
+                Timber.d("Radio button %s", isRadioButtonSwitched);
+
+                Timber.d(editBatchScheduleList.getEditbatchScheduleList().get(i).getDay());
+                String index = editBatchScheduleList.getEditbatchScheduleList().get(i).getDay();
+                Timber.d(index);
+                indexArray[i] = index;
+                Timber.d("index is %s", index);
+
+                oldday = stringList.get(Integer.parseInt(index) - 1);
+
+                this.editBatchScheduleList.getEditbatchScheduleList().get(i).setDay(oldday);
+                newetime = editBatchScheduleListTemp.getEditbatchScheduleList().get(i).getEndTime();
+                newstime = editBatchScheduleListTemp.getEditbatchScheduleList().get(i).getStartTime();
+
+                oldetime = editBatchScheduleList.getEditbatchScheduleList().get(i).getEndTime();
+                oldstime = editBatchScheduleList.getEditbatchScheduleList().get(i).getStartTime();
+                newday = editBatchScheduleListTemp.getEditbatchScheduleList().get(i).getDay();
+                if (!(oldday.equals(newday) && oldetime.equals(newetime) && oldstime.equals(newstime))) {
+                    schedulehasChanged = true;
+                    break;
+                }
+
+
+            }
+
+
+            if (editBatchScheduleListTemp.getEditbatchScheduleList().size() != this.editBatchScheduleList.getEditbatchScheduleList().size()) {
+                fieldsChanged[1] = 1;
+                Timber.d("First ");
+
+            } else if (schedulehasChanged) {
+                fieldsChanged[1] = 1;
+                Timber.d("Second ");
+            }
+        }
+        if (facultyInitialIndex != spinnerFacultyIndex) {
+            fieldsChanged[0] = 1;
+
+        } else {
+            fieldsChanged[0] = 0;
+        }
+        for (int i = 0; i < editBatchScheduleListTemp.getEditbatchScheduleList().size(); i++) {
+
+            editBatchScheduleList.getEditbatchScheduleList().get(i).setDay(indexArray[i]);
+            Timber.d("Days in list are:%s", editBatchScheduleList.getEditbatchScheduleList().get(i).getDay());
+        }
+
+        Toast.makeText(this, "" + fieldsChanged[0] + " " + fieldsChanged[1], Toast.LENGTH_SHORT).show();
+//        Timber.d("Size of Student Lis");
+//
+        if (studentInfoArrayList != null && studentInfoArrayList.size() > 0) {
+            studentNamesList.clear();
+
+            for (StudentInfo studentInfo : studentInfoArrayList) {
+
+                StudentNames studentNames = new StudentNames();
+                studentNames.setStudentMobile(studentInfo.getPhone());
+                studentNamesList.add(studentNames);
+                Timber.d("Loop is%s", studentInfo.getName());
+
+
+            }
 
         }
-        else {
-            fieldsChanged[0]=0;
-        }
-        Toast.makeText(this, ""+fieldsChanged[0], Toast.LENGTH_SHORT).show();
 
     }
 
@@ -186,6 +288,14 @@ public class EditSchedules extends AppCompatActivity {
 
                 studentInfoArrayAdapter = new ArrayAdapter<>(EditSchedules.this, android
                         .R.layout.simple_spinner_dropdown_item, studentInfos);
+                tempStudenList = new ArrayList<>();
+                tempStudenList.addAll(studentInfos);
+                Timber.d("NAME IS  %s%s", tempStudenList.get(6).getPhone(), tempStudenList.get(5).getPhone());
+                for (int i = 0; i < tempStudenList.size(); i++) {
+
+                    System.out.println(i);
+                    Timber.d("Names of students: %s%s", tempStudenList.get(i).getName(), tempStudenList.size());
+                }
 
 
                 editscheduleBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, multiSpinnerListener);
@@ -220,7 +330,7 @@ public class EditSchedules extends AppCompatActivity {
             if (editBatchScheduleList != null) {
                 if (editBatchScheduleList.getThrowable() == null) {
                     for (int i = 0; i < editBatchScheduleList.getEditbatchScheduleList().size(); i++) {
-                        this.editBatchScheduleList=editBatchScheduleList;
+                        this.editBatchScheduleList = editBatchScheduleList;
                         String startTime = editBatchScheduleList.getEditbatchScheduleList().get(i).getStartTime();
                         String endTime = editBatchScheduleList.getEditbatchScheduleList().get(i).getEndTime();
                         String day = editBatchScheduleList.getEditbatchScheduleList().get(i).getDay();
@@ -246,6 +356,7 @@ public class EditSchedules extends AppCompatActivity {
         }
     }
 
+
     private void addnewSchedule(String day, String startTimer, String endTimer) {
         String[] daysArray = getdays();
 
@@ -255,7 +366,7 @@ public class EditSchedules extends AppCompatActivity {
 
         editscheduleBinding.scheduleHolder.addView(view);
         LinearLayout linearLayout = view.findViewById(R.id.schedulesRootLayout);
-//        viewArrayList.add(linearLayout);
+        viewArrayList.add(linearLayout);
 //        Timber.d("%d", viewArrayList.size());
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 stringList);
@@ -263,14 +374,13 @@ public class EditSchedules extends AppCompatActivity {
 
         spinnerDays.setAdapter(dayAdapter);
         if (daysArray.length > 2) {
-            spinnerDays.setSelection(Integer.parseInt(day)-1);
-        }
-        else spinnerDays.setSelection(Integer.parseInt(day)-6);
+            spinnerDays.setSelection(Integer.parseInt(day) - 1);
+        } else spinnerDays.setSelection(Integer.parseInt(day) - 6);
         ImageButton close = view.findViewById(R.id.closelayoutSchedule);
         close.setOnClickListener((v -> {
             Timber.d("Clicked");
             editscheduleBinding.scheduleHolder.removeView(linearLayout);
-//            viewArrayList.remove(linearLayout);
+            viewArrayList.remove(linearLayout);
             Timber.d("%s", v.getParent().toString());
 
 
@@ -285,16 +395,18 @@ public class EditSchedules extends AppCompatActivity {
         endTime.setOnClickListener(v -> showTimePicker(endTime));
         editscheduleBinding.checkR.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editscheduleBinding.scheduleHolder.removeAllViews();
-//            viewArrayList.clear();
+            viewArrayList.clear();
+            isRadioButtonSwitched = true;
 
         });
         editscheduleBinding.checkW.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editscheduleBinding.scheduleHolder.removeAllViews();
-//            viewArrayList.clear();
+            viewArrayList.clear();
+            isRadioButtonSwitched = true;
 
         });
 
-
+//this
     }
 
     private void setFaculty() {
@@ -306,7 +418,7 @@ public class EditSchedules extends AppCompatActivity {
                 for (int i = 0; i < facultyLists.size(); i++) {
                     if (facultyLists.get(i).getMobile().equalsIgnoreCase(fPhone)) {
                         editscheduleBinding.Atteacher.setSelection(i);
-                        facultyInitialIndex=i;
+                        facultyInitialIndex = i;
                         break;
                     }
                 }
@@ -411,10 +523,9 @@ public class EditSchedules extends AppCompatActivity {
         spinnerDays.setAdapter(dayAdapter);
         ImageButton close = view.findViewById(R.id.closelayoutSchedule);
         close.setOnClickListener((v -> {
-            Timber.d("Clicked");
+
             editscheduleBinding.scheduleHolder.removeView(linearLayout);
             viewArrayList.remove(linearLayout);
-            Timber.d("%s", v.getParent().toString());
 
 
         }));
@@ -428,12 +539,18 @@ public class EditSchedules extends AppCompatActivity {
         endTime.setOnClickListener(v -> showTimePicker(endTime));
         editscheduleBinding.checkR.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editscheduleBinding.scheduleHolder.removeAllViews();
+            Timber.d("First Radio button %s", isRadioButtonSwitched);
             viewArrayList.clear();
+            isRadioButtonSwitched = true;
+
 
         });
         editscheduleBinding.checkW.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editscheduleBinding.scheduleHolder.removeAllViews();
+            Timber.d("Second Radio button %s", isRadioButtonSwitched);
             viewArrayList.clear();
+            isRadioButtonSwitched = true;
+
 
         });
 

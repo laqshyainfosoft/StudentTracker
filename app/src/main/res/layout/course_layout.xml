@@ -12,7 +12,9 @@
     android:orientation="vertical"
     android:id="@+id/courseLinearLayout"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
+
     <Spinner
         android:id="@+id/studentCourseSpinner"
         android:layout_width="match_parent"

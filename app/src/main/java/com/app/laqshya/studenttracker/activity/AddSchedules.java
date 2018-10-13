@@ -165,7 +165,7 @@ public class AddSchedules extends AppCompatActivity {
         String courseModule = activityAddSchedulesBinding.studentCourseModuleSpinner.getSelectedItem().toString();
 
         String fPhone = facultyListMobileNumber.get(facultyPosition);
-        Timber.d("Faculty is" + fPhone);
+        Timber.d("Faculty is%s", fPhone);
         String location = activityAddSchedulesBinding.txtAtlocation.getText().toString();
         String batchStartDate = activityAddSchedulesBinding.calenderbatchstartdate.getText().toString();
         batchList.clear();
@@ -176,11 +176,7 @@ public class AddSchedules extends AppCompatActivity {
             Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
             Button startTime = view.findViewById(R.id.startTime);
             Button endTime = view.findViewById(R.id.endTime);
-//            BatchList batchListItem = new BatchList();
-//            batchListItem.setDay(spinnerDays.getSelectedItem().toString());
-//            batchListItem.setEndTime(endTime.getText().toString());
-//            batchListItem.setStartTime(startTime.getText().toString());
-//            batchList.add(batchListItem);
+//
             EditBatchScheduleList.EditbatchSchedule editbatchSchedule = new EditBatchScheduleList.EditbatchSchedule();
             editbatchSchedule.setDay(spinnerDays.getSelectedItem().toString());
             editbatchSchedule.setEndTime(endTime.getText().toString());
