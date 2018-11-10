@@ -28,6 +28,24 @@ public class EditBatchScheduleList {
 
     public static class EditbatchSchedule {
         private String startTime;
+        private String scheduleId;
+
+        public String getScheduleId() {
+            return scheduleId;
+        }
+
+        public void setScheduleId(String scheduleId) {
+            this.scheduleId = scheduleId;
+        }
+
+        public String getDay_id() {
+            return day_id;
+        }
+
+        public void setDay_id(String day_id) {
+            this.day_id = day_id;
+        }
+
         private String endTime;
         private String day_id;
 

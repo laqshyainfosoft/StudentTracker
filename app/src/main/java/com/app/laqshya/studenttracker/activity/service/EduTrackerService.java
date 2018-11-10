@@ -23,7 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.0.131/student_tracker/";
+    String ENDPOINT = "http://192.168.0.130/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -79,6 +79,8 @@ public interface EduTrackerService {
     @POST("getStudentsToEditBatch.php")
     Single<List<StudentInfo>> getStudentNameForEditBatches(@Field("coursename")String coursename,@Field("courseModuleName")
             String courseModuleName);
+    @POST("editBatches.php")
+    Single<ResponseBody> editBatch(@Body BatchDetails batchDetails);
 
 
 }

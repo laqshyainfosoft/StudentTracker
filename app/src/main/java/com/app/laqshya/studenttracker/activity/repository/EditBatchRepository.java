@@ -3,29 +3,32 @@ package com.app.laqshya.studenttracker.activity.repository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-
+import com.app.laqshya.studenttracker.activity.model.BatchDetails;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
+import java.io.IOException;
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 import timber.log.Timber;
 
 public class EditBatchRepository {
     private EduTrackerService eduTrackerService;
+
     public EditBatchRepository(EduTrackerService eduTrackerService) {
-        this.eduTrackerService=eduTrackerService;
+        this.eduTrackerService = eduTrackerService;
     }
-    public LiveData<BatchInformationResponse> getBatchForCounsellor(String center){
-        MutableLiveData<BatchInformationResponse> liveData=new MutableLiveData<>();
+
+    public LiveData<BatchInformationResponse> getBatchForCounsellor(String center) {
+        MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
         eduTrackerService.getBatch(center).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
@@ -48,6 +51,7 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
+
     public LiveData<List<FacultyList>> getFacultyList() {
         MutableLiveData<List<FacultyList>> facultyLiveData = new MutableLiveData<>();
         eduTrackerService.getFacultyList().subscribeOn(Schedulers.io())
@@ -75,8 +79,9 @@ public class EditBatchRepository {
 
         return facultyLiveData;
     }
-    public LiveData<EditBatchScheduleList> getBatchSchedule(String batchid){
-        MutableLiveData<EditBatchScheduleList> editBatchScheduleListMutableLiveData=new MutableLiveData<>();
+
+    public LiveData<EditBatchScheduleList> getBatchSchedule(String batchid) {
+        MutableLiveData<EditBatchScheduleList> editBatchScheduleListMutableLiveData = new MutableLiveData<>();
         eduTrackerService.getSchedule(batchid).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<EditBatchScheduleList.EditbatchSchedule>>() {
@@ -98,9 +103,10 @@ public class EditBatchRepository {
                 });
         return editBatchScheduleListMutableLiveData;
     }
-    public LiveData<List<StudentInfo>> getStudents(String coursename,String coursemodname){
-        MutableLiveData<List<StudentInfo>> liveData=new MutableLiveData<>();
-        eduTrackerService.getStudentNameForEditBatches(coursename,coursemodname)
+
+    public LiveData<List<StudentInfo>> getStudents(String coursename, String coursemodname) {
+        MutableLiveData<List<StudentInfo>> liveData = new MutableLiveData<>();
+        eduTrackerService.getStudentNameForEditBatches(coursename, coursemodname)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<StudentInfo>>() {
@@ -121,6 +127,38 @@ public class EditBatchRepository {
 
                     }
                 });
+        return liveData;
+    }
+
+    public LiveData<String> editBatches(BatchDetails details) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        eduTrackerService.editBatch(details)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            liveData.postValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue("Error occured");
+
+                    }
+                })
+        ;
         return liveData;
     }
 }

@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity.model;
 
 public class StudentInfo {
+
     private String name;
     private String email;
     private String phone;

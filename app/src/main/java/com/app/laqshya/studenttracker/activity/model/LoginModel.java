@@ -1,6 +1,6 @@
 package com.app.laqshya.studenttracker.activity.model;
 
-public class LoginModel {
+public class  LoginModel {
     private int status;
     private String name;
     private String center;

@@ -4,6 +4,16 @@ import java.util.List;
 
 public class BatchDetails {
     private String center;
+    private String bid;
+
+    public void setBid(String bid) {
+        this.bid = bid;
+    }
+
+    public String getBid() {
+        return bid;
+
+    }
 
     private List<EditBatchScheduleList.EditbatchSchedule> batchList;
 

@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 
+import com.app.laqshya.studenttracker.activity.model.BatchDetails;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
@@ -11,6 +12,8 @@ import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.repository.EditBatchRepository;
 
 import java.util.List;
+
+import okhttp3.ResponseBody;
 
 public class EditSchedulesViewModel extends ViewModel {
     private EditBatchRepository editBatchRepository;
@@ -31,5 +34,9 @@ public class EditSchedulesViewModel extends ViewModel {
     }
     public LiveData<List<StudentInfo>> getStudents(String coursename,String coursemodulename){
         return editBatchRepository.getStudents(coursename,coursemodulename);
+    }
+    public LiveData<String> editBatches(BatchDetails batchDetails){
+        return editBatchRepository.editBatches(batchDetails);
+
     }
 }
