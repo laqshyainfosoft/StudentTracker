@@ -39,4 +39,18 @@ public class EditSchedulesViewModel extends ViewModel {
         return editBatchRepository.editBatches(batchDetails);
 
     }
+    public LiveData<String> deleteBatches(String scheduleId){
+        return editBatchRepository.deleteBatches(scheduleId);
+
+    }
+    public LiveData<String> modifyBatches(String scheduleId,String facultyId,String startTime,String endTime,
+                                          String dayId,String bid){
+        return editBatchRepository.modifyBatches(scheduleId,facultyId,startTime,endTime,dayId,bid);
+
+    }
+    public LiveData<String> insertEditedBatches(String startTime,String endTime,
+                                          String dayId,String bid){
+        return editBatchRepository.insertEditedBatches(startTime,endTime,dayId,bid);
+
+    }
 }

@@ -130,9 +130,106 @@ public class EditBatchRepository {
         return liveData;
     }
 
+
     public LiveData<String> editBatches(BatchDetails details) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
         eduTrackerService.editBatch(details)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            liveData.postValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue("Error occured");
+
+                    }
+                })
+        ;
+        return liveData;
+    }
+
+    public LiveData<String> deleteBatches(String scheduleId) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        eduTrackerService.deleteBatch(scheduleId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            liveData.postValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue("Error occured");
+
+                    }
+                })
+        ;
+        return liveData;
+    }
+    public LiveData<String> modifyBatches(String scheduleId,String facultyId,String startTime,String endTime,
+                                          String dayId,String bid) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        eduTrackerService.updateBatch(scheduleId,facultyId,startTime,endTime,dayId,bid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            liveData.postValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue("Error occured");
+
+                    }
+                })
+        ;
+        return liveData;
+    }
+    public LiveData<String> insertEditedBatches(String startTime,String endTime,
+                                          String dayId,String bid) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        eduTrackerService.insertnewSchedules(startTime,endTime,dayId,bid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<ResponseBody>() {

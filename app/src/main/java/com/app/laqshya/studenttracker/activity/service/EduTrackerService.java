@@ -9,6 +9,7 @@ import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.LoginModel;
+import com.app.laqshya.studenttracker.activity.model.Schedule;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 
 import java.util.List;
@@ -23,7 +24,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.0.130/student_tracker/";
+    String ENDPOINT = "http://192.168.0.132/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -81,6 +82,18 @@ public interface EduTrackerService {
             String courseModuleName);
     @POST("editBatches.php")
     Single<ResponseBody> editBatch(@Body BatchDetails batchDetails);
+    @FormUrlEncoded
+    @POST("deleteBatches.php")
+    Single<ResponseBody> deleteBatch(@Field("scheduleId")String scheduleId);
+    @FormUrlEncoded
+    @POST("updateBatches.php")
+    Single<ResponseBody> updateBatch(@Field("scheduleId")String scheduleId,@Field("facultyId")String facultyId,
+                                     @Field("startTime")String startTime,@Field("endTime")String endTime,
+                                     @Field("dayId")String dayId,@Field("bid")String bid);
+    @FormUrlEncoded
+    @POST("insertSchedulesOnEditing.php")
+    Single<ResponseBody> insertnewSchedules(@Field("startTime")String startTime,@Field("endTime")String endTime,
+                                            @Field("dayId")String dayId,@Field("bid")String bid);
 
 
 }

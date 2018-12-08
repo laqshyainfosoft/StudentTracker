@@ -3,6 +3,7 @@ package com.app.laqshya.studenttracker.activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -11,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -36,8 +38,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -45,7 +49,7 @@ import dagger.android.AndroidInjection;
 import timber.log.Timber;
 
 public class EditSchedules extends AppCompatActivity {
-    //TODO adjust days schedules for duplication.
+
     EditscheduleBinding editscheduleBinding;
     EditSchedulesViewModel editSchedulesViewModel;
     @Inject
@@ -61,6 +65,10 @@ public class EditSchedules extends AppCompatActivity {
     private List<StudentInfo> tempStudenList;
     private List<StudentNames> studentNamesList;
     private List<FacultyList> facultyLists;
+    Set<String> allSchedules=new HashSet<>();
+    Set<String> modifiedSchedules=new HashSet<>();
+    Set<String> deletedSchedules=new HashSet<>();
+    private List<EditSchedules.EditScheduleInsertion> scheduleInsertionList;
 
 
     private MultiSpinner.MultiSpinnerListener multiSpinnerListener = new MultiSpinner.MultiSpinnerListener() {
@@ -161,6 +169,7 @@ public class EditSchedules extends AppCompatActivity {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         studentNamesList = new ArrayList<>();
+        scheduleInsertionList=new ArrayList<>();
         editscheduleBinding = DataBindingUtil.setContentView(this, R.layout.editschedule);
         editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
 
@@ -188,25 +197,60 @@ public class EditSchedules extends AppCompatActivity {
     private void updateData() {
         List<EditBatchScheduleList.EditbatchSchedule> batchList = new ArrayList<>();
         int spinnerFacultyIndex = editscheduleBinding.Atteacher.getSelectedItemPosition();
+        Timber.d(Arrays.toString(scheduleInsertionList.toArray()));
+
+        StringBuilder startTimeBuilder=new StringBuilder();
+        StringBuilder endTimeBuilder=new StringBuilder();
+        StringBuilder dayBuilder=new StringBuilder();
+        Timber.d(Arrays.toString(deletedSchedules.toArray()));
+        int index=0;
+
+
 //        String oldday, newday, oldstime, newstime, oldetime, newetime;
 //        boolean schedulehasChanged = false;
 //        Toast.makeText(this, "List Size is"+viewArrayList.size(), Toast.LENGTH_SHORT).show();
+
         for (View view : viewArrayList) {
             Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
             Button startTime = view.findViewById(R.id.startTime);
             Button endTime = view.findViewById(R.id.endTime);
+
 //
             EditBatchScheduleList.EditbatchSchedule editbatchSchedule = new EditBatchScheduleList.EditbatchSchedule();
 
             editbatchSchedule.setDay(spinnerDays.getSelectedItem().toString());
             editbatchSchedule.setEndTime(endTime.getText().toString());
             editbatchSchedule.setStartTime(startTime.getText().toString());
-            batchList.add(editbatchSchedule);
 
+            //TODO fix schedule Ids in proper sequence.
+                if(editBatchScheduleList.getEditbatchScheduleList().size()>index) {
+                    EditBatchScheduleList.EditbatchSchedule temporarySchedule = editBatchScheduleList.getEditbatchScheduleList().get(index);
+                    if(modifiedSchedules.contains(temporarySchedule.getScheduleId())){
+                        startTimeBuilder.append(startTime.getText().toString()).append("|");
+                        endTimeBuilder.append(endTime.getText().toString()).append("|");
+                        dayBuilder.append(getDayid(spinnerDays.getSelectedItem().toString())).append("|");
+                    }
+                    index++;
+                }
+
+
+
+
+            Timber.d("Schedule ID %s",editbatchSchedule.getScheduleId());
+
+//            batchList.add(editbatchSchedule);
 
         }
+        if(startTimeBuilder.length()>0)
+        startTimeBuilder.deleteCharAt(startTimeBuilder.length()-1);
+        if(dayBuilder.length()>0)
+        dayBuilder.deleteCharAt(dayBuilder.length()-1);
+        if(endTimeBuilder.length()>0)
+        endTimeBuilder.deleteCharAt(endTimeBuilder.length()-1);
         EditBatchScheduleList editBatchScheduleListTemp = new EditBatchScheduleList(batchList);
         Timber.d(String.valueOf(editBatchScheduleListTemp.getEditbatchScheduleList().size()));
+
+
 //        List<String> stringList = Arrays.asList(daysArray);
 
 
@@ -214,34 +258,7 @@ public class EditSchedules extends AppCompatActivity {
             fieldsChanged[1] = 1;
 
         } else {
-//TODO this method is pending for individual views validation.
 
-//                Timber.d("Radio button %s", isRadioButtonSwitched);
-//                System.out.println(Arrays.toString(editBatchScheduleList.getEditbatchScheduleList().toArray()));
-//studentNamesList
-//                Timber.d("Day is%s", editBatchScheduleList.getEditbatchScheduleList().get(i).getDay());
-//                String index = editBatchScheduleList.getEditbatchScheduleList().get(i).getDay();
-//                Timber.d(index);
-//
-//                Timber.d("index is %s", index);
-            //TODO s is null fix
-//                int days = getindex(index);
-//
-//                oldday = stringList.get(days);
-//                Timber.d("Old day was %s",oldday);
-//
-//
-//                this.editBatchScheduleList.getEditbatchScheduleList().get(i).setDay(oldday);
-//                newetime = editBatchScheduleListTemp.getEditbatchScheduleList().get(i).getEndTime();
-//                newstime = editBatchScheduleListTemp.getEditbatchScheduleList().get(i).getStartTime();
-//
-//                oldetime = editBatchScheduleList.getEditbatchScheduleList().get(i).getEndTime();
-//                oldstime = editBatchScheduleList.getEditbatchScheduleList().get(i).getStartTime();
-//                newday = editBatchScheduleListTemp.getEditbatchScheduleList().get(i).getDay();
-//                if (!(oldday.equals(newday) && oldetime.equals(newetime) && oldstime.equals(newstime))) {
-//                    schedulehasChanged = true;
-//                    break;
-//                }
 
 
             if (editBatchScheduleListTemp.getEditbatchScheduleList().size() != this.editBatchScheduleList.getEditbatchScheduleList().size()) {
@@ -262,6 +279,7 @@ public class EditSchedules extends AppCompatActivity {
         } else {
             fieldsChanged[0] = 0;
         }
+
 //        for (int i = 0; i < editBatchScheduleListTemp.getEditbatchScheduleList().size(); i++) {
 //
 //            editBatchScheduleList.getEditbatchScheduleList().get(i).setDay(indexArray[i]);
@@ -316,10 +334,55 @@ public class EditSchedules extends AppCompatActivity {
         batchDetails.setStudentNames(studentNamesList);
         String bid = getIntent().getStringExtra(Constants.BATCHID).substring(5).trim();
         batchDetails.setBid(bid);
-        editSchedulesViewModel.editBatches(batchDetails).observe(this, s -> {
-            Toast.makeText(this, "" + s, Toast.LENGTH_SHORT).show();
 
-        });
+        StringBuilder deletedBuilder=new StringBuilder();
+        for (String s:deletedSchedules){
+            deletedBuilder.append(s).append("|");
+        }
+
+        if(deletedBuilder.length()>0) {
+            deletedBuilder.deleteCharAt(deletedBuilder.length() - 1);
+            editSchedulesViewModel.deleteBatches(deletedBuilder.toString())
+                    .observe(this, s -> Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show());
+//        editSchedulesViewModel.editBatches(batchDetails).observe(this, s -> {
+//            Toast.makeText(this, "" + s, Toast.LENGTH_SHORT).show();
+//
+//        });
+        }
+        StringBuilder modifiedbuilder=new StringBuilder();
+        for (String s:modifiedSchedules){
+            modifiedbuilder.append(s).append("|");
+        }
+        if(modifiedbuilder.length()>0) {
+            modifiedbuilder.deleteCharAt(modifiedbuilder.length() - 1);
+            editSchedulesViewModel.modifyBatches(modifiedbuilder.toString(), facultyLists.get(spinnerFacultyIndex).getMobile(), startTimeBuilder.toString(), endTimeBuilder.toString(), dayBuilder.toString(), bid).observe(this, new Observer<String>() {
+                @Override
+                public void onChanged(@Nullable String s) {
+                    Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+        StringBuilder newSchedulesstarttime=new StringBuilder();
+        StringBuilder newSchedulesendtime=new StringBuilder();
+        StringBuilder newSchedulesdayidtime=new StringBuilder();
+
+        for(int i=0;i<scheduleInsertionList.size();i++){
+            EditScheduleInsertion editScheduleInsertion=scheduleInsertionList.get(i);
+            String stime=editScheduleInsertion.startTime;
+            String etime=editScheduleInsertion.endTime;
+            String dayid=editScheduleInsertion.day_id;
+            newSchedulesdayidtime.append(dayid).append("|");
+            newSchedulesstarttime.append(stime).append("|");
+            newSchedulesendtime.append(etime).append("|");
+
+        }
+        if(newSchedulesdayidtime.length()>0)newSchedulesdayidtime.deleteCharAt(newSchedulesdayidtime.length()-1);
+        if(newSchedulesendtime.length()>0)newSchedulesendtime.deleteCharAt(newSchedulesendtime.length()-1);
+        if(newSchedulesstarttime.length()>0)newSchedulesstarttime.deleteCharAt(newSchedulesstarttime.length()-1);
+        editSchedulesViewModel.insertEditedBatches(newSchedulesstarttime.toString(),newSchedulesendtime.toString(),newSchedulesdayidtime.toString(),
+                bid).observe(this, s -> Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show());
+
 
 
     }
@@ -335,7 +398,7 @@ public class EditSchedules extends AppCompatActivity {
                         .R.layout.simple_spinner_dropdown_item, studentInfos);
                 tempStudenList = new ArrayList<>();
                 tempStudenList.addAll(studentInfos);
-                Timber.d("NAME IS  %s%s", tempStudenList.get(6).getPhone(), tempStudenList.get(5).getPhone());
+
                 for (int i = 0; i < tempStudenList.size(); i++) {
 
                     System.out.println(i);
@@ -379,10 +442,11 @@ public class EditSchedules extends AppCompatActivity {
                         String startTime = editBatchScheduleList.getEditbatchScheduleList().get(i).getStartTime();
                         String endTime = editBatchScheduleList.getEditbatchScheduleList().get(i).getEndTime();
                         String day = editBatchScheduleList.getEditbatchScheduleList().get(i).getDay();
+                        String sid=editBatchScheduleList.getEditbatchScheduleList().get(i).getScheduleId();
                         if (day.equals("6") || day.equals("7")) {
                             editscheduleBinding.checkW.setChecked(true);
                         }
-                        addnewSchedule(day, startTime, endTime);
+                        addnewSchedule(sid,day, startTime, endTime);
 
                     }
 
@@ -402,8 +466,13 @@ public class EditSchedules extends AppCompatActivity {
     }
 
 
-    private void addnewSchedule(String day, String startTimer, String endTimer) {
+    private void addnewSchedule(String scheduleId,String day, String startTimer, String endTimer) {
         String[] daysArray = getdays();
+        allSchedules.add(scheduleId);
+        final boolean[] itemSelectedAuto = {false};
+
+
+
 
         List<String> stringList = Arrays.asList(daysArray);
 
@@ -421,23 +490,50 @@ public class EditSchedules extends AppCompatActivity {
         if (daysArray.length > 2) {
             spinnerDays.setSelection(Integer.parseInt(day) - 1);
         } else spinnerDays.setSelection(Integer.parseInt(day) - 6);
+       spinnerDays.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               if(itemSelectedAuto[0]) {
+                   modifiedSchedules.add(scheduleId);
+                   deletedSchedules.remove(scheduleId);
+               }
+               else {
+                   itemSelectedAuto[0] =true;
+               }
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> parent) {
+
+           }
+       });
         ImageButton close = view.findViewById(R.id.closelayoutSchedule);
-        close.setOnClickListener((v -> {
-            Timber.d("Clicked");
-            editscheduleBinding.scheduleHolder.removeView(linearLayout);
-            viewArrayList.remove(linearLayout);
-            Timber.d("%s", v.getParent().toString());
-
-
-        }));
         Button startTime = view.findViewById(R.id.startTime);
         Button endTime = view.findViewById(R.id.endTime);
         startTime.setText(startTimer);
         endTime.setText(endTimer);
         startTime.setOnClickListener(v -> {
+
+            modifiedSchedules.add(scheduleId);
+            deletedSchedules.remove(scheduleId);
             showTimePicker(startTime);
         });
-        endTime.setOnClickListener(v -> showTimePicker(endTime));
+        close.setOnClickListener((v -> {
+            Timber.d("Clicked");
+            editscheduleBinding.scheduleHolder.removeView(linearLayout);
+            viewArrayList.remove(linearLayout);
+            Timber.d("%s", v.getParent().toString());
+            modifiedSchedules.remove(scheduleId);
+            deletedSchedules.add(scheduleId);
+
+
+        }));
+
+        endTime.setOnClickListener(v -> {
+            showTimePicker(endTime);
+            deletedSchedules.remove(scheduleId);
+            modifiedSchedules.add(scheduleId);
+        });
         editscheduleBinding.checkR.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editscheduleBinding.scheduleHolder.removeAllViews();
             viewArrayList.clear();
@@ -451,7 +547,7 @@ public class EditSchedules extends AppCompatActivity {
 
         });
 
-//this
+
     }
 
     private void setFaculty() {
@@ -532,9 +628,11 @@ public class EditSchedules extends AppCompatActivity {
         }
     }
 
-    private void showTimePicker(Button localbtn) {
+    private void   showTimePicker(Button localbtn) {
 
         Calendar localCalendar = Calendar.getInstance();
+        Timber.d("Button1 %s",localbtn.toString());
+
 
         new TimePickerDialog(EditSchedules.this, (paramAnonymous2TimePicker, paramAnonymous2Int1, paramAnonymous2Int2) -> {
             Calendar local = Calendar.getInstance();
@@ -543,6 +641,26 @@ public class EditSchedules extends AppCompatActivity {
             String str2 = new SimpleDateFormat("hh:mm  ", Locale.getDefault()).format(local.getTime());
             localbtn.setText(str2);
         }, localCalendar.get(Calendar.HOUR_OF_DAY), localCalendar.get(Calendar.MINUTE), false).show();
+
+
+    }
+    private void   showTimePicker(Button localbtn,EditScheduleInsertion editScheduleInsertion,boolean isStartorEnd) {
+
+        Calendar localCalendar = Calendar.getInstance();
+        Timber.d("Button1 %s",localbtn.toString());
+
+
+        new TimePickerDialog(EditSchedules.this, (paramAnonymous2TimePicker, paramAnonymous2Int1, paramAnonymous2Int2) -> {
+            Calendar local = Calendar.getInstance();
+            local.set(Calendar.HOUR_OF_DAY, paramAnonymous2Int1);
+            local.set(Calendar.MINUTE, paramAnonymous2Int2);
+            String str2 = new SimpleDateFormat("hh:mm  ", Locale.getDefault()).format(local.getTime());
+            localbtn.setText(str2);
+            if(isStartorEnd)
+            editScheduleInsertion.setStartTime(str2);
+            else  editScheduleInsertion.setEndTime(str2);
+        }, localCalendar.get(Calendar.HOUR_OF_DAY), localCalendar.get(Calendar.MINUTE), false).show();
+
 
     }
 
@@ -553,6 +671,9 @@ public class EditSchedules extends AppCompatActivity {
 
     private void addnewSchedule() {
         String[] daysArray = getdays();
+        EditScheduleInsertion editScheduleInsertion=new EditScheduleInsertion();
+        scheduleInsertionList.add(editScheduleInsertion);
+
 
         List<String> stringList = Arrays.asList(daysArray);
 
@@ -565,13 +686,27 @@ public class EditSchedules extends AppCompatActivity {
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
                 stringList);
         Spinner spinnerDays = view.findViewById(R.id.spinnerdays);
+        spinnerDays.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                editScheduleInsertion.setDay_id(getDayid(parent.getSelectedItem().toString()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         spinnerDays.setAdapter(dayAdapter);
+
         ImageButton close = view.findViewById(R.id.closelayoutSchedule);
         close.setOnClickListener((v -> {
 
             editscheduleBinding.scheduleHolder.removeView(linearLayout);
             viewArrayList.remove(linearLayout);
+            scheduleInsertionList.remove(editScheduleInsertion);
+
 
 
         }));
@@ -579,14 +714,23 @@ public class EditSchedules extends AppCompatActivity {
         Button endTime = view.findViewById(R.id.endTime);
         startTime.setText(getTime());
         endTime.setText(getTime());
+        editScheduleInsertion.setStartTime(startTime.getText().toString());
+        editScheduleInsertion.setEndTime(endTime.getText().toString());
         startTime.setOnClickListener(v -> {
-            showTimePicker(startTime);
+            showTimePicker(startTime,editScheduleInsertion,true);
+
+            Timber.d("Button %s",startTime.toString());
         });
-        endTime.setOnClickListener(v -> showTimePicker(endTime));
+        endTime.setOnClickListener(v -> {
+
+            showTimePicker(endTime,editScheduleInsertion,false);
+
+        });
         editscheduleBinding.checkR.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editscheduleBinding.scheduleHolder.removeAllViews();
             Timber.d("First Radio button %s", isRadioButtonSwitched);
             viewArrayList.clear();
+            scheduleInsertionList.clear();
             isRadioButtonSwitched = true;
 
 
@@ -595,12 +739,44 @@ public class EditSchedules extends AppCompatActivity {
             editscheduleBinding.scheduleHolder.removeAllViews();
             Timber.d("Second Radio button %s", isRadioButtonSwitched);
             viewArrayList.clear();
+            scheduleInsertionList.clear();
             isRadioButtonSwitched = true;
 
 
         });
 
 
+    }
+    private String getDayid(String day){
+        switch (day){
+            case "Mon":return "1";
+            case "Tues":return "2";
+            case "Wed":return "3";
+            case "Thu":return "4";
+            case "Fri":return "5";
+            case "Sat":return "6";
+            case "Sun":return "7";
+            default:return "1";
+        }
+    }
+    private class EditScheduleInsertion{
+
+        private String startTime;
+        private String endTime;
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime;
+        }
+
+        void setDay_id(String day_id) {
+            this.day_id = day_id;
+        }
+
+        private String day_id;
     }
 
 

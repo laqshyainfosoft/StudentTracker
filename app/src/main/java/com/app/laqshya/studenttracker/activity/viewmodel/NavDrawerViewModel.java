@@ -312,6 +312,7 @@ public class NavDrawerViewModel extends ViewModel {
 
 
     public void clickManageStudent() {
+
         Timber.d("%s", "Clicked");
     }
 

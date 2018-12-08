@@ -56,13 +56,13 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:${daggerVersion}"
     implementation "com.google.dagger:dagger:${daggerVersion}"
     implementation 'com.android.volley:volley:1.1.0'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.6.1'
     implementation "android.arch.lifecycle:extensions:${lifecycle}"
     kapt "android.arch.lifecycle:compiler:${lifecycle}"
-    implementation 'com.jakewharton.timber:timber:4.7.0'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation "com.squareup.retrofit2:converter-gson:${retroversion}"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation "com.squareup.retrofit2:retrofit:${retroversion}"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     testImplementation 'junit:junit:4.12'
