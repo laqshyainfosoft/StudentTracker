@@ -51,6 +51,35 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
+    public LiveData<String> markBatches(String bid,boolean deleteOrComplete) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        eduTrackerService.markBatchesasCompleted(bid,deleteOrComplete).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            liveData.postValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            liveData.postValue("Error");
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(e.getMessage());
+
+                    }
+                });
+        return liveData;
+    }
 
     public LiveData<List<FacultyList>> getFacultyList() {
         MutableLiveData<List<FacultyList>> facultyLiveData = new MutableLiveData<>();
@@ -227,9 +256,9 @@ public class EditBatchRepository {
         return liveData;
     }
     public LiveData<String> insertEditedBatches(String startTime,String endTime,
-                                          String dayId,String bid) {
+                                          String dayId,String bid,int flagSwitched) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
-        eduTrackerService.insertnewSchedules(startTime,endTime,dayId,bid)
+        eduTrackerService.insertnewSchedules(startTime,endTime,dayId,bid,flagSwitched)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<ResponseBody>() {

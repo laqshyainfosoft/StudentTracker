@@ -175,6 +175,15 @@
                 android:layout_toRightOf="@+id/editbatch_counsellor"
                 android:background="@drawable/delete_selector"
                 android:clickable="true" />
+            <ImageButton
+                android:id="@+id/completebatchcounsellor"
+                android:layout_width="24.0dp"
+                android:layout_height="24.0dp"
+                android:layout_gravity="bottom|center|end"
+                android:layout_margin="16.0dp"
+                android:layout_toRightOf="@+id/deletebatch_counsellor"
+                android:background="@drawable/checkorange"
+                android:clickable="true" />
 
 
             <ToggleButton

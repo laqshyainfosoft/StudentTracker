@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -409,6 +410,11 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
 
 
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
 

@@ -61,6 +61,10 @@ public class CurrentBatchAdapter extends RecyclerView.Adapter<CurrentBatchAdapte
         this.batchInformationList = batchInformations;
         notifyDataSetChanged();
     }
+    public void batchChanged(int position){
+        batchInformationList.remove(position);
+        notifyItemRemoved(position);
+    }
 
      class MyBatchHolder extends RecyclerView.ViewHolder {
         BatchattendanceBinding batchattendanceBinding;
@@ -95,6 +99,14 @@ public class CurrentBatchAdapter extends RecyclerView.Adapter<CurrentBatchAdapte
 
             });
             batchattendanceBinding.editbatchCounsellor.setOnClickListener((v -> {batchClickListener.OnClick(v,getAdapterPosition(),batchInformation);}));
+            batchattendanceBinding.deletebatchCounsellor.setOnClickListener((view -> {
+                batchClickListener.onDelete(getAdapterPosition(),batchInformation.getBatchid(),true);
+
+            }));
+            batchattendanceBinding.completebatchcounsellor.setOnClickListener((view -> {
+                batchClickListener.onDelete(getAdapterPosition(),batchInformation.getBatchid(),false);
+
+            }));
             batchattendanceBinding.executePendingBindings();
         }
     }

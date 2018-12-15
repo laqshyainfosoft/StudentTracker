@@ -49,8 +49,13 @@ public class EditSchedulesViewModel extends ViewModel {
 
     }
     public LiveData<String> insertEditedBatches(String startTime,String endTime,
-                                          String dayId,String bid){
-        return editBatchRepository.insertEditedBatches(startTime,endTime,dayId,bid);
+                                          String dayId,String bid,int flagSwitched){
+        return editBatchRepository.insertEditedBatches(startTime,endTime,dayId,bid,flagSwitched);
+
+    }
+    public LiveData<String> markEditedBatches(String bid,boolean deleteOrComplete
+    ){
+        return editBatchRepository.markBatches(bid,deleteOrComplete);
 
     }
 }

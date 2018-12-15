@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +26,13 @@ import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.viewmodel.EditSchedulesViewModel;
 import com.app.laqshya.studenttracker.databinding.FragmentListBatchesBinding;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
-import timber.log.Timber;
+
+import static android.app.Activity.RESULT_OK;
 
 public class AttendanceFragment extends Fragment implements MyBatchClickListener {
     FragmentListBatchesBinding fragmentListBatchesBinding;
@@ -39,13 +41,16 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
     @Inject
     EditSchedulesViewModelFactory editSchedulesViewModelFactory;
     @Inject
+
     SessionManager sessionManager;
+    CurrentBatchAdapter currentBatchAdapter;
+    private static final int REQUEST_CODE = 100;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentListBatchesBinding = FragmentListBatchesBinding.inflate(inflater, container, false);
-        floatingActionButton = getActivity().findViewById(R.id.fab_attendance);
+        floatingActionButton = Objects.requireNonNull(getActivity()).findViewById(R.id.fab_attendance);
         editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
         return fragmentListBatchesBinding.getRoot();
     }
@@ -55,12 +60,7 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
         super.onActivityCreated(savedInstanceState);
         floatingActionButton.setVisibility(View.VISIBLE);
         floatingActionButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), AddSchedules.class)));
-        fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getBatchForUserType();
-            }
-        });
+        fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setOnRefreshListener(this::getBatchForUserType);
         getBatchForUserType();
 
 
@@ -93,7 +93,7 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
             fragmentListBatchesBinding.imageView2Attend.setVisibility(View.GONE);
             fragmentListBatchesBinding.textViewAttend.setVisibility(View.GONE);
 
-            CurrentBatchAdapter currentBatchAdapter = new CurrentBatchAdapter(getActivity(),this,sessionManager);
+             currentBatchAdapter = new CurrentBatchAdapter(getActivity(),this,sessionManager);
             fragmentListBatchesBinding.recyclerViewAttendance.setAdapter(currentBatchAdapter);
             currentBatchAdapter.update(batchInformationResponse.getBatchInformationList());
         }
@@ -122,7 +122,47 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
         intent.putExtra(Constants.LOCATION,sessionManager.getLoggedInuserCenter());
         intent.putExtra(Constants.Phone,batchInformation.getFaculty_id());
 
-        startActivity(intent);
+        startActivityForResult(intent,REQUEST_CODE);
+    }
+
+    @Override
+    public void onDelete(int position, String bid, boolean deleteOrComplete) {
+        String batchid=bid.substring(5);
+        if(deleteOrComplete){
+            editSchedulesViewModel.markEditedBatches(batchid,true).observe(this, s -> {
+                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                if(s!=null && s.contains("Success")){
+                    currentBatchAdapter.batchChanged(position);
+                }
+
+
+            });
+        }
+        else {
+            editSchedulesViewModel.markEditedBatches(batchid,false).observe(this, s -> {
+                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                if(s!=null && s.contains("Success")){
+                    currentBatchAdapter.batchChanged(position);
+                }
+
+            });
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(getActivity(), "Called Result"+resultCode, Toast.LENGTH_SHORT).show();
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_CODE){
+            if(resultCode==RESULT_OK){
+                getBatchForUserType();
+
+            }
+
+
+
+        }
     }
 }
 

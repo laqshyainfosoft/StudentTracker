@@ -68,6 +68,8 @@ public class EditSchedules extends AppCompatActivity {
     Set<String> modifiedSchedules=new HashSet<>();
     Set<String> deletedSchedules=new HashSet<>();
     private List<EditSchedules.EditScheduleInsertion> scheduleInsertionList;
+    private int flagSwitched=0;
+    private int resultCode=0;
 
 
     private MultiSpinner.MultiSpinnerListener multiSpinnerListener = new MultiSpinner.MultiSpinnerListener() {
@@ -222,7 +224,7 @@ public class EditSchedules extends AppCompatActivity {
             editbatchSchedule.setStartTime(startTime.getText().toString());
 
             //TODO fix schedule Ids in proper sequence.
-                if(editBatchScheduleList.getEditbatchScheduleList().size()>index) {
+                if(editBatchScheduleList!=null && editBatchScheduleList.getEditbatchScheduleList().size()>index) {
                     EditBatchScheduleList.EditbatchSchedule temporarySchedule = editBatchScheduleList.getEditbatchScheduleList().get(index);
                     if(modifiedSchedules.contains(temporarySchedule.getScheduleId())){
                         startTimeBuilder.append(startTime.getText().toString()).append("|");
@@ -260,7 +262,7 @@ public class EditSchedules extends AppCompatActivity {
 
 
 
-            if (editBatchScheduleListTemp.getEditbatchScheduleList().size() != this.editBatchScheduleList.getEditbatchScheduleList().size()) {
+            if (editBatchScheduleList!=null && editBatchScheduleListTemp.getEditbatchScheduleList().size() != this.editBatchScheduleList.getEditbatchScheduleList().size()) {
                 fieldsChanged[1] = 1;
 
             } else {
@@ -342,7 +344,13 @@ public class EditSchedules extends AppCompatActivity {
         if(deletedBuilder.length()>0) {
             deletedBuilder.deleteCharAt(deletedBuilder.length() - 1);
             editSchedulesViewModel.deleteBatches(deletedBuilder.toString())
-                    .observe(this, s -> Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show());
+                    .observe(this, s -> {
+                        Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show();
+                        if (s != null) {
+                            setResultCode(s);
+                        }
+
+                    });
 //        editSchedulesViewModel.editBatches(batchDetails).observe(this, s -> {
 //            Toast.makeText(this, "" + s, Toast.LENGTH_SHORT).show();
 //
@@ -358,6 +366,9 @@ public class EditSchedules extends AppCompatActivity {
                 @Override
                 public void onChanged(@Nullable String s) {
                     Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show();
+                    if(s!=null){
+                        setResultCode(s);
+                    }
 
                 }
             });
@@ -380,10 +391,21 @@ public class EditSchedules extends AppCompatActivity {
         if(newSchedulesendtime.length()>0)newSchedulesendtime.deleteCharAt(newSchedulesendtime.length()-1);
         if(newSchedulesstarttime.length()>0)newSchedulesstarttime.deleteCharAt(newSchedulesstarttime.length()-1);
         editSchedulesViewModel.insertEditedBatches(newSchedulesstarttime.toString(),newSchedulesendtime.toString(),newSchedulesdayidtime.toString(),
-                bid).observe(this, s -> Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show());
+                bid,flagSwitched).observe(this, s -> {
+                    Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show();
+                    if(s!=null){
+                        setResultCode(s);
+                    }
+        });
 
 
 
+    }
+
+    private void setResultCode(String s) {
+        if(s.contains("Success")){
+            resultCode=1;
+        }
     }
 
     private void setStudents() {
@@ -537,12 +559,14 @@ public class EditSchedules extends AppCompatActivity {
             editscheduleBinding.scheduleHolder.removeAllViews();
             viewArrayList.clear();
             isRadioButtonSwitched = true;
+            flagSwitched=1;
 
         });
         editscheduleBinding.checkW.setOnCheckedChangeListener((buttonView, isChecked) -> {
             editscheduleBinding.scheduleHolder.removeAllViews();
             viewArrayList.clear();
             isRadioButtonSwitched = true;
+            flagSwitched=1;
 
         });
 
@@ -731,6 +755,7 @@ public class EditSchedules extends AppCompatActivity {
             viewArrayList.clear();
             scheduleInsertionList.clear();
             isRadioButtonSwitched = true;
+            flagSwitched=1;
 
 
         });
@@ -740,6 +765,7 @@ public class EditSchedules extends AppCompatActivity {
             viewArrayList.clear();
             scheduleInsertionList.clear();
             isRadioButtonSwitched = true;
+            flagSwitched=1;
 
 
         });
@@ -778,5 +804,16 @@ public class EditSchedules extends AppCompatActivity {
         private String day_id;
     }
 
+    @Override
+    public void onBackPressed() {
 
+        Intent intent=new Intent();
+        intent.putExtra("key","value");
+        if(resultCode==1)
+        setResult(RESULT_OK,intent);
+        else {
+            setResult(RESULT_CANCELED,intent);
+        }
+        super.onBackPressed();
+    }
 }

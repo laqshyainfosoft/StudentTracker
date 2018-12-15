@@ -38,6 +38,10 @@
             android:id="@+id/completionbatches"
             android:icon="@drawable/ic_check_black_16dp"
             android:title="Complete Batches" />
+        <item
+            android:id="@+id/deletebatches"
+            android:icon="@drawable/deleteorange"
+            android:title="Deleted Batches" />
 
 
         <item

@@ -93,7 +93,9 @@ public interface EduTrackerService {
     @FormUrlEncoded
     @POST("insertSchedulesOnEditing.php")
     Single<ResponseBody> insertnewSchedules(@Field("startTime")String startTime,@Field("endTime")String endTime,
-                                            @Field("dayId")String dayId,@Field("bid")String bid);
-
+                                            @Field("dayId")String dayId,@Field("bid")String bid,@Field("batchSwitched")int batchSwitched);
+    @FormUrlEncoded
+    @POST("markBatches.php")
+    Single<ResponseBody> markBatchesasCompleted(@Field("bid")String bid,@Field("deleteOrComplete")boolean deleteOrComplete);
 
 }
