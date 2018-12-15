@@ -32,7 +32,7 @@ import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 
-public class CompletionBatchesFragment extends Fragment implements MyBatchClickListener {
+public class DeletedBatchesFragment extends Fragment implements MyBatchClickListener {
     FragmentListBatchesBinding fragmentListBatchesBinding;
     FloatingActionButton floatingActionButton;
     EditSchedulesViewModel editSchedulesViewModel;
@@ -48,14 +48,13 @@ public class CompletionBatchesFragment extends Fragment implements MyBatchClickL
         fragmentListBatchesBinding = FragmentListBatchesBinding.inflate(inflater, container, false);
         floatingActionButton = Objects.requireNonNull(getActivity()).findViewById(R.id.fab_attendance);
         editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
-        return fragmentListBatchesBinding.getRoot();
 
+        return fragmentListBatchesBinding.getRoot();
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        floatingActionButton.setVisibility(View.VISIBLE);
-        floatingActionButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), AddSchedules.class)));
+        floatingActionButton.setVisibility(View.GONE);
         fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setOnRefreshListener(this::getBatchForUserType);
         getBatchForUserType();
 
@@ -80,7 +79,6 @@ public class CompletionBatchesFragment extends Fragment implements MyBatchClickL
         }
 
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -105,4 +103,9 @@ public class CompletionBatchesFragment extends Fragment implements MyBatchClickL
 
 
 
-}
+
+
+    }
+
+
+
