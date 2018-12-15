@@ -1,7 +1,6 @@
 package com.app.laqshya.studenttracker.activity;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -176,10 +175,10 @@ public class EditSchedules extends AppCompatActivity {
         editscheduleBinding.myToolbar.setTitle("Edit Batches");
         fieldsChanged = new int[3];
         checkIntent();
-        if (isBatchStartChangeable()) {
-            editscheduleBinding.calenderbatchstartdate.setOnClickListener(v -> showDatePicker());
-
-        }
+//        if (isBatchStartChangeable()) {
+//            editscheduleBinding.calenderbatchstartdate.setOnClickListener(v -> showDatePicker());
+//
+//        }
         setFaculty();
         getSelectedBatchSchedule();
         setStudents();
@@ -571,28 +570,28 @@ public class EditSchedules extends AppCompatActivity {
 
     }
 
-    private void showDatePicker() {
-        Calendar localCalendar = Calendar.getInstance();
-        int mYear = localCalendar.get(Calendar.YEAR);
-        int mMonth = localCalendar.get(Calendar.MONTH);
-        int mDay = localCalendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog pickerDialog = new DatePickerDialog(EditSchedules.this, (view, year1, monthOfYear, dayOfMonth) -> {
-            String calenderbatchstartdate1 = year1 + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-            Timber.d(calenderbatchstartdate1);
-            try {
-                Date localDate = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(calenderbatchstartdate1);
-                String calenderbatchstartdate = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).format(localDate);
-                editscheduleBinding.calenderbatchstartdate.setText(calenderbatchstartdate);
-            } catch (ParseException localParseExceptiofieldsEmptyn) {
-                Timber.d("I crashed in date picker");
-                Timber.d(localParseExceptiofieldsEmptyn);
-
-            }
-
-        }, mYear, mMonth, mDay);
-        pickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        pickerDialog.show();
-    }
+//    private void showDatePicker() {
+//        Calendar localCalendar = Calendar.getInstance();
+//        int mYear = localCalendar.get(Calendar.YEAR);
+//        int mMonth = localCalendar.get(Calendar.MONTH);
+//        int mDay = localCalendar.get(Calendar.DAY_OF_MONTH);
+//        DatePickerDialog pickerDialog = new DatePickerDialog(EditSchedules.this, (view, year1, monthOfYear, dayOfMonth) -> {
+//            String calenderbatchstartdate1 = year1 + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+//            Timber.d(calenderbatchstartdate1);
+//            try {
+//                Date localDate = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).parse(calenderbatchstartdate1);
+//                String calenderbatchstartdate = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault()).format(localDate);
+//                editscheduleBinding.calenderbatchstartdate.setText(calenderbatchstartdate);
+//            } catch (ParseException localParseExceptiofieldsEmptyn) {
+//                Timber.d("I crashed in date picker");
+//                Timber.d(localParseExceptiofieldsEmptyn);
+//
+//            }
+//
+//        }, mYear, mMonth, mDay);
+//        pickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//        pickerDialog.show();
+//    }
 
     private boolean isBatchStartChangeable() {
         String date = getTodaysDate();
