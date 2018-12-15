@@ -10,6 +10,7 @@ interface Constants {
         const val MANAGE_STUDENTS="manageStudents"
         const val SCHEDULE_BATCHES="scheduleBatches"
         const val TAGABOUT="about"
+        const val TAG_DELETED="deleted"
         const val TAG_ADD_FACULTY="addFaculty"
         const val TAG_ADD_STUDENT="addStudent"
         const val BATCHID="batchid"

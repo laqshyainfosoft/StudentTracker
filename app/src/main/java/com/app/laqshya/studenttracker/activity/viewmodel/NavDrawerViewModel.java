@@ -14,6 +14,7 @@ import com.app.laqshya.studenttracker.activity.fragments.AttendanceFragment;
 import com.app.laqshya.studenttracker.activity.fragments.BroadcastFragment;
 import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.ContactFragment;
+import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FeedbackFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FeesStatusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.HomeFragmentAdmin;
@@ -243,16 +244,19 @@ public class NavDrawerViewModel extends ViewModel {
                 fragmentTitle.setValue("Completed Batches");
                 return new CompletionBatchesFragment();
             case 6:
+                fragmentTitle.setValue("Deleted Batches");
+                return new DeletedBatchesFragment();
+            case 7:
                 fragmentTitle.setValue("Notification");
                 return new NotificationsFragment();
 
-            case 7:
+            case 8:
                 fragmentTitle.setValue("Broadcast");
                 return new BroadcastFragment();
-            case 8:
+            case 9:
                 fragmentTitle.setValue("About Developers");
                 return new AboutDevelopersFragment();
-            case 9:
+            case 10:
                 fragmentTitle.setValue("Privacy Policy");
                 return new PrivacyPolicyFragment();
 

@@ -30,7 +30,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 }
 
 final daggerVersion = "2.15"
@@ -57,7 +57,7 @@ dependencies {
     implementation "com.google.dagger:dagger:${daggerVersion}"
     implementation 'com.android.volley:volley:1.1.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    kapt 'com.github.bumptech.glide:compiler:4.6.1'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
     implementation "android.arch.lifecycle:extensions:${lifecycle}"
     kapt "android.arch.lifecycle:compiler:${lifecycle}"
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -66,11 +66,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:${retroversion}"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.7.19'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

@@ -14,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.RegistrationFactory;
@@ -148,17 +149,21 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                                 navItemIndex = 5;
                                 CURRENT_TAG = Constants.TAG_BATCH;
                                 break;
-                            case R.id.nav_notifications_officestaff:
+                            case R.id.deletebatches:
                                 navItemIndex = 6;
+                                CURRENT_TAG = Constants.TAG_DELETED;
+                                break;
+                            case R.id.nav_notifications_officestaff:
+                                navItemIndex = 7;
                                 CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
                                 break;
 
                             case R.id.nav_broadcastsms_officestaff:
-                                navItemIndex = 7;
+                                navItemIndex = 8;
                                 CURRENT_TAG = Constants.TAG_BROADCAST;
                                 break;
                             case R.id.nav_settings_officestaff:
-                                navItemIndex = 8;
+                                navItemIndex = 9;
                                 CURRENT_TAG = Constants.TAG_SETTINGS;
                                 break;
                             case R.id.add_faculty:
@@ -169,6 +174,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                                 navItemIndex = 2;
                                 CURRENT_TAG = Constants.TAG_ADD_STUDENT;
                                 break;
+
 
                             case R.id.nav_privacy_policy_officestaff:
                                 navItemIndex = 9;

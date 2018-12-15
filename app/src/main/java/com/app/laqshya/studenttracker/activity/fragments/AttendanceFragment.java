@@ -152,7 +152,6 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(getActivity(), "Called Result"+resultCode, Toast.LENGTH_SHORT).show();
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==REQUEST_CODE){
             if(resultCode==RESULT_OK){

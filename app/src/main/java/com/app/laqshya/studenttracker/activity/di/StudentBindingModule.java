@@ -5,6 +5,8 @@ import com.app.laqshya.studenttracker.activity.EditSchedules;
 import com.app.laqshya.studenttracker.activity.MainActivity;
 import com.app.laqshya.studenttracker.activity.MainScreenNavigationDrawer;
 import com.app.laqshya.studenttracker.activity.fragments.AttendanceFragment;
+import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragment;
+import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -22,4 +24,8 @@ public abstract class StudentBindingModule {
     abstract AttendanceFragment getAttendanceFragment();
     @ContributesAndroidInjector
     abstract EditSchedules getEditSchedules();
+    @ContributesAndroidInjector
+    abstract DeletedBatchesFragment deletedBatchesFragment();
+    @ContributesAndroidInjector
+    abstract CompletionBatchesFragment completionBatchesFragment();
 }
