@@ -54,9 +54,9 @@ public class CompleteBatchAdapter extends RecyclerView.Adapter<CompleteBatchAdap
         return batchInformationList.size();
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    class CustomViewHolder extends RecyclerView.ViewHolder {
         BatchattendanceBinding batchattendanceBinding;
-        public CustomViewHolder(BatchattendanceBinding batchAttendanceBinding) {
+        CustomViewHolder(BatchattendanceBinding batchAttendanceBinding) {
             super(batchAttendanceBinding.getRoot());
             this.batchattendanceBinding = batchAttendanceBinding;
         }
