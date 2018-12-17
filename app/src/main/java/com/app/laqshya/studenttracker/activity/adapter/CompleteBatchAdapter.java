@@ -54,18 +54,18 @@ public class CompleteBatchAdapter extends RecyclerView.Adapter<CompleteBatchAdap
         return batchInformationList.size();
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    class CustomViewHolder extends RecyclerView.ViewHolder {
         BatchattendanceBinding batchattendanceBinding;
-        public CustomViewHolder(BatchattendanceBinding batchAttendanceBinding) {
+        CustomViewHolder(BatchattendanceBinding batchAttendanceBinding) {
             super(batchAttendanceBinding.getRoot());
             this.batchattendanceBinding = batchAttendanceBinding;
         }
         void bind(BatchInformationResponse.BatchInformation batchInformationResponse){
             batchattendanceBinding.setBatchattendancemodel(batchInformationResponse);
-            batchattendanceBinding.deletebatchCounsellor.setVisibility(View.GONE);
-            batchattendanceBinding.editbatchCounsellor.setVisibility(View.GONE);
-            batchattendanceBinding.completebatchcounsellor.setVisibility(View.GONE);
-            batchattendanceBinding.exclBatch.setVisibility(View.GONE);
+            batchattendanceBinding.optionsLayout.setVisibility(View.GONE);
+            batchattendanceBinding.completedRecords.setVisibility(View.VISIBLE);
+            batchattendanceBinding.locationLine2.setText(sessionManager.getLoggedInuserCenter());
+
 
 
         }

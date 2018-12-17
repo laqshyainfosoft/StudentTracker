@@ -25,6 +25,14 @@ public class EditSchedulesViewModel extends ViewModel {
         return editBatchRepository.getBatchForCounsellor(center);
 
     }
+    public LiveData<BatchInformationResponse> getDeletedBatches(String center){
+        return editBatchRepository.getDeletedbatches(center);
+
+    }
+    public LiveData<BatchInformationResponse> getCompletedBatches(String center){
+        return editBatchRepository.getCompletedBatches(center);
+
+    }
     public LiveData<List<FacultyList>> getFacultyList() {
         return editBatchRepository.getFacultyList();
 
@@ -35,10 +43,10 @@ public class EditSchedulesViewModel extends ViewModel {
     public LiveData<List<StudentInfo>> getStudents(String coursename,String coursemodulename){
         return editBatchRepository.getStudents(coursename,coursemodulename);
     }
-    public LiveData<String> editBatches(BatchDetails batchDetails){
-        return editBatchRepository.editBatches(batchDetails);
-
-    }
+//    public LiveData<String> editBatches(BatchDetails batchDetails){
+//        return editBatchRepository.editBatches(batchDetails);
+//
+//    }
     public LiveData<String> deleteBatches(String scheduleId){
         return editBatchRepository.deleteBatches(scheduleId);
 

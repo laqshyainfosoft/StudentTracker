@@ -24,7 +24,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.0.132/student_tracker/";
+    String ENDPOINT = "http://192.168.1.115/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -80,8 +80,8 @@ public interface EduTrackerService {
     @POST("getStudentsToEditBatch.php")
     Single<List<StudentInfo>> getStudentNameForEditBatches(@Field("coursename")String coursename,@Field("courseModuleName")
             String courseModuleName);
-    @POST("editBatches.php")
-    Single<ResponseBody> editBatch(@Body BatchDetails batchDetails);
+//    @POST("editBatches.php")
+//    Single<ResponseBody> editBatch(@Body BatchDetails batchDetails);
     @FormUrlEncoded
     @POST("deleteBatches.php")
     Single<ResponseBody> deleteBatch(@Field("scheduleId")String scheduleId);
@@ -97,5 +97,13 @@ public interface EduTrackerService {
     @FormUrlEncoded
     @POST("markBatches.php")
     Single<ResponseBody> markBatchesasCompleted(@Field("bid")String bid,@Field("deleteOrComplete")boolean deleteOrComplete);
+    @FormUrlEncoded
+    @POST("fetchDeletedBatches.php")
+    Single<List<BatchInformationResponse.BatchInformation>> getdeletedbatches(@Field("centername")String centername);
+    @FormUrlEncoded
+    @POST("fetchCompletedBatches.php")
+    Single<List<BatchInformationResponse.BatchInformation>> getCompletedBatches(@Field("centername")String centername);
+
+
 
 }

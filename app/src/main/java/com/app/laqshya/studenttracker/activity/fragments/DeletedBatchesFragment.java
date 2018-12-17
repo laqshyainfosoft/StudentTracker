@@ -64,7 +64,7 @@ public class DeletedBatchesFragment extends Fragment implements MyBatchClickList
     private void getBatchForUserType() {
         switch (sessionManager.getLoggedInType()) {
             case Constants.COUNSELLOR:
-                editSchedulesViewModel.getBatchesForCounsellor(sessionManager.getLoggedInuserCenter())
+                editSchedulesViewModel.getDeletedBatches(sessionManager.getLoggedInuserCenter())
                         .observe(this, batchInformationResponse -> {
                             fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setRefreshing(false);
                             if (batchInformationResponse == null || batchInformationResponse.getBatchInformationList() == null
