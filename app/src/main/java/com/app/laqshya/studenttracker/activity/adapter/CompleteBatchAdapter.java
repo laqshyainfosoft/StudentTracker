@@ -62,10 +62,10 @@ public class CompleteBatchAdapter extends RecyclerView.Adapter<CompleteBatchAdap
         }
         void bind(BatchInformationResponse.BatchInformation batchInformationResponse){
             batchattendanceBinding.setBatchattendancemodel(batchInformationResponse);
-            batchattendanceBinding.deletebatchCounsellor.setVisibility(View.GONE);
-            batchattendanceBinding.editbatchCounsellor.setVisibility(View.GONE);
-            batchattendanceBinding.completebatchcounsellor.setVisibility(View.GONE);
-            batchattendanceBinding.exclBatch.setVisibility(View.GONE);
+            batchattendanceBinding.optionsLayout.setVisibility(View.GONE);
+            batchattendanceBinding.completedRecords.setVisibility(View.VISIBLE);
+            batchattendanceBinding.locationLine2.setText(sessionManager.getLoggedInuserCenter());
+
 
 
         }

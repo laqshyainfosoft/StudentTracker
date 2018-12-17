@@ -51,6 +51,54 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
+    public LiveData<BatchInformationResponse> getDeletedbatches(String center) {
+        MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
+        eduTrackerService.getdeletedbatches(center).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<BatchInformationResponse.BatchInformation> batchInformations) {
+                        liveData.postValue(new BatchInformationResponse(batchInformations));
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(new BatchInformationResponse(e));
+
+                    }
+                });
+        return liveData;
+    }
+    public LiveData<BatchInformationResponse> getCompletedBatches(String center) {
+        MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
+        eduTrackerService.getCompletedBatches(center).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<BatchInformationResponse.BatchInformation> batchInformations) {
+                        liveData.postValue(new BatchInformationResponse(batchInformations));
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(new BatchInformationResponse(e));
+
+                    }
+                });
+        return liveData;
+    }
     public LiveData<String> markBatches(String bid,boolean deleteOrComplete) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
         eduTrackerService.markBatchesasCompleted(bid,deleteOrComplete).subscribeOn(Schedulers.io())
@@ -160,37 +208,37 @@ public class EditBatchRepository {
     }
 
 
-    public LiveData<String> editBatches(BatchDetails details) {
-        MutableLiveData<String> liveData = new MutableLiveData<>();
-        eduTrackerService.editBatch(details)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<ResponseBody>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(ResponseBody responseBody) {
-                        try {
-                            liveData.postValue(responseBody.string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        liveData.postValue("Error occured");
-
-                    }
-                })
-        ;
-        return liveData;
-    }
+//    public LiveData<String> editBatches(BatchDetails details) {
+//        MutableLiveData<String> liveData = new MutableLiveData<>();
+//        eduTrackerService.editBatch(details)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new SingleObserver<ResponseBody>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(ResponseBody responseBody) {
+//                        try {
+//                            liveData.postValue(responseBody.string());
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        liveData.postValue("Error occured");
+//
+//                    }
+//                })
+//        ;
+//        return liveData;
+//    }
 
     public LiveData<String> deleteBatches(String scheduleId) {
         MutableLiveData<String> liveData = new MutableLiveData<>();

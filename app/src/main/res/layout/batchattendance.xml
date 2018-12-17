@@ -42,30 +42,44 @@
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ea5127"
                         tools:text="Batch 1" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=":"
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ff5722"
-                        android:textStyle="bold"
-                        android:textSize="25sp"/>
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:gravity="center"
-                        android:paddingBottom="2.0dp"
-                        android:paddingLeft="5.0dp"
                         android:layout_marginStart="10dp"
-                        android:paddingRight="5.0dp"
+                        android:gravity="center"
+                        android:paddingLeft="5.0dp"
                         android:paddingTop="2.0dp"
+                        android:paddingRight="5.0dp"
+                        android:paddingBottom="2.0dp"
                         android:text="@{batchattendancemodel.getCourse_module_name()}"
                         android:textAppearance="?android:textAppearanceLarge"
                         android:textColor="#ea5127"
                         tools:text="Subject Module Name" />
+
+                    <ImageButton
+                        android:id="@+id/completedRecords"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/show_records_selector"
+                        android:cropToPadding="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:paddingTop="2.0dp"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                 </LinearLayout>
 
@@ -174,7 +188,8 @@
                 android:layout_margin="16.0dp"
                 android:layout_toRightOf="@+id/editbatch_counsellor"
                 android:background="@drawable/delete_selector"
-                android:clickable="true" />
+                android:clickable="true"
+                android:focusable="true" />
             <ImageButton
                 android:id="@+id/completebatchcounsellor"
                 android:layout_width="24.0dp"
@@ -183,7 +198,8 @@
                 android:layout_margin="16.0dp"
                 android:layout_toRightOf="@+id/deletebatch_counsellor"
                 android:background="@drawable/checkorange"
-                android:clickable="true" />
+                android:clickable="true"
+                android:focusable="true" />
 
 
             <ToggleButton

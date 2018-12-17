@@ -65,7 +65,7 @@ public class CompletionBatchesFragment extends Fragment implements MyBatchClickL
     private void getBatchForUserType() {
         switch (sessionManager.getLoggedInType()) {
             case Constants.COUNSELLOR:
-                editSchedulesViewModel.getBatchesForCounsellor(sessionManager.getLoggedInuserCenter())
+                editSchedulesViewModel.getCompletedBatches(sessionManager.getLoggedInuserCenter())
                         .observe(this, batchInformationResponse -> {
                             fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setRefreshing(false);
                             if (batchInformationResponse == null || batchInformationResponse.getBatchInformationList() == null
