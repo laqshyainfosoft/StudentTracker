@@ -14,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
@@ -53,6 +54,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
         activityMainScreenDrawerBinding = DataBindingUtil.setContentView(this, R.layout.activity_main_screen_drawer);
         navHeaderMainBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.nav_header_main,
                 activityMainScreenDrawerBinding.navView, false);
+
         activityMainScreenDrawerBinding.navView.addHeaderView(navHeaderMainBinding.getRoot());
         setSupportActionBar(activityMainScreenDrawerBinding.appbarmain.toolbar);
         fragmentManager = getSupportFragmentManager();
@@ -164,7 +166,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                                 break;
                             case R.id.nav_settings_officestaff:
                                 navItemIndex = 9;
-                                CURRENT_TAG = Constants.TAG_SETTINGS;
+                                CURRENT_TAG = Constants.TAG_ABOUT_DEVELOPERS;
                                 break;
                             case R.id.add_faculty:
                                 navItemIndex = 1;
@@ -186,33 +188,35 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                         }
                         break;
                     case Constants.FACULTY:
+                        activityMainScreenDrawerBinding.appbarmain.fabAttendance.setVisibility(View.GONE);
                         switch (item.getItemId()) {
                             case R.id.nav_home_faculty:
                                 navItemIndex = 0;
                                 CURRENT_TAG = Constants.TAG_HOME;
                                 break;
                             case R.id.nav_attendance_faculty:
+                                activityMainScreenDrawerBinding.appbarmain.fabAttendance.setVisibility(View.GONE);
                                 navItemIndex = 1;
                                 CURRENT_TAG = Constants.TAG_ATTENDANCE;
                                 break;
-
-                            case R.id.nav_notifications_faculty:
+                            case R.id.nav_performance_faculty:
                                 navItemIndex = 2;
+                                CURRENT_TAG = Constants.TAG_PERFORMANCE;
+                                break;
+                            case R.id.nav_notifications_faculty:
+                                navItemIndex = 3;
                                 CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
                                 break;
                             case R.id.nav_broadcast_faculty:
-                                navItemIndex = 3;
-
+                                navItemIndex = 4;
                                 CURRENT_TAG = Constants.TAG_BROADCAST;
-
                                 break;
                             case R.id.nav_settings_faculty:
-                                navItemIndex = 4;
-                                CURRENT_TAG = Constants.TAG_SETTINGS;
-                                break;
-
-                            case R.id.nav_privacy_policy_faculty:
                                 navItemIndex = 5;
+                                CURRENT_TAG = Constants.TAG_ABOUT_DEVELOPERS;
+                                break;
+                            case R.id.nav_privacy_policy_faculty:
+                                navItemIndex = 6;
                                 CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
                                 break;
                             default:
@@ -254,7 +258,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                                 break;
                             case R.id.nav_settings_student:
                                 navItemIndex = 7;
-                                CURRENT_TAG = Constants.TAG_SETTINGS;
+                                CURRENT_TAG = Constants.TAG_ABOUT_DEVELOPERS;
                                 break;
                             case R.id.nav_privacy_policy_student:
                                 navItemIndex = 8;

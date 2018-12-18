@@ -23,7 +23,7 @@ interface Constants {
         const val COUNSELLOR_NAME = "counsellorname"
         const val TAG_CONTACT = "contact"
         const val BATCH_TYPE = "batchtype"
-        const val TAG_SETTINGS = "settings"
+        const val TAG_ABOUT_DEVELOPERS = "aboutdevelopers"
         const val TAG_PRIVACYPOLICY = "privacypolicy"
         const val TAG_TELEPHONE = "telephone"
         const val PRIMARY_NOTIFICATION_CHANNEL = "default"
@@ -62,7 +62,7 @@ interface Constants {
         const val  COUNSELLOR="counsellor"
         const val ADMIN="admin"
         const val STUDENT="student"
-        const val FACULTY="faculty";
+        const val FACULTY="faculty"
         const val WEBSITE_URL = "http://www.laqshyainfosoft.com/privacypolicy"
         const val PAYMENT_URL = "https://easebuzz.in/pay/laqshya.in"
         const val FORM_URL = "https://docs.google.com/forms/d/10vW47C_Om9li9aIPlIrCAtH3uA5Li5OOEzJwuC7hIXo/edit"
