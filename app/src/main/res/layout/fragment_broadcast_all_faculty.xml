@@ -17,11 +17,12 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
+
                 android:layout_margin="5dp"
                 android:text="@string/Notification_to_all"
                 android:textAlignment="center"
                 android:textColor="#030303"
-                android:textSize="21dp" />
+                android:textSize="21sp" />
 
             <Spinner
                 android:id="@+id/spinner_all_student"
@@ -68,7 +69,7 @@
                     android:layout_margin="5dp"
                     android:background="@drawable/rounded_border_edittext"
                     android:ems="10"
-                    android:gravity="top|left"
+                    android:gravity="top|start"
                     android:hint="Message"
                     android:inputType="textMultiLine"
                     android:maxLength="160" />
