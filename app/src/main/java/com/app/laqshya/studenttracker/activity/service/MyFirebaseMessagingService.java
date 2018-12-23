@@ -72,5 +72,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         return mNotificationManager;
     }
 
+    @Override
+    public void onNewToken(String s) {
+        super.onNewToken(s);
+        Timber.d("Token"+s);
+    }
 }
 

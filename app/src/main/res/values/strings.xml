@@ -117,13 +117,16 @@
     <string name="action_clear_all">Clear All</string>
     <string name="no_student_available">No Student Available</string>
     <string name="subject_name">Subject name</string>
-    <string name="send">Send</string>
+
     <string name="view_reports">View Reports</string>
     <string name="absent">Absent</string>
     <string name="make_payment">Make Payment</string>
     <string name="no_new_notification_in_last_7_days">No New Notification in Last 7 days</string>
     <string name="selectstudents">Select Students to Notify</string>
-    <string name="select_pending_students">Select Pending Students:</string>
+    <string name="select_pending_students">Select Pending Students</string>
+    <string name="selectbatch">Select to send to batch</string>
+    <string name="selectcenter">Select to send to center</string>
+    <string name="selecteveryone">Send to Everyone</string>
     <string name="add_counsellor">Add Counsellor</string>
     <string name="add_faculty">Add Faculty</string>
     <string name="add_student">Add Student</string>
@@ -187,6 +190,14 @@
     <string name="Notification_to_all">Send Notification to All Students</string>
     <string name="CheckBox">Please Tick To Send SMS With Notification</string>
     <string name="SendButton">Send</string>
+    <string name="send">Send</string>
+    <string name="singleStudent">One</string>
+    <string name="same_center">Same Center</string>
+    <string name="same_batch">Same Batch</string>
+    <string name="pending_fees">Pending Fees</string>
+    <string name="all_students">All Students</string>
+    <string name="complete_batches">Complete Batches</string>
+    <string name="deleted_batches">Deleted Batches</string>
     <string-array name="regularDays">
         <item>Mon</item>
         <item>Tues</item>

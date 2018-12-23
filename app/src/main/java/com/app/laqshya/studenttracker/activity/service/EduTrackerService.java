@@ -9,7 +9,6 @@ import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.LoginModel;
-import com.app.laqshya.studenttracker.activity.model.Schedule;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 
 import java.util.List;
@@ -22,9 +21,10 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.1.115/student_tracker/";
+    String ENDPOINT = "http://192.168.0.7/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -103,6 +103,14 @@ public interface EduTrackerService {
     @FormUrlEncoded
     @POST("fetchCompletedBatches.php")
     Single<List<BatchInformationResponse.BatchInformation>> getCompletedBatches(@Field("centername")String centername);
+    @FormUrlEncoded
+    @POST("getStudentsForCenter.php")
+    Single<List<StudentInfo>>   getStudentsForCentersNotification(@Field("centername")String centername);
+    @FormUrlEncoded
+    @POST("sendSingleStudentNotification.php")
+    Single<ResponseBody>   sendNotifiationtosingleStudent(@Field("counsellor_id")String counsellorphone,@Field("phone")String phone,@Field("title")
+                                                               String title,@Field("message")String message,
+                                                               @Field("flag")String flag);
 
 
 

@@ -6,7 +6,9 @@ import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,11 +16,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.RegistrationFactory;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.AllStudentsAllCentresFragment;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.PendingFragment;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.SameCenterBatchFragment;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
@@ -35,7 +41,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 import timber.log.Timber;
 
-public class MainScreenNavigationDrawer extends AppCompatActivity {
+public class MainScreenNavigationDrawer extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     ActivityMainScreenDrawerBinding activityMainScreenDrawerBinding;
     NavHeaderMainBinding navHeaderMainBinding;
     @Inject
@@ -45,6 +51,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
     FragmentManager fragmentManager;
     int navItemIndex = 0;
     NavDrawerViewModel navDrawerViewModel;
+
     static String CURRENT_TAG = Constants.TAG_HOME;
 
     @Override
@@ -58,9 +65,19 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
         activityMainScreenDrawerBinding.navView.addHeaderView(navHeaderMainBinding.getRoot());
         setSupportActionBar(activityMainScreenDrawerBinding.appbarmain.toolbar);
         fragmentManager = getSupportFragmentManager();
+
+
+
         navDrawerViewModel = ViewModelProviders.of(this, registrationFactory).get(NavDrawerViewModel.class);
         chooseUser();
         loadNavHeader();
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, activityMainScreenDrawerBinding.drawerLayout,
+                activityMainScreenDrawerBinding.appbarmain.toolbar, R.string.opendrawer, R.string.closedrawer) {
+
+        };
+        activityMainScreenDrawerBinding.drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
         setUpnavigationitems();
         navDrawerViewModel.fragmentTitle.observe(this, s -> {
             if (s != null && !s.isEmpty())
@@ -71,6 +88,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
             CURRENT_TAG = Constants.TAG_HOME;
             loadHomeFragment();
         }
+        activityMainScreenDrawerBinding.appbarmain.bottomNavigationAdmin.setOnNavigationItemSelectedListener(this);
 
 
     }
@@ -277,12 +295,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
 
 
             });
-            ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, activityMainScreenDrawerBinding.drawerLayout,
-                    activityMainScreenDrawerBinding.appbarmain.toolbar, R.string.opendrawer, R.string.closedrawer) {
 
-            };
-            activityMainScreenDrawerBinding.drawerLayout.addDrawerListener(actionBarDrawerToggle);
-            actionBarDrawerToggle.syncState();
         }
     }
 
@@ -325,17 +338,22 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
                 case Constants.ADMIN:
 
                     fragment = navDrawerViewModel.getAdminFragment(navItemIndex);
+//                    fragment=new HomeFragmentAdmin();
+
+
                     break;
                 case "counsellor":
-                    Timber.d("Index %d", navItemIndex);
+//                    Timber.d("Index %d", navItemIndex);
                     fragment = navDrawerViewModel.getCounsellorFragment(navItemIndex);
 
                     break;
                 case "student":
                     fragment = navDrawerViewModel.getStudentFragment(navItemIndex);
+//
                     break;
                 case "faculty":
                     fragment = navDrawerViewModel.getFacultyFragment(navItemIndex);
+//                    fr
                     break;
 
 
@@ -368,15 +386,19 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
         if (sessionManager.getLoggedInType() != null) {
             switch (sessionManager.getLoggedInType()) {
                 case Constants.ADMIN:
+
                     setUpNav(R.menu.menu_admin, resources.getStringArray(R.array.nav_item_admin_activity_titles));
                     break;
                 case "counsellor":
+
                     setUpNav(R.menu.menu_counsellor, resources.getStringArray(R.array.nav_item_officestaff_activity_titles));
                     break;
                 case "faculty":
+
                     setUpNav(R.menu.menu_faculty, resources.getStringArray(R.array.nav_item_faculty_activity_titles));
                     break;
                 case "student":
+
                     setUpNav(R.menu.menu_student, resources.getStringArray(R.array.nav_item_student_activity_titles));
 
             }
@@ -425,6 +447,36 @@ public class MainScreenNavigationDrawer extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Fragment fragment=null;
+        switch (menuItem.getItemId()){
+            case    R.id.singleStudent:
+                fragment=new SingleStudentNotificationFragment();
+
+                break;
+            case R.id.sameCenter:
+            case R.id.sameBatch:
+                fragment=new SameCenterBatchFragment();
+                break;
+            case R.id.pending_admin:
+                fragment=new PendingFragment();
+                break;
+            case R.id.allStudents:
+                fragment=new AllStudentsAllCentresFragment();
+                break;
+
+
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager=getSupportFragmentManager();
+            if (fragmentManager != null) {
+                fragmentManager.beginTransaction().replace(R.id.frame,fragment).addToBackStack(null).commit();
+            }
+        }
+        return true;
     }
 }
 

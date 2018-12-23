@@ -9,13 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.app.laqshya.studenttracker.databinding.FragmentBroadcastAllFacultyBinding;
-import com.app.laqshya.studenttracker.databinding.FragmentHomeAdminBinding;
 import com.app.laqshya.studenttracker.databinding.FragmentNotificationBinding;
-
-import java.util.List;
-
-import timber.log.Timber;
 
 public class NotificationsFragment extends Fragment {
     FragmentNotificationBinding fragmentNotificationBinding;

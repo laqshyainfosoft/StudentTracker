@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.laqshya.studenttracker.R;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
 import com.app.laqshya.studenttracker.databinding.FragmentHomeAdminBinding;
 
@@ -39,7 +40,7 @@ public class HomeFragmentCounsellor extends Fragment {
         fragmentHomeAdminBinding.addStudents.setOnClickListener(v -> fragmentTransact(new AddStudentFragment()));
         fragmentHomeAdminBinding.scheduleBatches.setOnClickListener(v -> fragmentTransact(new AttendanceFragment()));
 //        fragmentHomeAdminBinding.schedule_batches.setOnClickListener(v -> fragmentTransact(new AttendanceFragment()));
-//        fragmentHomeAdminBinding.broadcastBatches.setOnClickListener(v -> fragmentTransact(new NotificationsFragment()));
+        fragmentHomeAdminBinding.broadcastBatches.setOnClickListener(v -> fragmentTransact(new SingleStudentNotificationFragment()));
 
 
     }
@@ -56,4 +57,10 @@ public class HomeFragmentCounsellor extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getActivity()!=null)
+        getActivity().findViewById(R.id.bottom_navigation_admin).setVisibility(View.GONE);
+    }
 }

@@ -37,11 +37,11 @@
         <item
             android:id="@+id/completionbatches"
             android:icon="@drawable/ic_check_black_16dp"
-            android:title="Complete Batches" />
+            android:title="@string/complete_batches" />
         <item
             android:id="@+id/deletebatches"
             android:icon="@drawable/deleteorange"
-            android:title="Deleted Batches" />
+            android:title="@string/deleted_batches" />
 
 
         <item
