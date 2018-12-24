@@ -58,7 +58,7 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        floatingActionButton.setVisibility(View.VISIBLE);
+        floatingActionButton.hide();
         floatingActionButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), AddSchedules.class)));
         fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setOnRefreshListener(this::getBatchForUserType);
         getBatchForUserType();

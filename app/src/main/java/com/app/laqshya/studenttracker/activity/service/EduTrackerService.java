@@ -74,6 +74,9 @@ public interface EduTrackerService {
     @POST("getBatchinfo.php")
     Single<List<BatchInformationResponse.BatchInformation>> getBatch(@Field("centername")String centername);
     @FormUrlEncoded
+    @POST("getBatchesForCenter.php")
+    Single<List<BatchInformationResponse.BatchInformation>> getBatchForNotification(@Field("centername")String centername);
+    @FormUrlEncoded
     @POST("getExistingBatchSchedules.php")
     Single<List<EditBatchScheduleList.EditbatchSchedule>> getSchedule(@Field("batchid")String batchid);
     @FormUrlEncoded
@@ -108,9 +111,9 @@ public interface EduTrackerService {
     Single<List<StudentInfo>>   getStudentsForCentersNotification(@Field("centername")String centername);
     @FormUrlEncoded
     @POST("sendSingleStudentNotification.php")
-    Single<ResponseBody>   sendNotifiationtosingleStudent(@Field("counsellor_id")String counsellorphone,@Field("phone")String phone,@Field("title")
-                                                               String title,@Field("message")String message,
-                                                               @Field("flag")String flag);
+    Single<ResponseBody> sendNotificationtosingleStudent(@Field("counsellor_id")String counsellorphone, @Field("phone")String phone, @Field("title")
+                                                               String title, @Field("message")String message,
+                                                         @Field("flag")String flag);
 
 
 

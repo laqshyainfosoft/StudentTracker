@@ -7,6 +7,7 @@ import com.app.laqshya.studenttracker.activity.MainScreenNavigationDrawer;
 import com.app.laqshya.studenttracker.activity.fragments.AttendanceFragment;
 import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
 
 import dagger.Module;
@@ -32,5 +33,7 @@ abstract class StudentBindingModule {
     abstract CompletionBatchesFragment completionBatchesFragment();
     @ContributesAndroidInjector
     abstract SingleStudentNotificationFragment singleStudentNotificationFragment();
+    @ContributesAndroidInjector
+    abstract SameBatchFragment sameBatchFragment();
 
 }

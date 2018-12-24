@@ -25,6 +25,10 @@ public class EditSchedulesViewModel extends ViewModel {
         return editBatchRepository.getBatchForCounsellor(center);
 
     }
+    public LiveData<BatchInformationResponse> getBatchesForCounsellorNotification(String center){
+        return editBatchRepository.getBatchForCounsellorNotification(center);
+
+    }
     public LiveData<BatchInformationResponse> getDeletedBatches(String center){
         return editBatchRepository.getDeletedbatches(center);
 
