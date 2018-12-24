@@ -24,7 +24,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.1.142/student_tracker/";
+    String ENDPOINT = "http://192.168.1.145/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -113,6 +113,11 @@ public interface EduTrackerService {
     @POST("sendSingleStudentNotification.php")
     Single<ResponseBody> sendNotificationtosingleStudent(@Field("counsellor_id")String counsellorphone, @Field("phone")String phone, @Field("title")
                                                                String title, @Field("message")String message,
+                                                         @Field("flag")String flag);
+    @FormUrlEncoded
+    @POST("sendSingleBatchNotification.php")
+    Single<ResponseBody> sendNotificationtosingleBatch(@Field("counsellor_id")String counsellorphone, @Field("batch_id")String batchid, @Field("title")
+            String title, @Field("message")String message,@Field("faculty_id")String faculty_id,
                                                          @Field("flag")String flag);
 
 

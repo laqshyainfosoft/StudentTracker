@@ -46,10 +46,42 @@ public class BroadcastRepository {
 
         return liveData;
     }
-    public LiveData<String> sendSingleStudentNotiication(String counsellorphone,String phone, String title,
+    public LiveData<String> sendSingleStudentNotiication(String counsellorphone,String batchid, String title,
                                                                String message, String flag) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
-        eduTrackerService.sendNotificationtosingleStudent(counsellorphone,phone,title,message,flag).subscribeOn(Schedulers.io())
+        eduTrackerService.sendNotificationtosingleStudent(counsellorphone,batchid,title,message,flag).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            liveData.postValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            liveData.postValue("Error");
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(e.getMessage());
+
+                    }
+                });
+
+        return liveData;
+    }
+    public LiveData<String> sendSingleBatchNotification(String counsellorphone,String batchid, String title,
+                                                         String message,String facultyid, String flag) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        eduTrackerService.sendNotificationtosingleBatch(counsellorphone,batchid,title,message,facultyid,flag).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
                 .subscribe(new SingleObserver<ResponseBody>() {

@@ -22,6 +22,7 @@
         </activity>
         <activity
             android:name=".activity.MainScreenNavigationDrawer"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" android:exported="true"/>
         <activity android:name=".activity.AddSchedules" android:screenOrientation="portrait"/>
         <activity android:name=".activity.EditSchedules" />

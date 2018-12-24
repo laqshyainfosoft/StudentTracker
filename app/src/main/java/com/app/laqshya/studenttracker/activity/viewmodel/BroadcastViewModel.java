@@ -6,8 +6,6 @@ import android.arch.lifecycle.ViewModel;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.repository.BroadcastRepository;
 
-import okhttp3.ResponseBody;
-
 public class BroadcastViewModel extends ViewModel {
     private BroadcastRepository broadcastRepository;
 
@@ -21,5 +19,10 @@ public class BroadcastViewModel extends ViewModel {
     public LiveData<String> sendSingleStudentNotification(String counsellorphone,String phone,String title,String message
     ,String flag){
             return broadcastRepository.sendSingleStudentNotiication(counsellorphone,phone,title,message,flag);
+    }
+    public LiveData<String> sendSingleBatchNotification(String counsellorphone,String batchid,String title,String message
+                                                        ,String facultyid
+            ,String flag){
+        return broadcastRepository.sendSingleBatchNotification(counsellorphone,batchid,title,message,facultyid,flag);
     }
 }

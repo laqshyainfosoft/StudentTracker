@@ -41,6 +41,7 @@ import dagger.android.AndroidInjection;
 import timber.log.Timber;
 
 public class MainScreenNavigationDrawer extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+    static String CURRENT_TAG = Constants.TAG_HOME;
     ActivityMainScreenDrawerBinding activityMainScreenDrawerBinding;
     NavHeaderMainBinding navHeaderMainBinding;
     @Inject
@@ -50,8 +51,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
     FragmentManager fragmentManager;
     int navItemIndex = 0;
     NavDrawerViewModel navDrawerViewModel;
-
-    static String CURRENT_TAG = Constants.TAG_HOME;
+    int lastSelectedBottomId = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +64,6 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
         activityMainScreenDrawerBinding.navView.addHeaderView(navHeaderMainBinding.getRoot());
         setSupportActionBar(activityMainScreenDrawerBinding.appbarmain.toolbar);
         fragmentManager = getSupportFragmentManager();
-
 
 
         navDrawerViewModel = ViewModelProviders.of(this, registrationFactory).get(NavDrawerViewModel.class);
@@ -411,14 +410,18 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
 
     }
 
+    //TODO fix back button on navigation view.
     @Override
     public void onBackPressed() {
         if (activityMainScreenDrawerBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             activityMainScreenDrawerBinding.drawerLayout.closeDrawers();
         }
-
-        Timber.d("Count of stack %d", fragmentManager.getBackStackEntryCount());
-        if (fragmentManager.getBackStackEntryCount() > 1) {
+        if (lastSelectedBottomId == R.id.pending_admin || lastSelectedBottomId == R.id.sameBatch || lastSelectedBottomId == R.id.singleStudent
+                || lastSelectedBottomId == R.id.allStudents) {
+            fragmentManager.getFragments().clear();
+            loadHomeFragment();
+            lastSelectedBottomId=0;
+        } else if (fragmentManager.getBackStackEntryCount() > 1) {
             super.onBackPressed();
         } else if (fragmentManager.getBackStackEntryCount() == 1) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -450,29 +453,35 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Fragment fragment=null;
-        switch (menuItem.getItemId()){
-            case    R.id.singleStudent:
-                fragment=new SingleStudentNotificationFragment();
+        if (lastSelectedBottomId == menuItem.getItemId()) {
+            return true;
 
+        }
+        Fragment fragment = null;
+        switch (menuItem.getItemId()) {
+            case R.id.singleStudent:
+                fragment = new SingleStudentNotificationFragment();
+                lastSelectedBottomId = R.id.singleStudent;
                 break;
 
             case R.id.sameBatch:
-                fragment=new SameBatchFragment();
+                fragment = new SameBatchFragment();
+                lastSelectedBottomId = R.id.sameBatch;
                 break;
             case R.id.pending_admin:
-                fragment=new PendingFragment();
+                fragment = new PendingFragment();
+                lastSelectedBottomId = R.id.pending_admin;
                 break;
             case R.id.allStudents:
-                fragment=new AllStudentsAllCentresFragment();
+                fragment = new AllStudentsAllCentresFragment();
+                lastSelectedBottomId = R.id.allStudents;
                 break;
 
 
         }
         if (fragment != null) {
-            FragmentManager fragmentManager=getSupportFragmentManager();
             if (fragmentManager != null) {
-                fragmentManager.beginTransaction().replace(R.id.frame,fragment).addToBackStack(null).commit();
+                fragmentManager.beginTransaction().replace(R.id.frame, fragment).addToBackStack(null).commit();
             }
         }
         return true;

@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ public class NotificationBatchAdapter extends RecyclerView.Adapter<NotificationB
 
     private LayoutInflater layoutInflater;
     private SessionManager sessionManager;
+    private int indexSelected=RecyclerView.NO_POSITION;
 
     public NotificationBatchAdapter(Context context, SessionManager sessionManager) {
         layoutInflater = LayoutInflater.from(context);
@@ -39,6 +41,13 @@ public class NotificationBatchAdapter extends RecyclerView.Adapter<NotificationB
     @Override
     public void onBindViewHolder(@NonNull NotificationBatchAdapter.MyBatchHolder holder, int position) {
         holder.bind(batchInformationList.get(position));
+        if(indexSelected==position){
+            holder.batchattendanceBinding.linearLayout.setBackgroundColor(Color.parseColor("#f4e6e6"));
+        }
+        else {
+            holder.batchattendanceBinding.linearLayout.setBackgroundColor(Color.WHITE);
+        }
+
 
 
     }
@@ -56,10 +65,6 @@ public class NotificationBatchAdapter extends RecyclerView.Adapter<NotificationB
         notifyDataSetChanged();
     }
 
-    public void batchChanged(int position) {
-        batchInformationList.remove(position);
-        notifyItemRemoved(position);
-    }
 
     class MyBatchHolder extends RecyclerView.ViewHolder {
         BatchattendanceBinding batchattendanceBinding;
@@ -71,12 +76,34 @@ public class NotificationBatchAdapter extends RecyclerView.Adapter<NotificationB
 
         void bind(BatchInformationResponse.BatchInformation batchInformation) {
             batchattendanceBinding.setBatchattendancemodel(batchInformation);
-
             batchattendanceBinding.sDataBatch.setVisibility(View.GONE);
+            batchattendanceBinding.linearLayout.setOnClickListener(v -> {
+                batchattendanceBinding.linearLayout.setBackgroundColor(Color.parseColor("#f4e6e6"));
+                indexSelected=getAdapterPosition();
+
+                notifyItemRangeChanged(0,batchInformationList.size());
+
+            });
             batchattendanceBinding.optionsLayout.setVisibility(View.GONE);
             batchattendanceBinding.locationLine2.setText(sessionManager.getLoggedInuserCenter());
-
             batchattendanceBinding.executePendingBindings();
+        }
+    }
+
+    public String getIndexSelected() {
+        if(indexSelected!=-1)
+        return batchInformationList.get(indexSelected).getBatchid();
+        else {
+            return "0";
+        }
+    }
+    public String getSelectedFaculty()
+    {
+        if(indexSelected!=-1){
+            return batchInformationList.get(indexSelected).getFaculty_id();
+        }
+        else {
+            return null;
         }
     }
 }
