@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/one"
+        android:enabled="true"
+        android:icon="@drawable/single_student"
+        android:title="One"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/multiple"
+        android:enabled="true"
+        android:icon="@drawable/multiple"
+        android:title="Multiple"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/all"
+        android:enabled="true"
+        android:icon="@drawable/all"
+        android:title="All"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/pending"
+        android:enabled="true"
+        android:icon="@drawable/pending"
+        android:title="Pending"
+        app:showAsAction="ifRoom" />
+
+</menu>

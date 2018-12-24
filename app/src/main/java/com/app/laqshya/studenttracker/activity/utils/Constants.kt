@@ -49,9 +49,9 @@ interface Constants {
         const val EDITDATELIST = "editdatelist"
         const val EDITSTUDENTLIST = "editstudentlist"
         const val EDITSTUDENTID = "editstudentid"
-        const val Faculty_FCM_URL = "http://192.168.0.7/student_tracker/register_faculty_fcm_id.php"
-        const val Student_FCM_URL = "http://192.168.0.7/student_tracker/register_fcm_id.php"
-        const val CounsellororAdminFCMURL = "http://192.168.0.7/student_tracker/register_management_fcm_id.php"
+        const val Faculty_FCM_URL = "http://192.168.1.142/student_tracker/register_faculty_fcm_id.php"
+        const val Student_FCM_URL = "http://192.168.1.142/student_tracker/register_fcm_id.php"
+        const val CounsellororAdminFCMURL = "http://192.168.1.142/student_tracker/register_management_fcm_id.php"
         const val KEY_NOT_TITLE = "not_title"
         const val KEY_NOT_MESSAGE = "not_message"
         const val KEY_NOT_ID = "not_id"
@@ -68,6 +68,8 @@ interface Constants {
         const val FORM_URL = "https://docs.google.com/forms/d/10vW47C_Om9li9aIPlIrCAtH3uA5Li5OOEzJwuC7hIXo/edit"
         const val urlNavHeaderBg = "http://www.gizmobolt.com/wp-content/uploads/2014/11/14-77.jpg"
         const val urlProfileImg = "https://lh5.ggpht.com/_xFgbdzVyFUkNwZXiqgwu0YoBJSfaWk6yu9JWqe635QMb1J5EfeXLeol1-dJEE26y_c=w300"
+
+        const val BATCHORCENTER="batchOrCenter"
 
 
     }

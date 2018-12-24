@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/singleStudent"
+        android:enabled="true"
+        android:icon="@drawable/single_student"
+        android:title="@string/singleStudent"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/sameBatch"
+        android:enabled="true"
+        android:icon="@drawable/all"
+        android:title="@string/same_batch"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/pending_admin"
+        android:enabled="true"
+        android:icon="@drawable/pending"
+        android:title="@string/pending_fees"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/allStudents"
+        android:enabled="true"
+        android:icon="@drawable/pending"
+        android:title="@string/all_students"
+        app:showAsAction="ifRoom" />
+
+</menu>

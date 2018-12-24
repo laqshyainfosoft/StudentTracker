@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/multiple_faculty"
+        android:enabled="true"
+        android:icon="@drawable/multiple"
+        android:title="Batch"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/all_faculty"
+        android:enabled="true"
+        android:icon="@drawable/all"
+        android:title="All"
+        app:showAsAction="ifRoom" />
+
+</menu>

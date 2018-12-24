@@ -198,6 +198,8 @@
     <string name="all_students">All Students</string>
     <string name="complete_batches">Complete Batches</string>
     <string name="deleted_batches">Deleted Batches</string>
+    <string name="selectbatchmessage">Select to Send to Batch</string>
+    <string name="selectcentermessage"> Send to Center</string>
     <string-array name="regularDays">
         <item>Mon</item>
         <item>Tues</item>

@@ -17,13 +17,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.RegistrationFactory;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.AllStudentsAllCentresFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.PendingFragment;
-import com.app.laqshya.studenttracker.activity.fragments.notifications.SameCenterBatchFragment;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
@@ -206,14 +205,14 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                         }
                         break;
                     case Constants.FACULTY:
-                        activityMainScreenDrawerBinding.appbarmain.fabAttendance.setVisibility(View.GONE);
+                        activityMainScreenDrawerBinding.appbarmain.fabAttendance.hide();
                         switch (item.getItemId()) {
                             case R.id.nav_home_faculty:
                                 navItemIndex = 0;
                                 CURRENT_TAG = Constants.TAG_HOME;
                                 break;
                             case R.id.nav_attendance_faculty:
-                                activityMainScreenDrawerBinding.appbarmain.fabAttendance.setVisibility(View.GONE);
+                                activityMainScreenDrawerBinding.appbarmain.fabAttendance.show();
                                 navItemIndex = 1;
                                 CURRENT_TAG = Constants.TAG_ATTENDANCE;
                                 break;
@@ -457,9 +456,9 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                 fragment=new SingleStudentNotificationFragment();
 
                 break;
-            case R.id.sameCenter:
+
             case R.id.sameBatch:
-                fragment=new SameCenterBatchFragment();
+                fragment=new SameBatchFragment();
                 break;
             case R.id.pending_admin:
                 fragment=new PendingFragment();

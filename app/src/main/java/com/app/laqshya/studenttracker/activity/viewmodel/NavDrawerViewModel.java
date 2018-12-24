@@ -29,6 +29,7 @@ import com.app.laqshya.studenttracker.activity.fragments.PrivacyPolicyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.Refer_Friendfragment;
 import com.app.laqshya.studenttracker.activity.fragments.ScheduleBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.SyllabusFragment;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
@@ -257,7 +258,7 @@ public class NavDrawerViewModel extends ViewModel {
 
             case 8:
                 fragmentTitle.setValue("Broadcast");
-                return new BroadcastFragment();
+                return new SingleStudentNotificationFragment();
             case 9:
                 fragmentTitle.setValue("About Developers");
                 return new AboutDevelopersFragment();

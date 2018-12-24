@@ -14,7 +14,7 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module(includes = {MainActivityModule.class, MainScreenNavigationModule.class, AddScheduleModule.class,EditScheduleModule.class,
 BroadcastModule.class})
-public abstract class StudentBindingModule {
+abstract class StudentBindingModule {
     @ContributesAndroidInjector
     abstract MainActivity getMainActivity();
     @ContributesAndroidInjector
@@ -32,4 +32,5 @@ public abstract class StudentBindingModule {
     abstract CompletionBatchesFragment completionBatchesFragment();
     @ContributesAndroidInjector
     abstract SingleStudentNotificationFragment singleStudentNotificationFragment();
+
 }

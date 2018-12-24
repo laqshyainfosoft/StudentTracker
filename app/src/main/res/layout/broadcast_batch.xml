@@ -1,0 +1,86 @@
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:weightSum="1">
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/messageBroadcast"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:text="@string/selectbatchmessage"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/batchListing"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_mul_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <EditText
+                android:id="@+id/txt_mul_title"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="start"
+                android:layout_margin="5dp"
+                android:background="@drawable/rounded_border_edittext"
+                android:ems="10"
+                android:foregroundGravity="top"
+                android:gravity="top|start"
+                android:hint="Title"
+                android:inputType="textPersonName"
+                android:maxLength="24"
+                android:padding="2dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/text_mul_layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <EditText
+                android:id="@+id/txt_mul_message"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_gravity="start"
+                android:layout_margin="5dp"
+                android:background="@drawable/rounded_border_edittext"
+                android:ems="10"
+                android:gravity="top|start"
+                android:hint="Message"
+                android:inputType="textMultiLine"
+                android:maxLength="160" />
+        </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/checkBoxMul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please Tick To Send SMS With Notification" />
+
+        <Button
+            android:id="@+id/btn_mul_send"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/rounded_border_edittext"
+            android:text="Send" />
+    </LinearLayout>
+
+</layout>

@@ -14,13 +14,9 @@ import android.view.ViewGroup;
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.AllStudentsAllCentresFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.PendingFragment;
-import com.app.laqshya.studenttracker.activity.fragments.notifications.SameCenterBatchFragment;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
 import com.app.laqshya.studenttracker.databinding.FragmentBroadcastAdminBinding;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
 public class BroadcastFragment extends Fragment implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -44,23 +40,22 @@ public class BroadcastFragment extends Fragment implements BottomNavigationView.
 
     }
 //
-//    private void loadHome() {
-//        SingleStudentNotificationFragment singleStudentNotificationFragment=new SingleStudentNotificationFragment();
-//        getFragmentManager().beginTransaction().replace(R.id.frame,singleStudentNotificationFragment)
-//                .addToBackStack(null).commit();
-//    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment=null;
+
         switch (menuItem.getItemId()){
          case    R.id.singleStudent:
             fragment=new SingleStudentNotificationFragment();
 
             break;
-            case R.id.sameCenter:
+
             case R.id.sameBatch:
-                fragment=new SameCenterBatchFragment();
+
+                fragment=new SameBatchFragment();
+
                 break;
             case R.id.pending_admin:
                 fragment=new PendingFragment();
