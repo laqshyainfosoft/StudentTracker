@@ -25,4 +25,8 @@ public class BroadcastViewModel extends ViewModel {
             ,String flag){
         return broadcastRepository.sendSingleBatchNotification(counsellorphone,batchid,title,message,facultyid,flag);
     }
+    public LiveData<String> sendAllBatchNotification(String counsellorphone,String title,String message
+            ,String flag){
+        return broadcastRepository.sendAllBatchNotification(counsellorphone,title,message,flag);
+    }
 }

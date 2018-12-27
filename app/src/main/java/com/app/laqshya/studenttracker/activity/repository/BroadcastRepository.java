@@ -110,4 +110,36 @@ public class BroadcastRepository {
 
         return liveData;
     }
+    public LiveData<String> sendAllBatchNotification(String counsellorphone, String title,
+                                                        String message, String flag) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        eduTrackerService.sendNotificationtoeveryone(counsellorphone,title,message,flag).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            liveData.postValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            liveData.postValue("Error");
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(e.getMessage());
+
+                    }
+                });
+
+        return liveData;
+    }
 }

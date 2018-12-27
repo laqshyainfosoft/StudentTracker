@@ -21,10 +21,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.1.145/student_tracker/";
+    String ENDPOINT = "http://192.168.43.166/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -65,61 +64,78 @@ public interface EduTrackerService {
 
     @FormUrlEncoded
     @POST("getStudentToCreateBatch.php")
-    Single<List<StudentInfo>> getStudentNameForBatches(@Field("coursename")String coursename,@Field("courseModuleName")
-                                                       String courseModuleName);
+    Single<List<StudentInfo>> getStudentNameForBatches(@Field("coursename") String coursename, @Field("courseModuleName")
+            String courseModuleName);
 
     @POST("createBatch.php")
     Single<ResponseBody> createBatch(@Body BatchDetails batchDetails);
+
     @FormUrlEncoded
     @POST("getBatchinfo.php")
-    Single<List<BatchInformationResponse.BatchInformation>> getBatch(@Field("centername")String centername);
+    Single<List<BatchInformationResponse.BatchInformation>> getBatch(@Field("centername") String centername);
+
     @FormUrlEncoded
     @POST("getBatchesForCenter.php")
-    Single<List<BatchInformationResponse.BatchInformation>> getBatchForNotification(@Field("centername")String centername);
+    Single<List<BatchInformationResponse.BatchInformation>> getBatchForNotification(@Field("centername") String centername);
+
     @FormUrlEncoded
     @POST("getExistingBatchSchedules.php")
-    Single<List<EditBatchScheduleList.EditbatchSchedule>> getSchedule(@Field("batchid")String batchid);
+    Single<List<EditBatchScheduleList.EditbatchSchedule>> getSchedule(@Field("batchid") String batchid);
+
     @FormUrlEncoded
     @POST("getStudentsToEditBatch.php")
-    Single<List<StudentInfo>> getStudentNameForEditBatches(@Field("coursename")String coursename,@Field("courseModuleName")
+    Single<List<StudentInfo>> getStudentNameForEditBatches(@Field("coursename") String coursename, @Field("courseModuleName")
             String courseModuleName);
-//    @POST("editBatches.php")
+
+    //    @POST("editBatches.php")
 //    Single<ResponseBody> editBatch(@Body BatchDetails batchDetails);
     @FormUrlEncoded
     @POST("deleteBatches.php")
-    Single<ResponseBody> deleteBatch(@Field("scheduleId")String scheduleId);
+    Single<ResponseBody> deleteBatch(@Field("scheduleId") String scheduleId);
+
     @FormUrlEncoded
     @POST("updateBatches.php")
-    Single<ResponseBody> updateBatch(@Field("scheduleId")String scheduleId,@Field("facultyId")String facultyId,
-                                     @Field("startTime")String startTime,@Field("endTime")String endTime,
-                                     @Field("dayId")String dayId,@Field("bid")String bid);
+    Single<ResponseBody> updateBatch(@Field("scheduleId") String scheduleId, @Field("facultyId") String facultyId,
+                                     @Field("startTime") String startTime, @Field("endTime") String endTime,
+                                     @Field("dayId") String dayId, @Field("bid") String bid);
+
     @FormUrlEncoded
     @POST("insertSchedulesOnEditing.php")
-    Single<ResponseBody> insertnewSchedules(@Field("startTime")String startTime,@Field("endTime")String endTime,
-                                            @Field("dayId")String dayId,@Field("bid")String bid,@Field("batchSwitched")int batchSwitched);
+    Single<ResponseBody> insertnewSchedules(@Field("startTime") String startTime, @Field("endTime") String endTime,
+                                            @Field("dayId") String dayId, @Field("bid") String bid, @Field("batchSwitched") int batchSwitched);
+
     @FormUrlEncoded
     @POST("markBatches.php")
-    Single<ResponseBody> markBatchesasCompleted(@Field("bid")String bid,@Field("deleteOrComplete")boolean deleteOrComplete);
+    Single<ResponseBody> markBatchesasCompleted(@Field("bid") String bid, @Field("deleteOrComplete") boolean deleteOrComplete);
+
     @FormUrlEncoded
     @POST("fetchDeletedBatches.php")
-    Single<List<BatchInformationResponse.BatchInformation>> getdeletedbatches(@Field("centername")String centername);
+    Single<List<BatchInformationResponse.BatchInformation>> getdeletedbatches(@Field("centername") String centername);
+
     @FormUrlEncoded
     @POST("fetchCompletedBatches.php")
-    Single<List<BatchInformationResponse.BatchInformation>> getCompletedBatches(@Field("centername")String centername);
+    Single<List<BatchInformationResponse.BatchInformation>> getCompletedBatches(@Field("centername") String centername);
+
     @FormUrlEncoded
     @POST("getStudentsForCenter.php")
-    Single<List<StudentInfo>>   getStudentsForCentersNotification(@Field("centername")String centername);
+    Single<List<StudentInfo>> getStudentsForCentersNotification(@Field("centername") String centername);
+
     @FormUrlEncoded
     @POST("sendSingleStudentNotification.php")
-    Single<ResponseBody> sendNotificationtosingleStudent(@Field("counsellor_id")String counsellorphone, @Field("phone")String phone, @Field("title")
-                                                               String title, @Field("message")String message,
-                                                         @Field("flag")String flag);
+    Single<ResponseBody> sendNotificationtosingleStudent(@Field("counsellor_id") String counsellorphone, @Field("phone") String phone, @Field("title")
+            String title, @Field("message") String message,
+                                                         @Field("flag") String flag);
+
     @FormUrlEncoded
     @POST("sendSingleBatchNotification.php")
-    Single<ResponseBody> sendNotificationtosingleBatch(@Field("counsellor_id")String counsellorphone, @Field("batch_id")String batchid, @Field("title")
-            String title, @Field("message")String message,@Field("faculty_id")String faculty_id,
-                                                         @Field("flag")String flag);
+    Single<ResponseBody> sendNotificationtosingleBatch(@Field("counsellor_id") String counsellorphone, @Field("batch_id") String batchid, @Field("title")
+            String title, @Field("message") String message, @Field("faculty_id") String faculty_id,
+                                                       @Field("flag") String flag);
 
+    @FormUrlEncoded
+    @POST("sendNotificationtoallbatches.php")
+    Single<ResponseBody> sendNotificationtoeveryone(@Field("counsellor_id") String counsellorphone, @Field("title") String title, @Field("message") String message,
+                                                    @Field("flag") String flag);
 
 
 }

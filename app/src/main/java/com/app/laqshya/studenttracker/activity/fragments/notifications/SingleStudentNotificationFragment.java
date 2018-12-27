@@ -20,6 +20,7 @@ import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.factory.BroadcastViewModelFactory;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
+import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.BroadcastViewModel;
 import com.app.laqshya.studenttracker.databinding.BroadcastSingleStudentBinding;
 
@@ -91,34 +92,38 @@ public class SingleStudentNotificationFragment extends Fragment {
                 String title=broadcastSingleStudentBinding.txtMulTitle.getText().toString();
                 String message=broadcastSingleStudentBinding.txtMulMessage.getText().toString();
                 if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(message)) {
-                    ProgressDialog progressDialog=new ProgressDialog(getActivity());
+                    ProgressDialog progressDialog = new ProgressDialog(getActivity());
                     progressDialog.setTitle("Please Wait");
                     progressDialog.setMessage("Sending Notification");
                     progressDialog.show();
-                    String flag="0";
-                    if(broadcastSingleStudentBinding.checkBoxMul.isChecked()){
-                         flag="1";
+                    String flag = "0";
+                    if (broadcastSingleStudentBinding.checkBoxMul.isChecked()) {
+                        flag = "1";
                     }
+                    if (Utils.isNetworkConnected(getActivity())) {
+                        broadcastViewModel.sendSingleStudentNotification(sessionManager.getLoggedInUserName(), phoneNos.get(position), title, message,
+                                flag).observe(getActivity(), new Observer<String>() {
+                            @Override
+                            public void onChanged(@Nullable String s) {
+                                if (s != null && s.contains("Success")) {
+                                    Toast.makeText(getActivity(), "Notifications sent successfully", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                } else {
+                                    Toast.makeText(getActivity(), "Failed to send notification", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                }
 
-                    broadcastViewModel.sendSingleStudentNotification(sessionManager.getLoggedInUserName(),phoneNos.get(position), title, message,
-                            flag).observe(getActivity(), new Observer<String>() {
-                        @Override
-                        public void onChanged(@Nullable String s) {
-                            if(s!=null && s.contains("Success")){
-                                Toast.makeText(getActivity(), "Notifications sent successfully", Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
                             }
-                            else {
-                                Toast.makeText(getActivity(), "Failed to send notification", Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
-                            }
-
-                        }
-                    });
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
                 else {
                     Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
+
 
             });
 
