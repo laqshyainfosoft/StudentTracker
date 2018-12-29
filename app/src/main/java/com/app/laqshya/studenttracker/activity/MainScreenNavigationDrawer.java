@@ -171,10 +171,10 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                                 navItemIndex = 6;
                                 CURRENT_TAG = Constants.TAG_DELETED;
                                 break;
-                            case R.id.nav_notifications_officestaff:
-                                navItemIndex = 7;
-                                CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
-                                break;
+//                            case R.id.nav_notifications_officestaff:
+//                                navItemIndex = 7;
+//                                CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
+//                                break;
 
                             case R.id.nav_broadcastsms_officestaff:
                                 navItemIndex = 8;
@@ -215,10 +215,10 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                                 navItemIndex = 1;
                                 CURRENT_TAG = Constants.TAG_ATTENDANCE;
                                 break;
-                            case R.id.nav_performance_faculty:
-                                navItemIndex = 2;
-                                CURRENT_TAG = Constants.TAG_PERFORMANCE;
-                                break;
+//                            case R.id.nav_performance_faculty:
+//                                navItemIndex = 2;
+//                                CURRENT_TAG = Constants.TAG_PERFORMANCE;
+//                                break;
                             case R.id.nav_notifications_faculty:
                                 navItemIndex = 3;
                                 CURRENT_TAG = Constants.TAG_NOTIFICATIONS;

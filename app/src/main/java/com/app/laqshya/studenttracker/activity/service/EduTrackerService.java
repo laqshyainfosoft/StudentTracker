@@ -23,7 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.43.166/student_tracker/";
+    String ENDPOINT = "http://192.168.0.125/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -119,6 +119,9 @@ public interface EduTrackerService {
     @FormUrlEncoded
     @POST("getStudentsForCenter.php")
     Single<List<StudentInfo>> getStudentsForCentersNotification(@Field("centername") String centername);
+    @FormUrlEncoded
+    @POST("getBatchesForFaculty.php")
+    Single<List<StudentInfo>> getBatchesForFaculty(@Field("faculty_id")String faculty_id);
 
     @FormUrlEncoded
     @POST("sendSingleStudentNotification.php")
@@ -134,8 +137,16 @@ public interface EduTrackerService {
 
     @FormUrlEncoded
     @POST("sendNotificationtoallbatches.php")
-    Single<ResponseBody> sendNotificationtoeveryone(@Field("counsellor_id") String counsellorphone, @Field("title") String title, @Field("message") String message,
-                                                    @Field("flag") String flag);
+        Single<ResponseBody> sendNotificationtoeveryone(@Field("counsellor_id") String counsellorphone, @Field("title") String title, @Field("message") String message
+                                                        );
+    @FormUrlEncoded
+    @POST("sendNotificationtopendingstudents.php")
+    Single<ResponseBody> sendNotificationtopendingStudents(@Field("counsellor_id") String counsellorphone, @Field("title") String title, @Field("message") String message,
+                                                           @Field("student_id")String student_id);
+
+    @POST("getStudentsWithFeesDue.php")
+    Single<List<StudentInfo>> getListofFeesdueStudents();
+
 
 
 }

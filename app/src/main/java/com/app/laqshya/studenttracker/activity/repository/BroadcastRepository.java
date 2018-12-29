@@ -46,6 +46,31 @@ public class BroadcastRepository {
 
         return liveData;
     }
+    public LiveData<StudentInfo.StudentInfoList> getBatchForFaculty(String facultyName) {
+        MutableLiveData<StudentInfo.StudentInfoList> liveData = new MutableLiveData<>();
+        eduTrackerService.getBatchesForFaculty(facultyName).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<StudentInfo>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<StudentInfo> studentInfos) {
+                        liveData.postValue(new StudentInfo.StudentInfoList(studentInfos));
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(new StudentInfo.StudentInfoList(e));
+
+                    }
+                });
+
+        return liveData;
+    }
     public LiveData<String> sendSingleStudentNotiication(String counsellorphone,String batchid, String title,
                                                                String message, String flag) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
@@ -111,9 +136,41 @@ public class BroadcastRepository {
         return liveData;
     }
     public LiveData<String> sendAllBatchNotification(String counsellorphone, String title,
-                                                        String message, String flag) {
+                                                        String message) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
-        eduTrackerService.sendNotificationtoeveryone(counsellorphone,title,message,flag).subscribeOn(Schedulers.io())
+        eduTrackerService.sendNotificationtoeveryone(counsellorphone,title,message).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            liveData.postValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            liveData.postValue("Error");
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(e.getMessage());
+
+                    }
+                });
+
+        return liveData;
+    }
+    public LiveData<String> sendDueFeesNotification(String counsellorphone, String title,
+                                                     String message, String student_id) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        eduTrackerService.sendNotificationtopendingStudents(counsellorphone,title,message,student_id).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
                 .subscribe(new SingleObserver<ResponseBody>() {

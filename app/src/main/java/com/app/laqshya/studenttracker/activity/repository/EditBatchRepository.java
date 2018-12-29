@@ -230,6 +230,31 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
+    public LiveData<StudentInfo.StudentInfoList> getStudentsForDueBatch() {
+        MutableLiveData<StudentInfo.StudentInfoList> liveData = new MutableLiveData<>();
+        eduTrackerService.getListofFeesdueStudents()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<StudentInfo>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<StudentInfo> studentInfos) {
+                        liveData.postValue(new StudentInfo.StudentInfoList(studentInfos));
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(new StudentInfo.StudentInfoList(e));
+
+                    }
+                });
+        return liveData;
+    }
 
 
 //    public LiveData<String> editBatches(BatchDetails details) {
@@ -359,4 +384,6 @@ public class EditBatchRepository {
         ;
         return liveData;
     }
+
+
 }

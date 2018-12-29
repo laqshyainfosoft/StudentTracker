@@ -16,6 +16,9 @@ public class BroadcastViewModel extends ViewModel {
     public LiveData<StudentInfo.StudentInfoList> getStudents(String centername){
         return broadcastRepository.getBatchForCounsellor(centername);
     }
+    public LiveData<StudentInfo.StudentInfoList> getBatchesForFaculty(String centername){
+        return broadcastRepository.getBatchForFaculty(centername);
+    }
     public LiveData<String> sendSingleStudentNotification(String counsellorphone,String phone,String title,String message
     ,String flag){
             return broadcastRepository.sendSingleStudentNotiication(counsellorphone,phone,title,message,flag);
@@ -26,7 +29,13 @@ public class BroadcastViewModel extends ViewModel {
         return broadcastRepository.sendSingleBatchNotification(counsellorphone,batchid,title,message,facultyid,flag);
     }
     public LiveData<String> sendAllBatchNotification(String counsellorphone,String title,String message
-            ,String flag){
-        return broadcastRepository.sendAllBatchNotification(counsellorphone,title,message,flag);
+            ){
+        return broadcastRepository.sendAllBatchNotification(counsellorphone,title,message);
+    }
+    public LiveData<String> sendNotificationtopendingStudents(String counsellorphone,String title,String message
+            ,String student_id){
+        return broadcastRepository.sendDueFeesNotification(counsellorphone,title,message,student_id);
+
+
     }
 }

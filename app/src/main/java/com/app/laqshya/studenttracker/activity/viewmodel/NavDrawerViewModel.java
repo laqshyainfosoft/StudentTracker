@@ -43,14 +43,10 @@ import timber.log.Timber;
 
 public class NavDrawerViewModel extends ViewModel {
     public MutableLiveData<String> fragmentTitle=new MutableLiveData<>();
-    public MutableLiveData<CenterList> centerList=new MutableLiveData<>();
     public MutableLiveData<Boolean> isProgress = new MutableLiveData<>();
     public MutableLiveData<Integer> noOfInstallments = new MutableLiveData<>();
     public MutableLiveData<Integer> downPayment = new MutableLiveData<>();
     public MutableLiveData<Integer> totalFees = new MutableLiveData<>();
-    public MutableLiveData<List<Integer>> listnoOfInstallments = new MutableLiveData<>();
-    private List<Integer> listDp=new ArrayList<>();
-    private List<Integer> listFees=new ArrayList<>();
     private RegistrationRepository registrationRepository;
 
     public NavDrawerViewModel(RegistrationRepository registrationRepository) {
@@ -203,9 +199,9 @@ public class NavDrawerViewModel extends ViewModel {
                 fragmentTitle.setValue("Attendance");
                 return new AttendanceFragment();
 
-            case  2:
-                fragmentTitle.setValue("Student Performance");
-                return new FacultyPerformanceFragment();
+//            case  2:
+//                fragmentTitle.setValue("Student Performance");
+//                return new FacultyPerformanceFragment();
 
 
             case 3:
@@ -252,9 +248,9 @@ public class NavDrawerViewModel extends ViewModel {
             case 6:
                 fragmentTitle.setValue("Deleted Batches");
                 return new DeletedBatchesFragment();
-            case 7:
-                fragmentTitle.setValue("Notification");
-                return new NotificationsFragment();
+//            case 7:
+//                fragmentTitle.setValue("Notification");
+//                return new NotificationsFragment();
 
             case 8:
                 fragmentTitle.setValue("Broadcast");
@@ -321,17 +317,6 @@ public class NavDrawerViewModel extends ViewModel {
 
 
 
-    public void clickManageStudent() {
-
-        Timber.d("%s", "Clicked");
-    }
-
-
-
-    public void broadcast() {
-        Timber.d("%s", "Clicked");
-
-    }
     public LiveData<String> registerCourses(CoursesStudent coursesStudent){
         return registrationRepository.registerCourse(coursesStudent);
 

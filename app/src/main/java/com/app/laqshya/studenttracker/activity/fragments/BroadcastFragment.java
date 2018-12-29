@@ -33,6 +33,10 @@ public class BroadcastFragment extends Fragment implements BottomNavigationView.
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if(getActivity()!=null){
+            BottomNavigationView b=getActivity().findViewById(R.id.bottom_navigation_admin);
+            b.setSelectedItemId(R.id.singleStudent);
+        }
 //        loadHome();
 
 

@@ -69,6 +69,7 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
     private void getBatchForUserType() {
         switch (sessionManager.getLoggedInType()) {
             case Constants.COUNSELLOR:
+                floatingActionButton.show();
                 editSchedulesViewModel.getBatchesForCounsellor(sessionManager.getLoggedInuserCenter())
                         .observe(this, batchInformationResponse -> {
                             fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setRefreshing(false);

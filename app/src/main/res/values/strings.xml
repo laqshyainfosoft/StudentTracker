@@ -200,6 +200,8 @@
     <string name="deleted_batches">Deleted Batches</string>
     <string name="selectbatchmessage">Select to Send to Batch</string>
     <string name="selectcentermessage"> Send to Center</string>
+    <string name="sendToDueStudents">Send to Students With Due Installments \n  (Ignore if already paid)</string>
+    <string name="sent_notifications">Sent Notifications</string>
     <string-array name="regularDays">
         <item>Mon</item>
         <item>Tues</item>

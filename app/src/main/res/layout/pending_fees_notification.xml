@@ -15,9 +15,17 @@
             android:layout_margin="10dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Send to All Students"
+            android:text="@string/sendToDueStudents"
             android:textSize="15sp"
             android:textStyle="bold" />
+        <com.example.custom_spinner_library.MultiSpinner_Event
+            android:id="@+id/spinnerMulti_new"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+
+            android:layout_marginTop="2dp"
+            style="@style/spinner_style"/>
 
 
         <android.support.design.widget.TextInputLayout
@@ -63,12 +71,13 @@
         </android.support.design.widget.TextInputLayout>
 
 
+
         <Button
             android:id="@+id/btn_mul_send"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:background="@drawable/rounded_border_edittext"
-            android:text="Send" />
+            android:text="@string/send" />
     </LinearLayout>
 
 </layout>

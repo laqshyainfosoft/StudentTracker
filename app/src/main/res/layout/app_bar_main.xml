@@ -39,7 +39,7 @@
 
         android:layout_gravity="bottom"
 
-        android:visibility="visible"
+        android:visibility="invisible"
         android:background="@color/gray"
         app:itemIconTint="@color/colorPrimary"
         app:menu="@menu/bottom_navigation_admin" />

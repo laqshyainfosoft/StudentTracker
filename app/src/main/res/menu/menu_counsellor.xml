@@ -44,10 +44,10 @@
             android:title="@string/deleted_batches" />
 
 
-        <item
-            android:id="@+id/nav_notifications_officestaff"
-            android:icon="@drawable/bell16"
-            android:title="@string/nav_notifications" />
+        <!--<item-->
+            <!--android:id="@+id/nav_notifications_officestaff"-->
+            <!--android:icon="@drawable/bell16"-->
+            <!--android:title="@string/sent_notifications" />-->
         <!--<item-->
         <!--android:id="@+id/telephonicenquiry"-->
         <!--android:icon="@drawable/contact"-->

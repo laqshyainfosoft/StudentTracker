@@ -8,6 +8,8 @@ import com.app.laqshya.studenttracker.activity.fragments.AttendanceFragment;
 import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.AllStudentsAllCentresFragment;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.PendingFragment;
+import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
 
@@ -38,5 +40,9 @@ abstract class StudentBindingModule {
     abstract SameBatchFragment sameBatchFragment();
     @ContributesAndroidInjector
     abstract AllStudentsAllCentresFragment allStudentsAllCentresFragment();
+    @ContributesAndroidInjector
+    abstract PendingFragment pendingFragment();
+    @ContributesAndroidInjector
+    abstract SameBatchFacultyFragment sameBatchFacultyFragment();
 
 }
