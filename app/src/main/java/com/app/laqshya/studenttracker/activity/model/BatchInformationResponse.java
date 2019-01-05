@@ -43,6 +43,15 @@ public class BatchInformationResponse {
         private String course_module_name;
         private String faculty_name;
         private ArrayList<Schedule> schedule;
+        private String centername;
+
+        public String getCentername() {
+            return centername;
+        }
+
+        public void setCentername(String centername) {
+            this.centername = centername;
+        }
 
         public String getFaculty_id() {
             return faculty_id;

@@ -15,6 +15,8 @@ import com.app.laqshya.studenttracker.databinding.BatchattendanceBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class NotificationBatchAdapter extends RecyclerView.Adapter<NotificationBatchAdapter.MyBatchHolder> {
     private List<BatchInformationResponse.BatchInformation> batchInformationList;
 
@@ -77,6 +79,14 @@ public class NotificationBatchAdapter extends RecyclerView.Adapter<NotificationB
         void bind(BatchInformationResponse.BatchInformation batchInformation) {
             batchattendanceBinding.setBatchattendancemodel(batchInformation);
             batchattendanceBinding.sDataBatch.setVisibility(View.GONE);
+
+            if(batchInformation.getCentername()!=null){
+                batchattendanceBinding.teacherName.setVisibility(View.GONE);
+                batchattendanceBinding.locationLine2.setText(batchInformation.getCentername());
+            }
+            else {
+                batchattendanceBinding.locationLine2.setText(sessionManager.getLoggedInuserCenter());
+            }
             batchattendanceBinding.linearLayout.setOnClickListener(v -> {
                 batchattendanceBinding.linearLayout.setBackgroundColor(Color.parseColor("#f4e6e6"));
                 indexSelected=getAdapterPosition();
@@ -85,7 +95,7 @@ public class NotificationBatchAdapter extends RecyclerView.Adapter<NotificationB
 
             });
             batchattendanceBinding.optionsLayout.setVisibility(View.GONE);
-            batchattendanceBinding.locationLine2.setText(sessionManager.getLoggedInuserCenter());
+
             batchattendanceBinding.executePendingBindings();
         }
     }

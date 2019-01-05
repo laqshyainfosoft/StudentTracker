@@ -45,13 +45,14 @@ public class SameBatchFacultyFragment extends Fragment {
     @Inject
     BroadcastViewModelFactory broadcastViewModelFactory;
     ArrayList<String> bid;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        broadcastBatchBinding =BroadcastBatchBinding.inflate(inflater,container,false);
-        editSchedulesViewModel=ViewModelProviders.of(this,editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
-        broadcastViewModel=ViewModelProviders.of(this,broadcastViewModelFactory).get(BroadcastViewModel.class);
-        bid=new ArrayList<>();
+        broadcastBatchBinding = BroadcastBatchBinding.inflate(inflater, container, false);
+        editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
+        broadcastViewModel = ViewModelProviders.of(this, broadcastViewModelFactory).get(BroadcastViewModel.class);
+        bid = new ArrayList<>();
         return broadcastBatchBinding.getRoot();
 
     }
@@ -59,8 +60,8 @@ public class SameBatchFacultyFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(getActivity()!=null){
-            Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        if (getActivity() != null) {
+            Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
             toolbar.setTitle("Send to Batch");
         }
         broadcastBatchBinding.messageBroadcast.setText(getString(R.string.selectbatchmessage));
@@ -68,7 +69,7 @@ public class SameBatchFacultyFragment extends Fragment {
         progressDialog.setTitle("Please Wait");
         progressDialog.setMessage("Getting Batches");
         progressDialog.show();
-        editSchedulesViewModel.getBatchesForCounsellorNotification(sessionManager.getLoggedInuserCenter())
+        broadcastViewModel.getBatchesForFaculty(sessionManager.getLoggedInUserName())
                 .observe(this, batchInformationResponse -> {
                     progressDialog.dismiss();
                     if (batchInformationResponse == null || batchInformationResponse.getBatchInformationList() == null
@@ -80,13 +81,12 @@ public class SameBatchFacultyFragment extends Fragment {
                 });
         broadcastBatchBinding.btnMulSend.setOnClickListener(v -> {
 
-            String title=broadcastBatchBinding.txtMulTitle.getText().toString();
-            String message=broadcastBatchBinding.txtMulMessage.getText().toString();
+            String title = broadcastBatchBinding.txtMulTitle.getText().toString();
+            String message = broadcastBatchBinding.txtMulMessage.getText().toString();
             String batchid = notificationBatchAdapter.getIndexSelected();
-            String selectedFacultyId=notificationBatchAdapter.getSelectedFaculty();
-            Timber.d(selectedFacultyId);
 
-            if(selectedFacultyId!=null &&  !TextUtils.isEmpty(selectedFacultyId) && !TextUtils.isEmpty(title) && !TextUtils.isEmpty(message) && !batchid.equalsIgnoreCase("0")) {
+
+            if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(message) && !batchid.equalsIgnoreCase("0")) {
 
                 progressDialog.setTitle("Please Wait");
                 progressDialog.setMessage("Sending Notification");
@@ -101,26 +101,22 @@ public class SameBatchFacultyFragment extends Fragment {
                 String selbatchid = batchid.substring(batchid.lastIndexOf("Batch") + 5);
                 if (Utils.isNetworkConnected(getActivity())) {
 
-                    broadcastViewModel.sendSingleBatchNotification(sessionManager.getLoggedInUserName(), selbatchid, title, message,
-                            selectedFacultyId,
+                    broadcastViewModel.sendSingleFacultyBatchNotification(selbatchid, title, message,
+                            sessionManager.getLoggedInUserName(),
                             flag).observe(getActivity(), s -> {
-                        if (s != null && s.contains("Success")) {
-                            Toast.makeText(getActivity(), "Notifications sent successfully", Toast.LENGTH_SHORT).show();
+                        if (s != null && s.contains("Error")) {
+                            Toast.makeText(getActivity(), "Failed to send notification", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         } else {
-                            Toast.makeText(getActivity(), "Failed to send notification", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Notification Sent Successfully", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
 
                     });
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Please check you internet connection", Toast.LENGTH_SHORT).show();
                 }
-            }
-
-            else
-            {
+            } else {
                 Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
             }
 
@@ -128,11 +124,7 @@ public class SameBatchFacultyFragment extends Fragment {
         });
 
 
-
-
     }
-
-
 
 
     private void showbatchforcounsellor(BatchInformationResponse batchInformationResponse) {

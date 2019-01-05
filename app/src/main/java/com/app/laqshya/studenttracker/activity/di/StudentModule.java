@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 @Module
-public class StudentModule {
+public class    StudentModule {
     @Provides
     @Singleton
     static Context getContext(Application application) {

@@ -87,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5.0dp"
+                    android:id="@+id/teacherName"
                     android:gravity="center_vertical">
 
                     <ImageView
@@ -121,6 +122,7 @@
 
                     <TextView
                         android:id="@+id/location_line2"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2.0dp"

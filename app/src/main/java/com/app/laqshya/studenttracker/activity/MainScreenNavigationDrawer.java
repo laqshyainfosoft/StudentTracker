@@ -465,6 +465,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                 break;
 
             case R.id.sameBatch:
+
                 fragment = new SameBatchFragment();
                 lastSelectedBottomId = R.id.sameBatch;
                 break;

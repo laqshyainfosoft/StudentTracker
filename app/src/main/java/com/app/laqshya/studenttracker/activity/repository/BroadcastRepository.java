@@ -3,6 +3,7 @@ package com.app.laqshya.studenttracker.activity.repository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
@@ -46,28 +47,27 @@ public class BroadcastRepository {
 
         return liveData;
     }
-    public LiveData<StudentInfo.StudentInfoList> getBatchForFaculty(String facultyName) {
-        MutableLiveData<StudentInfo.StudentInfoList> liveData = new MutableLiveData<>();
+    public LiveData<BatchInformationResponse> getBatchForFaculty(String facultyName) {
+        MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
         eduTrackerService.getBatchesForFaculty(facultyName).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<StudentInfo>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
 
-                    }
+            }
 
-                    @Override
-                    public void onSuccess(List<StudentInfo> studentInfos) {
-                        liveData.postValue(new StudentInfo.StudentInfoList(studentInfos));
+            @Override
+            public void onSuccess(List<BatchInformationResponse.BatchInformation> batchInformations) {
+                liveData.postValue(new BatchInformationResponse(batchInformations));
 
-                    }
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        liveData.postValue(new StudentInfo.StudentInfoList(e));
+            @Override
+            public void onError(Throwable e) {
+                liveData.postValue(new BatchInformationResponse(e));
 
-                    }
-                });
+            }
+        });
 
         return liveData;
     }
@@ -107,6 +107,38 @@ public class BroadcastRepository {
                                                          String message,String facultyid, String flag) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
         eduTrackerService.sendNotificationtosingleBatch(counsellorphone,batchid,title,message,facultyid,flag).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+
+                .subscribe(new SingleObserver<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ResponseBody responseBody) {
+                        try {
+                            liveData.postValue(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            liveData.postValue("Error");
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(e.getMessage());
+
+                    }
+                });
+
+        return liveData;
+    }
+    public LiveData<String> sendSingleBatchFacultyNotification(String batchid, String title,
+                                                        String message,String facultyid, String flag) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        eduTrackerService.sendNotificationFacultyBatch(batchid,title,message,facultyid,flag).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
                 .subscribe(new SingleObserver<ResponseBody>() {
