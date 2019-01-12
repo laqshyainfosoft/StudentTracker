@@ -3,15 +3,17 @@ package com.app.laqshya.studenttracker.activity.repository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
-import com.app.laqshya.studenttracker.activity.model.BatchDetails;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
+import com.google.common.collect.ImmutableMap;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,6 +53,108 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
+
+    public LiveData<StudentInfo.StudentInfoList> getStudentsForFacultyAttendance(String batchid) {
+        MutableLiveData<StudentInfo.StudentInfoList> liveData = new MutableLiveData<>();
+        eduTrackerService.getStudentInfoForAttendance(batchid).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<StudentInfo>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(List<StudentInfo> studentInfos) {
+                liveData.postValue(new StudentInfo.StudentInfoList(studentInfos));
+
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                liveData.postValue(new StudentInfo.StudentInfoList(e));
+                Timber.d(e);
+
+            }
+        });
+
+        return liveData;
+    }
+
+    public LiveData<String> saveAttendance(String facultyid, Map<String, Integer> attendanceMap, String topic,
+                                           String batchid) {
+        MutableLiveData<String> liveData = new MutableLiveData<>();
+        StringBuilder phoneBuilder=new StringBuilder();
+        StringBuilder statusBuilder=new StringBuilder();
+        for (Map.Entry<String, Integer> map:attendanceMap.entrySet()){
+            phoneBuilder.append(map.getKey()).append("|");
+            statusBuilder.append(map.getValue()).append("|");
+
+
+        }
+        if(phoneBuilder.length()>0){
+            phoneBuilder.deleteCharAt(phoneBuilder.length()-1);
+        }
+        if(statusBuilder.length()>0){
+            statusBuilder.deleteCharAt(statusBuilder.length()-1);
+        }
+
+
+        eduTrackerService.saveAttendance(facultyid,statusBuilder.toString(), batchid, topic,phoneBuilder.toString()).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<ResponseBody>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(ResponseBody responseBody) {
+                try {
+                    liveData.postValue(responseBody.string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    liveData.postValue("Error");
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                liveData.postValue("Error");
+
+            }
+        });
+
+
+        return liveData;
+    }
+
+    public LiveData<BatchInformationResponse> getBatchForFacultyId(String facultyid) {
+        MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
+        eduTrackerService.getBatchesForFacultyAttendance(facultyid).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<BatchInformationResponse.BatchInformation> batchInformations) {
+                        liveData.postValue(new BatchInformationResponse(batchInformations));
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(new BatchInformationResponse(e));
+                        Timber.d(e);
+
+                    }
+                });
+        return liveData;
+    }
+
     public LiveData<BatchInformationResponse> getBatchForCounsellorNotification(String center) {
         MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
         eduTrackerService.getBatchForNotification(center).subscribeOn(Schedulers.io())
@@ -75,6 +179,7 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
+
     public LiveData<BatchInformationResponse> getDeletedbatches(String center) {
         MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
         eduTrackerService.getdeletedbatches(center).subscribeOn(Schedulers.io())
@@ -99,6 +204,7 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
+
     public LiveData<BatchInformationResponse> getCompletedBatches(String center) {
         MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
         eduTrackerService.getCompletedBatches(center).subscribeOn(Schedulers.io())
@@ -123,9 +229,10 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
-    public LiveData<String> markBatches(String bid,boolean deleteOrComplete) {
+
+    public LiveData<String> markBatches(String bid, boolean deleteOrComplete) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
-        eduTrackerService.markBatchesasCompleted(bid,deleteOrComplete).subscribeOn(Schedulers.io())
+        eduTrackerService.markBatchesasCompleted(bid, deleteOrComplete).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<ResponseBody>() {
                     @Override
@@ -230,6 +337,7 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
+
     public LiveData<StudentInfo.StudentInfoList> getStudentsForDueBatch() {
         MutableLiveData<StudentInfo.StudentInfoList> liveData = new MutableLiveData<>();
         eduTrackerService.getListofFeesdueStudents()
@@ -320,10 +428,11 @@ public class EditBatchRepository {
         ;
         return liveData;
     }
-    public LiveData<String> modifyBatches(String scheduleId,String facultyId,String startTime,String endTime,
-                                          String dayId,String bid) {
+
+    public LiveData<String> modifyBatches(String scheduleId, String facultyId, String startTime, String endTime,
+                                          String dayId, String bid) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
-        eduTrackerService.updateBatch(scheduleId,facultyId,startTime,endTime,dayId,bid)
+        eduTrackerService.updateBatch(scheduleId, facultyId, startTime, endTime, dayId, bid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<ResponseBody>() {
@@ -352,10 +461,11 @@ public class EditBatchRepository {
         ;
         return liveData;
     }
-    public LiveData<String> insertEditedBatches(String startTime,String endTime,
-                                          String dayId,String bid,int flagSwitched) {
+
+    public LiveData<String> insertEditedBatches(String startTime, String endTime,
+                                                String dayId, String bid, int flagSwitched) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
-        eduTrackerService.insertnewSchedules(startTime,endTime,dayId,bid,flagSwitched)
+        eduTrackerService.insertnewSchedules(startTime, endTime, dayId, bid, flagSwitched)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<ResponseBody>() {

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:id="@+id/attendance_main"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:padding="12dp">
+
+            <include
+                android:id="@+id/batchSpinner"
+                layout="@layout/faculty_batch_spinner" />
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swifeRefresh_attendance_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/batchSpinner">
+
+                <com.app.laqshya.studenttracker.activity.utils.EmptyRecyclerView
+                    android:id="@+id/recycler_view_attendance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
+
+        </RelativeLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/saveAttendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_save_white_24dp"
+            app:backgroundTint="@color/white"
+            android:layout_gravity="bottom|end"
+            tools:visibility="visible" />
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

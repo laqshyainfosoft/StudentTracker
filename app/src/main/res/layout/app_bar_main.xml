@@ -48,7 +48,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center|end"
-
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/white"
         android:src="@drawable/plussymbol"

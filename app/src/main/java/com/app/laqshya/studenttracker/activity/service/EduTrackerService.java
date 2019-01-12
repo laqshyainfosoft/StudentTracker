@@ -8,8 +8,10 @@ import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
+import com.app.laqshya.studenttracker.activity.model.FacultyNotification;
 import com.app.laqshya.studenttracker.activity.model.LoginModel;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
+import com.app.laqshya.studenttracker.activity.model.SyllabusList;
 
 import java.util.List;
 
@@ -154,6 +156,31 @@ public interface EduTrackerService {
     Single<ResponseBody> sendNotificationFacultyBatch(@Field("batch_id") String batchid, @Field("title")
             String title, @Field("message") String message, @Field("faculty_id") String faculty_id,
                                                       @Field("flag") String flag);
+
+    @FormUrlEncoded
+    @POST("facultybatches.php")
+    Single<List<BatchInformationResponse.BatchInformation>> getBatchesForFacultyAttendance( @Field("faculty_id") String faculty_id);
+
+    @FormUrlEncoded
+    @POST("getStudentForAttendance.php")
+    Single<List<StudentInfo>> getStudentInfoForAttendance(@Field("batch_id")String  batch_id);
+
+    @FormUrlEncoded
+    @POST("saveAttendance.php")
+    Single<ResponseBody> saveAttendance(@Field("faculty_id")String faculty_id,@Field("status")String status,
+                                        @Field("batch_id")String batchid,@Field("topic")String  topic,
+                                        @Field("phone")String phone);
+    @FormUrlEncoded
+    @POST("getfacultyreceivednotifications.php")
+    Single<List<FacultyNotification>> getFacultyNotification(@Field("faculty_id")String facultyid);
+    @FormUrlEncoded
+    @POST("students_received_notifications.php")
+    Single<List<FacultyNotification>> getStudentNotification(@Field("student_id")String studentid);
+    @FormUrlEncoded
+    @POST("syllabus.php")
+    Single<List<SyllabusList.Syllabus>> getSyllabusCovered(@Field("student_mobile")String student_mobile);
+
+
 
 
 }

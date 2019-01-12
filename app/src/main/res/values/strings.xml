@@ -47,7 +47,7 @@
         <item>Schedule/Batches</item>
         <item>Notifications</item>
         <item>Broadcast</item>
-        <!--<item>Syllabus</item>-->
+        <!--<item>SyllabusList</item>-->
         <!--<item>Broadcast</item>-->
         <item>About Developers</item>
         <item>Privacy Policy</item>
@@ -202,6 +202,7 @@
     <string name="selectcentermessage"> Send to Center</string>
     <string name="sendToDueStudents">Send to Students With Due Installments \n  (Ignore if already paid)</string>
     <string name="sent_notifications">Sent Notifications</string>
+    <string name="errorwhilefetchingdata">Error while fetching data</string>
     <string-array name="regularDays">
         <item>Mon</item>
         <item>Tues</item>

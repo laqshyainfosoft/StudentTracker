@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="notificationItem"
+            type="com.app.laqshya.studenttracker.activity.model.FacultyNotification" />
+    </data>
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:elevation="4dp"
+        tools:ignore="UnusedAttribute">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/councellor_name_img"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_person_black_24dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp" />
+
+            <TextView
+                android:id="@+id/councellor_name_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/councellor_name_img"
+                android:layout_toRightOf="@+id/councellor_name_img"
+                android:text="Counsellor"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/councellor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/councellor_name_title"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/councellor_name_img"
+                android:layout_toRightOf="@+id/councellor_name_img"
+                android:hint="Afreen"
+                android:text="@{notificationItem.counsellor_name}" />
+
+            <ImageView
+                android:id="@+id/date_img"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp"
+
+                android:layout_toEndOf="@+id/councellor_name_title"
+                android:layout_toRightOf="@+id/councellor_name_title"
+                android:background="@drawable/calendar_and_clock"  />
+
+            <TextView
+                android:id="@+id/date_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/date_img"
+                android:layout_toRightOf="@+id/date_img"
+                android:text="Date"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/date_title"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toEndOf="@+id/date_img"
+                android:layout_toRightOf="@+id/date_img"
+                android:hint="12th March, 2019"
+                android:text="@{notificationItem.notificationDate}" />
+
+            <ImageView
+                android:id="@+id/message_img"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/date"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/broadcast" />
+
+            <TextView
+                android:id="@+id/message_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/date"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/message_img"
+                android:layout_toRightOf="@+id/message_img"
+                android:text="Message"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/message_title"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_toEndOf="@+id/message_img"
+                android:layout_toRightOf="@+id/message_img"
+                android:hint="Message"
+                android:text="@{notificationItem.message}" />
+
+            <ImageView
+                android:id="@+id/center_img"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/message"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/location" />
+
+            <TextView
+                android:id="@+id/center_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/message"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/center_img"
+                android:layout_toRightOf="@+id/center_img"
+                android:text="Center"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/center_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/center_title"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_toEndOf="@+id/center_img"
+                android:layout_toRightOf="@+id/center_img"
+                android:hint="Andheri, Mumbai"
+                android:text="@{notificationItem.centername}" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>

@@ -40,6 +40,7 @@ final lifecycle = "1.1.1"
 
 dependencies {
     def nav_version = "1.0.0-alpha09"
+    implementation group: 'com.google.guava', name: 'guava', version: '24.1-jre'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${supportVersion}"
     implementation "com.android.support:support-v4:${supportVersion}"

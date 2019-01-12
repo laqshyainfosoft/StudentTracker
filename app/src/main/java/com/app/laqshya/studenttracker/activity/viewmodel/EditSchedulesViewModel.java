@@ -10,6 +10,7 @@ import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.repository.EditBatchRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class EditSchedulesViewModel extends ViewModel {
     private EditBatchRepository editBatchRepository;
@@ -76,8 +77,22 @@ public class EditSchedulesViewModel extends ViewModel {
         return editBatchRepository.markBatches(bid, deleteOrComplete);
 
     }
-    public LiveData<StudentInfo.StudentInfoList> getDueFeesStudent(){
+
+    public LiveData<StudentInfo.StudentInfoList> getDueFeesStudent() {
         return editBatchRepository.getStudentsForDueBatch();
+
+    }
+
+    public LiveData<BatchInformationResponse> getBatchForFacultyAttendance(String facultyid) {
+        return editBatchRepository.getBatchForFacultyId(facultyid);
+    }
+
+    public LiveData<StudentInfo.StudentInfoList> getStudentsForAttendance(String batchid) {
+        return editBatchRepository.getStudentsForFacultyAttendance(batchid);
+    }
+
+    public LiveData<String> saveAttendance(String facultyid, Map<String, Integer> map, String topic, String batchid) {
+        return editBatchRepository.saveAttendance(facultyid, map, topic, batchid);
 
     }
 

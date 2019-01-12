@@ -8,13 +8,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
 import com.app.laqshya.studenttracker.R;
-import com.app.laqshya.studenttracker.activity.adapter.FacultyNotificationAdapter;
+import com.app.laqshya.studenttracker.activity.adapter.StudentNotificationAdapter;
 import com.app.laqshya.studenttracker.activity.factory.NotificationFactory;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
@@ -25,9 +27,9 @@ import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 
-public class NotificationsFragment extends Fragment {
+public class StudentReceivedNotificationFragment extends Fragment {
     FragmentNotificationBinding fragmentNotificationBinding;
-    FacultyNotificationAdapter facultyNotificationAdapter;
+    StudentNotificationAdapter facultyNotificationAdapter;
 
     @Inject
     NotificationFactory notificationFactory;
@@ -35,15 +37,6 @@ public class NotificationsFragment extends Fragment {
     @Inject
     SessionManager sessionManager;
     private ProgressDialog progressDialog;
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        fragmentNotificationBinding = FragmentNotificationBinding.inflate(inflater, container, false);
-        notificationAndStudentViewModel = ViewModelProviders.of(this, notificationFactory).get(NotificationAndStudentViewModel.class);
-        return fragmentNotificationBinding.getRoot();
-    }
-
     @Override
     public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
@@ -54,19 +47,27 @@ public class NotificationsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         fragmentNotificationBinding.recyclerViewNotification.setHasFixedSize(false);
-        facultyNotificationAdapter = new FacultyNotificationAdapter();
+        facultyNotificationAdapter = new StudentNotificationAdapter();
         fragmentNotificationBinding.recyclerViewNotification.setLayoutManager(new LinearLayoutManager(getActivity()));
         fragmentNotificationBinding.recyclerViewNotification.setAdapter(facultyNotificationAdapter);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait");
+        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Received Notifications");
         getData();
-
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        fragmentNotificationBinding = FragmentNotificationBinding.inflate(inflater, container, false);
+        notificationAndStudentViewModel = ViewModelProviders.of(this, notificationFactory).get(NotificationAndStudentViewModel.class);
+        return fragmentNotificationBinding.getRoot();
+    }
     private void getData() {
         progressDialog.show();
-        notificationAndStudentViewModel.getFaculty(sessionManager.getLoggedInUserName()).observe(this, facultyNotifications -> {
+        notificationAndStudentViewModel.getStudent(sessionManager.getLoggedInUserName()).observe(this, facultyNotifications -> {
             if (getActivity() != null && Utils.isNetworkConnected(getActivity())) {
                 progressDialog.dismiss();
                 if (facultyNotifications != null) {

@@ -1,7 +1,6 @@
 package com.app.laqshya.studenttracker.activity.viewmodel;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.v4.app.Fragment;
@@ -15,7 +14,6 @@ import com.app.laqshya.studenttracker.activity.fragments.BroadcastFragment;
 import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.ContactFragment;
 import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
-import com.app.laqshya.studenttracker.activity.fragments.FacultyPerformanceFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FeedbackFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FeesStatusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.HomeFragmentAdmin;
@@ -28,16 +26,14 @@ import com.app.laqshya.studenttracker.activity.fragments.PaymentFragment;
 import com.app.laqshya.studenttracker.activity.fragments.PrivacyPolicyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.Refer_Friendfragment;
 import com.app.laqshya.studenttracker.activity.fragments.ScheduleBatchesFragment;
+import com.app.laqshya.studenttracker.activity.fragments.StudentAttendanceByFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.SyllabusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
-import com.app.laqshya.studenttracker.activity.model.CenterList;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
-import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.repository.RegistrationRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -198,7 +194,7 @@ public class NavDrawerViewModel extends ViewModel {
 
             case 1:
                 fragmentTitle.setValue("Attendance");
-                return new AttendanceFragment();
+                return new StudentAttendanceByFacultyFragment();
 
 //            case  2:
 //                fragmentTitle.setValue("Student Performance");
@@ -277,7 +273,7 @@ public class NavDrawerViewModel extends ViewModel {
                 return new HomeFragmentStudent();
             case 1:
                 //syllabus
-                fragmentTitle.setValue("Syllabus");
+                fragmentTitle.setValue("SyllabusList");
                 return new SyllabusFragment();
 
             case 2:

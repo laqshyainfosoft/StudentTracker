@@ -34,7 +34,6 @@
             </intent-filter>
 
         </service>
-        <activity android:name=".activity.BroadcastActivity" android:screenOrientation="portrait"/>
 
     </application>
 

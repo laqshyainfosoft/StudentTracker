@@ -5,7 +5,7 @@
 
         <!--<variable-->
             <!--name="notification"-->
-            <!--type="edutracker.laqshya.com.edutracker.viewmodel.NotificationViewModel" />-->
+            <!--type="edutracker.laqshya.com.edutracker.viewmodel.NotificationAndStudentViewModel" />-->
     <!--</data>-->
 
         <LinearLayout

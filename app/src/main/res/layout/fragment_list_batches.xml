@@ -14,11 +14,13 @@
         android:gravity="center"
         android:padding="12dp"
         tools:context=".fragments.AttendanceFragment">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerInParent="true">
+
 
             <ImageView
                 android:id="@+id/imageView2_attend"
@@ -34,12 +36,13 @@
                 android:layout_gravity="center_horizontal"
                 android:text="No Batches"
                 android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="#121111" />
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
 
         <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_below="@id/batch"
             android:id="@+id/swifeRefresh_attendance_schedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -47,9 +50,9 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_attendance"
                 android:layout_width="match_parent"
+                android:overScrollMode="never"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:paddingBottom="72dp" />
+                android:clipToPadding="false" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 </layout>

@@ -4,7 +4,7 @@
     <!--<data>-->
         <!--<variable-->
             <!--name="syllabus"-->
-            <!--type="edutracker.laqshya.com.edutracker.model.Syllabus" />-->
+            <!--type="edutracker.laqshya.com.edutracker.model.SyllabusList" />-->
     <!--</data>-->
 
     <LinearLayout
