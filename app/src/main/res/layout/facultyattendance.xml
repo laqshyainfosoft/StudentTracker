@@ -15,15 +15,12 @@
             android:background="@color/white"
             android:padding="12dp">
 
-            <include
-                android:id="@+id/batchSpinner"
-                layout="@layout/faculty_batch_spinner" />
+
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/swifeRefresh_attendance_schedule"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/batchSpinner">
+                android:layout_height="wrap_content">
 
                 <com.app.laqshya.studenttracker.activity.utils.EmptyRecyclerView
                     android:id="@+id/recycler_view_attendance"

@@ -203,6 +203,7 @@
     <string name="sendToDueStudents">Send to Students With Due Installments \n  (Ignore if already paid)</string>
     <string name="sent_notifications">Sent Notifications</string>
     <string name="errorwhilefetchingdata">Error while fetching data</string>
+    <string name="errorOccured">Error occured</string>
     <string-array name="regularDays">
         <item>Mon</item>
         <item>Tues</item>

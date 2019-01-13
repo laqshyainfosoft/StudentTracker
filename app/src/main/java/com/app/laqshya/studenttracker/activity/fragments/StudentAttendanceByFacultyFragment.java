@@ -24,6 +24,7 @@ import com.app.laqshya.studenttracker.activity.factory.EditSchedulesViewModelFac
 import com.app.laqshya.studenttracker.activity.listeners.StudentAttendanceListener;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
+import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.EditSchedulesViewModel;
@@ -63,7 +64,7 @@ public class StudentAttendanceByFacultyFragment extends Fragment implements Stud
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         facultyattendanceBinding = FacultyattendanceBinding.inflate(inflater, container, false);
-        studentNos = new LinkedHashMap<String, Integer>();
+        studentNos = new LinkedHashMap<>();
         editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
         return facultyattendanceBinding.getRoot();
     }
@@ -84,7 +85,7 @@ public class StudentAttendanceByFacultyFragment extends Fragment implements Stud
             Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
             toolbar.setTitle("Take Attendance");
         }
-        getFacultyBatch();
+        getStudents();
         facultyattendanceBinding.saveAttendance.setOnClickListener(v -> {
             showSyllabusDialog();
 
@@ -128,7 +129,7 @@ public class StudentAttendanceByFacultyFragment extends Fragment implements Stud
                     .observe(this, s -> {
                         progressDialog.dismiss();
                         if (s != null && s.contains("Error")) {
-                            showSnackbar(getString(R.string.errorwhilefetchingdata));
+                            showSnackbar(getString(R.string.errorOccured));
                         } else {
                             showSnackbar("Attendance Saved Successfully");
                         }
@@ -146,6 +147,7 @@ public class StudentAttendanceByFacultyFragment extends Fragment implements Stud
 
         if (getActivity() != null && Utils.isNetworkConnected(getActivity())) {
             progressDialog.show();
+            selectedbatchid=getArguments().getString(Constants.BATCHID);
             editSchedulesViewModel.getStudentsForAttendance(selectedbatchid).observe(this, studentInfoList -> {
                 progressDialog.dismiss();
                 if (studentInfoList != null) {
@@ -178,56 +180,6 @@ public class StudentAttendanceByFacultyFragment extends Fragment implements Stud
         super.onAttach(context);
     }
 
-    private void getFacultyBatch() {
-        if (getActivity() != null && Utils.isNetworkConnected(getActivity())) {
-            editSchedulesViewModel.getBatchForFacultyAttendance(sessionManager.getLoggedInUserName()).observe(this, batchInformationResponse -> {
-                if (batchInformationResponse != null) {
-
-                    if (batchInformationResponse.getThrowable() == null) {
-                        List<String> batchidList = new ArrayList<>();
-
-                        for (int i = 0; i < batchInformationResponse.getBatchInformationList().size(); i++) {
-                            BatchInformationResponse.BatchInformation batchInformation = batchInformationResponse.getBatchInformationList().get(i);
-                            String batchid = batchInformation.getBatchid();
-
-                            batchidList.add(batchid);
-                        }
-                        ArrayAdapter<String> batchid = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, batchidList);
-                        batchid.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        facultyattendanceBinding.batchSpinner.batch.setAdapter(batchid);
-                        facultyattendanceBinding.batchSpinner.batch.setSelection(0);
-                        facultyattendanceBinding.batchSpinner.batch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                selectedbatchid = facultyattendanceBinding.batchSpinner.batch
-                                        .getSelectedItem().toString().substring(5);
-                                getStudents();
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
-
-
-                    } else {
-
-                        showSnackbar(getString(R.string.errorwhilefetchingdata));
-                    }
-                } else {
-                    getStudents();
-
-                    showSnackbar(getString(R.string.errorwhilefetchingdata));
-                }
-            });
-
-        } else {
-            showSnackbar(getString(R.string.internet_connection));
-
-
-        }
-    }
 
     private void showSnackbar(String message) {
         Snackbar.make(facultyattendanceBinding.attendanceMain, message, Snackbar.LENGTH_SHORT).show();

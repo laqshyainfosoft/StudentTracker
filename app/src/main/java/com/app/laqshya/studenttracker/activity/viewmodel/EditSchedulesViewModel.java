@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
+import com.app.laqshya.studenttracker.activity.model.FacultyCourse;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.repository.EditBatchRepository;
@@ -95,5 +96,10 @@ public class EditSchedulesViewModel extends ViewModel {
         return editBatchRepository.saveAttendance(facultyid, map, topic, batchid);
 
     }
+    public LiveData<List<FacultyCourse>> getFacultyCardCourses(String facultyid) {
+        return editBatchRepository.getFacultyBatchCard(facultyid);
+
+    }
+
 
 }

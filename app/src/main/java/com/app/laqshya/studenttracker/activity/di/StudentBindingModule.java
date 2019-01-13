@@ -7,6 +7,7 @@ import com.app.laqshya.studenttracker.activity.MainScreenNavigationDrawer;
 import com.app.laqshya.studenttracker.activity.fragments.AttendanceFragment;
 import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
+import com.app.laqshya.studenttracker.activity.fragments.FacultyBatchCardsFragment;
 import com.app.laqshya.studenttracker.activity.fragments.NotificationsFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudentAttendanceByFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudentReceivedNotificationFragment;
@@ -67,5 +68,7 @@ abstract class StudentBindingModule {
     abstract NotificationsFragment notificationsFragment();
     @ContributesAndroidInjector
     abstract SyllabusFragment syllabusFragment();
+    @ContributesAndroidInjector
+    abstract FacultyBatchCardsFragment facultyBatchCardsFragment();
 
 }
