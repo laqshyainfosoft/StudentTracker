@@ -72,7 +72,7 @@ public class SyllabusFragment extends Fragment {
                 progressDialog.dismiss();
                 if (syllabus != null) {
                     if(syllabus.getSyllabus()==null || syllabus.getSyllabus().size()==0){
-                        showToast("No Notifications to Show");
+                        showToast("Nothing to Show");
                     }
                     else {
                         syllabusAdapter.setFacultyNotificationList(syllabus);
