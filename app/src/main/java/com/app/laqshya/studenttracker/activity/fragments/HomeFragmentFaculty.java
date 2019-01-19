@@ -39,7 +39,7 @@ public class HomeFragmentFaculty extends Fragment implements View.OnClickListene
 
         switch (view.getId()) {
             case R.id.attendance_faculty:
-                fragmentTransact(new StudentAttendanceByFacultyFragment());
+                fragmentTransact(new FacultyBatchCardsFragment());
 
                 break;
             case R.id.broadcast_faculty:

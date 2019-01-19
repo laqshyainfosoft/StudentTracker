@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.app.laqshya.studenttracker"
@@ -16,6 +17,9 @@ android {
 
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
     }
     buildTypes {
         release {
@@ -40,7 +44,8 @@ final lifecycle = "1.1.1"
 
 dependencies {
     def nav_version = "1.0.0-alpha09"
-    implementation group: 'com.google.guava', name: 'guava', version: '24.1-jre'
+    def lifecycle_version = "2.0.0"
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${supportVersion}"
     implementation "com.android.support:support-v4:${supportVersion}"
@@ -56,11 +61,12 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
     kapt "com.google.dagger:dagger-android-processor:${daggerVersion}"
     kapt "com.google.dagger:dagger-android-support:${daggerVersion}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     implementation "com.google.dagger:dagger-android:${daggerVersion}"
     implementation "com.google.dagger:dagger-android-support:${daggerVersion}"
     implementation "com.google.dagger:dagger:${daggerVersion}"
-    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha09'

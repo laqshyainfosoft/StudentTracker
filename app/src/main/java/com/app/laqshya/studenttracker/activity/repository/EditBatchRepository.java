@@ -5,13 +5,12 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
+import com.app.laqshya.studenttracker.activity.model.FacultyCourse;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
-import com.google.common.collect.ImmutableMap;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -84,23 +83,23 @@ public class EditBatchRepository {
     public LiveData<String> saveAttendance(String facultyid, Map<String, Integer> attendanceMap, String topic,
                                            String batchid) {
         MutableLiveData<String> liveData = new MutableLiveData<>();
-        StringBuilder phoneBuilder=new StringBuilder();
-        StringBuilder statusBuilder=new StringBuilder();
-        for (Map.Entry<String, Integer> map:attendanceMap.entrySet()){
+        StringBuilder phoneBuilder = new StringBuilder();
+        StringBuilder statusBuilder = new StringBuilder();
+        for (Map.Entry<String, Integer> map : attendanceMap.entrySet()) {
             phoneBuilder.append(map.getKey()).append("|");
             statusBuilder.append(map.getValue()).append("|");
 
 
         }
-        if(phoneBuilder.length()>0){
-            phoneBuilder.deleteCharAt(phoneBuilder.length()-1);
+        if (phoneBuilder.length() > 0) {
+            phoneBuilder.deleteCharAt(phoneBuilder.length() - 1);
         }
-        if(statusBuilder.length()>0){
-            statusBuilder.deleteCharAt(statusBuilder.length()-1);
+        if (statusBuilder.length() > 0) {
+            statusBuilder.deleteCharAt(statusBuilder.length() - 1);
         }
 
 
-        eduTrackerService.saveAttendance(facultyid,statusBuilder.toString(), batchid, topic,phoneBuilder.toString()).subscribeOn(Schedulers.io())
+        eduTrackerService.saveAttendance(facultyid, statusBuilder.toString(), batchid, topic, phoneBuilder.toString()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<ResponseBody>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -492,6 +491,29 @@ public class EditBatchRepository {
                     }
                 })
         ;
+        return liveData;
+    }
+
+    public LiveData<List<FacultyCourse>> getFacultyBatchCard(String facultyid) {
+        MutableLiveData<List<FacultyCourse>> liveData = new MutableLiveData<>();
+        eduTrackerService.getFacultyCourseBatches(facultyid).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<FacultyCourse>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(List<FacultyCourse> facultyCourses) {
+                liveData.postValue(facultyCourses);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
         return liveData;
     }
 
