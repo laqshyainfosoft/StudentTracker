@@ -115,30 +115,32 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                                 navItemIndex = 3;
                                 CURRENT_TAG = Constants.TAG_ADD_STUDENT;
                                 break;
-
-                            case R.id.managestudentfees:
+                            case R.id.add_syllabus:
                                 navItemIndex = 4;
+                                break;
+                            case R.id.managestudentfees:
+                                navItemIndex = 5;
                                 CURRENT_TAG = Constants.MANAGE_STUDENTS;
                                 break;
                             case R.id.schedulebatches:
-                                navItemIndex = 5;
+                                navItemIndex = 6;
                                 CURRENT_TAG = Constants.SCHEDULE_BATCHES;
                                 break;
                             case R.id.nav_notifications_admin:
-                                navItemIndex = 6;
+                                navItemIndex = 7;
                                 CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
                                 break;
                             case R.id.nav_broadcast_admin:
-                                navItemIndex = 7;
+                                navItemIndex = 8;
                                 CURRENT_TAG = Constants.TAG_BROADCAST;
                                 break;
                             case R.id.about:
-                                navItemIndex = 8;
+                                navItemIndex = 9;
                                 CURRENT_TAG = Constants.TAGABOUT;
                                 break;
 
                             case R.id.nav_privacy_policy_admin:
-                                navItemIndex = 9;
+                                navItemIndex = 10;
                                 CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
                                 break;
 
@@ -420,7 +422,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                 || lastSelectedBottomId == R.id.allStudents) {
             fragmentManager.getFragments().clear();
             loadHomeFragment();
-            lastSelectedBottomId=0;
+            lastSelectedBottomId = 0;
         } else if (fragmentManager.getBackStackEntryCount() > 1) {
             super.onBackPressed();
         } else if (fragmentManager.getBackStackEntryCount() == 1) {

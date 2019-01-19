@@ -140,23 +140,23 @@
         <item>#f4a453</item>
         <item>#b1bcbf</item>
     </string-array>
-        <string name="center_number">Center mobile number</string>
-        <string name="counsellor_number">Counsellor mobile number</string>
-        <string name="hint_email">Email</string>
-        <string name="btn_sign_up">Sign Up</string>
-        <string name="center_name">Center name</string>
-        <string-array name="center_arrays">
-            <item>Mira Road</item>
-            <item>Andheri</item>
-            <item>Dadar</item>
-            <item>Pune</item>
-        </string-array>
-        <string name="center_prompt">Choose a center</string>
-        <string name="faculty_number" >Enter faculty mobile number</string>
+    <string name="center_number">Center mobile number</string>
+    <string name="counsellor_number">Counsellor mobile number</string>
+    <string name="hint_email">Email</string>
+    <string name="btn_sign_up">Sign Up</string>
+    <string name="center_name">Center name</string>
+    <string-array name="center_arrays">
+        <item>Mira Road</item>
+        <item>Andheri</item>
+        <item>Dadar</item>
+        <item>Pune</item>
+    </string-array>
+    <string name="center_prompt">Choose a center</string>
+    <string name="faculty_number">Enter faculty mobile number</string>
     <string name="hint_name">Name</string>
-    <string name="student_name" >Name</string>
-    <string name="student_number" >Number</string>
-    <string name="course_name" >Course name</string>
+    <string name="student_name">Name</string>
+    <string name="student_number">Number</string>
+    <string name="course_name">Course name</string>
     <string-array name="course_arrays">
         <item>Android</item>
         <item>Java</item>
@@ -164,9 +164,9 @@
         <item>Tally</item>
     </string-array>
     <string name="course_prompt">Choose a course</string>
-    <string name="student_installment" >Number of installments</string>
-    <string name="student_downpayment" >Downpayment</string>
-    <string name="student_fees" >Total Fees</string>
+    <string name="student_installment">Number of installments</string>
+    <string name="student_downpayment">Downpayment</string>
+    <string name="student_fees">Total Fees</string>
     <string name="hint_username">Username</string>
     <string name="counsellor_registration">Counsellor Registration</string>
     <string name="student_registration">Student Registration</string>
@@ -179,7 +179,7 @@
     <string name="student_installment_amnt"> Amount</string>
     <string name="location">location</string>
     <string name="installments">Installments Should be less than 10</string>
-    <string name="manage_students" >Manage Students</string>
+    <string name="manage_students">Manage Students</string>
     <string name="batchError">Please Add Atleast One Batch</string>
     <string name="dateError">Please Select a Batch Start Date</string>
     <string name="internet_connection">Please check your internet connection</string>
@@ -204,6 +204,7 @@
     <string name="sent_notifications">Sent Notifications</string>
     <string name="errorwhilefetchingdata">Error while fetching data</string>
     <string name="errorOccured">Error occured</string>
+    <string name="add_syllabus">Add Syllabus</string>
     <string-array name="regularDays">
         <item>Mon</item>
         <item>Tues</item>
@@ -211,10 +212,13 @@
         <item>Thu</item>
         <item>Fri</item>
     </string-array>
-   <string-array name="weekendDays">
-       <item>Sat</item>
-       <item>Sun</item>
-   </string-array>
+    <string-array name="weekendDays">
+        <item>Sat</item>
+        <item>Sun</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
