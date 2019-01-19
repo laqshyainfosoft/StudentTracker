@@ -14,15 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.adapter.StudentAdapter;
 import com.app.laqshya.studenttracker.activity.factory.EditSchedulesViewModelFactory;
 import com.app.laqshya.studenttracker.activity.listeners.StudentAttendanceListener;
-import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
@@ -32,9 +29,7 @@ import com.app.laqshya.studenttracker.databinding.EmptyViewBinding;
 import com.app.laqshya.studenttracker.databinding.FacultyattendanceBinding;
 import com.app.laqshya.studenttracker.databinding.SyllabussaveddialogBinding;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -193,9 +188,6 @@ public class StudentAttendanceByFacultyFragment extends Fragment implements Stud
         else {
             studentInfo.setChecked(0);
         }
-
         studentNos.put(studentInfo.getPhone(), studentInfo.isChecked());
-
-
     }
 }

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<data>
+    <variable
+        name="courses"
+        type="com.app.laqshya.studenttracker.activity.model.FacultyCourse"/>
+</data>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/course_logo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/note"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/course_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/course_logo"
+            android:layout_toRightOf="@+id/course_logo"
+            android:text="Course"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/course_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/course_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@{courses.coursename}"
+            android:layout_toEndOf="@+id/course_logo"
+            android:layout_toRightOf="@+id/course_logo"
+            android:hint="Android"
+            android:textAllCaps="false" />
+
+        <ImageView
+            android:id="@+id/course_time_logo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/course_name"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/time"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/course_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/course_name"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/course_time_logo"
+            android:layout_toRightOf="@+id/course_time_logo"
+            android:text="Duration"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/course_time_from_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/course_time_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@+id/course_time_logo"
+            android:layout_toRightOf="@+id/course_time_logo"
+            android:text="From: "
+            android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/course_time_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/course_time_title"
+            android:layout_toEndOf="@+id/course_time_from_title"
+            android:layout_toRightOf="@+id/course_time_from_title"
+            android:hint="08 AM"
+            android:text="@{courses.startTime}"
+            android:textSize="14sp"
+            tools:ignore="Autofill" />
+
+        <TextView
+            android:id="@+id/course_time_to_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/course_time_title"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/course_time_from"
+            android:layout_toRightOf="@+id/course_time_from"
+            android:text="To: " />
+
+        <TextView
+            android:id="@+id/course_time_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/course_time_title"
+            android:layout_toEndOf="@+id/course_time_to_title"
+            android:layout_toRightOf="@+id/course_time_to_title"
+            android:hint="10 AM"
+            android:inputType="text"
+            android:text="@{courses.endTime}"
+            android:textSize="14sp"
+            tools:ignore="Autofill,TextFields" />
+
+        <ImageView
+            android:id="@+id/center_logo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/course_time_from"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/location"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/center_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/course_time_from_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/center_logo"
+            android:layout_toRightOf="@+id/center_logo"
+            android:text="Center"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/course_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/center_title"
+            android:text="@{courses.centername}"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_toEndOf="@+id/center_logo"
+            android:layout_toRightOf="@+id/center_logo"
+            android:hint="Andheri" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+</layout>
