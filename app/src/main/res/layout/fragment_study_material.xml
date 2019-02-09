@@ -6,14 +6,6 @@
     android:id="@+id/rootView"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="PDF Viewer App"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorAccent" />
 
     <ProgressBar
         android:id="@+id/myProgressBar"
@@ -24,12 +16,10 @@
         android:indeterminateBehavior="cycle"
         android:visibility="gone" />
 
-    <GridView
-        android:id="@+id/myGridView"
-        android:layout_weight="0.5"
-        android:numColumns="auto_fit"
+    <com.app.laqshya.studenttracker.activity.utils.EmptyRecyclerView
+        android:id="@+id/pdfGrid"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
 </layout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.app.laqshya.studenttracker.activity.listeners.OnStudyMaterialClickListener;
 import com.app.laqshya.studenttracker.activity.model.PDFDoc;
 import com.app.laqshya.studenttracker.databinding.PdfmodelBinding;
 
@@ -13,6 +14,11 @@ import java.util.List;
 
 public class PDFAdapter extends RecyclerView.Adapter<PDFAdapter.CustomHolder> {
     private List<PDFDoc> pdfDocList;
+    private OnStudyMaterialClickListener onStudyMaterialClickListener;
+
+    public PDFAdapter(OnStudyMaterialClickListener onStudyMaterialClickListener) {
+        this.onStudyMaterialClickListener = onStudyMaterialClickListener;
+    }
 
     public void setPdfDocList(List<PDFDoc> pdfDocList) {
         this.pdfDocList = pdfDocList;
@@ -52,6 +58,10 @@ public class PDFAdapter extends RecyclerView.Adapter<PDFAdapter.CustomHolder> {
         void  bind(PDFDoc pdfDoc){
             pdfmodelBinding.setPdf(pdfDoc);
             pdfmodelBinding.executePendingBindings();
+            pdfmodelBinding.imageView.setOnClickListener(v -> {
+                onStudyMaterialClickListener.onStudyClick(pdfDoc.getBookpath());
+
+            });
 
         }
     }

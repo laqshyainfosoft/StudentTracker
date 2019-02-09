@@ -91,6 +91,7 @@ public class StudentDetailsRepository {
                     @Override
                     public void onError(Throwable e) {
                         liveData.postValue(new PDFDoc.PDFList(e));
+                        Timber.d(e);
 
                     }
                 });
