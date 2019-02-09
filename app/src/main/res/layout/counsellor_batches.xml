@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/date_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/calendar_and_clock" />
+
+        <TextView
+            android:id="@+id/date_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/date_img"
+            android:text="Date"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date_title"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/date_img"
+            android:hint="12/01/19" />
+
+        <ImageView
+            android:id="@+id/topic_covered_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/date"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/topic_covered_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/topic_covered_img"
+            android:text="Topic Covered"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/topic_covered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topic_covered_title"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/topic_covered_img"
+            android:hint="Android" />
+
+        <ImageView
+            android:id="@+id/faculty_name_img"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@+id/topic_covered"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/faculty_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topic_covered"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/topic_covered_img"
+            android:text="Faculty Name"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/faculty_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/faculty_name_title"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_toEndOf="@+id/faculty_name_img"
+            android:hint="Akshay Sawant" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

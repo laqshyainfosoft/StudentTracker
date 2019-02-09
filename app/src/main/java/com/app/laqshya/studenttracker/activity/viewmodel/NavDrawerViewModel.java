@@ -9,6 +9,7 @@ import com.app.laqshya.studenttracker.activity.fragments.AboutDevelopersFragment
 import com.app.laqshya.studenttracker.activity.fragments.AddCounsellorFragment;
 import com.app.laqshya.studenttracker.activity.fragments.AddFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.AddStudentFragment;
+import com.app.laqshya.studenttracker.activity.fragments.AddSyllabusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.AttendanceFragment;
 import com.app.laqshya.studenttracker.activity.fragments.BroadcastFragment;
 import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragment;
@@ -27,7 +28,6 @@ import com.app.laqshya.studenttracker.activity.fragments.PrivacyPolicyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.Refer_Friendfragment;
 import com.app.laqshya.studenttracker.activity.fragments.ScheduleBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudentAttendanceByFacultyFragment;
-import com.app.laqshya.studenttracker.activity.fragments.StudentReceivedNotificationFragment;
 import com.app.laqshya.studenttracker.activity.fragments.SyllabusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
@@ -40,7 +40,7 @@ import java.util.List;
 import timber.log.Timber;
 
 public class NavDrawerViewModel extends ViewModel {
-    public MutableLiveData<String> fragmentTitle=new MutableLiveData<>();
+    public MutableLiveData<String> fragmentTitle = new MutableLiveData<>();
     public MutableLiveData<Boolean> isProgress = new MutableLiveData<>();
     public MutableLiveData<Integer> noOfInstallments = new MutableLiveData<>();
     public MutableLiveData<Integer> downPayment = new MutableLiveData<>();
@@ -48,7 +48,7 @@ public class NavDrawerViewModel extends ViewModel {
     private RegistrationRepository registrationRepository;
 
     public NavDrawerViewModel(RegistrationRepository registrationRepository) {
-        this.registrationRepository=registrationRepository;
+        this.registrationRepository = registrationRepository;
     }
 
     public Fragment getAdminFragment(int navindex) {
@@ -57,48 +57,41 @@ public class NavDrawerViewModel extends ViewModel {
                 // home
                 fragmentTitle.setValue("Home");
                 return new HomeFragmentAdmin();
-
-
             case 1:
                 fragmentTitle.setValue("Add Counsellor");
                 return new AddCounsellorFragment();
-
             case 2:
                 fragmentTitle.setValue("Add Faculty");
                 // performance
                 return new AddFacultyFragment();
-
             case 3:
                 fragmentTitle.setValue("Add Student");
                 // attendance fragment
                 return new AddStudentFragment();
             case 4:
+                fragmentTitle.setValue("Add Syllabus");
+                return new AddSyllabusFragment();
+            case 5:
                 fragmentTitle.setValue("Manage Students");
                 // notifications fragment
                 return new ManageStudentFragment();
-            case 5:
+            case 6:
                 fragmentTitle.setValue("Schedules");
                 return new ScheduleBatchesFragment();
-            case 6:
+            case 7:
                 fragmentTitle.setValue("Notifications");
                 return new NotificationsFragment();
-            case 7:
+            case 8:
                 fragmentTitle.setValue("Broadcast");
                 // broadcast fragment
                 return new BroadcastFragment();
-
-            case 8:
-
+            case 9:
                 fragmentTitle.setValue("About Developers");
                 return new AboutDevelopersFragment();
-
-
-            case 9:
+            case 10:
                 fragmentTitle.setValue("Privacy Policy");
                 // privacypolicy fragment
                 return new PrivacyPolicyFragment();
-
-
             default:
                 fragmentTitle.setValue("Home");
                 return new HomeFragmentAdmin();
@@ -124,67 +117,54 @@ public class NavDrawerViewModel extends ViewModel {
         isProgress.setValue(true);
         return registrationRepository.registerFaculty(email, phoneNumber, username, courses);
     }
-    public LiveData<List<CourseModuleList>> getCourseModule(String course){
+
+    public LiveData<List<CourseModuleList>> getCourseModule(String course) {
         return registrationRepository.getCourseModule(course);
     }
 
     public void onInstallmentTextChanged(CharSequence noOfInstallments) {
         int noInstallment = 0;
-        Timber.d("Installment Count is %d",noInstallment);
+        Timber.d("Installment Count is %d", noInstallment);
         if (!noOfInstallments.toString().trim().isEmpty()) {
             try {
                 noInstallment = Integer.parseInt(String.valueOf(noOfInstallments));
-
             } catch (NumberFormatException exception) {
-
                 Timber.d("No of installments too large");
             }
-
         }
         this.noOfInstallments.setValue(noInstallment);
     }
 
     public void onFeesChanged(CharSequence feesAmnt) {
 
-        Timber.d("Fees Amount is %s",feesAmnt);
+        Timber.d("Fees Amount is %s", feesAmnt);
         int fees = 0;
         if (!feesAmnt.toString().trim().isEmpty()) {
             try {
                 fees = Integer.parseInt(String.valueOf(feesAmnt));
-
             } catch (NumberFormatException exception) {
-
                 Timber.d("Fees Amount too large");
             }
-
         }
         this.totalFees.setValue(fees);
-
-
     }
 
     public void onDownPaymentChanged(CharSequence dpAmnt) {
         int dpAmntVal = 0;
 
-        Timber.d("DP` Amount is %s",dpAmnt);
+        Timber.d("DP` Amount is %s", dpAmnt);
         if (!noOfInstallments.toString().trim().isEmpty()) {
             try {
                 dpAmntVal = Integer.parseInt(String.valueOf(dpAmnt));
-
             } catch (NumberFormatException exception) {
-
                 Timber.d("No of downpayments too large");
             }
-
         }
         this.downPayment.setValue(dpAmntVal);
-
-
     }
 
     public LiveData<String> registerStudent(String name, String phone, String email) {
         return registrationRepository.registerStudent(name, phone, email);
-
     }
 
     public Fragment getFacultyFragment(int navindex) {
@@ -192,16 +172,12 @@ public class NavDrawerViewModel extends ViewModel {
             case 0:
                 fragmentTitle.setValue("Home");
                 return new HomeFragmentFaculty();
-
             case 1:
                 fragmentTitle.setValue("Attendance");
                 return new StudentAttendanceByFacultyFragment();
-
 //            case  2:
 //                fragmentTitle.setValue("Student Performance");
 //                return new FacultyPerformanceFragment();
-
-
             case 3:
                 fragmentTitle.setValue("Notification");
                 return new NotificationsFragment();
@@ -211,14 +187,12 @@ public class NavDrawerViewModel extends ViewModel {
             case 5:
                 fragmentTitle.setValue("About Developers");
                 return new AboutDevelopersFragment();
-
             case 6:
                 fragmentTitle.setValue("Privacy Policy");
                 return new PrivacyPolicyFragment();
             default:
                 fragmentTitle.setValue("Home");
                 return new HomeFragmentFaculty();
-
         }
     }
 
@@ -236,7 +210,6 @@ public class NavDrawerViewModel extends ViewModel {
             case 3:
                 fragmentTitle.setValue("Fees");
                 return new FeesStatusFragment();
-
             case 4:
                 fragmentTitle.setValue("Attendance");
                 return new AttendanceFragment();
@@ -249,7 +222,6 @@ public class NavDrawerViewModel extends ViewModel {
 //            case 7:
 //                fragmentTitle.setValue("Notification");
 //                return new NotificationsFragment();
-
             case 8:
                 fragmentTitle.setValue("Broadcast");
                 return new SingleStudentNotificationFragment();
@@ -259,11 +231,9 @@ public class NavDrawerViewModel extends ViewModel {
             case 10:
                 fragmentTitle.setValue("Privacy Policy");
                 return new PrivacyPolicyFragment();
-
             default:
                 fragmentTitle.setValue("Home");
                 return new HomeFragmentCounsellor();
-
         }
     }
 
@@ -276,13 +246,10 @@ public class NavDrawerViewModel extends ViewModel {
                 //syllabus
                 fragmentTitle.setValue("SyllabusList");
                 return new SyllabusFragment();
-
             case 2:
                 fragmentTitle.setValue("Notification");
                 // notifications fragment
-                return new StudentReceivedNotificationFragment();
-
-
+                return new NotificationsFragment();
             case 3:
                 // broadcast fragment
                 fragmentTitle.setValue("Refer Friend");
@@ -297,7 +264,6 @@ public class NavDrawerViewModel extends ViewModel {
                 //contactadmin
                 fragmentTitle.setValue("Contact Us");
                 return new ContactFragment();
-
             case 7:
                 fragmentTitle.setValue("About Developers");
                 // settings fragment
@@ -313,12 +279,8 @@ public class NavDrawerViewModel extends ViewModel {
 
     }
 
-
-
-    public LiveData<String> registerCourses(CoursesStudent coursesStudent){
+    public LiveData<String> registerCourses(CoursesStudent coursesStudent) {
         return registrationRepository.registerCourse(coursesStudent);
 
     }
-
 }
-

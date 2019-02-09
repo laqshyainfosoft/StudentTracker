@@ -35,31 +35,34 @@ public class SyllabusFragment extends Fragment {
     SessionManager sessionManager;
     private ProgressDialog progressDialog;
     ScheduleViewBinding scheduleViewBinding;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        scheduleViewBinding=ScheduleViewBinding.inflate(inflater,container,false);
+        scheduleViewBinding = ScheduleViewBinding.inflate(inflater, container, false);
         notificationAndStudentViewModel = ViewModelProviders.of(this, notificationFactory).get(NotificationAndStudentViewModel.class);
 
         return scheduleViewBinding.getRoot();
 
     }
+
     @Override
     public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         scheduleViewBinding.recyclerViewSyllabus.setHasFixedSize(false);
-        syllabusAdapter=new SyllabusAdapter();
+        syllabusAdapter = new SyllabusAdapter();
         scheduleViewBinding.recyclerViewSyllabus.setAdapter(syllabusAdapter);
         scheduleViewBinding.recyclerViewSyllabus.setLayoutManager(new LinearLayoutManager(getActivity()));
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait");
-        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Syllabus");
         getData();
     }
@@ -71,10 +74,9 @@ public class SyllabusFragment extends Fragment {
             if (getActivity() != null && Utils.isNetworkConnected(getActivity())) {
                 progressDialog.dismiss();
                 if (syllabus != null) {
-                    if(syllabus.getSyllabus()==null || syllabus.getSyllabus().size()==0){
-                        showToast("Nothing to Show");
-                    }
-                    else {
+                    if (syllabus.getSyllabus() == null || syllabus.getSyllabus().size() == 0) {
+                        showToast("No Notifications to Show");
+                    } else {
                         syllabusAdapter.setFacultyNotificationList(syllabus);
                     }
 
