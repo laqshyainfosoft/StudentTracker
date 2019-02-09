@@ -11,14 +11,7 @@ import android.widget.TextView;
 
 import com.app.laqshya.studenttracker.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AddSyllabusFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AddSyllabusFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class AddSyllabusFragment extends Fragment {
 
     @Override
