@@ -52,20 +52,17 @@ public class FeesStatusFragment extends Fragment {
 
         studentDetailsViewModel=ViewModelProviders.of(this,studentDetailsFactory).get(StudentDetailsViewModel.class);
         studentDetailsViewModel.getStudentDetailsInstallments(sessionManager.getLoggedInUserName())
-                .observe(this, new Observer<List<Installments>>() {
-                    @Override
-                    public void onChanged(@Nullable List<Installments> installments) {
-                        if(installments!=null && installments.size()>0){
-                            studentsDetailsBinding.noOfInstallmentsCollapse.setOnClickListener((v -> {
-                                InstallmentAdapter installmentAdapter=new InstallmentAdapter();
-                                studentsDetailsBinding.installmentContainer.setAdapter(installmentAdapter);
-                                studentsDetailsBinding.installmentContainer.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                studentsDetailsBinding.installmentContainer.setHasFixedSize(false);
-                                installmentAdapter.setInstallmentsList(installments);
-                                studentsDetailsBinding.installmentContainer.setVisibility(View.VISIBLE);
-                            }));
+                .observe(this, installments -> {
+                    if(installments!=null && installments.size()>0){
+                        studentsDetailsBinding.noOfInstallmentsCollapse.setOnClickListener((v -> {
+                            InstallmentAdapter installmentAdapter=new InstallmentAdapter();
+                            studentsDetailsBinding.installmentContainer.setAdapter(installmentAdapter);
+                            studentsDetailsBinding.installmentContainer.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            studentsDetailsBinding.installmentContainer.setHasFixedSize(false);
+                            installmentAdapter.setInstallmentsList(installments);
+                            studentsDetailsBinding.installmentContainer.setVisibility(View.VISIBLE);
+                        }));
 
-                        }
                     }
                 });
         studentDetailsViewModel.getStudentDetails(sessionManager.getLoggedInUserName())

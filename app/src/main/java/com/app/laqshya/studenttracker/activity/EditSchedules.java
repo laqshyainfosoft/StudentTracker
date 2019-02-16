@@ -61,8 +61,8 @@ public class EditSchedules extends AppCompatActivity {
     private int facultyInitialIndex = 0;
     private EditBatchScheduleList editBatchScheduleList;
     private boolean isRadioButtonSwitched;
-    private List<StudentInfo> tempStudenList;
-    private List<StudentNames> studentNamesList;
+//    private List<StudentInfo> tempStudenList;
+//    private List<StudentNames> studentNamesList;
     private List<FacultyList> facultyLists;
     Set<String> allSchedules=new HashSet<>();
     Set<String> modifiedSchedules=new HashSet<>();
@@ -72,96 +72,96 @@ public class EditSchedules extends AppCompatActivity {
     private int resultCode=0;
 
 
-    private MultiSpinner.MultiSpinnerListener multiSpinnerListener = new MultiSpinner.MultiSpinnerListener() {
-        @Override
-        public void onItemsSelected(boolean[] selected) {
-
-//            studentInfoArrayList = new ArrayList<>();
-            tempStudenList.clear();
-
-            ;
-            Timber.d("Temp list size is %d", tempStudenList.size());
-            for (int i = 0; i < studentInfoArrayList.size(); i++) {
-                if (selected[i]) {
-                    tempStudenList.add(studentInfoArrayList.get(i));
-
-                    Timber.d("Size of list  is%s", String.valueOf(studentInfoArrayList.size()));
-                }
-            }
-
-
-        }
+//    private MultiSpinner.MultiSpinnerListener multiSpinnerListener = new MultiSpinner.MultiSpinnerListener() {
+//        @Override
+//        public void onItemsSelected(boolean[] selected) {
+//
+////            studentInfoArrayList = new ArrayList<>();
+//            tempStudenList.clear();
+//
+//            ;
+//            Timber.d("Temp list size is %d", tempStudenList.size());
+//            for (int i = 0; i < studentInfoArrayList.size(); i++) {
+//                if (selected[i]) {
+//                    tempStudenList.add(studentInfoArrayList.get(i));
+//
+//                    Timber.d("Size of list  is%s", String.valueOf(studentInfoArrayList.size()));
+//                }
+//            }
+//
+//
+//        }
 
         ;
-
-        @Override
-        public void onDropoutStudent(int which, int flag_dropout) {
-            Toast.makeText(EditSchedules.this, "Hey Dropped", Toast.LENGTH_SHORT).show();
-//            mSelected[which1] = isChecked;
-
-            if (studentInfoArrayList.get(which).getMarker() == 1 && tempStudenList.size() > 0) {
-
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditSchedules.this);
-                builder.setTitle("Do you wish to remove this student?");
-                builder.setMessage("Please select desired option:");
-                builder.setCancelable(false);
-                builder.setNeutralButton("Cancel", (dialog, which1) -> {
-//                        mListener.onDropoutStudent(which1,2,"");
-                    dialog.dismiss();
-
-//                    editscheduleBinding.spinnerMultiNew.dismissDialog();
-
-                    if (studentInfoArrayAdapter != null) {
-
-                        selectedItems[which] = true;
-                        Toast.makeText(EditSchedules.this, "" + selectedItems[which] + which, Toast.LENGTH_SHORT).show();
-                        editscheduleBinding.spinnerMultiNew.dismissSpinner();
-                        editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
-                        editscheduleBinding.spinnerMultiNew.changespinner();
-
-
-                    }
-
-
-                    for (boolean selectedItem : selectedItems) {
-
-                        Timber.d(String.valueOf(selectedItem));
-                    }
-
-
-                });
-                builder.setNegativeButton("Change Batch", (dialog, which12) -> {
-//                        mListener.onDropoutStudent(which1,0,"");
-                    selectedItems[which] = false;
-                    fieldsChanged[2] = 1;
-//                        dialog1.dismiss();
-
-                    dialog.dismiss();
-                    for (boolean selectedItem : selectedItems) {
-                        Timber.d(String.valueOf(selectedItem));
-                    }
-
-                });
-                builder.setPositiveButton("Dropout Student", (dialog, which13) -> {
-                    //EditSchedules.this
-//                        dialog1.dismiss();
-                    selectedItems[which] = false;
-                    fieldsChanged[2] = 1;
-                    dialog.dismiss();
-                    for (boolean selectedItem : selectedItems) {
-                        Timber.d(String.valueOf(selectedItem));
-                    }
-
-
-                });
-                builder.show();
-            }
-
-        }
-
-
-    };
+//
+//        @Override
+//        public void onDropoutStudent(int which, int flag_dropout) {
+//            Toast.makeText(EditSchedules.this, "Hey Dropped", Toast.LENGTH_SHORT).show();
+////            mSelected[which1] = isChecked;
+//
+//            if (studentInfoArrayList.get(which).getMarker() == 1 && tempStudenList.size() > 0) {
+//
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(EditSchedules.this);
+//                builder.setTitle("Do you wish to remove this student?");
+//                builder.setMessage("Please select desired option:");
+//                builder.setCancelable(false);
+//                builder.setNeutralButton("Cancel", (dialog, which1) -> {
+////                        mListener.onDropoutStudent(which1,2,"");
+//                    dialog.dismiss();
+//
+////                    editscheduleBinding.spinnerMultiNew.dismissDialog();
+//
+//                    if (studentInfoArrayAdapter != null) {
+//
+//                        selectedItems[which] = true;
+//                        Toast.makeText(EditSchedules.this, "" + selectedItems[which] + which, Toast.LENGTH_SHORT).show();
+////                        editscheduleBinding.spinnerMultiNew.dismissSpinner();
+////                        editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
+////                        editscheduleBinding.spinnerMultiNew.changespinner();
+//
+//
+//                    }
+//
+//
+//                    for (boolean selectedItem : selectedItems) {
+//
+//                        Timber.d(String.valueOf(selectedItem));
+//                    }
+//
+//
+//                });
+//                builder.setNegativeButton("Change Batch", (dialog, which12) -> {
+////                        mListener.onDropoutStudent(which1,0,"");
+//                    selectedItems[which] = false;
+//                    fieldsChanged[2] = 1;
+////                        dialog1.dismiss();
+//
+//                    dialog.dismiss();
+//                    for (boolean selectedItem : selectedItems) {
+//                        Timber.d(String.valueOf(selectedItem));
+//                    }
+//
+//                });
+//                builder.setPositiveButton("Dropout Student", (dialog, which13) -> {
+//                    //EditSchedules.this
+////                        dialog1.dismiss();
+//                    selectedItems[which] = false;
+//                    fieldsChanged[2] = 1;
+//                    dialog.dismiss();
+//                    for (boolean selectedItem : selectedItems) {
+//                        Timber.d(String.valueOf(selectedItem));
+//                    }
+//
+//
+//                });
+//                builder.show();
+//            }
+//
+//        }
+//
+//
+//    };
     private ArrayList<View> viewArrayList;
 
 
@@ -169,7 +169,7 @@ public class EditSchedules extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-        studentNamesList = new ArrayList<>();
+//        studentNamesList = new ArrayList<>();
         scheduleInsertionList=new ArrayList<>();
         editscheduleBinding = DataBindingUtil.setContentView(this, R.layout.editschedule);
         editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
@@ -183,7 +183,7 @@ public class EditSchedules extends AppCompatActivity {
 //        }
         setFaculty();
         getSelectedBatchSchedule();
-        setStudents();
+//        setStudents();
         viewArrayList = new ArrayList<>();
 
 
@@ -200,11 +200,11 @@ public class EditSchedules extends AppCompatActivity {
         int spinnerFacultyIndex = editscheduleBinding.Atteacher.getSelectedItemPosition();
         Timber.d(Arrays.toString(scheduleInsertionList.toArray()));
 
-        StringBuilder startTimeBuilder=new StringBuilder();
-        StringBuilder endTimeBuilder=new StringBuilder();
-        StringBuilder dayBuilder=new StringBuilder();
+        StringBuilder startTimeBuilder = new StringBuilder();
+        StringBuilder endTimeBuilder = new StringBuilder();
+        StringBuilder dayBuilder = new StringBuilder();
         Timber.d(Arrays.toString(deletedSchedules.toArray()));
-        int index=0;
+        int index = 0;
 
 
 //        String oldday, newday, oldstime, newstime, oldetime, newetime;
@@ -224,30 +224,28 @@ public class EditSchedules extends AppCompatActivity {
             editbatchSchedule.setStartTime(startTime.getText().toString());
 
             //TODO fix schedule Ids in proper sequence.
-                if(editBatchScheduleList!=null && editBatchScheduleList.getEditbatchScheduleList().size()>index) {
-                    EditBatchScheduleList.EditbatchSchedule temporarySchedule = editBatchScheduleList.getEditbatchScheduleList().get(index);
-                    if(modifiedSchedules.contains(temporarySchedule.getScheduleId())){
-                        startTimeBuilder.append(startTime.getText().toString()).append("|");
-                        endTimeBuilder.append(endTime.getText().toString()).append("|");
-                        dayBuilder.append(getDayid(spinnerDays.getSelectedItem().toString())).append("|");
-                    }
-                    index++;
+            if (editBatchScheduleList != null && editBatchScheduleList.getEditbatchScheduleList().size() > index) {
+                EditBatchScheduleList.EditbatchSchedule temporarySchedule = editBatchScheduleList.getEditbatchScheduleList().get(index);
+                if (modifiedSchedules.contains(temporarySchedule.getScheduleId())) {
+                    startTimeBuilder.append(startTime.getText().toString()).append("|");
+                    endTimeBuilder.append(endTime.getText().toString()).append("|");
+                    dayBuilder.append(getDayid(spinnerDays.getSelectedItem().toString())).append("|");
                 }
+                index++;
+            }
 
 
-
-
-            Timber.d("Schedule ID %s",editbatchSchedule.getScheduleId());
+            Timber.d("Schedule ID %s", editbatchSchedule.getScheduleId());
 
 //            batchList.add(editbatchSchedule);
 
         }
-        if(startTimeBuilder.length()>0)
-        startTimeBuilder.deleteCharAt(startTimeBuilder.length()-1);
-        if(dayBuilder.length()>0)
-        dayBuilder.deleteCharAt(dayBuilder.length()-1);
-        if(endTimeBuilder.length()>0)
-        endTimeBuilder.deleteCharAt(endTimeBuilder.length()-1);
+        if (startTimeBuilder.length() > 0)
+            startTimeBuilder.deleteCharAt(startTimeBuilder.length() - 1);
+        if (dayBuilder.length() > 0)
+            dayBuilder.deleteCharAt(dayBuilder.length() - 1);
+        if (endTimeBuilder.length() > 0)
+            endTimeBuilder.deleteCharAt(endTimeBuilder.length() - 1);
         EditBatchScheduleList editBatchScheduleListTemp = new EditBatchScheduleList(batchList);
         Timber.d(String.valueOf(editBatchScheduleListTemp.getEditbatchScheduleList().size()));
 
@@ -261,8 +259,7 @@ public class EditSchedules extends AppCompatActivity {
         } else {
 
 
-
-            if (editBatchScheduleList!=null && editBatchScheduleListTemp.getEditbatchScheduleList().size() != this.editBatchScheduleList.getEditbatchScheduleList().size()) {
+            if (editBatchScheduleList != null && editBatchScheduleListTemp.getEditbatchScheduleList().size() != this.editBatchScheduleList.getEditbatchScheduleList().size()) {
                 fieldsChanged[1] = 1;
 
             } else {
@@ -280,6 +277,7 @@ public class EditSchedules extends AppCompatActivity {
         } else {
             fieldsChanged[0] = 0;
         }
+        Timber.d(String.valueOf("index" + fieldsChanged[0]));
 
 //        for (int i = 0; i < editBatchScheduleListTemp.getEditbatchScheduleList().size(); i++) {
 //
@@ -289,59 +287,59 @@ public class EditSchedules extends AppCompatActivity {
 //        }
 
 
-        Timber.d("List of students is %s", Arrays.toString(tempStudenList.toArray()));
-        Timber.d("Boolean array is %s", Arrays.toString(selectedItems));
-        int truelength = 0;
-        for (boolean issel : selectedItems) {
-            Timber.d(String.valueOf(issel));
-            if (issel) {
-                truelength++;
-            }
+//        Timber.d("List of students is %s", Arrays.toString(tempStudenList.toArray()));
+//        Timber.d("Boolean array is %s", Arrays.toString(selectedItems));
+//        int truelength = 0;
+//        for (boolean issel : selectedItems) {
+//            Timber.d(String.valueOf(issel));
+//            if (issel) {
+//                truelength++;
+//            }
+//
+//        }
 
-        }
+//        if (studentInfoArrayList != null && studentInfoArrayList.size() > 0) {
+//
+//            studentNamesList.clear();
+//
+//            for (StudentInfo studentInfo : tempStudenList) {
+//
+//                StudentNames studentNames = new StudentNames();
+//                studentNames.setStudentMobile(studentInfo.getPhone());
+//                studentNamesList.add(studentNames);
+//                Timber.d("Loop is%s", studentInfo.getName());
+//
+//
+//            }
+//
+//        }
+//        int markerLength = 0;
+//        for (int i = 0; i < tempStudenList.size(); i++) {
+//            if (tempStudenList.get(i).getMarker() == 1) {
+//                markerLength++;
+//            }
+//        }
+//        if (fieldsChanged[2] == 1 || markerLength != truelength) {
+//            fieldsChanged[2] = 1;
+//        } else {
+//            fieldsChanged[2] = 0;
+//        }
 
-        if (studentInfoArrayList != null && studentInfoArrayList.size() > 0) {
-
-            studentNamesList.clear();
-
-            for (StudentInfo studentInfo : tempStudenList) {
-
-                StudentNames studentNames = new StudentNames();
-                studentNames.setStudentMobile(studentInfo.getPhone());
-                studentNamesList.add(studentNames);
-                Timber.d("Loop is%s", studentInfo.getName());
-
-
-            }
-
-        }
-        int markerLength = 0;
-        for (int i = 0; i < tempStudenList.size(); i++) {
-            if (tempStudenList.get(i).getMarker() == 1) {
-                markerLength++;
-            }
-        }
-        if (fieldsChanged[2] == 1 || markerLength != truelength) {
-            fieldsChanged[2] = 1;
-        } else {
-            fieldsChanged[2] = 0;
-        }
-
-        Toast.makeText(this, "" + fieldsChanged[0] + " " + fieldsChanged[1] +
-                "" + fieldsChanged[2], Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "" + fieldsChanged[0] + " " + fieldsChanged[1] +
+//                "" + fieldsChanged[2], Toast.LENGTH_SHORT).show();
         BatchDetails batchDetails = new BatchDetails();
         batchDetails.setFacultyMobile(facultyLists.get(spinnerFacultyIndex).getMobile());
         batchDetails.setBatchList(batchList);
-        batchDetails.setStudentNames(studentNamesList);
+//        batchDetails.setStudentNames(studentNamesList);
         String bid = getIntent().getStringExtra(Constants.BATCHID).substring(5).trim();
         batchDetails.setBid(bid);
 
-        StringBuilder deletedBuilder=new StringBuilder();
-        for (String s:deletedSchedules){
+        StringBuilder deletedBuilder = new StringBuilder();
+        for (String s : deletedSchedules) {
             deletedBuilder.append(s).append("|");
         }
 
-        if(deletedBuilder.length()>0) {
+        if (deletedBuilder.length() > 0) {
             deletedBuilder.deleteCharAt(deletedBuilder.length() - 1);
             editSchedulesViewModel.deleteBatches(deletedBuilder.toString())
                     .observe(this, s -> {
@@ -356,50 +354,58 @@ public class EditSchedules extends AppCompatActivity {
 //
 //        });
         }
-        StringBuilder modifiedbuilder=new StringBuilder();
-        for (String s:modifiedSchedules){
+        StringBuilder modifiedbuilder = new StringBuilder();
+        for (String s : modifiedSchedules) {
             modifiedbuilder.append(s).append("|");
         }
-        if(modifiedbuilder.length()>0) {
+
+        if (modifiedbuilder.length() > 0) {
+//            Timber.d("I am in faculty");
             modifiedbuilder.deleteCharAt(modifiedbuilder.length() - 1);
-            editSchedulesViewModel.modifyBatches(modifiedbuilder.toString(), facultyLists.get(spinnerFacultyIndex).getMobile(), startTimeBuilder.toString(), endTimeBuilder.toString(), dayBuilder.toString(), bid).observe(this, new Observer<String>() {
-                @Override
-                public void onChanged(@Nullable String s) {
-                    Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show();
-                    if(s!=null){
-                        setResultCode(s);
-                    }
-
-                }
-            });
         }
-        StringBuilder newSchedulesstarttime=new StringBuilder();
-        StringBuilder newSchedulesendtime=new StringBuilder();
-        StringBuilder newSchedulesdayidtime=new StringBuilder();
+        editSchedulesViewModel.modifyBatches(modifiedbuilder.toString(), facultyLists.get(spinnerFacultyIndex).getMobile(), startTimeBuilder.toString(), endTimeBuilder.toString(), dayBuilder.toString(), bid).observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show();
+                Timber.d(s);
+                if (s != null) {
+                    setResultCode(s);
+                }
 
-        for(int i=0;i<scheduleInsertionList.size();i++){
-            EditScheduleInsertion editScheduleInsertion=scheduleInsertionList.get(i);
-            String stime=editScheduleInsertion.startTime;
-            String etime=editScheduleInsertion.endTime;
-            String dayid=editScheduleInsertion.day_id;
+            }
+        });
+
+        StringBuilder newSchedulesstarttime = new StringBuilder();
+        StringBuilder newSchedulesendtime = new StringBuilder();
+        StringBuilder newSchedulesdayidtime = new StringBuilder();
+
+        for (int i = 0; i < scheduleInsertionList.size(); i++) {
+            EditScheduleInsertion editScheduleInsertion = scheduleInsertionList.get(i);
+            String stime = editScheduleInsertion.startTime;
+            String etime = editScheduleInsertion.endTime;
+            String dayid = editScheduleInsertion.day_id;
             newSchedulesdayidtime.append(dayid).append("|");
             newSchedulesstarttime.append(stime).append("|");
             newSchedulesendtime.append(etime).append("|");
 
         }
-        if(newSchedulesdayidtime.length()>0)newSchedulesdayidtime.deleteCharAt(newSchedulesdayidtime.length()-1);
-        if(newSchedulesendtime.length()>0)newSchedulesendtime.deleteCharAt(newSchedulesendtime.length()-1);
-        if(newSchedulesstarttime.length()>0)newSchedulesstarttime.deleteCharAt(newSchedulesstarttime.length()-1);
-        editSchedulesViewModel.insertEditedBatches(newSchedulesstarttime.toString(),newSchedulesendtime.toString(),newSchedulesdayidtime.toString(),
-                bid,flagSwitched).observe(this, s -> {
-                    Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show();
-                    if(s!=null){
-                        setResultCode(s);
-                    }
-        });
+        if (newSchedulesdayidtime.length() > 0)
+            newSchedulesdayidtime.deleteCharAt(newSchedulesdayidtime.length() - 1);
+        if (newSchedulesendtime.length() > 0)
+            newSchedulesendtime.deleteCharAt(newSchedulesendtime.length() - 1);
+        if (newSchedulesstarttime.length() > 0)
+            newSchedulesstarttime.deleteCharAt(newSchedulesstarttime.length() - 1);
+        if (newSchedulesdayidtime.length() > 0 && newSchedulesendtime.length() > 0 && newSchedulesstarttime.length() > 0) {
+            editSchedulesViewModel.insertEditedBatches(newSchedulesstarttime.toString(), newSchedulesendtime.toString(), newSchedulesdayidtime.toString(),
+                    bid, flagSwitched).observe(this, s -> {
+                Toast.makeText(EditSchedules.this, s, Toast.LENGTH_SHORT).show();
+                if (s != null) {
+                    setResultCode(s);
+                }
+            });
 
 
-
+        }
     }
 
     private void setResultCode(String s) {
@@ -408,53 +414,53 @@ public class EditSchedules extends AppCompatActivity {
         }
     }
 
-    private void setStudents() {
-        editSchedulesViewModel.getStudents(coursename, coursemodulename).observe(this, studentInfos -> {
-
-            studentInfoArrayList = studentInfos;
-            if (studentInfos != null && studentInfos.size() > 0) {
-
-
-                studentInfoArrayAdapter = new ArrayAdapter<>(EditSchedules.this, android
-                        .R.layout.simple_spinner_dropdown_item, studentInfos);
-                tempStudenList = new ArrayList<>();
-                tempStudenList.addAll(studentInfos);
-
-                for (int i = 0; i < tempStudenList.size(); i++) {
-
-                    System.out.println(i);
-                    Timber.d("Names of students: %s%s", tempStudenList.get(i).getName(), tempStudenList.size());
-                }
-
-
-                editscheduleBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, multiSpinnerListener);
-
-
-            }
-            if (studentInfos != null) {
-                if (studentInfoArrayAdapter != null) {
-
-                    selectedItems = new boolean[studentInfoArrayAdapter.getCount()];
-                    for (int ii = 0; ii < studentInfoArrayAdapter.getCount(); ii++) {
-
-                        if (studentInfos.get(ii).getMarker() == 1) {
-                            selectedItems[ii] = true;
-
-
-                        }
-                    }
-                    editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
-
-                }
-
-            }
-
-        });
-    }
+//    private void setStudents() {
+//        editSchedulesViewModel.getStudents(coursename, coursemodulename).observe(this, studentInfos -> {
+//
+//            studentInfoArrayList = studentInfos;
+//            if (studentInfos != null && studentInfos.size() > 0) {
+//
+//
+//                studentInfoArrayAdapter = new ArrayAdapter<>(EditSchedules.this, android
+//                        .R.layout.simple_spinner_dropdown_item, studentInfos);
+//                tempStudenList = new ArrayList<>();
+//                tempStudenList.addAll(studentInfos);
+//
+//                for (int i = 0; i < tempStudenList.size(); i++) {
+//
+//                    System.out.println(i);
+//                    Timber.d("Names of students: %s%s", tempStudenList.get(i).getName(), tempStudenList.size());
+//                }
+//
+//
+////                editscheduleBinding.spinnerMultiNew.setAdapter(studentInfoArrayAdapter, false, multiSpinnerListener);
+//
+//
+//            }
+//            if (studentInfos != null) {
+//                if (studentInfoArrayAdapter != null) {
+//
+//                    selectedItems = new boolean[studentInfoArrayAdapter.getCount()];
+//                    for (int ii = 0; ii < studentInfoArrayAdapter.getCount(); ii++) {
+//
+//                        if (studentInfos.get(ii).getMarker() == 1) {
+//                            selectedItems[ii] = true;
+//
+//
+//                        }
+//                    }
+////                    editscheduleBinding.spinnerMultiNew.setSelected(selectedItems);
+//
+//                }
+//
+//            }
+//
+//        });
+//    }
 
     private void getSelectedBatchSchedule() {
         String batchid = getIntent().getStringExtra(Constants.BATCHID).substring(5).trim();
-        Toast.makeText(this, "" + batchid, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "" + batchid, Toast.LENGTH_SHORT).show();
         editSchedulesViewModel.getSchedule(batchid).observe(this, editBatchScheduleList -> {
             if (editBatchScheduleList != null) {
                 if (editBatchScheduleList.getThrowable() == null) {
@@ -617,25 +623,25 @@ public class EditSchedules extends AppCompatActivity {
 //        pickerDialog.show();
 //    }
 
-    private boolean isBatchStartChangeable() {
-        String date = getTodaysDate();
-        String batchDate = editscheduleBinding.calenderbatchstartdate.getText().toString();
-        try {
-            String myFormatString = "yyyy-MM-dd";
-            SimpleDateFormat df = new SimpleDateFormat(myFormatString, Locale.getDefault());
-            Date date1 = df.parse(batchDate);
-            Date startingDate = df.parse(date);
-            return date1.after(startingDate);
-        } catch (ParseException e) {
+//    private boolean isBatchStartChangeable() {
+//        String date = getTodaysDate();
+//        String batchDate = editscheduleBinding.calenderbatchstartdate.getText().toString();
+//        try {
+//            String myFormatString = "yyyy-MM-dd";
+//            SimpleDateFormat df = new SimpleDateFormat(myFormatString, Locale.getDefault());
+//            Date date1 = df.parse(batchDate);
+//            Date startingDate = df.parse(date);
+//            return date1.after(startingDate);
+//        } catch (ParseException e) {
+//
+//            return false;
+//        }
+//
+//    }
 
-            return false;
-        }
-
-    }
-
-    private String getTodaysDate() {
-        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-    }
+//    private String getTodaysDate() {
+//        return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+//    }
 
     private void checkIntent() {
         Intent intent = getIntent();
