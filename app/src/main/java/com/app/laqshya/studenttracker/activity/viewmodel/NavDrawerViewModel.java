@@ -210,8 +210,8 @@ public class NavDrawerViewModel extends ViewModel {
                 fragmentTitle.setValue("Add Student");
                 return new AddStudentFragment();
             case 3:
-                fragmentTitle.setValue("Fees");
-                return new FeesStatusFragment();
+                fragmentTitle.setValue("Manage Student");
+                return new ManageStudentFragment();
             case 4:
                 fragmentTitle.setValue("Attendance");
                 return new AttendanceFragment();

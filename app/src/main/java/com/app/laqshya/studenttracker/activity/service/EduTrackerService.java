@@ -29,9 +29,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface EduTrackerService {
-
-    String ENDPOINT = "http://10.0.0.7/student_tracker/";
-
+    String ENDPOINT = "http://10.0.0.8/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -197,6 +195,9 @@ public interface EduTrackerService {
     @FormUrlEncoded
     @POST("fetchpdfs.php")
     Single<List<PDFDoc>> getPdfs(@Field("studentid")String studentid);
+    @FormUrlEncoded
+    @POST("getStudentDetails.php")
+    Single<List<ResponseBody>> getStudentinfoCounsellor(@Field("counsellorid")String  counsellorid);
 
 
 
