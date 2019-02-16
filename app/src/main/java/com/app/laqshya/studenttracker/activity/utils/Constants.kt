@@ -62,13 +62,15 @@ interface Constants {
         const val  COUNSELLOR="counsellor"
         const val ADMIN="admin"
         const val STUDENT="student"
+        const  val TAG_ADD_SYLLABUS="add_syllabus"
         const val FACULTY="faculty"
+        const val TAG_NOTES="notes"
         const val WEBSITE_URL = "http://www.laqshyainfosoft.com/privacypolicy"
         const val PAYMENT_URL = "https://easebuzz.in/pay/laqshya.in"
         const val FORM_URL = "https://docs.google.com/forms/d/10vW47C_Om9li9aIPlIrCAtH3uA5Li5OOEzJwuC7hIXo/edit"
         const val urlNavHeaderBg = "http://www.gizmobolt.com/wp-content/uploads/2014/11/14-77.jpg"
         const val urlProfileImg = "https://lh5.ggpht.com/_xFgbdzVyFUkNwZXiqgwu0YoBJSfaWk6yu9JWqe635QMb1J5EfeXLeol1-dJEE26y_c=w300"
-
+        const val PDF_SITE_URL = "http://10.0.0.8/student_tracker/"
         const val BATCHORCENTER="batchOrCenter"
 
 

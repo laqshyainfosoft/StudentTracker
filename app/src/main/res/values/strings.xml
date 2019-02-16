@@ -219,6 +219,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="readnotes">Read Notes</string>
 
     <string name="refer_us">Refer us to your friends. So they will get right guidance towards their career by accessing our services and they will able to contact us easily. They will also get a healthy discount as your friends comes to us on your referral and some incentives will be provided to you too.</string>
 </resources>

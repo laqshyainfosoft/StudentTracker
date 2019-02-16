@@ -12,6 +12,11 @@
             android:id="@+id/nav_syllabus_student"
             android:icon="@drawable/syllabus"
             android:title="@string/nav_syllabus" />
+        <item
+            android:id="@+id/nav_notes"
+            android:icon="@drawable/syllabus"
+            android:title="@string/readnotes" />
+
 
         <item
             android:id="@+id/nav_notifications_student"

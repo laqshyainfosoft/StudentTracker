@@ -8,9 +8,11 @@ import com.app.laqshya.studenttracker.activity.fragments.AttendanceFragment;
 import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FacultyBatchCardsFragment;
+import com.app.laqshya.studenttracker.activity.fragments.FeesStatusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.NotificationsFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudentAttendanceByFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudentReceivedNotificationFragment;
+import com.app.laqshya.studenttracker.activity.fragments.StudyMaterialFragment;
 import com.app.laqshya.studenttracker.activity.fragments.SyllabusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.AllStudentsAllCentresFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.PendingFragment;
@@ -22,7 +24,7 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module(includes = {MainActivityModule.class, MainScreenNavigationModule.class, AddScheduleModule.class, EditScheduleModule.class,
-        BroadcastModule.class, NotificationModule.class})
+        BroadcastModule.class, NotificationModule.class,StudentDetailsModule.class})
 abstract class StudentBindingModule {
     @ContributesAndroidInjector
     abstract MainActivity getMainActivity();
@@ -70,5 +72,10 @@ abstract class StudentBindingModule {
     abstract SyllabusFragment syllabusFragment();
     @ContributesAndroidInjector
     abstract FacultyBatchCardsFragment facultyBatchCardsFragment();
+    @ContributesAndroidInjector
+    abstract FeesStatusFragment feesStatusFragment();
+    @ContributesAndroidInjector
+    abstract StudyMaterialFragment studyMaterialFragment();
+
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -50,7 +50,7 @@
 
                 android:layout_toEndOf="@+id/date_img"
 
-                android:hint="12/01/2018"
+                tools:text="12/01/2018"
                 android:text="@{syllabusItem.syllabus_date}" />
 
             <ImageView
@@ -86,8 +86,22 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="20dp"
                 android:layout_toEndOf="@+id/topic_img"
-                android:hint="Android"
+                tools:text="Android"
                 android:text="@{syllabusItem.topic}" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Present"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:id="@+id/syllabusstatus"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/holo_green_dark"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
 

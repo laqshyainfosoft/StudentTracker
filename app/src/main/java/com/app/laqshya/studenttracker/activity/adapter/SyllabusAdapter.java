@@ -1,6 +1,8 @@
 package com.app.laqshya.studenttracker.activity.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -47,6 +49,11 @@ public class SyllabusAdapter extends RecyclerView.Adapter<SyllabusAdapter.MyView
 
         void bind(SyllabusList.Syllabus syllabus) {
             syllabusBinding.setSyllabusItem(syllabus);
+            if(syllabus.getStatus().equals("0")){
+                syllabusBinding.syllabusstatus.setText("Absent");
+                syllabusBinding.syllabusstatus.setBackgroundColor(Color.RED);
+            }
+
             syllabusBinding.executePendingBindings();
 //            notificationItemBinding.executePendingBindings();
         }

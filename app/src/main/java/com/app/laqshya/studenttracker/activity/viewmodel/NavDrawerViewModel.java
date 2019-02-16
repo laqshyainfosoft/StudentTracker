@@ -28,6 +28,8 @@ import com.app.laqshya.studenttracker.activity.fragments.PrivacyPolicyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.Refer_Friendfragment;
 import com.app.laqshya.studenttracker.activity.fragments.ScheduleBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudentAttendanceByFacultyFragment;
+import com.app.laqshya.studenttracker.activity.fragments.StudentReceivedNotificationFragment;
+import com.app.laqshya.studenttracker.activity.fragments.StudyMaterialFragment;
 import com.app.laqshya.studenttracker.activity.fragments.SyllabusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
@@ -247,28 +249,31 @@ public class NavDrawerViewModel extends ViewModel {
                 fragmentTitle.setValue("SyllabusList");
                 return new SyllabusFragment();
             case 2:
+                fragmentTitle.postValue("Read Notes");
+                return new StudyMaterialFragment();
+            case 3:
                 fragmentTitle.setValue("Notification");
                 // notifications fragment
-                return new NotificationsFragment();
-            case 3:
+                return new StudentReceivedNotificationFragment();
+            case 4:
                 // broadcast fragment
                 fragmentTitle.setValue("Refer Friend");
                 return new Refer_Friendfragment();
-            case 4:
+            case 5:
                 fragmentTitle.setValue("Feedback");
                 return new FeedbackFragment();
-            case 5:
+            case 6:
                 fragmentTitle.setValue("Payment");
                 return new PaymentFragment();
-            case 6:
+            case 7:
                 //contactadmin
                 fragmentTitle.setValue("Contact Us");
                 return new ContactFragment();
-            case 7:
+            case 8:
                 fragmentTitle.setValue("About Developers");
                 // settings fragment
                 return new AboutDevelopersFragment();
-            case 8:
+            case 9:
                 fragmentTitle.setValue("Privacy Policy");
                 //  privacypolicy fragment
                 return new PrivacyPolicyFragment();

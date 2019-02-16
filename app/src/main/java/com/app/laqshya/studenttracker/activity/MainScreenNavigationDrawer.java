@@ -117,6 +117,8 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                                 break;
                             case R.id.add_syllabus:
                                 navItemIndex = 4;
+                                CURRENT_TAG=Constants.TAG_ADD_SYLLABUS;
+
                                 break;
                             case R.id.managestudentfees:
                                 navItemIndex = 5;
@@ -254,32 +256,36 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                                 navItemIndex = 1;
                                 CURRENT_TAG = Constants.TAG_SYLLABUS;
                                 break;
+                            case R.id.nav_notes:
+                                navItemIndex=2;
+                                CURRENT_TAG=Constants.TAG_NOTES;
+                                break;
                             case R.id.nav_notifications_student:
-                                navItemIndex = 2;
+                                navItemIndex = 3;
                                 CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
                                 break;
                             case R.id.nav_refer_friend_student:
-                                navItemIndex = 3;
+                                navItemIndex = 4;
                                 CURRENT_TAG = Constants.TAG_refer_friend;
                                 break;
                             case R.id.feedback:
-                                navItemIndex = 4;
+                                navItemIndex = 5;
                                 CURRENT_TAG = Constants.TAG_FEEDBACK;
                                 break;
                             case R.id.payment:
-                                navItemIndex = 5;
+                                navItemIndex = 6;
                                 CURRENT_TAG = Constants.TAG_PAYMENT;
                                 break;
                             case R.id.nav_contact_student:
-                                navItemIndex = 6;
+                                navItemIndex = 7;
                                 CURRENT_TAG = Constants.TAG_CONTACT;
                                 break;
                             case R.id.nav_settings_student:
-                                navItemIndex = 7;
+                                navItemIndex = 8;
                                 CURRENT_TAG = Constants.TAG_ABOUT_DEVELOPERS;
                                 break;
                             case R.id.nav_privacy_policy_student:
-                                navItemIndex = 8;
+                                navItemIndex = 9;
                                 CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
                                 break;
                             default:

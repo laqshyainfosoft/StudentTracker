@@ -10,9 +10,12 @@ import com.app.laqshya.studenttracker.activity.model.EditBatchScheduleList;
 import com.app.laqshya.studenttracker.activity.model.FacultyCourse;
 import com.app.laqshya.studenttracker.activity.model.FacultyList;
 import com.app.laqshya.studenttracker.activity.model.FacultyNotification;
+import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.model.LoginModel;
+import com.app.laqshya.studenttracker.activity.model.PDFDoc;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.model.SyllabusList;
+import com.app.laqshya.studenttracker.activity.model.student_self.StudentDetailsModel;
 
 import java.util.List;
 
@@ -26,7 +29,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://10.0.0.7/student_tracker/";
+    String ENDPOINT = "http://10.0.0.8/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -183,6 +186,15 @@ public interface EduTrackerService {
     @FormUrlEncoded
     @POST("getfacultybatchinfo.php")
     Single<List<FacultyCourse>> getFacultyCourseBatches(@Field("faculty_id")String facultymobile);
+    @FormUrlEncoded
+    @POST("student_self_details.php")
+    Single<List<StudentDetailsModel>> getstudentSelfDetails(@Field("student_mobile")String student_mobile);
+    @FormUrlEncoded
+    @POST("student_installment_details.php")
+    Single<List<Installments>> getstudentSelfDetailsInstallments(@Field("student_mobile")String student_mobile);
+    @FormUrlEncoded
+    @POST("fetchpdfs.php")
+    Single<List<PDFDoc>> getPdfs(@Field("studentid")String studentid);
 
 
 

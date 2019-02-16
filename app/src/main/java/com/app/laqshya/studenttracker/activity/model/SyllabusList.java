@@ -26,7 +26,17 @@ public class SyllabusList {
         private String syllabus_date;
         private String topic;
 
-        public String getSyllabus_date() {
+        private String status;
+
+      public String getStatus() {
+          return status;
+      }
+
+      public void setStatus(String status) {
+          this.status = status;
+      }
+
+      public String getSyllabus_date() {
             return syllabus_date;
         }
 

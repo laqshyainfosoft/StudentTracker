@@ -30,6 +30,13 @@ android {
     dataBinding {
         enabled = true
     }
+    kapt {
+        javacOptions {
+            // Increase the max count of errors from annotation processors.
+            // Default is 100.
+            option("-Xmaxerrs", 500)
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -91,6 +98,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.github.kk121:File-Loader:1.5'
+    implementation 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
     implementation project(':custom_spinner_library')
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
