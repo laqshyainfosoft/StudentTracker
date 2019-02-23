@@ -13,10 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <Spinner
+            android:id="@+id/filter_batches"
+            style="@style/spinner_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp" />
+
         <RelativeLayout
             android:id="@+id/frameLayout_batch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/filter_batches"
             android:background="#ffffff">
 
             <LinearLayout
@@ -26,8 +35,8 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="bottom|center|start"
                 android:layout_marginLeft="16.0dp"
-                android:layout_marginRight="16.0dp"
                 android:layout_marginTop="26.0dp"
+                android:layout_marginRight="16.0dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -84,10 +93,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/teacherName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5.0dp"
-                    android:id="@+id/teacherName"
                     android:gravity="center_vertical">
 
                     <ImageView
@@ -100,10 +109,10 @@
                         android:id="@+id/teacher_line1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="2.0dp"
                         android:layout_marginStart="2.0dp"
-                        android:paddingLeft="2.0dp"
+                        android:layout_marginLeft="2.0dp"
                         android:paddingStart="2.0dp"
+                        android:paddingLeft="2.0dp"
                         android:text="@{batchattendancemodel.getFacultyName()}"
                         android:textColor="#ea5127"
                         tools:text="Bismeet" />
@@ -122,30 +131,38 @@
 
                     <TextView
                         android:id="@+id/location_line2"
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="2.0dp"
                         android:layout_marginStart="2.0dp"
-                        android:paddingLeft="2.0dp"
+                        android:layout_marginLeft="2.0dp"
                         android:paddingStart="2.0dp"
+                        android:paddingLeft="2.0dp"
                         android:textColor="#ea5127"
-
                         tools:text="Andheri" />
+
                 </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/deleted_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentEnd="true"
+                android:text="Deleted"
+                android:textColor="#ea5127" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/optionsLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentStart="false"
-            android:layout_margin="10dp"
             android:layout_below="@+id/frameLayout_batch"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="false"
+            android:layout_margin="10dp"
             android:background="#e6e6e6"
             android:orientation="horizontal">
 
@@ -192,6 +209,7 @@
                 android:background="@drawable/delete_selector"
                 android:clickable="true"
                 android:focusable="true" />
+
             <ImageButton
                 android:id="@+id/completebatchcounsellor"
                 android:layout_width="24.0dp"
@@ -219,8 +237,8 @@
                 android:id="@+id/scheduleLayout_batch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
                 android:layout_below="@+id/viewRecords_batch"
+                android:layout_alignParentBottom="false"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
                 android:padding="10dp"
@@ -262,25 +280,26 @@
                     android:id="@+id/s_data_batch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10.0dp"
-                    android:layout_marginLeft="16.0dp"
                     android:layout_marginStart="16.0dp"
+                    android:layout_marginLeft="16.0dp"
                     android:layout_marginTop="5.0dp"
+                    android:layout_marginBottom="10.0dp"
                     android:text="@string/no_schedule"
                     android:textColor="#ea5127" />
-                
+
             </LinearLayout>
         </RelativeLayout>
-        
+
         <View
-            android:layout_below="@+id/optionsLayout"
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1.0dp"
+            android:layout_below="@+id/optionsLayout"
             android:layout_marginLeft="10.0dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10.0dp"
-            android:background="#ea5127"
-            android:layout_marginTop="20dp"/>
+            android:background="#ea5127" />
+
     </RelativeLayout>
 </layout>
 

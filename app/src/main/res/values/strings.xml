@@ -222,4 +222,11 @@
     <string name="readnotes">Read Notes</string>
 
     <string name="refer_us">Refer us to your friends. So they will get right guidance towards their career by accessing our services and they will able to contact us easily. They will also get a healthy discount as your friends comes to us on your referral and some incentives will be provided to you too.</string>
+
+    <string-array name="schedule_batch_details">
+        <item>All</item>
+        <item>Running</item>
+        <item>Completed</item>
+        <item>Deleted</item>
+    </string-array>
 </resources>
