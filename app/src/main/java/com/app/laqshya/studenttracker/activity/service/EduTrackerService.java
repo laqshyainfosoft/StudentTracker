@@ -18,18 +18,24 @@ import com.app.laqshya.studenttracker.activity.model.SyllabusList;
 import com.app.laqshya.studenttracker.activity.model.student_self.StudentDetailsModel;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://10.0.0.8/student_tracker/";
+    String ENDPOINT = "http://192.168.0.7/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -198,6 +204,9 @@ public interface EduTrackerService {
     @FormUrlEncoded
     @POST("getStudentDetails.php")
     Single<List<ResponseBody>> getStudentinfoCounsellor(@Field("counsellorid")String  counsellorid);
+    @Multipart
+    @POST("uploadpdf.php")
+    Single<ResponseBody> uploadPdf(@PartMap() Map<String,RequestBody> description, @Part List<MultipartBody.Part> files);
 
 
 
