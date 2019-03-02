@@ -1,9 +1,12 @@
 package com.app.laqshya.studenttracker.activity.utils
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.text.TextUtils
 import android.util.Patterns
+import com.app.laqshya.studenttracker.activity.model.UploadModel
+import com.google.gson.Gson
 import timber.log.Timber
 
 
@@ -17,8 +20,9 @@ object Utils {
     fun isValidPassword(password: String): Boolean {
         return password.isNotEmpty();
     }
+
     @JvmStatic
-    fun isValidEmail(email:String):Boolean{
+    fun isValidEmail(email: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
@@ -54,6 +58,19 @@ object Utils {
 
 
     }
+
+//    @JvmStatic
+//    fun serializeToJson(uploadModel: UploadModel): String {
+//        val gson = Gson()
+//        return gson.toJson(uploadModel)
+//    }
+//
+//    @JvmStatic
+//    // Deserialize to single object.
+//    fun deserializeFromJson(jsonString: String): UploadModel {
+//        val gson = Gson()
+//        return gson.fromJson(jsonString, UploadModel::class.java)
+//    }
 
 
 }

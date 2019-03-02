@@ -3,6 +3,7 @@ package com.app.laqshya.studenttracker.activity.repository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.Schedule;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
 
@@ -26,35 +27,61 @@ public class PDFRepository {
     public PDFRepository(EduTrackerService eduTrackerService) {
         this.eduTrackerService = eduTrackerService;
     }
-    public LiveData<String> uploadFile(Map<String, RequestBody> description, List<MultipartBody.Part> files){
 
-        MutableLiveData<String> stringLiveData=new MutableLiveData<>();
-        eduTrackerService.uploadPdf(description,files).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<ResponseBody>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+    public LiveData<List<CourseModuleList>> getModules(){
 
-            }
 
-            @Override
-            public void onSuccess(ResponseBody responseBody) {
-//                try {
+//        eduTrackerService.getAllModules().
+        MutableLiveData<List<CourseModuleList>> course=new MutableLiveData<>();
 
-                    Timber.d(responseBody.toString());
-                    stringLiveData.postValue(responseBody.toString());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                    stringLiveData.postValue("Error");
-//                }
+        eduTrackerService.getAllModules().subscribeOn(Schedulers.io())
+                .subscribe(new SingleObserver<List<CourseModuleList>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            }
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                stringLiveData.postValue("Error"+e.getMessage());
+                    @Override
+                    public void onSuccess(List<CourseModuleList> courseModuleLists) {
+                        course.postValue(courseModuleLists);
 
-            }
-        });
-        return stringLiveData;
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+
+                    }
+                });
+        return course;
+    }
+    public LiveData<List<CourseModuleList>> getModulesForFaculty(String facultyId){
+
+
+//        eduTrackerService.getAllModules().
+        MutableLiveData<List<CourseModuleList>> course=new MutableLiveData<>();
+
+        eduTrackerService.getAllModulesForFaculty(facultyId).subscribeOn(Schedulers.io())
+                .subscribe(new SingleObserver<List<CourseModuleList>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<CourseModuleList> courseModuleLists) {
+                        course.postValue(courseModuleLists);
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+
+                    }
+                });
+        return course;
     }
 }

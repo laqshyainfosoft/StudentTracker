@@ -57,6 +57,7 @@ public class FacultyBatchCardAdapter extends RecyclerView.Adapter<FacultyBatchCa
         void bind(FacultyCourse facultyCourse){
             facultyAttendanceBatchesBinding.setCourses(facultyCourse);
             facultyAttendanceBatchesBinding.executePendingBindings();
+//            facultyAttendanceBatchesBinding.
             facultyAttendanceBatchesBinding.getRoot().setOnClickListener((v -> {
                 onFacultyBatchClickListner.onClickFacultyCard(facultyCourse.getBatchid());
             }));

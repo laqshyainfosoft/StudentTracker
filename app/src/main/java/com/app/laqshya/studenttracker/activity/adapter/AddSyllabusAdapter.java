@@ -35,6 +35,7 @@ public class AddSyllabusAdapter extends RecyclerView.Adapter<AddSyllabusAdapter.
     }
 
     public void setPdfDocList(List<PDFDoc> pdfDocListitem) {
+
         pdfDocList=new PDFDoc.PDFList(pdfDocListitem);
         notifyDataSetChanged();
     }

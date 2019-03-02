@@ -286,7 +286,7 @@ public class AddStudentFragment extends Fragment {
         }
 
 
-        if (isValid && Utils.isNetworkConnected(getActivity())) {
+        if (getActivity()!=null && isValid && Utils.isNetworkConnected(getActivity())) {
             coursesStudent.setDownpayment(downPayment);
             coursesStudent.setFees(totalFees);
             coursesStudent.setInstallmentsList(installmentsLists);

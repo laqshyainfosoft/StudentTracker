@@ -15,6 +15,7 @@ import com.app.laqshya.studenttracker.activity.fragments.BroadcastFragment;
 import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.ContactFragment;
 import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
+import com.app.laqshya.studenttracker.activity.fragments.FacultyBatchCardsFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FeedbackFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FeesStatusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.HomeFragmentAdmin;
@@ -62,6 +63,7 @@ public class NavDrawerViewModel extends ViewModel {
             case 1:
                 fragmentTitle.setValue("Add Counsellor");
                 return new AddCounsellorFragment();
+
             case 2:
                 fragmentTitle.setValue("Add Faculty");
                 // performance
@@ -176,10 +178,10 @@ public class NavDrawerViewModel extends ViewModel {
                 return new HomeFragmentFaculty();
             case 1:
                 fragmentTitle.setValue("Attendance");
-                return new StudentAttendanceByFacultyFragment();
-//            case  2:
-//                fragmentTitle.setValue("Student Performance");
-//                return new FacultyPerformanceFragment();
+                return new FacultyBatchCardsFragment();
+            case  2:
+                fragmentTitle.setValue("Add Syllabus Books");
+                return new AddSyllabusFragment();
             case 3:
                 fragmentTitle.setValue("Notification");
                 return new NotificationsFragment();

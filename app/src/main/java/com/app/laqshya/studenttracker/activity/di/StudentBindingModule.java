@@ -20,6 +20,7 @@ import com.app.laqshya.studenttracker.activity.fragments.notifications.PendingFr
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
+import com.app.laqshya.studenttracker.activity.service.UploadService;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -79,6 +80,8 @@ abstract class StudentBindingModule {
     abstract StudyMaterialFragment studyMaterialFragment();
     @ContributesAndroidInjector
     abstract AddSyllabusFragment addSyllabusFragment();
+    @ContributesAndroidInjector
+    abstract UploadService uploadService();
 
 
 }

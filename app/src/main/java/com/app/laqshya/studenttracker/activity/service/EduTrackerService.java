@@ -35,7 +35,7 @@ import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.0.7/student_tracker/";
+    String ENDPOINT = "http://192.168.0.120/student_tracker/";
 
     @FormUrlEncoded
     @POST("login.php")
@@ -173,7 +173,7 @@ public interface EduTrackerService {
 
     @FormUrlEncoded
     @POST("getStudentForAttendance.php")
-    Single<List<StudentInfo>> getStudentInfoForAttendance(@Field("batch_id")String  batch_id);
+    Single<List<StudentInfo>>   getStudentInfoForAttendance(@Field("batch_id")String  batch_id);
 
     @FormUrlEncoded
     @POST("saveAttendance.php")
@@ -206,7 +206,12 @@ public interface EduTrackerService {
     Single<List<ResponseBody>> getStudentinfoCounsellor(@Field("counsellorid")String  counsellorid);
     @Multipart
     @POST("uploadpdf.php")
-    Single<ResponseBody> uploadPdf(@PartMap() Map<String,RequestBody> description, @Part List<MultipartBody.Part> files);
+    Single<ResponseBody> uploadPdf(@Part("course_module_name")RequestBody name, @PartMap() Map<String, RequestBody> description, @Part List<MultipartBody.Part> files);
+    @POST("getallmodules.php")
+    Single<List<CourseModuleList>> getAllModules();
+    @FormUrlEncoded
+    @POST("getallmodulesForfaculty.php")
+    Single<List<CourseModuleList>> getAllModulesForFaculty(@Field("facultyId")String facultyid);
 
 
 

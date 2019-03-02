@@ -158,6 +158,14 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                                 navItemIndex = 0;
                                 CURRENT_TAG = Constants.TAG_HOME;
                                 break;
+                            case R.id.add_faculty:
+                                navItemIndex = 1;
+                                CURRENT_TAG = Constants.TAG_ADD_FACULTY;
+                                break;
+                            case R.id.add_student:
+                                navItemIndex = 2;
+                                CURRENT_TAG = Constants.TAG_ADD_STUDENT;
+                                break;
                             case R.id.nav_feesstatus_officestaff:
                                 navItemIndex = 3;
                                 CURRENT_TAG = Constants.TAG_FEESSTATUS;
@@ -188,14 +196,7 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                                 navItemIndex = 9;
                                 CURRENT_TAG = Constants.TAG_ABOUT_DEVELOPERS;
                                 break;
-                            case R.id.add_faculty:
-                                navItemIndex = 1;
-                                CURRENT_TAG = Constants.TAG_ADD_FACULTY;
-                                break;
-                            case R.id.add_student:
-                                navItemIndex = 2;
-                                CURRENT_TAG = Constants.TAG_ADD_STUDENT;
-                                break;
+
 
 
                             case R.id.nav_privacy_policy_officestaff:
@@ -215,14 +216,14 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                                 CURRENT_TAG = Constants.TAG_HOME;
                                 break;
                             case R.id.nav_attendance_faculty:
-                                activityMainScreenDrawerBinding.appbarmain.fabAttendance.show();
+//                                activityMainScreenDrawerBinding.appbarmain.fabAttendance.show();
                                 navItemIndex = 1;
                                 CURRENT_TAG = Constants.TAG_ATTENDANCE;
                                 break;
-//                            case R.id.nav_performance_faculty:
-//                                navItemIndex = 2;
-//                                CURRENT_TAG = Constants.TAG_PERFORMANCE;
-//                                break;
+                            case R.id.addSyllabus:
+                                navItemIndex = 2;
+                                CURRENT_TAG = Constants.TAG_ADD_SYLLABUS;
+                                break;
                             case R.id.nav_notifications_faculty:
                                 navItemIndex = 3;
                                 CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
@@ -393,25 +394,25 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
             switch (sessionManager.getLoggedInType()) {
                 case Constants.ADMIN:
 
-                    setUpNav(R.menu.menu_admin, resources.getStringArray(R.array.nav_item_admin_activity_titles));
+                    setUpNav(R.menu.menu_admin);
                     break;
                 case "counsellor":
 
-                    setUpNav(R.menu.menu_counsellor, resources.getStringArray(R.array.nav_item_officestaff_activity_titles));
+                    setUpNav(R.menu.menu_counsellor);
                     break;
                 case "faculty":
 
-                    setUpNav(R.menu.menu_faculty, resources.getStringArray(R.array.nav_item_faculty_activity_titles));
+                    setUpNav(R.menu.menu_faculty);
                     break;
                 case "student":
 
-                    setUpNav(R.menu.menu_student, resources.getStringArray(R.array.nav_item_student_activity_titles));
+                    setUpNav(R.menu.menu_student);
 
             }
         }
     }
 
-    private void setUpNav(int id, String arr[]) {
+    private void setUpNav(int id) {
         activityMainScreenDrawerBinding.navView.getMenu().clear();
         activityMainScreenDrawerBinding.navView.inflateMenu(id);
 

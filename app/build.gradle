@@ -10,7 +10,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.app.laqshya.studenttracker"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         multiDexEnabled true
@@ -51,6 +51,8 @@ final lifecycle = "1.1.1"
 
 dependencies {
     def nav_version = "1.0.0-beta02"
+    def work_version = "1.0.0-rc02"
+
     def lifecycle_version = "2.0.0"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${supportVersion}"
@@ -102,7 +104,9 @@ dependencies {
     implementation 'com.github.barteksc:android-pdf-viewer:3.1.0-beta.1'
     implementation project(':custom_spinner_library')
     implementation 'de.hdodenhof:circleimageview:3.0.0'
-  implementation  'com.github.angads25:filepicker:1.1.1'
+    implementation 'com.github.angads25:filepicker:1.1.1'
+    implementation "android.arch.work:work-runtime:$work_version"
+
 
 }
 repositories {
