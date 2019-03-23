@@ -85,14 +85,11 @@ public class NavDrawerViewModel extends ViewModel {
             case 7:
                 fragmentTitle.setValue("Notifications");
                 return new NotificationsFragment();
+
             case 8:
-                fragmentTitle.setValue("Broadcast");
-                // broadcast fragment
-                return new BroadcastFragment();
-            case 9:
                 fragmentTitle.setValue("About Developers");
                 return new AboutDevelopersFragment();
-            case 10:
+            case 9:
                 fragmentTitle.setValue("Privacy Policy");
                 // privacypolicy fragment
                 return new PrivacyPolicyFragment();

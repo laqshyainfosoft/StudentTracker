@@ -38,6 +38,8 @@ public class UploadService extends Service {
     private NotificationUtils notificationUtils;
     private ArrayList<File> fileList;
     private String coursename;
+    private String uploaderId;
+    private String uploadedFlag;
 
     @Nullable
     @Override
@@ -64,14 +66,11 @@ public class UploadService extends Service {
 
         fileList = (ArrayList<File>) intent.getSerializableExtra("fileList");
         coursename = intent.getStringExtra("coursename");
+        uploaderId=intent.getStringExtra("uploaderId");
+        uploadedFlag=intent.getStringExtra("uploadedFlag");
         Timber.d(coursename);
         Timber.d(fileList.get(0).getName());
         uploadFile();
-
-
-
-
-
         return START_STICKY;
     }
 
@@ -129,7 +128,7 @@ public class UploadService extends Service {
             for (Map.Entry mapEntry : map.entrySet()) {
                 Timber.d(mapEntry.getKey() + " " + mapEntry.getValue());
             }
-            uploadFile(createPartFromString(coursename), map, parts);
+            uploadFile(createPartFromString(coursename), map, parts,createPartFromString(uploaderId),createPartFromString(uploadedFlag));
 
         } else {
             Timber.d("Error Occurred");
@@ -141,10 +140,11 @@ public class UploadService extends Service {
 
     }
 
-    public void uploadFile(RequestBody name, Map<String, RequestBody> description, List<MultipartBody.Part> files) {
+    public void uploadFile(RequestBody name, Map<String, RequestBody> description, List<MultipartBody.Part> files,
+                           RequestBody uploaderId,RequestBody flagUploader) {
 
 
-        eduTrackerService.uploadPdf(name, description, files).subscribeOn(Schedulers.io())
+        eduTrackerService.uploadPdf(name, description, files,uploaderId,flagUploader).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<ResponseBody>() {
             @Override
             public void onSubscribe(Disposable d) {

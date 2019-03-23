@@ -58,15 +58,16 @@ public class StudyMaterialFragment extends Fragment implements OnStudyMaterialCl
             studentDetailsViewModel.getPDFS(sessionManager.getLoggedInUserName())
                     .observe(this, pdfList -> {
                         fragmentStudyMaterialBinding.myProgressBar.setVisibility(View.GONE);
-                        if (pdfList==null || pdfList.getThrowable() != null) {
+                        if (pdfList==null || pdfList.getThrowable() != null || pdfList.getPdfDocList().size()==0) {
                             showSnackBar(getString(R.string.errorwhilefetchingdata));
 
                         } else {
-                            Timber.d(pdfList.getPdfDocList().get(0).getBookname());
+
                             PDFAdapter pdfAdapter=new PDFAdapter(this);
                             fragmentStudyMaterialBinding.pdfGrid.setLayoutManager(new GridLayoutManager(getActivity(),2));
                             fragmentStudyMaterialBinding.pdfGrid.setAdapter(pdfAdapter);
                             pdfAdapter.setPdfDocList(pdfList.getPdfDocList());
+
 
                         }
                     });

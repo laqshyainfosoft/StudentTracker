@@ -47,6 +47,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import retrofit2.Retrofit;
 import timber.log.Timber;
 
 public class AddSchedules extends AppCompatActivity {
@@ -54,6 +55,7 @@ public class AddSchedules extends AppCompatActivity {
     EduTrackerService eduTrackerService;
     @Inject
     SessionManager sessionManager;
+
     @Inject
     AddScheduleFactory addScheduleFactory;
     AddSchedulesViewModel addSchedulesViewModel;

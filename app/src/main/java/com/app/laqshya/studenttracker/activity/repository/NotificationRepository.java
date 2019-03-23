@@ -3,6 +3,7 @@ package com.app.laqshya.studenttracker.activity.repository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.app.laqshya.studenttracker.activity.model.AdminNotification;
 import com.app.laqshya.studenttracker.activity.model.FacultyNotification;
 import com.app.laqshya.studenttracker.activity.model.SyllabusList;
 import com.app.laqshya.studenttracker.activity.service.EduTrackerService;
@@ -42,6 +43,30 @@ public class NotificationRepository {
             }
         });
         return facultyList;
+
+
+    }
+    public LiveData<List<AdminNotification>> getAllnotificationsforadmin() {
+        MutableLiveData<List<AdminNotification>> adminlist = new MutableLiveData<>();
+        eduTrackerService.getallnotifications().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<AdminNotification>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(List<AdminNotification> adminNotifications) {
+                adminlist.postValue(adminNotifications);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+        return adminlist;
 
 
     }

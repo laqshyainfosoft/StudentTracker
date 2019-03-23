@@ -45,10 +45,7 @@
             android:icon="@drawable/bell16"
             android:title="@string/nav_adminnotifications" />
 
-        <item
-            android:id="@+id/nav_broadcast_admin"
-            android:icon="@drawable/ic_surround_sound_black_16dp"
-            android:title="@string/nav_broadcast" />
+
 
         <item
             android:id="@+id/about"

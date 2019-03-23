@@ -3,6 +3,7 @@ package com.app.laqshya.studenttracker.activity.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.app.laqshya.studenttracker.activity.model.AdminNotification;
 import com.app.laqshya.studenttracker.activity.model.FacultyNotification;
 import com.app.laqshya.studenttracker.activity.model.SyllabusList;
 import com.app.laqshya.studenttracker.activity.repository.NotificationRepository;
@@ -20,6 +21,10 @@ public class NotificationAndStudentViewModel extends ViewModel {
 
     public LiveData<List<FacultyNotification>> getFaculty(String facultyid) {
         return notificationRepository.getNotificationForFaculty(facultyid);
+
+    }
+    public LiveData<List<AdminNotification>> getAllNotifications(){
+        return notificationRepository.getAllnotificationsforadmin();
 
     }
 

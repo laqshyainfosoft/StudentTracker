@@ -83,44 +83,45 @@ public class SameBatchFacultyFragment extends Fragment {
 
             String title = broadcastBatchBinding.txtMulTitle.getText().toString();
             String message = broadcastBatchBinding.txtMulMessage.getText().toString();
-            String batchid = notificationBatchAdapter.getIndexSelected();
+            if(notificationBatchAdapter!=null && notificationBatchAdapter.getItemCount()>0) {
+                String batchid = notificationBatchAdapter.getIndexSelected();
+                if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(message) && !batchid.equalsIgnoreCase("0")) {
+                    progressDialog.setTitle("Please Wait");
+                    progressDialog.setMessage("Sending Notification");
+                    progressDialog.show();
+                    String flag = "0";
+                    if (broadcastBatchBinding.checkBoxMul.isChecked()) {
+                        flag = "1";
+                    }
+                    Timber.d("Index %s", notificationBatchAdapter.getIndexSelected());
 
 
-            if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(message) && !batchid.equalsIgnoreCase("0")) {
+                    String selbatchid = batchid.substring(batchid.lastIndexOf("Batch") + 5);
+                    if (Utils.isNetworkConnected(getActivity())) {
 
-                progressDialog.setTitle("Please Wait");
-                progressDialog.setMessage("Sending Notification");
-                progressDialog.show();
-                String flag = "0";
-                if (broadcastBatchBinding.checkBoxMul.isChecked()) {
-                    flag = "1";
-                }
-                Timber.d("Index %s", notificationBatchAdapter.getIndexSelected());
+                        broadcastViewModel.sendSingleFacultyBatchNotification(selbatchid, title, message,
+                                sessionManager.getLoggedInUserName(),
+                                flag).observe(getActivity(), s -> {
+                            if (s != null && s.contains("Error")) {
+                                Toast.makeText(getActivity(), "Failed to send notification", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            } else {
+                                Toast.makeText(getActivity(), "Notification Sent Successfully", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
 
-
-                String selbatchid = batchid.substring(batchid.lastIndexOf("Batch") + 5);
-                if (Utils.isNetworkConnected(getActivity())) {
-
-                    broadcastViewModel.sendSingleFacultyBatchNotification(selbatchid, title, message,
-                            sessionManager.getLoggedInUserName(),
-                            flag).observe(getActivity(), s -> {
-                        if (s != null && s.contains("Error")) {
-                            Toast.makeText(getActivity(), "Failed to send notification", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                        } else {
-                            Toast.makeText(getActivity(), "Notification Sent Successfully", Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                        }
-
-                    });
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), "Please check you internet connection", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(getActivity(), "Please check you internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+
             }
-
-
+            else {
+                Toast.makeText(getActivity(), "No batch selected", Toast.LENGTH_SHORT).show();
+            }
         });
 
 

@@ -45,9 +45,7 @@ public class HomeFragmentAdmin extends Fragment implements View.OnClickListener 
             case R.id.schedule_batches:
                 fragmentTransact(new ScheduleBatchesFragment());
                 break;
-            case R.id.broadcast_batches:
-                fragmentTransact(new BroadcastFragment());
-                break;
+
         }
     }
 

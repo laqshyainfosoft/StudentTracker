@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -21,8 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.laqshya.studenttracker.R;
+import com.app.laqshya.studenttracker.activity.MainActivity;
 import com.app.laqshya.studenttracker.activity.model.CourseModuleList;
 import com.app.laqshya.studenttracker.activity.model.CoursesStudent;
+import com.app.laqshya.studenttracker.activity.model.Installments;
 import com.app.laqshya.studenttracker.activity.model.InstallmentsList;
 import com.app.laqshya.studenttracker.activity.utils.Utils;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
@@ -30,6 +33,7 @@ import com.app.laqshya.studenttracker.databinding.CourseLayoutBinding;
 import com.app.laqshya.studenttracker.databinding.RegisterStudentBinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,15 +43,14 @@ public class AddStudentFragment extends Fragment {
     RegisterStudentBinding registerStudentBinding;
     ArrayAdapter<CourseModuleList> courses;
     NavDrawerViewModel navDrawerViewModel;
-    //    ValidationViewModel validationViewModel;
     CourseLayoutBinding courseLayoutBinding;
-    int currentindex;
     private int noOfInstallmentCount = 0;
     private DatePickerFragment datePickerFragment;
     private CoursesStudent coursesStudent;
     private List<InstallmentsList> installmentsLists;
     private List<CourseModuleList> courseModuleList;
-    private boolean[] isEditTextChanged;
+    ProgressDialog progressDialog;
+
 
     @Nullable
     @Override
@@ -112,8 +115,11 @@ public class AddStudentFragment extends Fragment {
                 isValid = false;
             }
             if (isValid && Utils.isNetworkConnected(getActivity())) {
+                progressDialog=ProgressDialog.show(getActivity(),"Saving Student Details","Please wait");
+                showProgressDialog();
                 navDrawerViewModel.registerStudent(name, phone,
                         email).observe(this, s -> {
+                            hidedialog();
                     registerStudentBinding.progressBar.setVisibility(View.VISIBLE);
                     Timber.d("Visibility is %s", registerStudentBinding.progressBar.getVisibility());
 
@@ -152,12 +158,7 @@ public class AddStudentFragment extends Fragment {
             registerStudentBinding.saveCourses.setOnClickListener(v -> {
 
                 if (courseLayoutBinding != null) {
-                    if (registerStudentBinding.saveCourses.getText().toString().equalsIgnoreCase("Add Courses")) {
-                        registerStudentBinding.saveCourses.setText("Save Courses");
-                        resetViews();
-                    } else {
                         saveCourses();
-                    }
                 }
             });
             courseLayoutBinding = CourseLayoutBinding.inflate(getLayoutInflater(), null, false);
@@ -231,6 +232,7 @@ public class AddStudentFragment extends Fragment {
 
             navDrawerViewModel.totalFees.observe(this, integer -> {
                 if (integer != null) {
+
                     manageInstallments(integer);
                 }
 
@@ -276,7 +278,24 @@ public class AddStudentFragment extends Fragment {
             courseLayoutBinding.inputNoOfInstallments.setError(getString(R.string.fieldsEmpty));
             isValid = false;
         }
-        Timber.d("Child count is %d", courseLayoutBinding.installmentLayout.getChildCount());
+
+
+
+        //TODO fix no of installments.
+        installmentsLists.clear();
+
+        for (int i=0;i<noOfInstallmentCount;i++){
+            View view = courseLayoutBinding.installmentLayout.getChildAt(i);
+            TextView installmentNumberTextView = view.findViewById(R.id.installmentNumber);
+            TextView datePicker = view.findViewById(R.id.installmentDate);
+            EditText amnt = view.findViewById(R.id.installmentAmount);
+            InstallmentsList installments=new InstallmentsList();
+            installments.setInstallmentAmnt(amnt.getText().toString());
+            installments.setInstallmentDate(datePicker.getText().toString());
+            installments.setInstallmentNo(installmentNumberTextView.getText().toString());
+            installmentsLists.add(installments);
+        }
+
 
         if (courseLayoutBinding.installmentLayout.getChildCount() != installmentsLists.size()) {
 
@@ -284,8 +303,6 @@ public class AddStudentFragment extends Fragment {
             Toast.makeText(getActivity(), "Please enter all installment details", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
-
-
         if (getActivity()!=null && isValid && Utils.isNetworkConnected(getActivity())) {
             coursesStudent.setDownpayment(downPayment);
             coursesStudent.setFees(totalFees);
@@ -293,11 +310,15 @@ public class AddStudentFragment extends Fragment {
             coursesStudent.setCourseModule(courseModuleList);
             coursesStudent.setCourseName(courseName);
             coursesStudent.setMobile(registerStudentBinding.inputStudentNumber.getText().toString());
+            progressDialog=ProgressDialog.show(getActivity(),"Saving Fees Details","Please wait");
+            showProgressDialog();
             navDrawerViewModel.registerCourses(coursesStudent).observe(this, s -> {
+                hidedialog();
                 if (s != null && !s.isEmpty()) {
-                    Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+
                     if (s.contains("Success")) {
-                        registerStudentBinding.saveCourses.setText("Add Courses");
+                        Toast.makeText(getActivity(), "Successfully Added Fees and Course", Toast.LENGTH_SHORT).show();
+                        resetViews();
                         StringBuilder courseList = new StringBuilder();
                         for (int i = 0; i < courseModuleList.size(); i++) {
                             courseList.append(courseModuleList.get(i).getCourse_name()).append(", ");
@@ -308,7 +329,7 @@ public class AddStudentFragment extends Fragment {
                 }
 
             });
-        } else if (!Utils.isNetworkConnected(getActivity())) {
+        } else if (!Utils.isNetworkConnected(Objects.requireNonNull(getActivity()))) {
             Toast.makeText(getActivity(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
 
         }
@@ -340,7 +361,7 @@ public class AddStudentFragment extends Fragment {
     private void manageInstallments(int value) {
         List<EditText> editTextsList = new ArrayList<>();
         int fees = 0;
-        int downPayment = 0;
+        int downPayment=0;
 
         //TODO fix views reset on amounts change.
 
@@ -375,7 +396,9 @@ public class AddStudentFragment extends Fragment {
                 installmentNumberTextView.setText(String.valueOf(i + 1));
                 TextView datePicker = view.findViewById(R.id.installmentDate);
                 int finalI = i;
+                EditText amnt = view.findViewById(R.id.installmentAmount);
                 int finalAmount = amount[0];
+                int finalI1 = i;
                 datePicker.setOnClickListener(v -> {
 
                     datePickerFragment.show(Objects.requireNonNull(getActivity()).getFragmentManager(), "date_picker");
@@ -387,30 +410,50 @@ public class AddStudentFragment extends Fragment {
                         if (s != null && s.length() > 0) {
                             datePicker.setText(s);
                             int number = finalI + 1;
+
                             InstallmentsList installmentsList = new InstallmentsList();
                             installmentsList.setInstallmentAmnt(String.valueOf(finalAmount));
                             installmentsList.setInstallmentDate(s);
                             installmentsList.setInstallmentNo(String.valueOf(number));
-                            installmentsLists.add(installmentsList);
+
+                            if( installmentsLists.size()> editTextsList.size()-1 && installmentsLists.get(finalI1)!=null){
+                                installmentsLists.set(editTextsList.indexOf(amnt),installmentsList);
+                            }
+                            else {
+
+                                installmentsLists.add(installmentsList);
+
+                            }
 
                         }
 
                     });
                 });
 
-                EditText amnt = view.findViewById(R.id.installmentAmount);
+
                 Timber.d("amt %s",String.valueOf(amount[0]));
                 amnt.setText(String.valueOf(amount[0]));
                 if (!editTextsList.contains(amnt)) {
                     editTextsList.add(amnt);
-                    isEditTextChanged = new boolean[editTextsList.size()];
-                    Timber.d(String.valueOf("Length" + isEditTextChanged.length));
+
+                    Timber.d(String.valueOf("Length" + editTextsList.get(0).getText()));
                 }
-//                MyTextWatcher myTextWatcher = new MyTextWatcher(finalI, fees, downPayment, editTextsList, amount, amnt);
+
+//                MyTextWatcher myTextWatcher = new MyTextWatcher(finalI, datePicker,installmentNumberTextView,fees, downPayment, editTextsList, amount, amnt);
 //                amnt.addTextChangedListener(myTextWatcher);
 
             }
 
+        }
+    }
+    private void showProgressDialog(){
+        if(progressDialog!=null && !progressDialog.isShowing()){
+            progressDialog.show();
+        }
+    }
+    private void hidedialog(){
+        if(progressDialog!=null && progressDialog.isShowing()){
+            progressDialog.dismiss();
         }
     }
 
@@ -423,13 +466,17 @@ public class AddStudentFragment extends Fragment {
 //        List<EditText> editTextsList;
 //        int amount[];
 //        EditText editTextTemp = null;
+//        TextView datePicker;
+//        TextView installmentNumberTextView;
 //
-//        MyTextWatcher(int finalI, int finalFees, int finalDownPayment, List<EditText> editTextsList, int[] amount
+//        MyTextWatcher(int finalI, TextView datePicker, TextView installmentNumberTextView, int finalFees, int finalDownPayment, List<EditText> editTextsList, int[] amount
 //                , EditText amnt) {
 //            this.finalI = finalI;
 //            this.finalFees = finalFees;
 //            this.finalDownPayment = finalDownPayment;
 //            this.editTextsList = editTextsList;
+//            this.datePicker=datePicker;
+//            this.installmentNumberTextView=installmentNumberTextView;
 //            this.amnt = amnt;
 //            this.amount = amount;
 //        }
@@ -442,34 +489,56 @@ public class AddStudentFragment extends Fragment {
 //        @Override
 //        public void onTextChanged(CharSequence s, int start, int before, int count) {
 //
+//
 //            currentindex = finalI;
 //            Timber.d("Current index is %d", currentindex);
-////            int editTextIndex=editTextsList.indexOf(amnt);
-//            if (isEditTextChanged != null && isEditTextChanged.length > 0) {
+//            int editTextIndex=editTextsList.indexOf(amnt);
+//            Timber.d("Edit Index %d",editTextIndex);
 ////                isEditTextChanged[editTextIndex] = true;
-//                for (int i = 0; i < isEditTextChanged.length; i++) {
-//                    Timber.d("Index is %d and value is %s", i, isEditTextChanged[i]);
-//                }
-//            }
-//            Timber.d("On Text Changed Called");
+//
+//                    if(installmentsLists==null || installmentsLists.size()<editTextsList.size()){
+//                           InstallmentsList installmentsList = new InstallmentsList();
+//                           Timber.d("Size in loop %s",s.toString());
+//                        installmentsList.setInstallmentAmnt(String.valueOf(s.toString()));
+//                        installmentsList.setInstallmentDate(datePicker.getText().toString());
+//                        installmentsList.setInstallmentNo(String.valueOf(installmentNumberTextView.getText().toString()));
+//                        installmentsLists.add(installmentsList);
+//
+//                    }
+//                    else {
+//
+//                        installmentsLists.get(editTextIndex).setInstallmentAmnt(s.toString());
+//
+//                    }
+//
+//                    Timber.d("Size of installments below %d %s",installmentsLists.size(),installmentsLists.get(editTextIndex).getInstallmentAmnt());
+//
+//
+//
+//
+//
+//
 //            String s1 = s.toString();
 //
 //            s1 = s1.replaceAll("^\"|\"$", "").trim();
 //            if (!s1.isEmpty()) {
 //                int newAmount = Integer.parseInt(s1);
 //
-////                        Toast.makeText(getActivity(), ""+currentindex, Toast.LENGTH_SHORT).show();
-////                        Toast.makeText(getActivity(), ""+s.toString(), Toast.LENGTH_SHORT).show();
 //                if (noOfInstallmentCount > 1) {
 //                    Timber.d("Values are %d %d %d %d", finalFees, finalDownPayment, newAmount, noOfInstallmentCount);
-//                    amount[0] = (finalFees - finalDownPayment - newAmount) / (noOfInstallmentCount - 1);
+//                    if(editTextsList.size()<=2) {
+//                        amount[0] = (finalFees - finalDownPayment - newAmount) / (noOfInstallmentCount - 1);
+//                    }
+//                    else {
+//
+//                    }
 //                } else if (noOfInstallmentCount == 1) {
 //                    amount[0] = (finalFees - finalDownPayment - newAmount);
+//
 //                }
 //                Timber.d("Size %d", editTextsList.size());
-//
-//
 //                Timber.d("Amount is%s", amount[0]);
+//
 //            }
 //        }
 //
@@ -479,12 +548,12 @@ public class AddStudentFragment extends Fragment {
 //                if (!editTextsList.get(j).equals(amnt)) {
 //                    editTextTemp = editTextsList.get(j);
 //                    Timber.d("Amnt is %d", amount[0]);
-//                    editTextTemp.removeTextChangedListener(this);
+//                    amnt.removeTextChangedListener(this);
 //                    if (amnt.isFocused()) {
 ////                        editTextTemp.setTag("temporary installment");
-//                        isEditTextChanged[j] = true;
+//
 //                        editTextTemp.setText(String.valueOf(amount[0]));
-//                        isEditTextChanged[j] = false;
+//
 //                    }
 //
 //                }

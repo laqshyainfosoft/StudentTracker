@@ -1,5 +1,6 @@
 package com.app.laqshya.studenttracker.activity.service;
 
+import com.app.laqshya.studenttracker.activity.model.AdminNotification;
 import com.app.laqshya.studenttracker.activity.model.BatchDetails;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
 import com.app.laqshya.studenttracker.activity.model.CenterList;
@@ -206,12 +207,15 @@ public interface EduTrackerService {
     Single<List<ResponseBody>> getStudentinfoCounsellor(@Field("counsellorid")String  counsellorid);
     @Multipart
     @POST("uploadpdf.php")
-    Single<ResponseBody> uploadPdf(@Part("course_module_name")RequestBody name, @PartMap() Map<String, RequestBody> description, @Part List<MultipartBody.Part> files);
+    Single<ResponseBody> uploadPdf(@Part("course_module_name")RequestBody name, @PartMap() Map<String, RequestBody> description, @Part List<MultipartBody.Part> files
+    ,@Part("uploaderId")RequestBody uploaderId,@Part("flagUploader")RequestBody flaguploader);
     @POST("getallmodules.php")
     Single<List<CourseModuleList>> getAllModules();
     @FormUrlEncoded
     @POST("getallmodulesForfaculty.php")
     Single<List<CourseModuleList>> getAllModulesForFaculty(@Field("facultyId")String facultyid);
+    @POST("getallnotifications.php")
+    Single<List<AdminNotification>> getallnotifications();
 
 
 

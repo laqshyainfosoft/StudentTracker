@@ -43,6 +43,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
 import timber.log.Timber;
 
@@ -158,8 +159,18 @@ public class AddSyllabusFragment extends Fragment implements View.OnClickListene
         Intent intent = new Intent(getActivity(), UploadService.class);
         intent.putExtra("fileList", (Serializable) fileList);
         intent.putExtra("coursename", name);
+        intent.putExtra("uploaderId",sessionManager.getLoggedInUserName());
+//        intent.putExtra('flaguploader',)
+        String flag="0";
+        if (!sessionManager.getLoggedInType().equalsIgnoreCase(Constants.ADMIN)) {
+            flag="1";
+
+        }
+        intent.putExtra("uploadedFlag",flag);
         Context context = getActivity();
-        ContextCompat.startForegroundService(context, intent);
+        if (context != null) {
+            ContextCompat.startForegroundService(context, intent);
+        }
 //        startSe
 
 
@@ -238,38 +249,10 @@ public class AddSyllabusFragment extends Fragment implements View.OnClickListene
     @Override
     public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
+//        AndroidInjection.inject(this);
         super.onAttach(context);
     }
 //
-//    @NonNull
-//    private RequestBody createPartFromString(String filename) {
-//        return RequestBody.create(
-//                okhttp3.MultipartBody.FORM, filename);
-//    }
-
-//
-//    @NonNull
-//    private MultipartBody.Part prepareFilePart(File file, Uri fileUri) {
-//        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-//        // use the FileUtils to get the actual file by uri
-//
-//
-//        // create RequestBody instance from file
-//        if (getActivity() != null) {
-//            RequestBody requestFile =
-//                    RequestBody.create(
-//                            MediaType.parse("application/pdf"),
-//                            file
-//
-//                    );
-//            return MultipartBody.Part.createFormData("files", file.getName(), requestFile);
-//        }
-//        return null;
-//
-//        // MultipartBody.Part is used to send also the actual file name
-//
-//
-//    }
 
     private void showProgressDialog() {
         if (progressDialog != null && !progressDialog.isShowing()) {

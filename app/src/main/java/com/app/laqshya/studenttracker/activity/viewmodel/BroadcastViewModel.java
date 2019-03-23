@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity.viewmodel;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
@@ -11,9 +12,14 @@ import java.util.List;
 
 public class BroadcastViewModel extends ViewModel {
     private BroadcastRepository broadcastRepository;
+    private MutableLiveData<String> username=new MutableLiveData<>();
+
 
     public BroadcastViewModel(BroadcastRepository broadcastRepository) {
         this.broadcastRepository=broadcastRepository;
+
+//        username.setValue();
+//        username.s
 
     }
     public LiveData<StudentInfo.StudentInfoList> getStudents(String centername){

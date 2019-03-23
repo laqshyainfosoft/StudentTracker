@@ -1,12 +1,12 @@
 package com.app.laqshya.studenttracker.activity.model;
 
 public class Installments {
-    private int installmentNo;
+    private String installmentNo;
 
     private String installmentDate;
         private String installmentAmnt;
 
-    public int getInstallmentNo() {
+    public String getInstallmentNo() {
         return installmentNo;
     }
 
@@ -18,7 +18,7 @@ public class Installments {
         return installmentAmnt;
     }
 
-    public Installments(int installmentNo, String installmentDate, String installmentAmnt) {
+    public Installments(String installmentNo, String installmentDate, String installmentAmnt) {
         this.installmentNo = installmentNo;
         this.installmentDate = installmentDate;
         this.installmentAmnt = installmentAmnt;

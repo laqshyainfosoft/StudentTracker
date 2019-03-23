@@ -4,6 +4,16 @@ import java.util.List;
 
 public class PDFDoc {
     private int notesid;
+    private String uploadername;
+
+    public String getUploadername() {
+        return uploadername;
+    }
+
+    public void setUploadername(String uploadername) {
+        this.uploadername = uploadername;
+    }
+
     private String bookname;
 
     public int getNotesid() {

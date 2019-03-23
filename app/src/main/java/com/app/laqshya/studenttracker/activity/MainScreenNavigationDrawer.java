@@ -132,17 +132,14 @@ public class MainScreenNavigationDrawer extends AppCompatActivity implements Bot
                                 navItemIndex = 7;
                                 CURRENT_TAG = Constants.TAG_NOTIFICATIONS;
                                 break;
-                            case R.id.nav_broadcast_admin:
-                                navItemIndex = 8;
-                                CURRENT_TAG = Constants.TAG_BROADCAST;
-                                break;
+
                             case R.id.about:
-                                navItemIndex = 9;
+                                navItemIndex = 8;
                                 CURRENT_TAG = Constants.TAGABOUT;
                                 break;
 
                             case R.id.nav_privacy_policy_admin:
-                                navItemIndex = 10;
+                                navItemIndex = 9;
                                 CURRENT_TAG = Constants.TAG_PRIVACYPOLICY;
                                 break;
 
