@@ -1,6 +1,7 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
+import timber.log.Timber;
 
 public class NotificationsFragment extends Fragment {
     FragmentNotificationBinding fragmentNotificationBinding;
@@ -66,6 +68,7 @@ public class NotificationsFragment extends Fragment {
         fragmentNotificationBinding.recyclerViewNotification.setLayoutManager(new LinearLayoutManager(getActivity()));
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setTitle("Loading");
+
         progressDialog.setMessage("Please wait");
         getData();
 
@@ -110,7 +113,7 @@ public class NotificationsFragment extends Fragment {
                             fragmentNotificationBinding.searchNotification.setVisibility(View.VISIBLE);
                             fragmentNotificationBinding.recyclerViewNotification.setAdapter(facultyNotificationAdapter);
                             fragmentNotificationBinding.recyclerViewNotification.setAdapter(adminNotificationAdapter);
-                            adminNotificationAdapter.setAdminNotificationsFilteredList(adminNotifications);
+
                             adminNotificationAdapter.setAdminNotificationList(adminNotifications);
                             setUpSearch();
                         }
@@ -132,16 +135,21 @@ public class NotificationsFragment extends Fragment {
         fragmentNotificationBinding.searchNotification.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                Timber.d(s);
+
                         adminNotificationAdapter.getFilter().filter(s);
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                Timber.d(s);
                 adminNotificationAdapter.getFilter().filter(s);
-                return true;
+//                adminNotificationAdapter.getFilter().filter("MacBook");
+                return false;
             }
         });
+
     }
 
     private void showToast(String message) {

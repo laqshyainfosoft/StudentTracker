@@ -11,19 +11,20 @@ import com.app.laqshya.studenttracker.activity.model.AdminNotification;
 import com.app.laqshya.studenttracker.databinding.NotificationAdminBinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class AdminNotificationAdapter extends RecyclerView.Adapter<AdminNotificationAdapter.CustomHolder>  implements Filterable {
     private List<AdminNotification> adminNotificationList;
     private List<AdminNotification> adminNotificationsFilteredList;
 
-    public void setAdminNotificationsFilteredList(List<AdminNotification> adminNotificationsFilteredList) {
-        this.adminNotificationsFilteredList = adminNotificationsFilteredList;
-        notifyDataSetChanged();
-    }
+
 
     public void setAdminNotificationList(List<AdminNotification> adminNotificationList) {
         this.adminNotificationList = adminNotificationList;
+        this.adminNotificationsFilteredList=adminNotificationList;
         notifyDataSetChanged();
     }
 
@@ -39,7 +40,7 @@ public class AdminNotificationAdapter extends RecyclerView.Adapter<AdminNotifica
 
     @Override
     public void onBindViewHolder(@NonNull AdminNotificationAdapter.CustomHolder myViewHolder, int i) {
-        myViewHolder.bind(adminNotificationList.get(i));
+        myViewHolder.bind(adminNotificationsFilteredList.get(i));
 
 
     }
@@ -55,17 +56,24 @@ public class AdminNotificationAdapter extends RecyclerView.Adapter<AdminNotifica
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence message) {
-                String charString = message.toString();
+                String charString = message.toString().toLowerCase();
                 if (charString.isEmpty()) {
                     adminNotificationsFilteredList = adminNotificationList;
                 } else {
                     List<AdminNotification> filteredList = new ArrayList<>();
                     for (AdminNotification row : adminNotificationList) {
+//                        Timber.d(row.getMessage());
+//                        Timber.d(message.toString());
+//                        Timber.d(String.valueOf("test message for fees 1000000 please donate for MacBook pro wireless air".contains(message)));
+//                        Timber.d(String.valueOf(row.getMessage().toLowerCase().contains(charString)));
+
+
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
-                        if (row.getMessage().contains(message)) {
+                        if (row.getMessage().toLowerCase().contains(charString)) {
                             filteredList.add(row);
+                            Timber.d("Message %s %s",row.getMessage(),message);
                         }
                     }
 
@@ -74,6 +82,11 @@ public class AdminNotificationAdapter extends RecyclerView.Adapter<AdminNotifica
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = adminNotificationsFilteredList;
+                Timber.d("%d",adminNotificationsFilteredList.size());
+                for (AdminNotification adminNotification:adminNotificationsFilteredList){
+                    Timber.d(adminNotification.getMessage());
+                }
+
                 return filterResults;
 
 

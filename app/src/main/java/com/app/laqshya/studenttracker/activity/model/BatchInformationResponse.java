@@ -44,6 +44,23 @@ public class BatchInformationResponse {
         private String faculty_name;
         private ArrayList<Schedule> schedule;
         private String centername;
+        private String  completed_flag;
+
+        public String getCompleted_flag() {
+            return completed_flag;
+        }
+
+        public void setCompleted_flag(String completed_flag) {
+            this.completed_flag = completed_flag;
+        }
+
+        public String getFaculty_name() {
+            return faculty_name;
+        }
+
+        public void setFaculty_name(String faculty_name) {
+            this.faculty_name = faculty_name;
+        }
 
         public String getCentername() {
             return centername;

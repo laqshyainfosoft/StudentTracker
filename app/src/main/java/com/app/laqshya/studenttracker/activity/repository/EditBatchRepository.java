@@ -52,6 +52,30 @@ public class EditBatchRepository {
                 });
         return liveData;
     }
+//    public LiveData<BatchInformationResponse> getAllBatches() {
+//        MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
+//        eduTrackerService.getBatchesForAdmin().subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(List<BatchInformationResponse.BatchInformation> batchInformations) {
+//                        liveData.postValue(new BatchInformationResponse(batchInformations));
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        liveData.postValue(new BatchInformationResponse(e));
+//
+//                    }
+//                });
+//        return liveData;
+//    }
 
     public LiveData<StudentInfo.StudentInfoList> getStudentsForFacultyAttendance(String batchid) {
         MutableLiveData<StudentInfo.StudentInfoList> liveData = new MutableLiveData<>();
@@ -182,6 +206,78 @@ public class EditBatchRepository {
     public LiveData<BatchInformationResponse> getDeletedbatches(String center) {
         MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
         eduTrackerService.getdeletedbatches(center).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<BatchInformationResponse.BatchInformation> batchInformations) {
+                        liveData.postValue(new BatchInformationResponse(batchInformations));
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(new BatchInformationResponse(e));
+
+                    }
+                });
+        return liveData;
+    }
+    public LiveData<BatchInformationResponse> getDeletedbatchesForAdmin() {
+        MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
+        eduTrackerService.getAdminDeletedBatches().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<BatchInformationResponse.BatchInformation> batchInformations) {
+                        liveData.postValue(new BatchInformationResponse(batchInformations));
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(new BatchInformationResponse(e));
+
+                    }
+                });
+        return liveData;
+    }
+    public LiveData<BatchInformationResponse> getRunningbatchesForAdmin() {
+        MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
+        eduTrackerService.getRunningBatchesForAdmin().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<BatchInformationResponse.BatchInformation> batchInformations) {
+                        liveData.postValue(new BatchInformationResponse(batchInformations));
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        liveData.postValue(new BatchInformationResponse(e));
+
+                    }
+                });
+        return liveData;
+    }
+    public LiveData<BatchInformationResponse> getCompletedbatchesForAdmin() {
+        MutableLiveData<BatchInformationResponse> liveData = new MutableLiveData<>();
+        eduTrackerService.getAdminCompleteBatches().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<BatchInformationResponse.BatchInformation>>() {
                     @Override

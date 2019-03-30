@@ -39,6 +39,16 @@
             android:id="@+id/schedulebatches"
             android:icon="@drawable/ic_assignment_turned_in_black_16dp"
             android:title="@string/nav_schedulebatch" />
+        <item
+            android:id="@+id/completedBatches"
+            android:icon="@drawable/ic_assignment_turned_in_black_16dp"
+            android:title="@string/complete_batches" />
+        <item
+            android:id="@+id/deletedBatches"
+            android:icon="@drawable/deleteicon"
+            android:title="@string/deleted_batches" />
+
+
 
         <item
             android:id="@+id/nav_notifications_admin"

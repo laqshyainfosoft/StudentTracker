@@ -10,7 +10,7 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class AddScheduleModule {
+public class    AddScheduleModule {
     @Provides
     @Singleton
     AddScheduleFactory getRegFactory(AddBatchRepository batchRepository) {

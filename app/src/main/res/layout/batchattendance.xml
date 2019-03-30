@@ -13,20 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Spinner
-            android:id="@+id/filter_batches"
-            style="@style/spinner_style"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_margin="10dp" />
+
 
         <RelativeLayout
             android:id="@+id/frameLayout_batch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/filter_batches"
             android:background="#ffffff">
 
             <LinearLayout
@@ -128,6 +120,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/locationIcon"
                         android:background="@drawable/ic_domain_black_24dp" />
 
                     <TextView
@@ -144,14 +137,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/deleted_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:layout_alignParentEnd="true"
-                tools:text="Deleted"
-                android:textColor="#ea5127" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -251,12 +237,13 @@
                     android:layout_height="1.0dp"
                     android:layout_marginLeft="10.0dp"
                     android:layout_marginRight="10.0dp"
+                    android:id="@+id/scheduleSeperator"
                     android:background="#ea5127" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16.0dp"
+                    android:layout_marginStart="16.0dp"
                     android:layout_marginTop="10.0dp">
 
                     <ImageView

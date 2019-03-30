@@ -11,6 +11,7 @@ import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FacultyBatchCardsFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FeesStatusFragment;
 import com.app.laqshya.studenttracker.activity.fragments.NotificationsFragment;
+import com.app.laqshya.studenttracker.activity.fragments.ScheduleBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudentAttendanceByFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudentReceivedNotificationFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudyMaterialFragment;
@@ -82,6 +83,8 @@ abstract class StudentBindingModule {
     abstract AddSyllabusFragment addSyllabusFragment();
     @ContributesAndroidInjector
     abstract UploadService uploadService();
+    @ContributesAndroidInjector
+    abstract ScheduleBatchesFragment scheduleBatchesFragment();
 
 
 }

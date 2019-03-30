@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.app.laqshya.studenttracker.activity.listeners.MyBatchClickListener;
 import com.app.laqshya.studenttracker.activity.model.BatchInformationResponse;
+import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.activity.utils.SessionManager;
 import com.app.laqshya.studenttracker.databinding.BatchattendanceBinding;
 
@@ -17,15 +18,16 @@ import java.util.List;
 
 public class CompleteBatchAdapter extends RecyclerView.Adapter<CompleteBatchAdapter.CustomViewHolder> {
     private List<BatchInformationResponse.BatchInformation> batchInformationList;
-    private MyBatchClickListener batchClickListener;
+    private List<BatchInformationResponse.BatchInformation> batchInformationListFiltered;
     private LayoutInflater layoutInflater;
     private SessionManager sessionManager;
 
-    public CompleteBatchAdapter(Context context, MyBatchClickListener batchClickListener, SessionManager sessionManager) {
+    public CompleteBatchAdapter(Context context, SessionManager sessionManager) {
         layoutInflater = LayoutInflater.from(context);
         this.sessionManager=sessionManager;
         batchInformationList = new ArrayList<>();
-        this.batchClickListener=batchClickListener;
+        batchInformationListFiltered=new ArrayList<>();
+
     }
 
     @NonNull
@@ -39,19 +41,36 @@ public class CompleteBatchAdapter extends RecyclerView.Adapter<CompleteBatchAdap
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        holder.bind(batchInformationList.get(position));
+        holder.batchattendanceBinding.locationLine2.setText(batchInformationListFiltered.get(position).getCentername());
+        holder.bind(batchInformationListFiltered.get(position));
     }
     public void update(List<BatchInformationResponse.BatchInformation> batchInformations) {
-        this.batchInformationList = batchInformations;
+        this.batchInformationList= batchInformations;
+        this.batchInformationListFiltered=batchInformationList;
         notifyDataSetChanged();
+    }
+    public void  setFilteredList(String centername){
+        if (centername != null && !centername.isEmpty()) {
+            List<BatchInformationResponse.BatchInformation> batchInformationListTemporary=new ArrayList<>();
+
+            for (BatchInformationResponse.BatchInformation batchInformation:batchInformationList){
+                if (batchInformation.getCentername().equals(centername)){
+                    batchInformationListTemporary.add(batchInformation);
+                }
+            }
+            batchInformationListFiltered=batchInformationListTemporary;
+            notifyDataSetChanged();
+
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        if (batchInformationList == null) {
+        if (batchInformationListFiltered == null) {
             return 0;
         }
-        return batchInformationList.size();
+        return batchInformationListFiltered.size();
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
@@ -63,8 +82,11 @@ public class CompleteBatchAdapter extends RecyclerView.Adapter<CompleteBatchAdap
         void bind(BatchInformationResponse.BatchInformation batchInformationResponse){
             batchattendanceBinding.setBatchattendancemodel(batchInformationResponse);
             batchattendanceBinding.optionsLayout.setVisibility(View.GONE);
-            batchattendanceBinding.completedRecords.setVisibility(View.VISIBLE);
+            batchattendanceBinding.viewRecordsBatch.setVisibility(View.GONE);
+            batchattendanceBinding.completedRecords.setVisibility(View.GONE);
+            if(sessionManager.getLoggedInType().equals(Constants.COUNSELLOR))
             batchattendanceBinding.locationLine2.setText(sessionManager.getLoggedInuserCenter());
+
 
 
 

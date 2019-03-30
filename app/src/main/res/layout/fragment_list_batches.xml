@@ -6,6 +6,7 @@
     <!--name="attendanceviewmodel"-->
     <!--type="edutracker.laqshya.com.edutracker.viewmodel.AttendanceViewModel"/>-->
     <!--</data>-->
+
     <RelativeLayout
         android:id="@+id/attendance_main"
         android:layout_width="match_parent"
@@ -14,7 +15,30 @@
         android:gravity="center"
         android:padding="12dp"
         tools:context=".fragments.AttendanceFragment">
+        <Spinner
+            android:id="@+id/filter_centers"
+            style="@style/spinner_style"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
 
+            android:layout_margin="10dp" />
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_below="@id/filter_centers"
+            android:id="@+id/swifeRefresh_attendance_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_attendance"
+                android:layout_width="match_parent"
+                android:overScrollMode="never"
+                android:layout_height="match_parent"
+                android:clipToPadding="false" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,18 +65,6 @@
         </LinearLayout>
 
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:layout_below="@id/batch"
-            android:id="@+id/swifeRefresh_attendance_schedule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_attendance"
-                android:layout_width="match_parent"
-                android:overScrollMode="never"
-                android:layout_height="match_parent"
-                android:clipToPadding="false" />
-        </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 </layout>

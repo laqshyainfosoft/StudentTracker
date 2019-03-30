@@ -216,6 +216,13 @@ public interface EduTrackerService {
     Single<List<CourseModuleList>> getAllModulesForFaculty(@Field("facultyId")String facultyid);
     @POST("getallnotifications.php")
     Single<List<AdminNotification>> getallnotifications();
+    @POST("getAdminBatchCompleted.php")
+    Single<List<BatchInformationResponse.BatchInformation>> getAdminCompleteBatches();
+    @POST("getAdminBatchDeleted.php")
+    Single<List<BatchInformationResponse.BatchInformation>> getAdminDeletedBatches();
+    @POST("getAdminBatchRunning.php")
+    Single<List<BatchInformationResponse.BatchInformation>> getRunningBatchesForAdmin();
+
 
 
 

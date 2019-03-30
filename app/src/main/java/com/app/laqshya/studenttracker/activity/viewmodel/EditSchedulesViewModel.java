@@ -24,6 +24,9 @@ public class EditSchedulesViewModel extends ViewModel {
         return editBatchRepository.getBatchForCounsellor(center);
 
     }
+//    public LiveData<BatchInformationResponse> getAllBatches(){
+//        return editBatchRepository.getAllBatches();
+//    }
 
     public LiveData<BatchInformationResponse> getBatchesForCounsellorNotification(String center) {
         return editBatchRepository.getBatchForCounsellorNotification(center);
@@ -39,7 +42,18 @@ public class EditSchedulesViewModel extends ViewModel {
         return editBatchRepository.getCompletedBatches(center);
 
     }
+    public LiveData<BatchInformationResponse> getCompletedBatchesForAdmin() {
+        return editBatchRepository.getCompletedbatchesForAdmin();
 
+    }
+    public LiveData<BatchInformationResponse> getDeletedBatchesForAdmin() {
+        return editBatchRepository.getDeletedbatchesForAdmin();
+
+    }
+    public LiveData<BatchInformationResponse> getRunningBatchesForAdmin() {
+        return editBatchRepository.getRunningbatchesForAdmin();
+
+    }
     public LiveData<List<FacultyList>> getFacultyList() {
         return editBatchRepository.getFacultyList();
 

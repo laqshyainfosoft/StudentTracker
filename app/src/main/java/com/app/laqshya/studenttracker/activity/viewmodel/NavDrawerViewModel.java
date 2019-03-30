@@ -83,13 +83,19 @@ public class NavDrawerViewModel extends ViewModel {
                 fragmentTitle.setValue("Schedules");
                 return new ScheduleBatchesFragment();
             case 7:
+                fragmentTitle.setValue("Completed Batches");
+                return new CompletionBatchesFragment();
+            case 8:
+                fragmentTitle.setValue("Deleted Batches");
+                return new DeletedBatchesFragment();
+            case 9:
                 fragmentTitle.setValue("Notifications");
                 return new NotificationsFragment();
 
-            case 8:
+            case 10:
                 fragmentTitle.setValue("About Developers");
                 return new AboutDevelopersFragment();
-            case 9:
+            case 11:
                 fragmentTitle.setValue("Privacy Policy");
                 // privacypolicy fragment
                 return new PrivacyPolicyFragment();
