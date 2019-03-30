@@ -2,13 +2,15 @@ package com.app.laqshya.studenttracker.activity.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -70,6 +72,8 @@ public class AddStudentFragment extends Fragment {
         courseModuleList = new ArrayList<>();
         navDrawerViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(NavDrawerViewModel.class);
         registerStudentBinding.setNavViewmModel(navDrawerViewModel);
+        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Add Student");
 
         registerStudentBinding.btnSignup.setOnClickListener(v -> {
             String name = registerStudentBinding.inputStudentName.getText().toString().trim();

@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,7 @@ import com.app.laqshya.studenttracker.R;
 
 public class ContactFragment extends Fragment implements View.OnClickListener {
 
-    TextView mMobileHead, mMobileNo, mTelephoneHead, mTelephoneNo, mMailHead, mMailId, mFacebookHead, mFacebook, mWhatsappHead, mWhatsapp, mAddressHead, mAddress;
+    TextView mMobileHead, mMobileNo, mMailHead, mMailId, mFacebookHead, mFacebook, mWhatsappHead, mWhatsapp, mAddressHead, mAddress;
     Intent sendIntent;
 
     @Nullable
@@ -30,8 +30,8 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
         //Binding views
         mMobileHead = rootview.findViewById(R.id.mobile_title);
         mMobileNo = rootview.findViewById(R.id.mobile_no);
-        mTelephoneHead = rootview.findViewById(R.id.telephone_header);
-        mTelephoneNo = rootview.findViewById(R.id.telephone_no);
+//        mTelephoneHead = rootview.findViewById(R.id.telephone_header);
+//        mTelephoneNo = rootview.findViewById(R.id.telephone_no);
         mMailHead = rootview.findViewById(R.id.mail_header);
         mMailId = rootview.findViewById(R.id.mail_id);
         mFacebookHead = rootview.findViewById(R.id.fb_header);
@@ -44,8 +44,8 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
         //Setting the onclicklistener
         mMobileHead.setOnClickListener(this);
         mMobileNo.setOnClickListener(this);
-        mTelephoneHead.setOnClickListener(this);
-        mTelephoneNo.setOnClickListener(this);
+//        mTelephoneHead.setOnClickListener(this);
+//        mTelephoneNo.setOnClickListener(this);
         mMailHead.setOnClickListener(this);
         mMailId.setOnClickListener(this);
         mFacebookHead.setOnClickListener(this);
@@ -72,12 +72,12 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
             case R.id.mobile_no:
                 mobileFunc();
                 break;
-            case R.id.telephone_header:
-                telephoneFunc();
-                break;
-            case R.id.telephone_no:
-                telephoneFunc();
-                break;
+//            case R.id.telephone_header:
+//                telephoneFunc();
+//                break;
+//            case R.id.telephone_no:
+//                telephoneFunc();
+//                break;
             case R.id.mail_header:
                 mailFunc();
                 break;
@@ -107,20 +107,20 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
 
     public void mobileFunc() {
         sendIntent = new Intent(Intent.ACTION_DIAL);
-        sendIntent.setData(Uri.parse("tel:" + "1234567890"));
+        sendIntent.setData(Uri.parse("tel:" + "986772552"));
+        startActivity(sendIntent);
     }
 
-    public void telephoneFunc() {
-        sendIntent = new Intent(Intent.ACTION_DIAL);
-        sendIntent.setData(Uri.parse("tel:" + "1234567890"));
-    }
+//    public void telephoneFunc() {
+//        sendIntent = new Intent(Intent.ACTION_DIAL);
+//        sendIntent.setData(Uri.parse("tel:" + "1234567890"));
+//    }
 
     @SuppressLint("IntentReset")
     public void mailFunc() {
         Toast.makeText(getActivity(), "Please wait...", Toast.LENGTH_SHORT).show();
         sendIntent = new Intent("android.intent.action.SEND");
-        sendIntent.setData(Uri.parse(":mailto"));
-        sendIntent.setType("message/rfc822");
+        sendIntent.setDataAndType(Uri.parse(":mailto"),"message/rfc822");
         sendIntent.putExtra("android.intent.extra.EMAIL", new String[]{"lalaqshya@gmail.com"});
         startActivity(Intent.createChooser(sendIntent, "Mail us"));
     }

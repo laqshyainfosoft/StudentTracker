@@ -1,6 +1,6 @@
 package com.app.laqshya.studenttracker.activity.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +21,9 @@ public class AddSyllabusAdapter extends RecyclerView.Adapter<AddSyllabusAdapter.
         this.onBookDeleteListener = onBookDeleteListener;
     }
 
-    @android.support.annotation.NonNull
+    @androidx.annotation.NonNull
     @Override
-    public CustomHolder onCreateViewHolder(@android.support.annotation.NonNull ViewGroup viewGroup, int i) {
+    public CustomHolder onCreateViewHolder(@androidx.annotation.NonNull ViewGroup viewGroup, int i) {
         UploadSyllabusItemBinding uploadSyllabusItemBinding=UploadSyllabusItemBinding.inflate(LayoutInflater.from(
                 viewGroup.getContext()
         ),viewGroup,false);
@@ -41,7 +41,7 @@ public class AddSyllabusAdapter extends RecyclerView.Adapter<AddSyllabusAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@android.support.annotation.NonNull CustomHolder customHolder, int i) {
+    public void onBindViewHolder(@androidx.annotation.NonNull CustomHolder customHolder, int i) {
         customHolder.bind(pdfDocList.getPdfDocList().get(i));
 
 

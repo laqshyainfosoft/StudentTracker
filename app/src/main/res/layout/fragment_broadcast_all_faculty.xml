@@ -29,7 +29,7 @@
             android:background="@drawable/rounded_border_edittext"
             android:spinnerMode="dialog" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_All_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,9 +49,9 @@
                 android:inputType="textPersonName"
                 android:maxLength="24"
                 android:padding="2dp" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_All_layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 android:hint="Message"
                 android:inputType="textMultiLine"
                 android:maxLength="160" />
-        </android.support.design.widget.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
             android:id="@+id/checkBoxAll"

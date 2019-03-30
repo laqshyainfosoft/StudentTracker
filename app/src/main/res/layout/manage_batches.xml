@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="student"
+            type="com.app.laqshya.studenttracker.activity.model.student_self.ManageStudentInfoResponse.ManageStudentInfo"/>
+    </data>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -37,6 +42,7 @@
             android:id="@+id/student_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{student.student_name}"
             android:layout_below="@+id/student_name_title"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/student_name_img"
@@ -69,8 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/mobile_no_title"
             android:layout_marginStart="10dp"
+            android:text="@{student.mobile}"
             android:layout_toEndOf="@+id/mobile_no_img"
-            android:hint="1234567890" />
+            tools:hint="1234567890" />
 
         <ImageView
             android:id="@+id/email_img"
@@ -98,6 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/email_title"
+            android:text="@{student.email}"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/email_img"
             android:hint="lalaqshya@gmail.com" />
@@ -127,6 +135,7 @@
             android:id="@+id/course_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{student.course_module_name}"
             android:layout_below="@+id/course_name_title"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/course_name_img"
@@ -160,6 +169,7 @@
             android:layout_below="@+id/total_amount_title"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/total_amount_img"
+            android:text="@{student.total_fees}"
             android:hint="0" />
 
         <ImageView
@@ -187,6 +197,7 @@
         <TextView
             android:id="@+id/down_payment_amount"
             android:layout_width="wrap_content"
+            android:text="@{student.totaldownpayment}"
             android:layout_height="wrap_content"
             android:layout_below="@+id/down_payment_amount_title"
             android:layout_marginStart="10dp"
@@ -196,5 +207,5 @@
 
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>
 </layout>

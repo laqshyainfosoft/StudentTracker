@@ -3,7 +3,7 @@ package com.app.laqshya.studenttracker.activity.fragments;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.os.Bundle;
 
 import java.util.Calendar;

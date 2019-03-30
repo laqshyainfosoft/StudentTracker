@@ -202,7 +202,7 @@
     <string name="sendToDueStudents">Send to Students With Due Installments \n  (Ignore if already paid)</string>
     <string name="sent_notifications">Sent Notifications</string>
     <string name="errorwhilefetchingdata">Error while fetching data</string>
-    <string name="errorOccured">Error occured</string>
+    <string name="errorOccured">Error occurred</string>
     <string name="add_syllabus">Add Syllabus</string>
     <string-array name="regularDays">
         <item>Mon</item>
@@ -225,6 +225,7 @@
     <string name="add_courses">Add Courses</string>
     <string name="installments_warn">Change all the installments accordingly.</string>
     <string name="searchmessages">Search Notifications</string>
+    <string name="searchstudents">Search Student Names</string>
 
     <string-array name="schedule_batch_details">
         <item>All</item>

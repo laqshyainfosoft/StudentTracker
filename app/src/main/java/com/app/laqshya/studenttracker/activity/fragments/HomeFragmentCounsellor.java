@@ -1,12 +1,12 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,9 @@ import com.app.laqshya.studenttracker.R;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
 import com.app.laqshya.studenttracker.activity.viewmodel.NavDrawerViewModel;
 import com.app.laqshya.studenttracker.databinding.FragmentHomeAdminBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -25,7 +28,6 @@ public class HomeFragmentCounsellor extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Timber.d("onCreated");
         fragmentHomeAdminBinding = FragmentHomeAdminBinding.inflate(inflater, container, false);
         return fragmentHomeAdminBinding.getRoot();
 
@@ -34,11 +36,16 @@ public class HomeFragmentCounsellor extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Timber.d("I was called here");
-        navDrawerViewModel = ViewModelProviders.of(getActivity()).get(NavDrawerViewModel.class);
+       FloatingActionButton floatingActionButton = Objects.requireNonNull(getActivity()).findViewById(R.id.fab_attendance);
+       floatingActionButton.hide();
+
+        navDrawerViewModel = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(NavDrawerViewModel.class);
         fragmentHomeAdminBinding.setNavViewModel(navDrawerViewModel);
         fragmentHomeAdminBinding.addStudents.setOnClickListener(v -> fragmentTransact(new AddStudentFragment()));
+
+        fragmentHomeAdminBinding.manageStudents.setOnClickListener(v->fragmentTransact(new ManageStudentFragment()));
         fragmentHomeAdminBinding.scheduleBatches.setOnClickListener(v -> fragmentTransact(new AttendanceFragment()));
+
 //        fragmentHomeAdminBinding.schedule_batches.setOnClickListener(v -> fragmentTransact(new AttendanceFragment()));
         fragmentHomeAdminBinding.broadcastBatches.setVisibility(View.VISIBLE);
         fragmentHomeAdminBinding.broadcastBatches.setOnClickListener(v -> fragmentTransact(new SingleStudentNotificationFragment()));

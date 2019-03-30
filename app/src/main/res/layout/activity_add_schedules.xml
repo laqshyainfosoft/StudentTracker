@@ -9,14 +9,14 @@
         <!--type="com.app.laqshya.studenttracker.activity.viewmodel.AddSchedulesViewModel" />-->
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -26,7 +26,7 @@
             app:title="Add Batches"
             app:titleTextColor="@color/white" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabsave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -409,7 +409,7 @@
                 </LinearLayout>
             </RelativeLayout>
         </ScrollView>
-        <android.support.v4.widget.ContentLoadingProgressBar
+        <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleLarge"
             android:indeterminateTint="@color/colorPrimary"
@@ -417,5 +417,5 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:visibility="gone" />
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

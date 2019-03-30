@@ -12,7 +12,7 @@
       <!--type="com.app.laqshya.studenttracker.activity.viewmodel.ValidationViewModel"/>-->
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -48,7 +48,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/laqshya_logo" />
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_layout_student_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -63,9 +63,9 @@
 
                         android:inputType="textPersonName"
                         android:singleLine="true" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_layout_student_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,9 +81,9 @@
 
                         android:singleLine="true" />
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/input_layout_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_email"
                         android:inputType="textEmailAddress" />
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <!--<Spinner-->
@@ -215,7 +215,7 @@
 
         </ScrollView>
 
-        <android.support.v4.widget.ContentLoadingProgressBar
+        <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleLarge"
             android:indeterminateTint="@color/colorPrimary"
@@ -223,5 +223,5 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:visibility="gone" />
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

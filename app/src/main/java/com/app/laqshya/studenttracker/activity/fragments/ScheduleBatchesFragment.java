@@ -1,13 +1,15 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
 import android.app.ProgressDialog;
-import android.arch.lifecycle.ViewModelProviders;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,10 +38,9 @@ public class ScheduleBatchesFragment extends Fragment implements AdapterView.OnI
 
     @Inject
     EditSchedulesViewModelFactory editSchedulesViewModelFactory;
-    EditSchedulesViewModel editSchedulesViewModel;
+    private EditSchedulesViewModel editSchedulesViewModel;
     ProgressDialog progressDialog;
-    FragmentListBatchesBinding fragmentListBatchesBinding;
-    private String mSpinnerLabel = "";
+    private FragmentListBatchesBinding fragmentListBatchesBinding;
     private AllBatchAdapter allBatchAdapter;
 
     @Nullable
@@ -48,12 +49,14 @@ public class ScheduleBatchesFragment extends Fragment implements AdapterView.OnI
         fragmentListBatchesBinding = FragmentListBatchesBinding.inflate(inflater, container, false);
         editSchedulesViewModel = ViewModelProviders.of(this, editSchedulesViewModelFactory).get(EditSchedulesViewModel.class);
         fragmentListBatchesBinding.filterCenters.setVisibility(View.VISIBLE);
+        Toolbar toolbar=getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Running Batches");
         return fragmentListBatchesBinding.getRoot();
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        mSpinnerLabel = parent.getItemAtPosition(position).toString();
+        String mSpinnerLabel = parent.getItemAtPosition(position).toString();
         allBatchAdapter.setFilteredList(mSpinnerLabel);
 
     }

@@ -1,9 +1,9 @@
 package com.app.laqshya.studenttracker.activity.fragments;
 
 import android.annotation.SuppressLint;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import com.app.laqshya.studenttracker.R;
@@ -11,8 +11,8 @@ import com.app.laqshya.studenttracker.activity.utils.Constants;
 import com.app.laqshya.studenttracker.databinding.FragmentPaymentBinding;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;

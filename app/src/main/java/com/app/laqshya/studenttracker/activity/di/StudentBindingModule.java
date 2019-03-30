@@ -10,6 +10,7 @@ import com.app.laqshya.studenttracker.activity.fragments.CompletionBatchesFragme
 import com.app.laqshya.studenttracker.activity.fragments.DeletedBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FacultyBatchCardsFragment;
 import com.app.laqshya.studenttracker.activity.fragments.FeesStatusFragment;
+import com.app.laqshya.studenttracker.activity.fragments.ManageStudentFragment;
 import com.app.laqshya.studenttracker.activity.fragments.NotificationsFragment;
 import com.app.laqshya.studenttracker.activity.fragments.ScheduleBatchesFragment;
 import com.app.laqshya.studenttracker.activity.fragments.StudentAttendanceByFacultyFragment;
@@ -21,13 +22,14 @@ import com.app.laqshya.studenttracker.activity.fragments.notifications.PendingFr
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFacultyFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SameBatchFragment;
 import com.app.laqshya.studenttracker.activity.fragments.notifications.SingleStudentNotificationFragment;
+import com.app.laqshya.studenttracker.activity.model.student_self.ManageStudentInfoResponse;
 import com.app.laqshya.studenttracker.activity.service.UploadService;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module(includes = {MainActivityModule.class, MainScreenNavigationModule.class, AddScheduleModule.class, EditScheduleModule.class,
-        BroadcastModule.class, NotificationModule.class,StudentDetailsModule.class,PDFModule.class})
+        BroadcastModule.class, NotificationModule.class,StudentDetailsModule.class,PDFModule.class,ManageStudentModule.class})
 abstract class StudentBindingModule {
     @ContributesAndroidInjector
     abstract MainActivity getMainActivity();
@@ -85,6 +87,8 @@ abstract class StudentBindingModule {
     abstract UploadService uploadService();
     @ContributesAndroidInjector
     abstract ScheduleBatchesFragment scheduleBatchesFragment();
+    @ContributesAndroidInjector
+    abstract ManageStudentFragment manageStudentFragment();
 
 
 }

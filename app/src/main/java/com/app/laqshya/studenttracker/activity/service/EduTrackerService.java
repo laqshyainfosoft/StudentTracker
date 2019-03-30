@@ -16,6 +16,7 @@ import com.app.laqshya.studenttracker.activity.model.LoginModel;
 import com.app.laqshya.studenttracker.activity.model.PDFDoc;
 import com.app.laqshya.studenttracker.activity.model.StudentInfo;
 import com.app.laqshya.studenttracker.activity.model.SyllabusList;
+import com.app.laqshya.studenttracker.activity.model.student_self.ManageStudentInfoResponse;
 import com.app.laqshya.studenttracker.activity.model.student_self.StudentDetailsModel;
 
 import java.util.List;
@@ -222,7 +223,11 @@ public interface EduTrackerService {
     Single<List<BatchInformationResponse.BatchInformation>> getAdminDeletedBatches();
     @POST("getAdminBatchRunning.php")
     Single<List<BatchInformationResponse.BatchInformation>> getRunningBatchesForAdmin();
-
+    @POST("managestudent.php")
+    Single<List<ManageStudentInfoResponse.ManageStudentInfo>> getAdminStudentIInfo();
+    @FormUrlEncoded
+    @POST("managestudentCounsellor.php")
+    Single<List<ManageStudentInfoResponse.ManageStudentInfo>> getStudentIInfoForCounsellorManagement(@Field("centername")String centername);
 
 
 

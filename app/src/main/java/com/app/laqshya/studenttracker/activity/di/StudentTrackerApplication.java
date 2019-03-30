@@ -2,7 +2,7 @@ package com.app.laqshya.studenttracker.activity.di;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
+import androidx.multidex.MultiDex;
 
 import com.app.laqshya.studenttracker.BuildConfig;
 

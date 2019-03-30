@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:orientation="vertical">
-        <android.support.v7.widget.SearchView
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/searchNotification"
             android:layout_width="match_parent"
             app:searchIcon="@android:drawable/ic_menu_search"
@@ -24,13 +24,13 @@
             android:gravity="top"
             android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_notification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:visibility="visible">
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
 
 
