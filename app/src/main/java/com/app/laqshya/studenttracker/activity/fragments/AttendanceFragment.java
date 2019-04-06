@@ -87,20 +87,7 @@ public class AttendanceFragment extends Fragment implements MyBatchClickListener
                         });
 
                 break;
-//            case Constants.ADMIN:
-//                editSchedulesViewModel.getAllBatches().observe(this, new Observer<BatchInformationResponse>() {
-//                    @Override
-//                    public void onChanged(@Nullable BatchInformationResponse batchInformationResponse) {
-//                        fragmentListBatchesBinding.swifeRefreshAttendanceSchedule.setRefreshing(false);
-//                        if (batchInformationResponse == null || batchInformationResponse.getBatchInformationList() == null
-//                                || batchInformationResponse.getThrowable() != null) {
-//                            Toast.makeText(getActivity(), "Failed to get Batches", Toast.LENGTH_SHORT).show();
-//                        } else
-//                            showbatchforcounsellor(batchInformationResponse);
 //
-//                    }
-//                });
-
 
 
 

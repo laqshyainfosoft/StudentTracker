@@ -28,7 +28,7 @@
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" android:exported="true"/>
         <activity android:name=".activity.AddSchedules" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.EditSchedules" />
+        <activity android:name=".activity.EditSchedules" android:screenOrientation="portrait"/>
 
         <service
             android:name=".activity.service.MyFirebaseMessagingService"  android:stopWithTask="false" android:exported="true" android:enabled="true">

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Student tracker</string>
+    <string name="app_name">Edutracker</string>
     <string name="administrator">ADMINISTRATOR</string>
     <string name="login_error">Missing Details</string>
     <string name="invalid_details">Invalid Details</string>

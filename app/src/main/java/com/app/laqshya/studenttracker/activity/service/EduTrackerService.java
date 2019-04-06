@@ -37,7 +37,7 @@ import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 
 public interface EduTrackerService {
-    String ENDPOINT = "http://192.168.0.120/student_tracker/";
+    String ENDPOINT = "http://edutracker.in/laqshyaapp/";
 
     @FormUrlEncoded
     @POST("login.php")

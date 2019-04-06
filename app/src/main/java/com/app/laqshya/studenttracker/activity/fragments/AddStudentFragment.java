@@ -124,7 +124,8 @@ public class AddStudentFragment extends Fragment {
                 navDrawerViewModel.registerStudent(name, phone,
                         email).observe(this, s -> {
                             hidedialog();
-                    registerStudentBinding.progressBar.setVisibility(View.VISIBLE);
+
+                    registerStudentBinding.progressBar.setVisibility(View.INVISIBLE);
                     Timber.d("Visibility is %s", registerStudentBinding.progressBar.getVisibility());
 
                     if (s != null && s.length() > 0) {

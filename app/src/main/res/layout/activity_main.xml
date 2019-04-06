@@ -30,7 +30,7 @@
 
             <ImageView
                 android:id="@+id/splashscreen_image"
-                android:layout_width="100dp"
+                android:layout_width="98dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|center_horizontal"
                 android:layout_marginTop="15dp"
